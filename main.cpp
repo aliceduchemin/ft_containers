@@ -141,53 +141,52 @@ void	testRealList()
 	
 	std::cout << "clear lst5 : " << std::endl;
 	lst5.clear();
-	std::cout << "lst5 is empty ? " << lst5.empty() << std::endl;
 }
 
 int	main()
 {
 	testRealList();
 
-	std::cout << "\ncustom list" << std::endl;
+	std::cout << "\n****************************" << std::endl;
+	std::cout << "custom list" << std::endl;
 	ft::list<int>	myList;
+	std::cout << "list is empty ? " << myList.empty() << std::endl;
 
 	myList.push_back(1);
 	myList.push_back(2);
 	myList.push_back(3);
+	myList.pop_back();
 	myList.push_back(4);
 	myList.push_back(5);
 	myList.push_back(6);
-
-	/*std::list<int>::iterator it = myList.begin();
-	std::list<int>::iterator ite = myList.end();
-	for (it = myList.begin(); it != ite; ++it)
-		std::cout << *it << " ; ";
-	std::cout << std::endl;*/
-//	ft::list<int>::iterator it = myList.begin();
-	ft::list<int>::t_list * it;
-//	int * ite;
-	it = myList.begin();
-/*	std::cout << *it << std::endl;
-	//it += sizeof(int *);
-	//std::cout << it << std::endl;
-	ite = myList.end();
-	std::cout << *ite << std::endl;*/
-/*
-	std::cout << "list size = " << myList.size() << std::endl;
 	myList.pop_back();
 	std::cout << "list size = " << myList.size() << std::endl;
-	it = myList.begin();
-	std::cout << "begin = " << *it << std::endl;
-	ite = myList.end();
-	std::cout << "end = " << *it << std::endl;
 
-	while (it != ite)
+	typename ft::list<int>::t_list * it = myList.begin();
+	typename ft::list<int>::t_list * ite = myList.end();
+	std::cout << "it = " << *it << std::endl;
+	std::cout << "ite = " << *ite << std::endl;
+	int i = 0;
+	while (i < myList.size())
 	{
-		std::cout << *it << " ; ";
-		it++;
-	}*/
-//	for (it = myList.begin(); it != ite; ++it)
-//		std::cout << *it << " ; ";
+		std::cout << *it << " , ";
+		it = myList.increment();
+		i++;
+	}
 	std::cout << std::endl;
+
+	std::cout << "clear list : " << std::endl;
+	myList.clear();
+	it = myList.begin();
+	i = 0;
+	while (i < myList.size())
+	{
+		std::cout << *it << " , ";
+		it = myList.increment();
+		i++;
+	}
+	std::cout << std::endl;
+	std::cout << "list is empty ? " << myList.empty() << std::endl;
+
 	return 0;
 }

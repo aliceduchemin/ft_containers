@@ -21,15 +21,14 @@ namespace ft
 	class	list
 	{
 		private:
-	/*		typedef struct		s_list
+		/*	typedef struct		s_list
 			{
 				T				_node;
 				struct s_list	*_nxtNode;
-			}					t_list;*/
+			}					t_list;
 			
-		//	t_list				*_cont;
+			t_list				*_cont;*/
 			int					_number;
-			T					*_it;
 
 		public:
 			typedef struct		s_list
@@ -37,7 +36,10 @@ namespace ft
 				T				_node;
 				struct s_list	*_nxtNode;
 			}					t_list;
+
 			t_list				*_cont;
+			t_list				*_it;
+			typename ft::list<T>::t_list *	increment();
 
 			list();
 			~list();
@@ -45,28 +47,16 @@ namespace ft
 			list &	operator=(list const & other);
 
 			T*		clone() const;
-		//	void	listDeleting(list* list);
+			void	clear();
+			bool	empty();
 			int		size() const; //size
 			T*		getUnit(int) const; //iterate
 			int		push_back(T newNode);
 			void	pop_back();
 
-		/*	typedef typename std::list<T>::iterator iterator;
-
-			iterator	begin();
-			iterator	end();*/
+		//	typedef typename std::list<T>::iterator iterator;
 			ft::list<T>::t_list *	begin();
-			T *	end();
-			T &	operator++();
-		/*	class iterator
-			{
-				private:
-					T *	_it;
-				public:
-			//		T &	operator++();
-			//		T	operator++(T);
-			};
-			iterator	_listIt;*/
+			ft::list<T>::t_list *	end();
 	};
 
 	template< typename T >
@@ -82,30 +72,35 @@ namespace ft
 
 		return copy;
 	}
-	/*
+	
 	template< typename T >
-	void	list<T>::listDeleting(list* list)
+	void	list<T>::clear()
 	{
 		int			count;
-		t_list		*tmp;
+		int			total;
 
-		tmp = list->_cont;
-		count = 0;
-		while (count < _number)
+		total = _number;
+		count = 1;
+		while (count <= total)
 		{
-			tmp = list->_cont->_nxtNode;
-			delete list->_cont->_node;
-			delete list->_cont;
-			list->_cont = tmp;
+			this->pop_back();
 			count++;
 		}
-		list->_number = 0;
-	}*/
+	}
+
+
+	template< typename T >
+	bool	list<T>::empty()
+	{
+		if (_number == 0)
+			return true;
+		return false;
+	}
 	
 	template< typename T >
 	list<T>::~list()
 	{
-	//	listDeleting(this);
+	//	this->clear();
 	}
 
 	template< typename T >
@@ -127,8 +122,8 @@ namespace ft
 	{
 		int		i;
 
-	//	if (_cont)
-	//		listDeleting(this);
+		if (_cont)
+			this->clear();
 		i = 0;
 		while (i < other.size())
 		{
@@ -140,7 +135,7 @@ namespace ft
 	}
 
 	template< typename T >
-	int				list<T>::size() const
+	int	list<T>::size() const
 	{
 		return _number;
 	}
@@ -164,7 +159,7 @@ namespace ft
 	}
 
 	template< typename T >
-	bool			are_diff(T tmp, T newNode)
+	bool	are_diff(T tmp, T newNode)
 	{
 		if (tmp == newNode)
 			return false;
@@ -187,10 +182,8 @@ namespace ft
 		else
 		{
 			tmp = _cont;
-			while (tmp->_nxtNode && are_diff(tmp->_node, newNode))
+			while (tmp->_nxtNode)
 				tmp = tmp->_nxtNode;
-			if (!are_diff(tmp->_node, newNode))
-				return _number;
 			tmp->_nxtNode = new t_list;
 			tmp->_nxtNode->_node = newNode;
 			tmp->_nxtNode->_nxtNode = NULL;
@@ -202,77 +195,61 @@ namespace ft
 	template< typename T >
 	void	list<T>::pop_back()
 	{
-		int			count;
 		t_list		*tmp;
+		int			count;
 
-		tmp = _cont;
-		count = 0;
-		while (count < _number - 2)
+		count = 1;
+		if (_number == 1)
+			delete _cont;
+		else
 		{
-			_cont = _cont->_nxtNode;
-			count++;
+			tmp = _cont;
+			while (count < _number - 1)
+			{
+				_cont = _cont->_nxtNode;
+				count++;
+			}
+			_cont->_nxtNode = NULL;
+			_cont = tmp;
 		}
-		_cont->_nxtNode = NULL;
-		_cont = tmp;
 		_number--;
 	}
 
 	template< typename T >
-	T &	list<T>::operator++()
+	typename ft::list<T>::t_list *	list<T>::increment()
 	{
-	//	_it += sizeof(t_list);
-		if (_it->nxtNode)
+		if (_it->_nxtNode)
 			_it = _it->_nxtNode;
 		return _it;
 	}
 
-/*	template< typename T >
-	T	list<T>::iterator::operator++(T)
-	{
-		T	res(*this);
-
-		_it += sizeof(t_list);
-		return res;
-	}*/
-
 	template< typename T >
-//	typename list<T>::iterator	list<T>::begin()
-	ft::list<T>::t_list *	list<T>::begin()
+	typename ft::list<T>::t_list *	list<T>::begin()
 	{
-	//	T *	it = new T;
-
 		_it = _cont;
 		return _it;
 	}
 
 	template< typename T >
-//	typename list<T>::iterator	list<T>::end()
-	T *	list<T>::end()
+	typename ft::list<T>::t_list *	list<T>::end()
 	{
-		int		i;
-
-		_it = _cont;
-		i = 0;
-		while (_it->_nxtNode && i < _number)
-		{
-			_it = _it->_nxtNode;
-			i++;
-		}
-		return _it;
-	//	iterator	it;
-	/*	int			count;
-		t_list		tmp;
-	//	T * it = new T;
+		t_list		*tmp;
+		int	count = 1;
 
 		tmp = _cont;
-		count = 0;
-		while (tmp->_nxtNode && count < _number)
+	//	while (tmp->_nxtNode->_nxtNode)
+	//		tmp = tmp->_nxtNode;
+		while (count < _number)
 		{
 			tmp = tmp->_nxtNode;
 			count++;
 		}
-	//	_it = tmp->_node;
-		return tmp;*/
+		return tmp;
+	}
+
+	std::ostream & operator<<(std::ostream & o, typename ft::list<int>::t_list const & to_print)
+	{
+		return o << to_print._node;
 	}
 }
 
