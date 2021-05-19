@@ -14,6 +14,8 @@
 #include <string>
 #include <list>
 #include "list.hpp"
+#include "node.hpp"
+#include "listIte.hpp"
 
 void	testRealList()
 {
@@ -24,12 +26,24 @@ void	testRealList()
 	std::cout << "push back/front, pop back/front" << std::endl;
 	lst.push_back( 1 );
 	lst.push_back( 2 );
+	lst.push_front( 127 );
 	lst.push_back( 4 );
 	lst.pop_back();
 	lst.push_back( 7 );
 
 	std::cout << "lst.front()" << std::endl;
 	std::cout << lst.front() << std::endl;
+
+	std::list<int>::iterator it0 = lst.begin();
+	std::list<int>::iterator ite0 = lst.end();
+
+	std::cout << "lst : " << std::endl;
+	while (it0 != ite0)
+	{
+		std::cout << *it0 << " ; ";
+		it0++;
+	}
+	std::cout << std::endl;
 
 	/*****************************/
 	std::cout << "container requirements" << std::endl;
@@ -145,28 +159,38 @@ void	testRealList()
 
 int	main()
 {
-	testRealList();
+//	testRealList();
 
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom list" << std::endl;
 	ft::list<int>	myList;
-	std::cout << "list is empty ? " << myList.empty() << std::endl;
+//	std::cout << "list is empty ? " << myList.empty() << std::endl;
+	//p = myList.get_allocator().allocate(15);
 
 	myList.push_back(1);
 	myList.push_back(2);
-	myList.push_back(3);
+/*	myList.push_back(3);
 	myList.pop_back();
 	myList.push_back(4);
 	myList.push_back(5);
 	myList.push_back(6);
 	myList.pop_back();
 	std::cout << "list size = " << myList.size() << std::endl;
+*/
+	ft::list<int>::iterator it0 = myList.begin();
+//	ft::list<int>::iterator ite = myList.end();
 
-	typename ft::list<int>::t_list * it = myList.begin();
-	typename ft::list<int>::t_list * ite = myList.end();
-	std::cout << "it = " << *it << std::endl;
-	std::cout << "ite = " << *ite << std::endl;
-	int i = 0;
+	std::cout << "it0 = " << *it0 << std::endl;
+	it0++;
+//	myList.increment();
+	std::cout << "it0 = " << *it0 << std::endl;
+	/*while (it0 != ite)
+	{
+		std::cout << *it0 << " ; ";
+		it0++;
+	}
+	std::cout << std::endl;*/
+/*	int i = 0;
 	while (i < myList.size())
 	{
 		std::cout << *it << " , ";
@@ -185,8 +209,8 @@ int	main()
 		it = myList.increment();
 		i++;
 	}
-	std::cout << std::endl;
-	std::cout << "list is empty ? " << myList.empty() << std::endl;
+	std::cout << std::endl;*/
+//	std::cout << "list is empty ? " << myList.empty() << std::endl;
 
 	return 0;
 }
