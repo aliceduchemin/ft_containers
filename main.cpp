@@ -164,8 +164,6 @@ int	main()
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom list" << std::endl;
 	ft::list<int>	myList;
-//	std::cout << "list is empty ? " << myList.empty() << std::endl;
-	//p = myList.get_allocator().allocate(15);
 
 	myList.push_back(1);
 	myList.push_back(2);
@@ -190,19 +188,20 @@ int	main()
 		i++;
 	}
 	std::cout << std::endl;
-/*
-	std::cout << "clear list : " << std::endl;
-	myList.clear();
-	it = myList.begin();
+	ft::list<int>	myList2(myList);
+//	myList2 = myList;
+	ft::list<int>::iterator it2 = myList2.begin();
+	std::cout << "list size = " << myList2.size() << std::endl;
 	i = 0;
-	while (i < myList.size())
+	while (i < myList2.size())
 	{
-		std::cout << *it << " , ";
-		it = myList.increment();
+		std::cout << *it2 << " ; ";
+		it2++;
 		i++;
 	}
-	std::cout << std::endl;*/
-//	std::cout << "list is empty ? " << myList.empty() << std::endl;
+	std::cout << std::endl;
+	myList.clear();
+	std::cout << "list is empty ? " << myList.empty() << std::endl;
 
 	return 0;
 }

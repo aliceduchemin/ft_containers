@@ -29,16 +29,16 @@ namespace ft
 			typedef value_type* const			const_pointer;
 			typedef typename std::ptrdiff_t 	difference_type;
 		
-		ListIterator() : _node(NULL) { /*std::cout << "ite default constr\n";*/ };
-		ListIterator(listNode<T> *node) : _node(node) { /*std::cout << "ite constr\n";*/ };
+		ListIterator() : _nodePtr(NULL) { /*std::cout << "ite default constr\n";*/ };
+		ListIterator(listNode<T> *node) : _nodePtr(node) { /*std::cout << "ite constr\n";*/ };
 		ListIterator	operator++(int) 
-		{ if (this->_node->_nxtNode)
-			this->_node = this->_node->_nxtNode;
+		{ if (this->_nodePtr->_nxtNode)
+			this->_nodePtr = this->_nodePtr->_nxtNode;
 		return *this; };
-		reference operator* (void) { return _node->_node; }
+		reference operator* (void) { return this->_nodePtr->_node; }
 
 	//	private:
-			listNode<T>	*_node;
+			listNode<T>	*_nodePtr;
 	};
 }
 

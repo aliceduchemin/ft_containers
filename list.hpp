@@ -31,34 +31,30 @@ namespace ft
 			typedef ft::ListIterator<T>					iterator;
 		
 			list();
+			list(list & other);
+			list &	operator=(list & other);
 			~list();
 			template <class ListIterator>
 			list(ListIterator start, ListIterator finish, Allocator alloc = Allocator());
 
-			listNode<T>	*_node;
-			iterator begin() { return ListIterator<T>(_node); };
+			listNode<T>	*_headNode;
+			int			_number;
+			iterator begin() { return ListIterator<T>(_headNode); };
 			iterator end() { 
-				ListIterator<T> tmp = ListIterator<T>(_node);
+				ListIterator<T> tmp = ListIterator<T>(_headNode);
 				int count = 1;
-				tmp = _node;
+				tmp = _headNode;
 				while (count < _number)
 				{
-					tmp = tmp._node->_nxtNode;
+					tmp = tmp._nodePtr->_nxtNode;
 					count++;
 				}
 				return tmp; };
-			int	_number;
-
-/*			template <class Iterator>
-			list(Iterator start, Iterator finish, Allocator alloc = Allocator());
-			list(list const & other);
-			list &	operator=(list const & other);*/
 
 			T*		clone() const;
 			void	clear();
 			bool	empty();
 			int		size() const; //size
-			T*		getUnit(int) const; //iterate
 			int		push_back(T newNode);
 			void	pop_back();
 	};
@@ -70,13 +66,6 @@ namespace ft
 		_number = 0;
 	}
 
-/*	template< typename T, typename Allocator >
-	T*	list<T, Allocator>::clone() const
-	{
-		T* copy = new list<T>;
-
-		return copy;
-	}
 	
 	template< typename T, typename Allocator >
 	void	list<T, Allocator>::clear()
@@ -101,67 +90,47 @@ namespace ft
 		return false;
 	}
 	
-*/	template< typename T, typename Allocator >
+	template< typename T, typename Allocator >
 	list<T, Allocator>::~list()
 	{
-//		std::cout << "list destructor" << std::endl;
-//		this->clear();
+	//	std::cout << "list destructor, number = " << _number << std::endl;
+		if (_headNode)
+			this->clear();
 	}
 
-/*	template< typename T, typename Allocator >
-	list<T, Allocator>::list(list<T, Allocator> const & other)
+
+	template< typename T, typename Allocator >
+	list<T, Allocator>::list(list<T, Allocator> & other)
 	{
+		_number = 0;
 		*this = other;
 	}
 
 	template< typename T, typename Allocator >
-	list<T, Allocator> &	list<T, Allocator>::operator=(list<T, Allocator> const & other)
+	list<T, Allocator> &	list<T, Allocator>::operator=(list<T, Allocator> & other)
 	{
 		int		i;
 
-		if (_cont)
+		if (_headNode)
 			this->clear();
+
+		iterator it = other.begin();
 		i = 0;
 		while (i < other.size())
 		{
-			this->push_back(other.getUnit(i)->clone());
+			this->push_back(*it);
+			it++;
 			i++;
 		}
 		_number = other.size();
 		return *this;
-	}*/
+	}
 
 	template< typename T, typename Allocator >
 	int	list<T, Allocator>::size() const
 	{
 		return _number;
 	}
-/*
-	template< typename T, typename Allocator >
-	T*	list<T, Allocator>::getUnit(int N) const
-	{
-		int			count;
-		t_list		*tmp;
-
-		tmp = _cont;
-		count = 0;
-		while (tmp->_nxtNode && count < N)
-		{
-			tmp = tmp->_nxtNode;
-			count++;
-		}
-		if (count < N)
-			return NULL;
-		return tmp->_node;
-	}
-
-	template< typename T >
-	bool	are_diff(T tmp, T newNode)
-	{
-		if (tmp == newNode)
-			return false;
-		return true;
-	}*/
 
 	template< typename T, typename Allocator >
 	int		list<T, Allocator>::push_back(T newNode)
@@ -170,13 +139,13 @@ namespace ft
 
 		if (_number == 0)
 		{
-			_node = new listNode<T>;
-			_node->_node = newNode;
-			_node->_nxtNode = NULL;
+			_headNode = new listNode<T>;
+			_headNode->_node = newNode;
+			_headNode->_nxtNode = NULL;
 		}
 		else
 		{
-			tmp = _node;
+			tmp = _headNode;
 			while (tmp->_nxtNode)
 				tmp = tmp->_nxtNode;
 			tmp->_nxtNode = new listNode<T>;
@@ -195,51 +164,20 @@ namespace ft
 
 		count = 1;
 		if (_number == 1)
-			delete _node;
+			delete _headNode;
 		else
 		{
-			tmp = _node;
+			tmp = _headNode;
 			while (count < _number - 1)
 			{
-				_node = _node->_nxtNode;
+				_headNode = _headNode->_nxtNode;
 				count++;
 			}
-			_node->_nxtNode = NULL;
-			_node = tmp;
+			_headNode->_nxtNode = NULL;
+			_headNode = tmp;
 		}
 		_number--;
 	}
-/*
-	template< typename T, typename Allocator >
-	typename list<T, Allocator>::iterator	list<T, Allocator>::increment()
-	{
-		std::cout << "ici" << std::endl;
-		if (_it->_nxtNode)
-			_it = _it->_nxtNode;
-		return iterator(_it);
-	}
-
-	template< typename T, typename Allocator >
-	typename list<T, Allocator>::iterator	list<T, Allocator>::begin()
-	{
-		_it = _cont;
-		return iterator(_it);
-	}
-
-	template< typename T, typename Allocator >
-	typename list<T, Allocator>::iterator	list<T, Allocator>::end()
-	{
-		t_list		*tmp;
-		int	count = 1;
-
-		tmp = _cont;
-		while (count < _number)
-		{
-			tmp = tmp->_nxtNode;
-			count++;
-		}
-		return iterator(tmp);
-	}*/
 
 	//std::ostream & operator<<(std::ostream & o, typename ft::list<int>::t_list const & to_print)
 /*	std::ostream & operator<<(std::ostream & o, typename ft::list<int>::iterator const & to_print)
