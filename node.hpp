@@ -23,8 +23,9 @@ namespace ft
 			T			_node;
 			listNode	*_nxtNode;
 		public:
-			listNode() { std::cout << "node default const\n"; };
+			listNode() {};
 			listNode(T& node, listNode *nxtNode) : _node(node), _nxtNode(nxtNode) {};
+			
 			listNode *getNxt() const { std::cout << "gtnxt\n"; return _nxtNode; };
 	};
 }

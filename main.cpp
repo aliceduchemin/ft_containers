@@ -169,36 +169,28 @@ int	main()
 
 	myList.push_back(1);
 	myList.push_back(2);
-/*	myList.push_back(3);
+	myList.push_back(3);
 	myList.pop_back();
 	myList.push_back(4);
 	myList.push_back(5);
 	myList.push_back(6);
 	myList.pop_back();
 	std::cout << "list size = " << myList.size() << std::endl;
-*/
+
 	ft::list<int>::iterator it0 = myList.begin();
-//	ft::list<int>::iterator ite = myList.end();
+	ft::list<int>::iterator ite = myList.end();
 
 	std::cout << "it0 = " << *it0 << std::endl;
-	it0++;
-//	myList.increment();
-	std::cout << "it0 = " << *it0 << std::endl;
-	/*while (it0 != ite)
+//	while (it0 != ite)
+	int i = 0;
+	while (i < myList.size())
 	{
 		std::cout << *it0 << " ; ";
 		it0++;
-	}
-	std::cout << std::endl;*/
-/*	int i = 0;
-	while (i < myList.size())
-	{
-		std::cout << *it << " , ";
-		it = myList.increment();
 		i++;
 	}
 	std::cout << std::endl;
-
+/*
 	std::cout << "clear list : " << std::endl;
 	myList.clear();
 	it = myList.begin();
