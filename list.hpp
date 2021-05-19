@@ -49,6 +49,8 @@ namespace ft
 					tmp = tmp._nodePtr->_nxtNode;
 					count++;
 				}
+				tmp = tmp._nodePtr->_nxtNode;
+				tmp = NULL;
 				return tmp; };
 
 			T*		clone() const;
@@ -65,7 +67,6 @@ namespace ft
 	//	std::cout << "list default constructor" << std::endl;
 		_number = 0;
 	}
-
 	
 	template< typename T, typename Allocator >
 	void	list<T, Allocator>::clear()

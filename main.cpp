@@ -152,7 +152,6 @@ void	testRealList()
 	for (it3 = lst5.begin(); it3 != ite3; ++it3)
 		std::cout << *it3 << " ; ";
 	std::cout << std::endl;
-	
 	std::cout << "clear lst5 : " << std::endl;
 	lst5.clear();
 }
@@ -178,26 +177,22 @@ int	main()
 	ft::list<int>::iterator it0 = myList.begin();
 	ft::list<int>::iterator ite = myList.end();
 
-	std::cout << "it0 = " << *it0 << std::endl;
-//	while (it0 != ite)
-	int i = 0;
-	while (i < myList.size())
+	while (it0 != ite)
 	{
 		std::cout << *it0 << " ; ";
 		it0++;
-		i++;
 	}
 	std::cout << std::endl;
 	ft::list<int>	myList2(myList);
+//	ft::list<int>	myList2;
 //	myList2 = myList;
 	ft::list<int>::iterator it2 = myList2.begin();
+	ft::list<int>::iterator ite2 = myList2.end();
 	std::cout << "list size = " << myList2.size() << std::endl;
-	i = 0;
-	while (i < myList2.size())
+	while (it2 != ite2)
 	{
 		std::cout << *it2 << " ; ";
 		it2++;
-		i++;
 	}
 	std::cout << std::endl;
 	myList.clear();

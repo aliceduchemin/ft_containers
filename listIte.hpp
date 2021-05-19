@@ -32,10 +32,11 @@ namespace ft
 		ListIterator() : _nodePtr(NULL) { /*std::cout << "ite default constr\n";*/ };
 		ListIterator(listNode<T> *node) : _nodePtr(node) { /*std::cout << "ite constr\n";*/ };
 		ListIterator	operator++(int) 
-		{ if (this->_nodePtr->_nxtNode)
+		{ //if (this->_nodePtr->_nxtNode)
 			this->_nodePtr = this->_nodePtr->_nxtNode;
 		return *this; };
-		reference operator* (void) { return this->_nodePtr->_node; }
+		reference operator*() { return this->_nodePtr->_node; }
+		bool operator!=(ListIterator const & other) const { return _nodePtr != other._nodePtr; };
 
 	//	private:
 			listNode<T>	*_nodePtr;
