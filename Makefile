@@ -1,4 +1,4 @@
-SRCS		= main.cpp
+SRCS		= ./Vector/main.cpp 
 
 OBJS		= $(SRCS:.cpp=.o)
 
@@ -10,7 +10,7 @@ CXX			= clang++
 
 RM			= rm -f
 
-CFLAGS		= -Wall -Wextra -Werror -I . -std=c++98
+CFLAGS		= -Wall -Wextra -Werror -I . -I ./Vector -std=c++98
 
 all:		$(NAME)
 

@@ -14,7 +14,7 @@
 #include <string>
 #include <list>
 #include "list.hpp"
-#include "node.hpp"
+#include "listNode.hpp"
 #include "listIte.hpp"
 
 void	testRealList()
@@ -186,14 +186,11 @@ int	main()
 	ft::list<int>	myList2(myList);
 //	ft::list<int>	myList2;
 //	myList2 = myList;
-	ft::list<int>::iterator it2 = myList2.begin();
+	ft::list<int>::iterator it2;
 	ft::list<int>::iterator ite2 = myList2.end();
 	std::cout << "list size = " << myList2.size() << std::endl;
-	while (it2 != ite2)
-	{
+	for (it2 = myList2.begin(); it2 != ite2; ++it2)
 		std::cout << *it2 << " ; ";
-		it2++;
-	}
 	std::cout << std::endl;
 	myList.clear();
 	std::cout << "list is empty ? " << myList.empty() << std::endl;
