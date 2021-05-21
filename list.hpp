@@ -34,8 +34,6 @@ namespace ft
 			list(list & other);
 			list &	operator=(list & other);
 			~list();
-			template <class ListIterator>
-			list(ListIterator start, ListIterator finish, Allocator alloc = Allocator());
 
 			listNode<T>	*_headNode;
 			int			_number;
@@ -46,10 +44,10 @@ namespace ft
 				tmp = _headNode;
 				while (count < _number)
 				{
-					tmp = tmp._nodePtr->_nxtNode;
+					tmp = tmp.getNodePtr()->getNxt();
 					count++;
 				}
-				tmp = tmp._nodePtr->_nxtNode;
+				tmp = tmp.getNodePtr()->getNxt();
 				tmp = NULL;
 				return tmp; };
 
@@ -111,11 +109,11 @@ namespace ft
 	list<T, Allocator> &	list<T, Allocator>::operator=(list<T, Allocator> & other)
 	{
 		int		i;
+		iterator it = other.begin();
 
 		if (_headNode)
 			this->clear();
 
-		iterator it = other.begin();
 		i = 0;
 		while (i < other.size())
 		{
@@ -141,17 +139,17 @@ namespace ft
 		if (_number == 0)
 		{
 			_headNode = new listNode<T>;
-			_headNode->_node = newNode;
-			_headNode->_nxtNode = NULL;
+			_headNode->setNode(newNode);
+			_headNode->setNxt(NULL);
 		}
 		else
 		{
 			tmp = _headNode;
-			while (tmp->_nxtNode)
-				tmp = tmp->_nxtNode;
-			tmp->_nxtNode = new listNode<T>;
-			tmp->_nxtNode->_node = newNode;
-			tmp->_nxtNode->_nxtNode = NULL;
+			while (tmp->getNxt())
+				tmp = tmp->getNxt();
+			tmp->setNxt(new listNode<T>);
+			tmp->getNxt()->setNode(newNode);
+			tmp->getNxt()->setNxt(NULL);
 		}
 		_number++;
 		return _number;
@@ -171,10 +169,10 @@ namespace ft
 			tmp = _headNode;
 			while (count < _number - 1)
 			{
-				_headNode = _headNode->_nxtNode;
+				_headNode = _headNode->getNxt();
 				count++;
 			}
-			_headNode->_nxtNode = NULL;
+			_headNode->setNxt(NULL);
 			_headNode = tmp;
 		}
 		_number--;

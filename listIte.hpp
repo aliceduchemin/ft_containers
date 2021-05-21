@@ -30,15 +30,19 @@ namespace ft
 			typedef typename std::ptrdiff_t 	difference_type;
 		
 		ListIterator() : _nodePtr(NULL) { /*std::cout << "ite default constr\n";*/ };
-		ListIterator(listNode<T> *node) : _nodePtr(node) { /*std::cout << "ite constr\n";*/ };
-		ListIterator	operator++(int) 
-		{ //if (this->_nodePtr->_nxtNode)
-			this->_nodePtr = this->_nodePtr->_nxtNode;
-		return *this; };
-		reference operator*() { return this->_nodePtr->_node; }
+		ListIterator(listNode<T> *nodePtr) : _nodePtr(nodePtr) { /*std::cout << "ite constr\n";*/ };
+		ListIterator	operator++(int)
+			{ this->_nodePtr = this->_nodePtr->getNxt(); return *this; };
+		T operator*() 
+			{ return this->_nodePtr->getNode(); };
+		//reference operator*() 
+		//	{ return this->_nodePtr->_node; };
 		bool operator!=(ListIterator const & other) const { return _nodePtr != other._nodePtr; };
 
-	//	private:
+		listNode<T>	*getNodePtr() const { /*std::cout << "get nxt\n"; */return _nodePtr; };
+		void		setNodePtr(listNode<T> *nodePtr) {/* std::cout << "set nxt\n";*/ _nodePtr = nodePtr; };
+
+		private:
 			listNode<T>	*_nodePtr;
 	};
 }
