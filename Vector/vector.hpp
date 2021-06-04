@@ -28,6 +28,7 @@ namespace ft
 			typedef typename Allocator::difference_type difference_type;
 			typedef typename Allocator::reference 		reference;
 			typedef typename Allocator::const_reference const_reference;
+	//		typedef typename Allocator::T*		 		pointer;
 			typedef ft::VectorIterator<T>				iterator;
 		
 			/********* COPLIEN *********/
@@ -54,14 +55,21 @@ namespace ft
 			iterator rend() { return VectorIterator<T>(_headNode); };
 
 			/********* FUNCTIONS *********/
-			T*		clone() const;
+		//	T*		clone() const;
 			void	clear();
 			bool	empty();
 			int		size() const; //size
-			T&		front();
-			T&		back();
+		//	T&		front();
+		//	T&		back();
 			int		push_back(T newNode);
 			void	pop_back();
+			T front() { return _headNode->getNode(); };
+			T back() { vectorNode<T>	*tmp; 
+			tmp = _headNode;
+			while (tmp->getNxt())
+				tmp = tmp->getNxt();
+			return tmp->getNode(); };
+		//	reference back();
 
 		/********* GET SET *********/
 	/*	vectorNode<T>	*getHeadNode() const { return _headNode; };
@@ -71,6 +79,7 @@ namespace ft
 
 		private:
 			vectorNode<T>	*_headNode;
+		//	pointer			
 			int			_number;
 	};
 
@@ -107,9 +116,8 @@ namespace ft
 	template< typename T, typename Allocator >
 	vector<T, Allocator>::~vector()
 	{
-	//	std::cout << "vector destructor, number = " << _number << std::endl;
-		if (_headNode)
-			this->clear();
+		std::cout << "vector destructor, number = " << _number << std::endl;
+		this->clear();
 	}
 
 
@@ -150,6 +158,7 @@ namespace ft
 	int		vector<T, Allocator>::push_back(T newNode)
 	{
 		vectorNode<T>	*tmp;
+	//	std::cout << "\nnumber = " << _number << std::endl;
 
 		if (_number == 0)
 		{
@@ -158,23 +167,23 @@ namespace ft
 			_headNode->setPrv(_headNode);
 			_headNode->setNxt(NULL);
 		
-		//	std::cout << "FIRST node = " << _headNode->getNode() << std::endl;
-		//	std::cout << "FIRST nxt = " << _headNode->getNxt() << std::endl;
-		//	std::cout << "FIRST prv = " << _headNode->getPrv()->getNode() << std::endl;
+	//		std::cout << "FIRST node = " << _headNode->getNode() << std::endl;
+	//		std::cout << "FIRST nxt = " << _headNode->getNxt() << std::endl;
+	//		std::cout << "FIRST prv = " << _headNode->getPrv()->getNode() << std::endl;
 		}
 		else
 		{
 			tmp = _headNode;
 			while (tmp->getNxt())
 				tmp = tmp->getNxt();
-			tmp->setPrv(tmp);
 			tmp->setNxt(new vectorNode<T>);
 			tmp->getNxt()->setNode(newNode);
 			tmp->getNxt()->setNxt(NULL);
-			
-		//	std::cout << "\nELSE node = " << tmp->getNxt()->getNode() << std::endl;
-		//	std::cout << "ELSE nxt = " << tmp->getNxt()->getNxt() << std::endl;
-		//	std::cout << "ELSE prv = " << tmp->getPrv()->getNode() << std::endl;
+			tmp->getNxt()->setPrv(tmp);
+
+	//		std::cout << "ELSE node = " << tmp->getNxt()->getNode() << std::endl;
+	//		std::cout << "ELSE nxt = " << tmp->getNxt()->getNxt() << std::endl;
+	//		std::cout << "ELSE prv = " << tmp->getNxt()->getPrv()->getNode() << std::endl;
 		}
 		_number++;
 		return _number;
@@ -184,6 +193,7 @@ namespace ft
 	void	vector<T, Allocator>::pop_back()
 	{
 		vectorNode<T>	*tmp;
+		vectorNode<T>	*tmp2;
 		int				count;
 
 		count = 1;
@@ -192,19 +202,19 @@ namespace ft
 		else
 		{
 			tmp = _headNode;
-			while (count < _number - 2)
+			while (count < _number - 1)
 			{
-				_headNode = _headNode->getNxt();
+				tmp = tmp->getNxt();
 				count++;
 			}
-			_headNode->setPrv(_headNode);
-			_headNode = _headNode->getNxt();
-			_headNode->setNxt(NULL);
 
-			std::cout << "POP node = " << _headNode->getNxt()->getNode() << std::endl;
-			std::cout << "POP nxt = " << _headNode->getNxt()->getNxt() << std::endl;
-			std::cout << "POP prv = " << _headNode->getPrv()->getNode() << std::endl;
-			_headNode = tmp;
+			tmp2 = tmp->getNxt();
+			tmp->setNxt(NULL);
+		//	std::cout << "POP node = " << tmp->getNxt()->getNode() << std::endl;
+		//	std::cout << "POP nxt = " << tmp->getNxt() << std::endl;
+		//	std::cout << "POP prv = " << tmp->getPrv()->getNode() << std::endl;
+		//	tmp = tmp->getNxt();
+			delete tmp2;
 		}
 		_number--;
 	}

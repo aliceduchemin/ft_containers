@@ -49,7 +49,10 @@ namespace ft
 	//	T &	operator++()
 	//		{ T tmp = this->_nodePtr->getNode(); tmp return *this; };
 		T operator*() 
-			{ return this->_nodePtr->getNode(); };
+			{ /*std::cout << "\nprv = " << this->_nodePtr->getPrv()->getNode() \
+			<< " node = " << this->_nodePtr->getNode() \
+			<< " next = " << this->_nodePtr->getNxt() <<"\t";*/
+			 return this->_nodePtr->getNode(); };
 		T operator->() 
 			{ return this->_nodePtr->getNode(); };
 		//reference operator*() 
@@ -64,7 +67,7 @@ namespace ft
 		bool operator>=(VectorIterator const & other) const { return _nodePtr >= other._nodePtr; };
 
 		/********* GET SET *********/
-		vectorNode<T>	*getNodePtr() const { /*std::cout << "get nxt\n"; */return _nodePtr; };
+		vectorNode<T>	*getNodePtr() const {/* std::cout << "get nxt\n";*/ return _nodePtr; };
 		void		setNodePtr(vectorNode<T> *nodePtr) {/* std::cout << "set nxt\n";*/ _nodePtr = nodePtr; };
 
 		private:

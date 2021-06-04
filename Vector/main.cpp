@@ -33,6 +33,9 @@ void	testRealvector()
 	std::cout << "vct.front()" << std::endl;
 	std::cout << vct.front() << std::endl;
 
+	std::cout << "vct.back()" << std::endl;
+	std::cout << vct.back() << std::endl;
+
 	std::vector<int>::iterator it0 = vct.begin();
 	std::vector<int>::iterator ite0 = vct.end();
 
@@ -142,7 +145,7 @@ void	testRealvector()
 
 int	main()
 {
-//	testRealvector();
+	testRealvector();
 
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom vector" << std::endl;
@@ -152,11 +155,16 @@ int	main()
 	myVector.push_back(2);
 	myVector.push_back(3);
 	myVector.pop_back();
-/*	myVector.push_back(4);
+	myVector.push_back(4);
 	myVector.push_back(5);
-	myVector.push_back(6);*/
-//	myVector.pop_back();
+	myVector.push_back(6);
+	myVector.pop_back();
 	std::cout << "vector size = " << myVector.size() << std::endl;
+
+	std::cout << "vct.front()" << std::endl;
+	std::cout << myVector.front() << std::endl;
+	std::cout << "vct.back()" << std::endl;
+	std::cout << myVector.back() << std::endl;
 
 	ft::vector<int>::iterator it0 = myVector.begin();
 	ft::vector<int>::iterator ite = myVector.end();
@@ -167,9 +175,9 @@ int	main()
 		it0++;
 	}
 	std::cout << std::endl;
-/*	ft::vector<int>	myVector2(myVector);
-//	ft::vector<int>	myVector2;
-//	myVector2 = myVector;
+//	ft::vector<int>	myVector2(myVector);
+	ft::vector<int>	myVector2;
+	myVector2 = myVector;
 	ft::vector<int>::iterator it2;
 	ft::vector<int>::iterator ite2 = myVector2.end();
 	std::cout << "vector size = " << myVector2.size() << std::endl;
@@ -178,6 +186,6 @@ int	main()
 	std::cout << std::endl;
 	myVector.clear();
 	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
-*/
+
 	return 0;
 }
