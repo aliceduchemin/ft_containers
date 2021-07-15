@@ -34,7 +34,8 @@ namespace ft
 			void		setPrv(vectorNode *prvNode) { _prvNode = prvNode; };
 			void		setNode(T node) { _node = node; };
 	
-		//	vectorNode &	operator++()
+		//	vectorNode	*operator++(int)
+		//		{ return this->getNxt(); };
 		//		{ return _nxtNode->_node; };
 			//	{ this = this->_nxtNode; std::cout << this->_node << std::endl; return *this; };
 	};

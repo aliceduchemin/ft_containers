@@ -145,38 +145,55 @@ void	testRealvector()
 
 int	main()
 {
-	testRealvector();
+//	testRealvector();
 
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom vector" << std::endl;
-	ft::vector<int>	myVector;
+	ft::vector<int>		myVector;
+	std::vector<int>	theirVector;
 
 	myVector.push_back(1);
+	theirVector.push_back(1);
 	myVector.push_back(2);
+	theirVector.push_back(2);
 	myVector.push_back(3);
+	theirVector.push_back(3);
 	myVector.pop_back();
+	theirVector.pop_back();
 	myVector.push_back(4);
+	theirVector.push_back(4);
 	myVector.push_back(5);
+	theirVector.push_back(5);
 	myVector.push_back(6);
+	theirVector.push_back(6);
 	myVector.pop_back();
+	theirVector.pop_back();
 	std::cout << "vector size = " << myVector.size() << std::endl;
-
 	std::cout << "vct.front()" << std::endl;
 	std::cout << myVector.front() << std::endl;
 	std::cout << "vct.back()" << std::endl;
 	std::cout << myVector.back() << std::endl;
+	std::cout << "vector capacity = " << myVector.capacity() << std::endl;
+	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
 
 	ft::vector<int>::iterator it0 = myVector.begin();
+	std::cout << "IT O = " << *it0 << std::endl;
 	ft::vector<int>::iterator ite = myVector.end();
+	std::cout << "ITE = " << *ite << std::endl;
 
-	while (it0 != ite)
+/*	while (it0 != ite)
 	{
 		std::cout << *it0 << " ; ";
 		it0++;
 	}
+	std::cout << std::endl;*/
+
+	for (it0 = myVector.begin(); it0 != ite; ++it0)
+		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
+
 //	ft::vector<int>	myVector2(myVector);
-	ft::vector<int>	myVector2;
+/*	ft::vector<int>	myVector2;
 	myVector2 = myVector;
 	ft::vector<int>::iterator it2;
 	ft::vector<int>::iterator ite2 = myVector2.end();
@@ -184,7 +201,9 @@ int	main()
 	for (it2 = myVector2.begin(); it2 != ite2; ++it2)
 		std::cout << *it2 << " ; ";
 	std::cout << std::endl;
-	myVector.clear();
+//	ft::vector<int>::iterator it4 = myVector2.begin() + 2;
+//	std::cout << "IT 4 = " << *it4 << std::endl;
+*/	myVector.clear();
 	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 
 	return 0;
