@@ -28,9 +28,7 @@ namespace ft
 			typedef typename Allocator::value_type		value_type;
 			typedef typename Allocator::reference 		reference;
 			typedef typename Allocator::const_reference const_reference;
-		//	typedef value_type*				pointer;
-			typedef T*						pointer;
-		//	typedef typename Allocator::pointer			pointer;
+			typedef typename Allocator::pointer			pointer;
 			typedef typename Allocator::const_pointer	const_pointer;
 			typedef typename Allocator::size_type 		size_type;
 			typedef typename Allocator::difference_type difference_type;
@@ -44,19 +42,8 @@ namespace ft
 
 			/********* ITERATION *********/
 			iterator begin() { return pointer(_headNode); };
-			iterator end() { return pointer(_endNode);
-			/*	pointer tmp = pointer(_headNode);
-				int count = 1;
-				tmp = _headNode;
-				while (count < _number)
-				{
-					tmp = tmp.getNodePtr()->getNxt();
-					count++;
-				}
-				tmp = tmp.getNodePtr()->getNxt();
-				tmp = NULL;
-				return tmp;*/ };
-			iterator rbegin() { return this->end(); };
+			iterator end() { return pointer(_endNode); };
+			iterator rbegin() { return pointer(_endNode); };
 			iterator rend() { return pointer(_headNode); };
 
 			/********* FUNCTIONS *********/
@@ -138,7 +125,7 @@ namespace ft
 			this->clear();
 
 		i = 0;
-		while (i < other.size())
+		while (i <= other.size())
 		{
 			this->push_back(*it);
 			it++;
@@ -254,12 +241,8 @@ namespace ft
 	template< typename T, typename Allocator >
 	typename vector<T, Allocator>::reference	vector<T, Allocator>::operator[] (size_type n)
 	{
-		int i = 0;
-		while (i < _number)
-		{
-			
-			i++;
-		}
+		std::cout << "operator [] " ;
+		return _headNode[n - 1];
 	}
 
 	//std::ostream & operator<<(std::ostream & o, typename ft::list<int>::t_list const & to_print)

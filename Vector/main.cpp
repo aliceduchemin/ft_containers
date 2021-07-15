@@ -177,23 +177,16 @@ int	main()
 	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
 
 	ft::vector<int>::iterator it0 = myVector.begin();
-	std::cout << "IT O = " << *it0 << std::endl;
 	ft::vector<int>::iterator ite = myVector.end();
-	std::cout << "ITE = " << *ite << std::endl;
-
-/*	while (it0 != ite)
+	while (it0 != ite)
 	{
 		std::cout << *it0 << " ; ";
 		it0++;
 	}
-	std::cout << std::endl;*/
-
-	for (it0 = myVector.begin(); it0 != ite; ++it0)
-		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
 
 //	ft::vector<int>	myVector2(myVector);
-/*	ft::vector<int>	myVector2;
+	ft::vector<int>	myVector2;
 	myVector2 = myVector;
 	ft::vector<int>::iterator it2;
 	ft::vector<int>::iterator ite2 = myVector2.end();
@@ -201,9 +194,12 @@ int	main()
 	for (it2 = myVector2.begin(); it2 != ite2; ++it2)
 		std::cout << *it2 << " ; ";
 	std::cout << std::endl;
-//	ft::vector<int>::iterator it4 = myVector2.begin() + 2;
-//	std::cout << "IT 4 = " << *it4 << std::endl;
-*/	myVector.clear();
+	ft::vector<int>::iterator it4 = myVector2.begin() + 3;
+	std::cout << "IT 4 = " << *it4 << std::endl;
+	std::cout << "vector[1] = " << myVector[1] << std::endl;
+	std::cout << "vector[2] = " << myVector[2] << std::endl;
+	std::cout << "vector[0] = " << myVector[0] << std::endl;
+	myVector.clear();
 	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 
 	return 0;
