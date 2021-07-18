@@ -14,8 +14,6 @@
 #ifndef __VECTORITE_HPP__
 # define __VECTORITE_HPP__
 
-#include "vectorNode.hpp"
-
 namespace ft
 {
 	template <class T>
@@ -31,44 +29,56 @@ namespace ft
 			//size_type (size_t)
 		
 		/********* COPLIEN *********/
-		VectorIterator() : _nodePtr(NULL) { /*std::cout << "ite default constr\n";*/ };
-		VectorIterator(pointer nodePtr) : _nodePtr(nodePtr) { /*std::cout << "ite constr\n";*/ };
-		VectorIterator<T> & operator=(VectorIterator<T> const & other) { _nodePtr = other._nodePtr; return *this; };
-		VectorIterator(VectorIterator<T> const & other) { *this = other; };
+		VectorIterator() : _nodePtr(NULL) { };
+		VectorIterator(pointer nodePtr) : _nodePtr(nodePtr) { };
+		VectorIterator<T> & operator=(VectorIterator<T> const & other)
+			{ _nodePtr = other._nodePtr; return *this; };
+		VectorIterator(VectorIterator<T> const & other)
+			{ *this = other; };
 		~VectorIterator() {};
 	
 		/********* ITERATORS *********/
 		VectorIterator	operator++(int) //i++
 			{ VectorIterator tmp(*this); operator++(); return tmp; };
 		VectorIterator &	operator++() //++i
-			{ _nodePtr++; return *this; }
+			{ this->_nodePtr++; return *this; }
 		VectorIterator	operator--(int)
 			{ VectorIterator tmp(*this); operator--(); return tmp; };
 		VectorIterator &	operator--()
-			{ _nodePtr--; return *this; }
+			{ this->_nodePtr--; return *this; }
 
 		reference operator*() const
-			{ return *_nodePtr; };
+			{ return *this->_nodePtr; };
 		pointer operator->() 
-			{ return *_nodePtr; };
-		bool operator!=(VectorIterator const & other) const { return _nodePtr != other._nodePtr; };
-		bool operator==(VectorIterator const & other) const { return _nodePtr == other._nodePtr; };
+			{ return *this->_nodePtr; };
+		bool operator!=(VectorIterator const & other) const
+			{ return this->_nodePtr != other._nodePtr; };
+		bool operator==(VectorIterator const & other) const
+			{ return this->_nodePtr == other._nodePtr; };
 		
-		difference_type operator +(VectorIterator other) { return (_nodePtr + other._nodePtr); };
-		difference_type operator -(VectorIterator other) { return (_nodePtr - other._nodePtr); };
+		difference_type operator +(VectorIterator other)
+			{ return (this->_nodePtr + other._nodePtr); };
+		difference_type operator -(VectorIterator other)
+			{ return (this->_nodePtr - other._nodePtr); };
 	/*	VectorIterator 	operator+(int n) const
 			{ VectorIterator tmp(*this); 
 			while (n--)
 				tmp++;
 			return tmp; };*/
-		friend VectorIterator operator+(VectorIterator const & other, int n) { return (other._nodePtr + n); };
-		friend VectorIterator operator-(VectorIterator const & other, int n) { return (other._nodePtr - n); };
+		friend VectorIterator operator+(VectorIterator const & other, int n)
+			{ return (other._nodePtr + n); };
+		friend VectorIterator operator-(VectorIterator const & other, int n)
+			{ return (other._nodePtr - n); };
 
 		/********* RANDOM ACCESS ITERATORS *********/
-		bool operator<(VectorIterator const & other) const { return _nodePtr < other._nodePtr; };
-		bool operator<=(VectorIterator const & other) const { return _nodePtr <= other._nodePtr; };
-		bool operator>(VectorIterator const & other) const { return _nodePtr > other._nodePtr; };
-		bool operator>=(VectorIterator const & other) const { return _nodePtr >= other._nodePtr; };
+		bool operator<(VectorIterator const & other) const
+			{ return this->_nodePtr < other._nodePtr; };
+		bool operator<=(VectorIterator const & other) const
+			{ return this->_nodePtr <= other._nodePtr; };
+		bool operator>(VectorIterator const & other) const
+			{ return this->_nodePtr > other._nodePtr; };
+		bool operator>=(VectorIterator const & other) const
+			{ return this->_nodePtr >= other._nodePtr; };
 
 		/********* GET SET *********/
 	//	pointer		getNodePtr() const { return _nodePtr; };
@@ -76,7 +86,6 @@ namespace ft
 
 		private:
 			pointer	_nodePtr;
-		//	vectorNode<T>	*_nodePtr;
 	};
 }
 
