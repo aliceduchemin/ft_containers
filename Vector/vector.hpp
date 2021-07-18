@@ -42,12 +42,12 @@ namespace ft
 			/********* ITERATORS *********/
 			iterator 	begin() { return pointer(_headNode); };
 			iterator	end() { return pointer(_endNode + 1); };
-			iterator 	rbegin() { return pointer(_endNode); };
+			iterator 	rbegin() { return pointer(_endNode + 1); };
 			iterator 	rend() { return pointer(_headNode); };
 
 			/********* CAPACITY *********/
 			int			size() const { return _number; };
-			size_type	max_size() const { return this->_allocator.max_size(); };
+			size_type	max_size() const { return _allocator.max_size(); };
 			void		resize(size_type n, value_type val = value_type());
 			size_type	capacity() const { return _cap; };
 			bool		empty() { return (_number == 0); };
@@ -195,7 +195,7 @@ namespace ft
 
 	/********* ELEMENT ACCESS *********/
 	template< typename T, typename Allocator >
-	typename vector<T, Allocator>::reference	vector<T, Allocator>::operator[] (size_type n)
+	typename vector<T, Allocator>::reference	vector<T, Allocator>::operator[](size_type n)
 	{
 	//	std::cout << "operator [] " ;
 		return this->_headNode[n - 1];
@@ -215,9 +215,9 @@ namespace ft
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::push_back(const value_type& val)
 	{
-		if (this->_cap <= this->_number) //+1
+		if (this->_cap <= this->_number)
 		{
-			this->reserve(this->_number + 1); //+1
+			this->reserve(this->_number + 1);
 		}
 		this->_allocator.construct(&this->_headNode[this->_number], val);
 		this->_endNode = &this->_headNode[this->_number];
@@ -232,5 +232,37 @@ namespace ft
 		this->_allocator.destroy(&this->_headNode[this->_number]);
 		this->_headNode[this->_number] = 0;
 	}
+
+	template< typename T, typename Allocator >
+	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator position)
+	{
+		iterator it = this->begin();
+
+		pointer	tmp = this->_allocator.allocate(_number - 1);
+		size_type i = 0;
+		while (it != position)
+		{
+			this->_allocator.construct(&tmp[i], this->_headNode[i]);
+			this->_allocator.destroy(&this->_headNode[i]);
+			i++;
+			it++;
+		}
+		this->_allocator.destroy(&this->_headNode[i]);
+		int tp = i;
+		while (i < this->_number - 1)
+		{
+			this->_allocator.construct(&tmp[i], this->_headNode[i + 1]);
+			this->_allocator.destroy(&this->_headNode[i + 1]);
+			i++;
+		}
+		this->_allocator.deallocate(this->_headNode, this->_cap);
+		this->_headNode = tmp;
+		it = this->begin() + tp;
+		this->_number--;
+		this->_endNode = &this->_headNode[this->_number - 1];
+		this->_cap = this->_number;
+		return it--;
+	}	
 }
+
 #endif

@@ -164,30 +164,30 @@ int	main()
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom vector" << std::endl;
 	ft::vector<int>		myVector;
-//	std::vector<int>	theirVector;
+	std::vector<int>	theirVector;
 
 	myVector.push_back(1);
-//	theirVector.push_back(1);
+	theirVector.push_back(1);
 	myVector.push_back(2);
-//	theirVector.push_back(2);
+	theirVector.push_back(2);
 	myVector.push_back(3);
-//	theirVector.push_back(3);
+	theirVector.push_back(3);
 	myVector.pop_back();
-//	theirVector.pop_back();
+	theirVector.pop_back();
 	myVector.push_back(4);
-//	theirVector.push_back(4);
+	theirVector.push_back(4);
 	myVector.push_back(5);
-//	theirVector.push_back(5);
+	theirVector.push_back(5);
 	myVector.push_back(6);
-//	theirVector.push_back(6);
+	theirVector.push_back(6);
 	myVector.pop_back();
-//	theirVector.pop_back();
+	theirVector.pop_back();
 	std::cout << "vct.front()" << std::endl;
 	std::cout << myVector.front() << std::endl;
 	std::cout << "vct.back()" << std::endl;
 	std::cout << myVector.back() << std::endl;
 	std::cout << "vector capacity = " << myVector.capacity() << std::endl;
-//	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
+	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
 
 	ft::vector<int>::iterator it0 = myVector.begin();
 	ft::vector<int>::iterator ite = myVector.end();
@@ -201,16 +201,35 @@ int	main()
 
 //	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 
-//	myVector.resize(2);
-	myVector.resize(17, 12);
-	myVector.push_back(12);
-	myVector.push_back(22);
-	myVector.push_back(32);
+	myVector.resize(5, 6);
+//	myVector.resize(17, 12);
+//	myVector.push_back(12);
+//	myVector.push_back(22);
+//	myVector.push_back(32);
 	ite = myVector.end();
 	for (it0 = myVector.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
-	myVector.clear();
+//	myVector.clear();
+	it0 = myVector.begin() + 2;
+	std::cout << "it0 + 2 = " << *it0 << std::endl;
+	ft::vector<int>::iterator itRetour = myVector.erase(it0);
+	std::cout << "it retour = " << *itRetour << std::endl;
+
+	std::vector<int>::iterator itT = theirVector.begin() + 2;
+	std::cout << "itT + 2 = " << *itT << std::endl;
+	std::vector<int>::iterator itTR = theirVector.erase(itT);
+	std::cout << "itT retour = " << *itTR << std::endl;
+
+	it0 = myVector.begin();
+	ite = myVector.end();
+	it0 + 4;
+	std::cout << "it0 + 4 = " << *it0 << std::endl;
+	std::cout << "ite = " << *ite << std::endl;
+	
+	for (it0 = myVector.begin(); it0 != ite; ++it0)
+		std::cout << *it0 << " ; ";
+	std::cout << std::endl;
 	std::cout << "size of my vector = " << myVector.size() << std::endl;
 //	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 	return 0;
