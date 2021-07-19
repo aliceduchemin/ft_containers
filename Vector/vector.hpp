@@ -108,11 +108,9 @@ namespace ft
 	template< typename T, typename Allocator >
 	vector<T, Allocator>::~vector()
 	{
-		std::cout << "vector destructor n = " << this->_number << std::endl;
+	//	std::cout << "vector destructor n = " << this->_number << std::endl;
 		if (this->_number > 0)
-		{
 			this->clear();
-		}
 		this->_allocator.deallocate(this->_headNode, this->_cap);
 	}
 
@@ -216,9 +214,7 @@ namespace ft
 	void	vector<T, Allocator>::push_back(const value_type& val)
 	{
 		if (this->_cap <= this->_number)
-		{
 			this->reserve(this->_number * 2);
-		}
 		this->_allocator.construct(&this->_headNode[this->_number], val);
 		this->_endNode = &this->_headNode[this->_number];
 		this->_number++;
@@ -286,6 +282,41 @@ namespace ft
 		this->_endNode = &this->_headNode[this->_number - 1];
 	
 		return it--;
+	}
+
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::assign(size_type n, const value_type& val)
+	{
+		if (this->_number != 0)
+			this->clear();
+		size_type i = 0;
+		while (i < n)
+		{
+		//	this->push_back(val);
+			if (this->_cap <= this->_number)
+				this->reserve(this->_number + 1);
+			this->_allocator.construct(&this->_headNode[this->_number], val);
+			this->_endNode = &this->_headNode[this->_number];
+			this->_number++;
+			i++;
+		}
+	}
+	
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::assign(iterator first, iterator last)
+	{
+		if (this->_number != 0)
+			this->clear();
+		while (first != last)
+		{
+		//	this->push_back(*first);
+			if (this->_cap <= this->_number)
+				this->reserve(this->_number + 1);
+			this->_allocator.construct(&this->_headNode[this->_number], *first);
+			this->_endNode = &this->_headNode[this->_number];
+			this->_number++;
+			first++;
+		}
 	}
 }
 
