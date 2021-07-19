@@ -202,6 +202,7 @@ int	main()
 //	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 
 	myVector.resize(5, 6);
+	theirVector.resize(5, 6);
 //	myVector.resize(17, 12);
 //	myVector.push_back(12);
 //	myVector.push_back(22);
@@ -210,27 +211,41 @@ int	main()
 	for (it0 = myVector.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
+	ite = myVector.end();
+	
 //	myVector.clear();
 	it0 = myVector.begin() + 2;
 	std::cout << "it0 + 2 = " << *it0 << std::endl;
-	ft::vector<int>::iterator itRetour = myVector.erase(it0);
+//	ft::vector<int>::iterator itRetour = myVector.erase(it0);
+	size_t diff = 2;
+	ft::vector<int>::iterator itRetour = myVector.erase(it0, it0 + diff);
 	std::cout << "it retour = " << *itRetour << std::endl;
 
 	std::vector<int>::iterator itT = theirVector.begin() + 2;
 	std::cout << "itT + 2 = " << *itT << std::endl;
-	std::vector<int>::iterator itTR = theirVector.erase(itT);
+	std::vector<int>::iterator itTR = theirVector.erase(itT, itT + diff);
 	std::cout << "itT retour = " << *itTR << std::endl;
 
 	it0 = myVector.begin();
 	ite = myVector.end();
 	it0 + 4;
+	std::cout << "MY VECTOR = " << std::endl;
 	std::cout << "it0 + 4 = " << *it0 << std::endl;
 	std::cout << "ite = " << *ite << std::endl;
-	
 	for (it0 = myVector.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
+
+	itT = theirVector.begin();
+	std::vector<int>::iterator itTR2 = theirVector.end();
+	for (itT = theirVector.begin(); itT != itTR2; ++itT)
+		std::cout << *itT << " ; ";
+	std::cout << std::endl;
+	
 	std::cout << "size of my vector = " << myVector.size() << std::endl;
+	std::cout << "size of their vector = " << theirVector.size() << std::endl;
+	std::cout << "capacity of my vector = " << myVector.capacity() << std::endl;
+	std::cout << "capacity of their vector = " << theirVector.capacity() << std::endl;
 //	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 	return 0;
 }

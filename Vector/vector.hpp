@@ -217,7 +217,7 @@ namespace ft
 	{
 		if (this->_cap <= this->_number)
 		{
-			this->reserve(this->_number + 1);
+			this->reserve(this->_number * 2);
 		}
 		this->_allocator.construct(&this->_headNode[this->_number], val);
 		this->_endNode = &this->_headNode[this->_number];
@@ -236,33 +236,57 @@ namespace ft
 	template< typename T, typename Allocator >
 	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator position)
 	{
+		this->_number--;
 		iterator it = this->begin();
-
-		pointer	tmp = this->_allocator.allocate(_number - 1);
 		size_type i = 0;
+	//	size_type z = position - this->begin() ;
 		while (it != position)
 		{
-			this->_allocator.construct(&tmp[i], this->_headNode[i]);
-			this->_allocator.destroy(&this->_headNode[i]);
-			i++;
 			it++;
+			i++;
 		}
 		this->_allocator.destroy(&this->_headNode[i]);
-		int tp = i;
-		while (i < this->_number - 1)
+		while (i < this->_number)
 		{
-			this->_allocator.construct(&tmp[i], this->_headNode[i + 1]);
+			this->_allocator.construct(&this->_headNode[i], this->_headNode[i + 1]);
 			this->_allocator.destroy(&this->_headNode[i + 1]);
 			i++;
 		}
-		this->_allocator.deallocate(this->_headNode, this->_cap);
-		this->_headNode = tmp;
-		it = this->begin() + tp;
-		this->_number--;
 		this->_endNode = &this->_headNode[this->_number - 1];
-		this->_cap = this->_number;
+		
 		return it--;
-	}	
+	}
+
+	template< typename T, typename Allocator >
+	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator first, iterator last)
+	{
+		size_type diff = last - first;
+		this->_number -= diff;
+
+		iterator it = this->begin();
+		size_type i = 0;
+		while (it != first)
+		{
+			it++;
+			i++;
+		}
+		while (first != last)
+		{
+			this->_allocator.destroy(&this->_headNode[i]);
+			first++;
+			i++;
+		}
+		i -= diff;
+		while (i < this->_number)
+		{
+			this->_allocator.construct(&this->_headNode[i], this->_headNode[i + diff]);
+			this->_allocator.destroy(&this->_headNode[i + diff]);
+			i++;
+		}
+		this->_endNode = &this->_headNode[this->_number - 1];
+	
+		return it--;
+	}
 }
 
 #endif
