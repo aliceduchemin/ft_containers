@@ -346,6 +346,40 @@ int	main()
 	std::cout << "size of their vector = " << theirVector.size() << std::endl;
 	std::cout << "capacity of their vector = " << theirVector.capacity() << std::endl;
 
+//	myVector.swap(myVector3);
+	swap(myVector, myVector3);
+	ite = myVector.end();
+	std::cout << "\nmy vector = " <<std::endl;
+	for (it0 = myVector.begin(); it0 != ite; ++it0)
+		std::cout << *it0 << " ; ";
+	std::cout << std::endl;
 
+//	theirVector.swap(theirVector2);
+	swap(theirVector, theirVector2);
+	itTR = theirVector.end();
+	std::cout << "\ntheir vector = " <<std::endl;
+	for (itT = theirVector.begin(); itT != itTR; ++itT)
+		std::cout << *itT << " ; ";
+	std::cout << std::endl;
+
+	bool ret = myVector2 <= myVector;
+	std::cout << "my <= = " << ret << std::endl;
+	ret = theirVector2 <= theirVector;
+	std::cout << "their <= = " << ret << std::endl;
+
+
+	ret = myVector2 != myVector;
+	std::cout << "my comparaison = " << ret << std::endl;
+
+	ret = theirVector2 != theirVector;
+	std::cout << "their comparaison = " << ret << std::endl;
+
+	myVector2 = myVector;
+	ret = myVector2 != myVector;
+	std::cout << "my comparaison = " << ret << std::endl;
+
+	theirVector2 = theirVector;
+	ret = theirVector2 != theirVector;
+	std::cout << "their comparaison = " << ret << std::endl;
 	return 0;
 }

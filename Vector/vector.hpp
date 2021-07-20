@@ -54,8 +54,10 @@ namespace ft
 			void		reserve(size_type n);
 		
 			/********* ELEMENT ACCESS *********/
-			reference	operator[] (size_type n);
+			reference	operator[] (size_type n) { return _headNode[n - 1]; };
+			const_reference	operator[] (size_type n) const { return _headNode[n - 1]; };
 			reference	at(size_type n);
+			const_reference	at(size_type n) const;
 			reference	front() { return *_headNode; };
 			reference	back() { return *_endNode; };
 
@@ -84,31 +86,19 @@ namespace ft
 			allocator_type	_allocator;
 	};
 
-
 	/********* COPLIEN *********/
 	template< typename T, typename Allocator >
 	vector<T, Allocator>::vector()
 	{
-	//	std::cout << "vector default constructor" << std::endl;
 		this->_endNode = NULL;
 		this->_cap = 0;
 		this->_headNode = this->_allocator.allocate(0);
 		this->_number = 0;
 	}
-	
-	template< typename T, typename Allocator >
-	void	vector<T, Allocator>::clear()
-	{
-		while (this->_number > 0)
-		{
-			this->pop_back();
-		}
-	}
-	
+
 	template< typename T, typename Allocator >
 	vector<T, Allocator>::~vector()
 	{
-	//	std::cout << "vector destructor n = " << this->_number << std::endl;
 		if (this->_number > 0)
 			this->clear();
 		this->_allocator.deallocate(this->_headNode, this->_cap);
@@ -193,13 +183,6 @@ namespace ft
 
 	/********* ELEMENT ACCESS *********/
 	template< typename T, typename Allocator >
-	typename vector<T, Allocator>::reference	vector<T, Allocator>::operator[](size_type n)
-	{
-	//	std::cout << "operator [] " ;
-		return this->_headNode[n - 1];
-	}
-
-	template< typename T, typename Allocator >
 	typename vector<T, Allocator>::reference	vector<T, Allocator>::at(size_type n)
 	{
 		if (n >= this->_number)
@@ -209,81 +192,17 @@ namespace ft
 		return this->_headNode[n - 1];
 	}
 
+	template< typename T, typename Allocator >
+	typename vector<T, Allocator>::const_reference	vector<T, Allocator>::at(size_type n) const
+	{
+		if (n >= this->_number)
+		{
+			perror("throw exception out of range for at > size");
+		}
+		return this->_headNode[n - 1];
+	}
+
 	/********* MODIFIERS *********/
-	template< typename T, typename Allocator >
-	void	vector<T, Allocator>::push_back(const value_type& val)
-	{
-		if (this->_cap <= this->_number)
-			this->reserve(this->_number * 2);
-		this->_allocator.construct(&this->_headNode[this->_number], val);
-		this->_endNode = &this->_headNode[this->_number];
-		this->_number++;
-	}
-
-	template< typename T, typename Allocator >
-	void	vector<T, Allocator>::pop_back()
-	{
-		this->_number--;
-		this->_endNode = &this->_headNode[this->_number - 1];
-		this->_allocator.destroy(&this->_headNode[this->_number]);
-		this->_headNode[this->_number] = 0;
-	}
-
-	template< typename T, typename Allocator >
-	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator position)
-	{
-		this->_number--;
-		iterator it = this->begin();
-		size_type i = 0;
-	//	size_type z = position - this->begin() ;
-		while (it != position)
-		{
-			it++;
-			i++;
-		}
-		this->_allocator.destroy(&this->_headNode[i]);
-		while (i < this->_number)
-		{
-			this->_allocator.construct(&this->_headNode[i], this->_headNode[i + 1]);
-			this->_allocator.destroy(&this->_headNode[i + 1]);
-			i++;
-		}
-		this->_endNode = &this->_headNode[this->_number - 1];
-		
-		return it--;
-	}
-
-	template< typename T, typename Allocator >
-	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator first, iterator last)
-	{
-		size_type diff = last - first;
-		this->_number -= diff;
-
-		iterator it = this->begin();
-		size_type i = 0;
-		while (it != first)
-		{
-			it++;
-			i++;
-		}
-		while (first != last)
-		{
-			this->_allocator.destroy(&this->_headNode[i]);
-			first++;
-			i++;
-		}
-		i -= diff;
-		while (i < this->_number)
-		{
-			this->_allocator.construct(&this->_headNode[i], this->_headNode[i + diff]);
-			this->_allocator.destroy(&this->_headNode[i + diff]);
-			i++;
-		}
-		this->_endNode = &this->_headNode[this->_number - 1];
-	
-		return it--;
-	}
-
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::assign(size_type n, const value_type& val)
 	{
@@ -315,6 +234,25 @@ namespace ft
 			this->_number++;
 			first++;
 		}
+	}
+
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::push_back(const value_type& val)
+	{
+		if (this->_cap <= this->_number)
+			this->reserve(this->_number * 2);
+		this->_allocator.construct(&this->_headNode[this->_number], val);
+		this->_endNode = &this->_headNode[this->_number];
+		this->_number++;
+	}
+
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::pop_back()
+	{
+		this->_number--;
+		this->_endNode = &this->_headNode[this->_number - 1];
+		this->_allocator.destroy(&this->_headNode[this->_number]);
+		this->_headNode[this->_number] = 0;
 	}
 
 	template< typename T, typename Allocator >
@@ -377,6 +315,153 @@ namespace ft
 			first++;
 		}
 	}
+
+	template< typename T, typename Allocator >
+	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator position)
+	{
+		this->_number--;
+		iterator it = this->begin();
+		size_type i = 0;
+	//	size_type z = position - this->begin() ;
+		while (it != position)
+		{
+			it++;
+			i++;
+		}
+		this->_allocator.destroy(&this->_headNode[i]);
+		while (i < this->_number)
+		{
+			this->_allocator.construct(&this->_headNode[i], this->_headNode[i + 1]);
+			this->_allocator.destroy(&this->_headNode[i + 1]);
+			i++;
+		}
+		this->_endNode = &this->_headNode[this->_number - 1];
+		
+		return it--;
+	}
+
+	template< typename T, typename Allocator >
+	ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator first, iterator last)
+	{
+		size_type diff = last - first;
+		this->_number -= diff;
+
+		iterator it = this->begin();
+		size_type i = 0;
+		while (it != first)
+		{
+			it++;
+			i++;
+		}
+		while (first != last)
+		{
+			this->_allocator.destroy(&this->_headNode[i]);
+			first++;
+			i++;
+		}
+		i -= diff;
+		while (i < this->_number)
+		{
+			this->_allocator.construct(&this->_headNode[i], this->_headNode[i + diff]);
+			this->_allocator.destroy(&this->_headNode[i + diff]);
+			i++;
+		}
+		this->_endNode = &this->_headNode[this->_number - 1];
+	
+		return it--;
+	}
+	
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::swap(vector& x)
+	{
+		vector	tmp;
+		tmp = *this;
+		*this = x;
+		x = tmp;
+	}
+		
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::clear()
+	{
+		while (this->_number > 0)
+		{
+			this->pop_back();
+		}
+	}
+
+	/********* ALLOCATOR *********/
+	template< typename T, typename Allocator >
+	Allocator	vector<T, Allocator>::get_allocator() const
+	{
+		return this->_allocator;
+	}
+}
+
+template< class T, class Alloc >
+bool	operator==(const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs)
+{
+	if (lhs.size() != rhs.size())
+		return false;
+	size_t i = 0;
+	while (i < lhs.size())
+	{
+		if (lhs[i] != rhs[i])
+			return false;
+		i++;
+	}
+	return true;
+}
+
+template< class T, class Alloc >
+bool	operator!=(const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs)
+{
+	if (!(lhs == rhs))
+		return true;
+	return false;
+}
+
+template< class T, class Alloc >
+bool	operator<(const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs)
+{
+	if (lhs.size() < rhs.size())
+		return true;
+	return false;
+}
+
+template< class T, class Alloc >
+bool	operator<=(const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs)
+{
+	if (lhs.size() <= rhs.size())
+		return true;
+	return false;
+}
+
+template< class T, class Alloc >
+bool	operator>(const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs)
+{
+	if (lhs < rhs)
+		return false;
+	return true;
+}
+
+template< class T, class Alloc >
+bool	operator>=(const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs)
+{
+	if (lhs <= rhs)
+		return false;
+	return true;
+}
+
+template <class T, class Alloc>
+void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
+{
+	x.swap(y);
 }
 
 #endif
