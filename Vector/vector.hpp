@@ -292,7 +292,6 @@ namespace ft
 		size_type i = 0;
 		while (i < n)
 		{
-		//	this->push_back(val);
 			if (this->_cap <= this->_number)
 				this->reserve(this->_number + 1);
 			this->_allocator.construct(&this->_headNode[this->_number], val);
@@ -309,12 +308,72 @@ namespace ft
 			this->clear();
 		while (first != last)
 		{
-		//	this->push_back(*first);
 			if (this->_cap <= this->_number)
 				this->reserve(this->_number + 1);
 			this->_allocator.construct(&this->_headNode[this->_number], *first);
 			this->_endNode = &this->_headNode[this->_number];
 			this->_number++;
+			first++;
+		}
+	}
+
+	template< typename T, typename Allocator >
+	ft::VectorIterator<T>	vector<T, Allocator>::insert(iterator position, const value_type& val)
+	{
+		size_type dist = 0;
+		iterator it;
+		for (it = this->begin(); it != position; it++)
+			dist++;
+
+		pointer tmp;
+		if (this->_cap <= this->_number)
+			tmp = this->_allocator.allocate(this->_cap = this->_number * 2);
+		else
+			tmp = this->_allocator.allocate(this->_number + 1);
+
+		size_type j = 0;
+		while (j < dist)
+		{
+			this->_allocator.construct(&tmp[j], this->_headNode[j]);
+			this->_allocator.destroy(&this->_headNode[j]);
+			j++;
+		}
+		this->_allocator.construct(&tmp[j++], val);
+		it = &tmp[0] + dist;
+		this->_number++;
+
+		while (j < this->_number)
+		{
+			this->_allocator.construct(&tmp[j], this->_headNode[j - 1]);
+			this->_allocator.destroy(&this->_headNode[j - 1]);
+			j++;
+		}
+
+		this->_allocator.deallocate(this->_headNode, this->_cap);
+		this->_headNode = tmp;
+		this->_endNode = &this->_headNode[this->_number - 1];
+		return it;
+	}
+
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::insert(iterator position, size_type n, const value_type& val)
+	{
+		size_type i = 0;
+		iterator ret = position;
+		while (i < n)
+		{
+			ret = this->insert(ret, val);
+			i++;
+		}
+	}
+
+	template< typename T, typename Allocator >
+	void	vector<T, Allocator>::insert(iterator position, iterator first, iterator last)
+	{
+		iterator ret = position;
+		while (first != last)
+		{
+			ret = this->insert(ret, *first);
 			first++;
 		}
 	}

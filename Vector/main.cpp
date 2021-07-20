@@ -245,16 +245,32 @@ int	main()
 	//	std::cout << "vector is empty ? " << myVector.empty() << std::endl;
 	
 	std::cout << "my vector = " <<std::endl;
-	myVector.assign(10, 100);
-	myVector.push_back(9);
+//	myVector.assign(10, 100);
+	myVector.clear();
+	myVector.push_back(1);
+	myVector.push_back(2);
+	myVector.push_back(3);
+	myVector.push_back(4);
+	myVector.push_back(5);
+	myVector.push_back(6);
+	myVector.push_back(7);
+	myVector.push_back(8);
 	ite = myVector.end();
 	for (it0 = myVector.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
 
 	std::cout << "their vector = " <<std::endl;
-	theirVector.assign(10, 100);
-	theirVector.push_back(9);
+//	theirVector.assign(10, 100);
+	theirVector.clear();
+	theirVector.push_back(1);
+	theirVector.push_back(2);
+	theirVector.push_back(3);
+	theirVector.push_back(4);
+	theirVector.push_back(5);
+	theirVector.push_back(6);
+	theirVector.push_back(7);
+	theirVector.push_back(8);
 	itTR2 = theirVector.end();
 	for (itT = theirVector.begin(); itT != itTR2; ++itT)
 		std::cout << *itT << " ; ";
@@ -264,25 +280,72 @@ int	main()
 	itT = theirVector.begin() + 2;
 	ft::vector<int>		myVector3;
 	std::vector<int>	theirVector2;
+
 	myVector3.assign(it0, it0 + 5);
 	theirVector2.assign(itT, itT + 5);
 
-	std::cout << "my vector = " <<std::endl;
+
+
+	std::cout << "my vector 3= " <<std::endl;
 	ite = myVector3.end();
 	for (it0 = myVector3.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
 
 	itTR2 = theirVector2.end();
-	std::cout << "their vector = " <<std::endl;
+	std::cout << "their vector 2= " <<std::endl;
 	for (itT = theirVector2.begin(); itT != itTR2; ++itT)
 		std::cout << *itT << " ; ";
 	std::cout << std::endl;
 
-	std::cout << "size of my vector = " << myVector3.size() << std::endl;
-	std::cout << "size of their vector = " << theirVector2.size() << std::endl;
-	std::cout << "capacity of my vector = " << myVector3.capacity() << std::endl;
-	std::cout << "capacity of their vector = " << theirVector2.capacity() << std::endl;
+	std::cout << "my vector = " <<std::endl;
+	ite = myVector.end();
+	for (it0 = myVector.begin(); it0 != ite; ++it0)
+		std::cout << *it0 << " ; ";
+	std::cout << std::endl;
+
+	itTR2 = theirVector.end();
+	std::cout << "their vector = " <<std::endl;
+	for (itT = theirVector.begin(); itT != itTR2; ++itT)
+		std::cout << *itT << " ; ";
+	std::cout << std::endl;
+
+	std::cout << "size of my vector = " << myVector.size() << std::endl;
+	std::cout << "size of their vector = " << theirVector.size() << std::endl;
+	std::cout << "capacity of my vector = " << myVector.capacity() << std::endl;
+	std::cout << "capacity of their vector = " << theirVector.capacity() << std::endl;
+
+	it0 = myVector.begin() + 3;
+	myVector3.clear();
+	myVector3.assign(10, 42);
+	ft::vector<int>::iterator it1 = myVector3.begin() + 2;
+//	std::cout << "return insert my = " << *(myVector.insert(it0, 42)) << std::endl;
+//	myVector.insert(it0, 5, 19);
+	myVector.insert(it0, it1, it1 + 2);
+	ite = myVector.end();
+	std::cout << "\nmy vector = " <<std::endl;
+	for (it0 = myVector.begin(); it0 != ite; ++it0)
+		std::cout << *it0 << " ; ";
+	std::cout << std::endl;
+	std::cout << "size of my vector = " << myVector.size() << std::endl;
+	std::cout << "capacity of my vector = " << myVector.capacity() << std::endl;
+
+
+	itT = theirVector.begin() + 3;
+	theirVector2.clear();
+	theirVector2.assign(10, 42);
+	itTR2 = theirVector2.begin() + 2;
+//	std::cout << "return insert their = " << *(theirVector.insert(itT, 42)) << std::endl;
+//	theirVector.insert(itT, 5, 19);
+	theirVector.insert(itT, itTR2, itTR2 + 2);
+	itTR = theirVector.end();
+	std::cout << "\ntheir vector = " <<std::endl;
+	for (itT = theirVector.begin(); itT != itTR; ++itT)
+		std::cout << *itT << " ; ";
+	std::cout << std::endl;
+	std::cout << "size of their vector = " << theirVector.size() << std::endl;
+	std::cout << "capacity of their vector = " << theirVector.capacity() << std::endl;
+
 
 	return 0;
 }
