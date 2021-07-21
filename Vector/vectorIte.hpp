@@ -10,79 +10,120 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef __VECTORITE_HPP__
 # define __VECTORITE_HPP__
 
 namespace ft
 {
+	template < class Category,		//iterator::iterator_category
+			   class T,				//iterator::value_type
+			   class Distance,		//iterator::difference_type
+			   class Pointer,		//iterator::pointer
+			   class Reference		//iterator::reference
+			   > class iterator;
+
+	template < class Category, class T, class Distance = ptrdiff_t,
+			   class Pointer = T*, class Reference = T& >
+		struct iterator {
+			typedef T			value_type;
+			typedef Distance	difference_type;
+			typedef Pointer		pointer;
+			typedef Reference	reference;
+			typedef Category	iterator_category;
+		};
+
+	template <class iterator> struct iterator_traits;
+	template <class T> struct iterator_traits<T*>;
+	template <class T> struct iterator_traits<const T*>;
+
+	template < class iterator >
+	struct iterator_traits {
+		typedef typename iterator::value_type			value_type;
+		typedef typename iterator::difference_type		difference_type;
+		typedef typename iterator::pointer				pointer;
+		typedef typename iterator::reference			reference;
+		typedef typename iterator::iterator_category	iterator_category;
+	};
+
+	struct input_iterator_tag { };
+	struct output_iterator_tag { };
+	struct forward_iterator_tag : public input_iterator_tag { };
+	struct bidirectional_iterator_tag : public forward_iterator_tag { };
+	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
+
+	template < class T >
+	struct iterator_traits<T*> {
+		typedef T								value_type;
+		typedef ptrdiff_t						difference_type;
+		typedef T*								pointer;
+		typedef T&								reference;
+		typedef random_access_iterator_tag		iterator_category;
+	};
+
+	template<bool B, class T = void>
+	struct enable_if {};
+
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
+
 	template <class T>
-	class VectorIterator
+	class random_access_iterator : ft::iterator<ft::random_access_iterator_tag, T>
 	{
 		public:
-			typedef T							value_type;
-			typedef typename std::ptrdiff_t 	difference_type;
-			typedef value_type*					pointer;
-			typedef value_type&					reference;
-			typedef const value_type&			const_reference;
-			typedef value_type* const			const_pointer;
-			//size_type (size_t)
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
 		
 		/********* COPLIEN *********/
-		VectorIterator() : _nodePtr(NULL) { };
-		VectorIterator(pointer nodePtr) : _nodePtr(nodePtr) { };
-		VectorIterator<T> & operator=(VectorIterator<T> const & other)
+		random_access_iterator() : _nodePtr(0) { };
+		random_access_iterator(pointer nodePtr) : _nodePtr(nodePtr) { };
+		random_access_iterator<T> & operator=(random_access_iterator<T> const & other)
 			{ _nodePtr = other._nodePtr; return *this; };
-		VectorIterator(VectorIterator<T> const & other)
+		random_access_iterator(random_access_iterator<T> const & other)
 			{ *this = other; };
-		~VectorIterator() {};
+		~random_access_iterator() {};
 	
 		/********* ITERATORS *********/
-		VectorIterator	operator++(int) //i++
-			{ VectorIterator tmp(*this); operator++(); return tmp; };
-		VectorIterator &	operator++() //++i
+		random_access_iterator	operator++(int) //i++
+			{ random_access_iterator tmp(*this); operator++(); return tmp; };
+		random_access_iterator &	operator++() //++i
 			{ this->_nodePtr++; return *this; }
-		VectorIterator	operator--(int)
-			{ VectorIterator tmp(*this); operator--(); return tmp; };
-		VectorIterator &	operator--()
+		random_access_iterator	operator--(int)
+			{ random_access_iterator tmp(*this); operator--(); return tmp; };
+		random_access_iterator &	operator--()
 			{ this->_nodePtr--; return *this; }
 
 		reference operator*() const
 			{ return *this->_nodePtr; };
 		pointer operator->() 
 			{ return *this->_nodePtr; };
-		bool operator!=(VectorIterator const & other) const
+		bool operator!=(random_access_iterator const & other) const
 			{ return this->_nodePtr != other._nodePtr; };
-		bool operator==(VectorIterator const & other) const
+		bool operator==(random_access_iterator const & other) const
 			{ return this->_nodePtr == other._nodePtr; };
 		
-		difference_type operator +(VectorIterator other)
+		difference_type operator +(random_access_iterator other)
 			{ return (this->_nodePtr + other._nodePtr); };
-		difference_type operator -(VectorIterator other)
+		difference_type operator -(random_access_iterator other)
 			{ return (this->_nodePtr - other._nodePtr); };
-	/*	VectorIterator 	operator+(int n) const
-			{ VectorIterator tmp(*this); 
-			while (n--)
-				tmp++;
-			return tmp; };*/
-		friend VectorIterator operator+(VectorIterator const & other, int n)
+		friend random_access_iterator operator+(random_access_iterator const & other, int n)
 			{ return (other._nodePtr + n); };
-		friend VectorIterator operator-(VectorIterator const & other, int n)
+		friend random_access_iterator operator+(int n, random_access_iterator const & other)
+			{ return (n + other._nodePtr); };
+		friend random_access_iterator operator-(random_access_iterator const & other, int n)
 			{ return (other._nodePtr - n); };
 
 		/********* RANDOM ACCESS ITERATORS *********/
-		bool operator<(VectorIterator const & other) const
+		bool operator<(random_access_iterator const & other) const
 			{ return this->_nodePtr < other._nodePtr; };
-		bool operator<=(VectorIterator const & other) const
+		bool operator<=(random_access_iterator const & other) const
 			{ return this->_nodePtr <= other._nodePtr; };
-		bool operator>(VectorIterator const & other) const
+		bool operator>(random_access_iterator const & other) const
 			{ return this->_nodePtr > other._nodePtr; };
-		bool operator>=(VectorIterator const & other) const
+		bool operator>=(random_access_iterator const & other) const
 			{ return this->_nodePtr >= other._nodePtr; };
-
-		/********* GET SET *********/
-	//	pointer		getNodePtr() const { return _nodePtr; };
-	//	void		setNodePtr(pointer *nodePtr) { _nodePtr = nodePtr; };
 
 		private:
 			pointer	_nodePtr;

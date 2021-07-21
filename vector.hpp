@@ -32,7 +32,7 @@ namespace ft
 			typedef typename Allocator::difference_type difference_type;
 			typedef typename Allocator::size_type 		size_type;
 
-			typedef ft::random_access_iterator<T>			iterator;
+			typedef ft::random_access_iterator<T>				iterator;
 		//	typedef ft::VectorIterator<T>				const_iterator;
 		//	typedef ft::VectorIterator<T>				reverse_iterator;
 		//	typedef ft::VectorIterator<T>				const_reverse_iterator;
@@ -261,6 +261,7 @@ namespace ft
 
 	template< typename T, typename Allocator >
 	ft::random_access_iterator<T>	vector<T, Allocator>::insert(iterator position, const value_type& val)
+//	ft::VectorIterator<T>	vector<T, Allocator>::insert(iterator position, const value_type& val)
 	{
 		size_type dist = 0;
 		iterator it;
@@ -322,6 +323,7 @@ namespace ft
 
 	template< typename T, typename Allocator >
 	ft::random_access_iterator<T>	vector<T, Allocator>::erase(iterator position)
+	//ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator position)
 	{
 		this->_number--;
 		iterator it = this->begin();
@@ -346,6 +348,7 @@ namespace ft
 
 	template< typename T, typename Allocator >
 	ft::random_access_iterator<T>	vector<T, Allocator>::erase(iterator first, iterator last)
+	//ft::VectorIterator<T>	vector<T, Allocator>::erase(iterator first, iterator last)
 	{
 		size_type diff = last - first;
 		this->_number -= diff;
