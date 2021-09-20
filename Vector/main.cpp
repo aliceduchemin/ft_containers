@@ -307,7 +307,6 @@ int	main()
 	*itT = 13;
 	std::cout << "*it0 = 13 = " << *itT << std::endl;
 
-
 	it0 = myVector.begin() + 2;
 	itT = theirVector.begin() + 2;
 	ft::vector<int>		myVector3;
@@ -315,8 +314,6 @@ int	main()
 
 	myVector3.assign(it0, it0 + 5);
 	theirVector2.assign(itT, itT + 5);
-
-
 
 	std::cout << "my vector 3= " <<std::endl;
 	ite = myVector3.end();
@@ -414,8 +411,31 @@ int	main()
 	ret = theirVector2 != theirVector;
 	std::cout << "their comparaison = " << ret << std::endl;
 
+	ft::vector<int> myVector4;
+	for (int m=0; m<10; m++) myVector4.push_back(m);
+	ft::vector<int>::iterator deb1 = myVector4.begin();
+	ft::vector<int>::iterator end1 = myVector4.end();
+	ft::vector<int>::reverse_iterator rev_deb1 (end1);
+	ft::vector<int>::reverse_iterator rev_end1 (deb1);
+	std::cout << "my vector reverse:";
+	while (rev_deb1 != rev_end1)
+		std::cout << ' ' << *rev_deb1++;
+	std::cout << "\n";
+	rev_deb1 -= 3;
+	std::cout << "my vector base iterator deb * = " << *(rev_deb1.base()) << std::endl;
 
-	
+	std::vector<int> theirVector3;
+	for (int k=0; k<10; k++) theirVector3.push_back(k);
+	std::vector<int>::iterator deb = theirVector3.begin();
+	std::vector<int>::iterator end = theirVector3.end();
+	std::vector<int>::reverse_iterator rev_deb (end);
+	std::vector<int>::reverse_iterator rev_end (deb);
+	std::cout << "their vector reverse:";
+	while (rev_deb != rev_end)
+		std::cout << ' ' << *rev_deb++;
+	std::cout << "\n";
+	rev_deb -= 3;
+	std::cout << "their vector base iterator deb * = " << *(rev_deb.base()) << std::endl;
 
 	//ft::vector<int>::reverse_iterator it_rev = myVector.begin();
 	ft::vector<int>::const_iterator it_rev = myVector.begin();

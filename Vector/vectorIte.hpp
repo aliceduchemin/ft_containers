@@ -97,10 +97,10 @@ namespace ft
 	
 		/********* ITERATORS *********/
 		// can be incremented
-		random_access_iterator	operator++(int) //i++
-			{ random_access_iterator tmp(*this); operator++(); return tmp; };
 		random_access_iterator &operator++() //++i
 			{ this->_nodePtr++; return *this; }
+		random_access_iterator	operator++(int) //i++
+			{ random_access_iterator tmp(*this); operator++(); return tmp; };
 		
 		/********* INPUT ITERATORS *********/
 		// Supports equality/inequality comparisons
@@ -127,10 +127,10 @@ namespace ft
 
 		/********* BIDIRECTIONAL ITERATORS *********/
 		// Can be decremented
-		random_access_iterator	operator--(int)
-			{ random_access_iterator tmp(*this); operator--(); return tmp; };
 		random_access_iterator &	operator--()
 			{ this->_nodePtr--; return *this; }
+		random_access_iterator	operator--(int)
+			{ random_access_iterator tmp(*this); operator--(); return tmp; };
 		//*a--
 
 		/********* RANDOM ACCESS ITERATORS *********/
@@ -244,82 +244,83 @@ namespace ft
 	};
 
 	/*********** REVERSE ITERATOR ***********/
-	template <class T>
-	class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
-	{
-		public:
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer			pointer;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference			reference;
-			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
-		
-		private:
-			pointer	_nodePtr;
-	};
-
-	template < class Iterator >
+	template <class Iterator>
 	class reverse_iterator
 	{
 		public:
-			typedef Iterator	iterator_type;
-			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
+			typedef	Iterator	iterator_type;
 			typedef typename ft::iterator_traits<Iterator>::value_type			value_type;
 			typedef typename ft::iterator_traits<Iterator>::difference_type		difference_type;
 			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
 			typedef typename ft::iterator_traits<Iterator>::reference			reference;
+			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
 		
 		/********* COPLIEN *********/
-	//	reverse_iterator() : _nodePtr(0) { };
-	//	reverse_iterator(pointer nodePtr) : _nodePtr(nodePtr) { };
-	/*	reverse_iterator & operator=(reverse_iterator const & other)
-			{ _nodePtr = other._nodePtr; return *this; };
+		reverse_iterator() : _it(0) { };
+		reverse_iterator(pointer other) : _it(other) { };
+		explicit reverse_iterator (iterator_type other) : _it(other) 
+			{ };//HERE
+		reverse_iterator & operator=(reverse_iterator const & other)
+			{ _it = other._it; return *this; };
 		reverse_iterator(reverse_iterator const & other)
-			{ *this = other; };*/
-	//	~reverse_iterator() {};
+			{ *this = other; };
+		~reverse_iterator() {};
 	
 		/********* ITERATORS *********/
-	/*	reverse_iterator	operator++(int) //i++
-			{ reverse_iterator tmp(*this); operator++(); return tmp; };
+		iterator_type base() const { return _it; };
 		reverse_iterator &	operator++() //++i
-			{ this->_nodePtr++; return *this; }
+			{ this->_it--; return *this; }
+		reverse_iterator	operator++(int) //i++
+			{ reverse_iterator tmp(*this); operator++(); return tmp; };
+		reverse_iterator &	operator--()
+			{ this->_it++; return *this; }
 		reverse_iterator	operator--(int)
 			{ reverse_iterator tmp(*this); operator--(); return tmp; };
-		reverse_iterator &	operator--()
-			{ this->_nodePtr--; return *this; }
 
-		reference operator*() const
-			{ return *this->_nodePtr; };
-		pointer operator->() 
-			{ return *this->_nodePtr; };
-		bool operator!=(reverse_iterator const & other) const
-			{ return this->_nodePtr != other._nodePtr; };
 		bool operator==(reverse_iterator const & other) const
-			{ return this->_nodePtr == other._nodePtr; };
-
-			difference_type operator +(reverse_iterator other)
-			{ return (this->_nodePtr + other._nodePtr); };
+			{ return this->_it == other._it; };
+		bool operator!=(reverse_iterator const & other) const
+			{ return this->_it != other._it; };
+		reference operator*() const
+			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+		pointer operator->() 
+			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+		
+		difference_type operator +(reverse_iterator other)
+			{ return (this->_it + other._it); };
 		difference_type operator -(reverse_iterator other)
-			{ return (this->_nodePtr - other._nodePtr); };
+			{ return (this->_it - other._it); };
 		friend reverse_iterator operator+(reverse_iterator const & other, int n)
-			{ return (other._nodePtr + n); };
+			{ return (other._it + n); };
 		friend reverse_iterator operator+(int n, reverse_iterator const & other)
-			{ return (n + other._nodePtr); };
+			{ return (other._it + n); };
 		friend reverse_iterator operator-(reverse_iterator const & other, int n)
-			{ return (other._nodePtr - n); };
-*/
-		/********* RANDOM ACCESS ITERATORS *********/
-/*		bool operator<(reverse_iterator const & other) const
-			{ return this->_nodePtr < other._nodePtr; };
+			{ return (other._it - n); };
+		friend reverse_iterator operator-(int n, reverse_iterator const & other)
+			{ return (other._it - n); };
+
+		bool operator<(reverse_iterator const & other) const
+			{ return this->_it < other._it; };
 		bool operator<=(reverse_iterator const & other) const
-			{ return this->_nodePtr <= other._nodePtr; };
+			{ return this->_it <= other._it; };
 		bool operator>(reverse_iterator const & other) const
-			{ return this->_nodePtr > other._nodePtr; };
+			{ return this->_it > other._it; };
 		bool operator>=(reverse_iterator const & other) const
-			{ return this->_nodePtr >= other._nodePtr; };
-*/
+			{ return this->_it >= other._it; };
+
+		reverse_iterator	&operator+=(int n)
+			{	int i = 0;
+				while (i < n) {	operator++(); i++; }
+				return *this; };
+		reverse_iterator	&operator-=(int n)
+			{	int i = 0;
+				while (i < n) {	operator--(); i++; }
+				return *this; };
+		
+		reference operator[](int n)	{ return (*(*this + n)); }
+
 		private:
-			pointer	_nodePtr;
+			iterator_type _it;
 	};
 }
 #endif
