@@ -33,7 +33,8 @@ namespace ft
 			typedef typename Allocator::size_type 		size_type;
 
 			typedef ft::random_access_iterator<T>			iterator;
-		//	typedef ft::VectorIterator<T>				const_iterator;
+			typedef ft::const_random_access_iterator<T>		const_iterator;
+			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		//	typedef ft::VectorIterator<T>				reverse_iterator;
 		//	typedef ft::VectorIterator<T>				const_reverse_iterator;
 		
@@ -45,7 +46,9 @@ namespace ft
 
 			/********* ITERATORS *********/
 			iterator 	begin() { return pointer(_headNode); };
+			const_iterator 	begin() const { return pointer(_headNode); };
 			iterator	end() { return pointer(_endNode + 1); };
+			const_iterator	end() const { return pointer(_endNode + 1); };
 			iterator 	rbegin() { return pointer(_endNode + 1); };
 			iterator 	rend() { return pointer(_headNode); };
 
