@@ -32,10 +32,6 @@ namespace ft
 			typedef Category	iterator_category;
 		};
 
-/*	template <class iterator> struct iterator_traits; */
-/*	template <class T> struct iterator_traits<T*>; */
-/*	template <class T> struct iterator_traits<const T*>; */
-
 	template<bool B, class T = void>
 	struct enable_if {};
 
@@ -135,13 +131,6 @@ namespace ft
 
 		/********* RANDOM ACCESS ITERATORS *********/
 		// Supports arithmetic operators + and -
-		/*random_access_iterator operator+(int n) const
-		{
-			random_access_iterator tmp(*this);
-			while (n--)
-				tmp++;
-			return (tmp);
-		};*/
 		difference_type operator +(random_access_iterator other)
 			{ return (this->_nodePtr + other._nodePtr); };
 		difference_type operator -(random_access_iterator other)
@@ -166,17 +155,17 @@ namespace ft
 			{ return this->_nodePtr >= other._nodePtr; };
 
 		// Supports compound assignment operations += and -=
-		random_access_iterator	&operator+=(int n)//HERE
+		random_access_iterator	&operator+=(int n)
 			{	int i = 0;
 				while (i < n) {	operator++(); i++; }
 				return *this; };
-		random_access_iterator	&operator-=(int n)//HERE
+		random_access_iterator	&operator-=(int n)
 			{	int i = 0;
 				while (i < n) {	operator--(); i++; }
 				return *this; };
 
 		// Supports offset dereference operator ([])
-		reference operator[](int n)	{ return (*(*this + n)); }//HERE
+		reference operator[](int n)	{ return (*(*this + n)); }
 
 		private:
 			pointer	_nodePtr;
