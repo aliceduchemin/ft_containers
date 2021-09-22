@@ -47,8 +47,8 @@ namespace ft
 					this->_headNode = this->_allocator.allocate(0);
 					this->_number = 0;
 					this->insert(this->begin(), n, val); };
-			template< class random_access_iterator >
-			vector(random_access_iterator first, random_access_iterator last, const Allocator& alloc = Allocator())
+			template< class input_iterator >
+			vector(input_iterator first, input_iterator last, const Allocator& alloc = Allocator())
 				{ 	this->_endNode = NULL;
 				  	this->_cap = 0;
 					this->_allocator = alloc;
