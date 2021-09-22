@@ -1,4 +1,10 @@
-SRCS		= ./Vector/main.cpp 
+SRCS		= ./Vector/main.cpp \
+			./Vector/tests.cpp \
+			./Vector/menu.cpp
+#./Vector/testVector.cpp
+#./Vector/main.cpp \
+			./Vector/tests.cpp \
+			./Vector/menu.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 

@@ -33,14 +33,28 @@ namespace ft
 			typedef typename Allocator::size_type 		size_type;
 
 			typedef ft::random_access_iterator<T>			iterator;
+		//	typedef ft::input_iterator<T>					input_iterator;
 			typedef ft::const_random_access_iterator<T>		const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		//	typedef ft::VectorIterator<T>				reverse_iterator;
+		//	typedef ft::VectorIterator<T>					reverse_iterator;
 		//	typedef ft::VectorIterator<T>				const_reverse_iterator;
 		
 			/********* COPLIEN *********/
 			vector();
 			vector(vector & other);
+			explicit vector( size_type n, const value_type& val = value_type(), const Allocator& alloc = Allocator() )
+				{	this->_endNode = NULL;
+				 	 this->_cap = 0;
+					this->_headNode = this->_allocator.allocate(0);
+					this->_number = 0;
+					this->insert(this->begin(), n, val); };
+			template< class random_access_iterator >
+			vector( random_access_iterator first, random_access_iterator last, const Allocator& alloc = Allocator() )
+				{ this->_endNode = NULL;
+				  this->_cap = 0;
+				  this->_headNode = this->_allocator.allocate(0);
+				  this->_number = 0;
+				  this->assign(first, last); };//HERE
 			vector &	operator=(vector & other);
 			~vector();
 
@@ -49,8 +63,8 @@ namespace ft
 			const_iterator 	begin() const { return pointer(_headNode); };
 			iterator	end() { return pointer(_endNode + 1); };
 			const_iterator	end() const { return pointer(_endNode + 1); };
-			iterator 	rbegin() { return pointer(_endNode + 1); };
-			iterator 	rend() { return pointer(_headNode); };
+			reverse_iterator 	rbegin() { return pointer(_endNode + 1); };
+			reverse_iterator 	rend() { return pointer(_headNode); };
 
 			/********* CAPACITY *********/
 			int			size() const { return _number; };
@@ -61,8 +75,8 @@ namespace ft
 			void		reserve(size_type n);
 		
 			/********* ELEMENT ACCESS *********/
-			reference	operator[] (size_type n) { return _headNode[n - 1]; };
-			const_reference	operator[] (size_type n) const { return _headNode[n - 1]; };
+			reference	operator[] (size_type n) { return _headNode[n]; };
+			const_reference	operator[] (size_type n) const { return _headNode[n]; };
 			reference	at(size_type n);
 			const_reference	at(size_type n) const;
 			reference	front() { return *_headNode; };
@@ -118,7 +132,7 @@ namespace ft
 		this->_cap = 0;
 		this->_headNode = this->_allocator.allocate(0);
 		this->_number = 0;
-		*this = other;
+		*this = other;//HERE
 	}
 
 	template< typename T, typename Allocator >
@@ -151,21 +165,15 @@ namespace ft
 		}
 		if (n < this->_number)
 		{
-			int i = this->_number;
-			while (i > n)
-			{
+			while (this->_number > n)
 				this->pop_back();
-				i--;
-			}
 		}
+		if (n > this->_number * 2)
+			this->reserve(n);
 		if (n > this->_number)
 		{
-			if (!val)
-				val = 0;
 			while (this->_number < n)
-			{
 				this->push_back(val);
-			}
 		}
 	}
 
@@ -196,7 +204,7 @@ namespace ft
 		{
 			perror("throw exception out of range for at > size");
 		}
-		return this->_headNode[n - 1];
+		return this->_headNode[n];
 	}
 
 	template< typename T, typename Allocator >
@@ -206,7 +214,7 @@ namespace ft
 		{
 			perror("throw exception out of range for at > size");
 		}
-		return this->_headNode[n - 1];
+		return this->_headNode[n];
 	}
 
 	/********* MODIFIERS *********/
@@ -246,7 +254,12 @@ namespace ft
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::push_back(const value_type& val)
 	{
-		if (this->_cap <= this->_number)
+		if (this->_cap == 0)
+		{
+			this->_headNode = this->_allocator.allocate(1);
+			this->_cap = 1;
+		}
+		if (this->_cap == this->_number)
 			this->reserve(this->_number * 2);
 		this->_allocator.construct(&this->_headNode[this->_number], val);
 		this->_endNode = &this->_headNode[this->_number];
@@ -259,7 +272,7 @@ namespace ft
 		this->_number--;
 		this->_endNode = &this->_headNode[this->_number - 1];
 		this->_allocator.destroy(&this->_headNode[this->_number]);
-		this->_headNode[this->_number] = 0;
+		//this->_headNode[this->_number] = 0;
 	}
 
 	template< typename T, typename Allocator >
@@ -269,12 +282,13 @@ namespace ft
 		iterator it;
 		for (it = this->begin(); it != position; it++)
 			dist++;
-
 		pointer tmp;
-		if (this->_cap <= this->_number)
-			tmp = this->_allocator.allocate(this->_cap = this->_number * 2);
-		else
-			tmp = this->_allocator.allocate(this->_number + 1);
+	//	std::cout << "insert 1 cap = " << this->_cap << " number = " << this->_number << std::endl;
+	//	if (this->_cap < this->_number + 1)
+	//		tmp = this->_allocator.allocate(this->_cap = this->_number * 2);
+	//	else
+			tmp = this->_allocator.allocate(this->_cap = this->_number + 1);
+	//	std::cout << "insert 1 cap = " << this->_cap << std::endl;
 
 		size_type j = 0;
 		while (j < dist)
@@ -303,6 +317,8 @@ namespace ft
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::insert(iterator position, size_type n, const value_type& val)
 	{
+//		if (this->_number + n > this->_number * 2)
+//			this->reserve(n);
 		size_type i = 0;
 		iterator ret = position;
 		while (i < n)
@@ -469,6 +485,13 @@ template <class T, class Alloc>
 void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
 {
 	x.swap(y);
+}
+
+template <class T, class Alloc>
+std::ostream & operator<<(std::ostream & o, ft::vector<T, Alloc> const & vector)
+{
+	std::cout << "operator << pas implémenté\n";
+	return o;
 }
 
 #endif

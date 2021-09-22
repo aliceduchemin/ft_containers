@@ -1,5 +1,6 @@
 
 #include "vector.hpp"
+#include "vectorIte.hpp"
 #include <vector>
 #include <iostream>
 
@@ -36,8 +37,15 @@ int	main ()
 	vector2.push_back(1);
 	std::cout << "\npush back(1) :\nempty : std = " << vector1.empty() << " and mine = " << vector2.empty() << "\n";
 	std::cout << "size : std = " << vector1.size() << " and mine = " << vector2.size() << "\n";
-//	std::cout << "capacity : std = " << vector1.capacity() << " and mine = " << vector2.capacity() << "\n";
-//	std::cout << "max_size : std = " << vector1.max_size() << " and mine = " << vector2.max_size();
+	std::cout << "capacity : std = " << vector1.capacity() << " and mine = " << vector2.capacity() << "\n";
+	std::cout << "max_size : std = " << vector1.max_size() << " and mine = " << vector2.max_size();
+	vector1.push_back(1);
+	vector2.push_back(1);
+	std::cout << "\npush back(1) :\nempty : std = " << vector1.empty() << " and mine = " << vector2.empty() << "\n";
+	std::cout << "size : std = " << vector1.size() << " and mine = " << vector2.size() << "\n";
+	std::cout << "capacity : std = " << vector1.capacity() << " and mine = " << vector2.capacity() << "\n";
+	std::cout << "max_size : std = " << vector1.max_size() << " and mine = " << vector2.max_size();
+
 	print_vector(vector1);
 	print_Myvector(vector2);
 	vector1.push_back(2);
@@ -49,10 +57,30 @@ int	main ()
 	vector1.push_back(5);
 	vector2.push_back(5);
 	std::cout << "\n\npush_back 1 to 5 :\nsize : std = " << vector1.size() << " and mine = " << vector2.size() << "\n";
-//	std::cout << "capacity : std = " << vector1.capacity() << " and mine = " << vector2.capacity() << "\n";
-//	std::cout << "max_size : std = " << vector1.max_size() << " and mine = " << vector2.max_size() << "\n";
+	std::cout << "capacity : std = " << vector1.capacity() << " and mine = " << vector2.capacity() << "\n";
+	std::cout << "max_size : std = " << vector1.max_size() << " and mine = " << vector2.max_size() << "\n";
 
-/*	std::cout << "\n\nvectorbis(begin+1, end) :";
+//	ft::vector<std::string> mess(20, "MESS");
+//	std::vector<std::string> theirmess(20, "MESS");
+	ft::vector<int> mess(20, 72);
+	mess.push_back(80);
+	mess.push_back(80);
+	mess.push_back(80);
+	mess.push_back(80);
+	std::vector<int> theirmess(20, 72);
+	theirmess.push_back(80);
+	theirmess.push_back(80);
+	theirmess.push_back(80);
+	theirmess.push_back(80);
+
+	//myVector.reserve(128);
+	std::cout << "my vector size = " << mess.size() << std::endl;
+	std::cout << "my vector capacity = " << mess.capacity() << std::endl;
+	//theirVector.reserve(128);
+	std::cout << "their vector size = " << theirmess.size() << std::endl;
+	std::cout << "their vector capacity = " << theirmess.capacity() << std::endl;
+
+	std::cout << "\n\nvectorbis(begin+1, end) :";
 	std::vector<int>	vector1bis(vector1.begin() + 1, vector1.end());
 	ft::vector<int>		vector2bis(vector2.begin() + 1, vector2.end());
 	print_vector(vector1bis);
@@ -80,7 +108,7 @@ int	main ()
 	vector1.erase(vector1.begin() + 1, vector1.end() - 2);
 	vector2.erase(vector2.begin() + 1, vector2.end() - 2);
 	print_vector(vector1);
-	print_Myvector(vector2);*/
+	print_Myvector(vector2);
 
 /*	std::cout << "\n\nat(2) in vector : std = " << vector1.at(2) << " and mine = " << vector2.at(2);
 

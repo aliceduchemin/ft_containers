@@ -156,18 +156,46 @@ void	ft_vector_2(ft::vector<int> myVector)
 		std::cout << *it2 << " ; ";
 	std::cout << std::endl;
 }
-
+#include "utils_tester.hpp"
 int	main()
 {
 //	testRealvector();
-
+	main_vector();
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom vector" << std::endl;
 	ft::vector<int>		myVector;
 	std::vector<int>	theirVector;
 
+	ft::vector<int>::iterator it00 = myVector.begin();
+	myVector.insert(it00, 6);
+	std::vector<int>::iterator it01 = theirVector.begin();
+	theirVector.insert(it01, 6);
+	std::cout << "my vector size = " << myVector.size() << std::endl;
+	std::cout << "my vector capacity = " << myVector.capacity() << std::endl;
+	std::cout << "their vector size = " << theirVector.size() << std::endl;
+	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
+	
+
+	myVector.resize(5, 1);
+	std::cout << "\nmy vector size = " << myVector.size() << std::endl;
+	std::cout << "my vector capacity = " << myVector.capacity() << std::endl;
+	theirVector.resize(5, 1);
+	std::cout << "their vector size = " << theirVector.size() << std::endl;
+	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
+	
+	ft::vector<std::string> mess(5, "MESS");
+	std::vector<std::string> theirmess(5, "MESS");
+	//myVector.reserve(128);
+	std::cout << "\nmy vector size = " << mess.size() << std::endl;
+	std::cout << "my vector capacity = " << mess.capacity() << std::endl;
+	//theirVector.reserve(128);
+	std::cout << "their vector size = " << theirmess.size() << std::endl;
+	std::cout << "their vector capacity = " << theirmess.capacity() << std::endl;
+
 	myVector.push_back(1);
+	std::cout << "my vector [0] = " << myVector[0] << std::endl;
 	theirVector.push_back(1);
+	std::cout << "their vector [0] = " << theirVector[0] << std::endl;
 	myVector.push_back(2);
 	theirVector.push_back(2);
 	myVector.push_back(3);
@@ -199,6 +227,14 @@ int	main()
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
 
+	std::vector<int>::iterator it0t = theirVector.begin();
+	std::vector<int>::iterator itet = theirVector.end();
+	std::cout << "print their vector : "<<std::endl;
+	itet = theirVector.end();
+	for (it0t = theirVector.begin(); it0t != itet; ++it0t)
+		std::cout << *it0t << " ; ";
+	std::cout << std::endl;
+
 	ft::vector<int>	myVector2(myVector);
 //	ft::vector<int>	myVector2;
 //	myVector2 = myVector;
@@ -220,6 +256,12 @@ int	main()
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
 	ite = myVector.end();
+
+	std::cout << "print their vector after resize : "<<std::endl;
+	itet = theirVector.end();
+	for (it0t = theirVector.begin(); it0t != itet; ++it0t)
+		std::cout << *it0t << " ; ";
+	std::cout << std::endl;
 	
 //	myVector.clear();
 	it0 = myVector.begin() + 2;
@@ -270,6 +312,10 @@ int	main()
 	for (it0 = myVector.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
+	std::cout << "at(0) = " << myVector.at(0) <<std::endl;
+	std::cout << "at(1) = " << myVector.at(1) <<std::endl;
+	std::cout << "at(2) = " << myVector.at(2) <<std::endl;
+
 
 	std::cout << "their vector = " <<std::endl;
 //	theirVector.assign(10, 100);
@@ -286,6 +332,9 @@ int	main()
 	for (itT = theirVector.begin(); itT != itTR2; ++itT)
 		std::cout << *itT << " ; ";
 	std::cout << std::endl;
+	std::cout << "at(0) = " << theirVector.at(0) <<std::endl;
+	std::cout << "at(1) = " << theirVector.at(1) <<std::endl;
+	std::cout << "at(2) = " << theirVector.at(2) <<std::endl;
 
 	it0 = myVector.begin();
 	it0 += 5;
@@ -359,7 +408,6 @@ int	main()
 	std::cout << "size of my vector = " << myVector.size() << std::endl;
 	std::cout << "capacity of my vector = " << myVector.capacity() << std::endl;
 
-
 	itT = theirVector.begin() + 3;
 	theirVector2.clear();
 	theirVector2.assign(10, 42);
@@ -382,6 +430,15 @@ int	main()
 	for (it0 = myVector.begin(); it0 != ite; ++it0)
 		std::cout << *it0 << " ; ";
 	std::cout << std::endl;
+	std::cout << "size of my vector = " << myVector.size() << std::endl;
+	std::cout << "capacity of my vector = " << myVector.capacity() << std::endl;
+	std::cout << "\nmy vector3 = " <<std::endl;
+	ite = myVector3.end();
+	for (it0 = myVector3.begin(); it0 != ite; ++it0)
+		std::cout << *it0 << " ; ";
+	std::cout << std::endl;
+	std::cout << "size of my vector = " << myVector3.size() << std::endl;
+	std::cout << "capacity of my vector = " << myVector3.capacity() << std::endl;
 
 //	theirVector.swap(theirVector2);
 	swap(theirVector, theirVector2);
@@ -390,8 +447,18 @@ int	main()
 	for (itT = theirVector.begin(); itT != itTR; ++itT)
 		std::cout << *itT << " ; ";
 	std::cout << std::endl;
+	std::cout << "size of their vector = " << theirVector.size() << std::endl;
+	std::cout << "capacity of their vector = " << theirVector.capacity() << std::endl;
+	std::cout << "\ntheir vector2 = " <<std::endl;
+	itTR = theirVector2.end();
+	for (itT = theirVector2.begin(); itT != itTR; ++itT)
+		std::cout << *itT << " ; ";
+	std::cout << std::endl;
+	std::cout << "size of their vector = " << theirVector2.size() << std::endl;
+	std::cout << "capacity of their vector = " << theirVector2.capacity() << std::endl;
 
-	bool ret = myVector2 <= myVector;
+
+	bool ret = myVector3 <= myVector;
 	std::cout << "my <= = " << ret << std::endl;
 	ret = theirVector2 <= theirVector;
 	std::cout << "their <= = " << ret << std::endl;
@@ -437,11 +504,21 @@ int	main()
 	rev_deb -= 3;
 	std::cout << "their vector base iterator deb * = " << *(rev_deb.base()) << std::endl;
 
-	//ft::vector<int>::reverse_iterator it_rev = myVector.begin();
-	ft::vector<int>::const_iterator it_rev = myVector.begin();
-	std::cout << "const it = " << *it_rev << std::endl;
-	ret = it_rev != it0;
-	std::cout << "comparaison const_it et it = " << ret << std::endl;
+	rev_deb1 = myVector4.rbegin();
+	rev_end1 = myVector4.rend();
+	std::cout << "my rbegin = " << *rev_deb1 << std::endl;
+	std::cout << "my rend = " << *rev_end1 << std::endl;
+	rev_deb = theirVector3.rbegin();
+	rev_end = theirVector3.rend();
+	std::cout << "their rbegin = " << *rev_deb << std::endl;
+	std::cout << "their rend = " << *rev_end << std::endl;
 
+	ft::vector<std::string> apple(4, "lol");
+	ft::vector<std::string>::iterator ap = apple.begin();
+	ft::vector<std::string>::iterator ape = apple.end();
+	std::cout << "my vector apple:";
+	while (ap != ape)
+		std::cout << ' ' << *ap++;
+	std::cout << std::endl;
 	return 0;
 }

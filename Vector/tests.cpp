@@ -1,8 +1,9 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "Vector/vector.hpp"
-#include "Vector/vectorIte.hpp"
+#include "vector.hpp"
+#include "vectorIte.hpp"
+#include "utils_tester.hpp"
 
 static void clearscreen()
 {
@@ -15,7 +16,7 @@ static void	test_push_std(void)
 
 	std::cout << "## BASIC STD DEMONSTRATION ##" << std::endl;
 
-	std::cout << "Creating ft::vector test." << std::endl;
+	std::cout << "Creating std::vector test." << std::endl;
 
 	std::cout << "Empty() = " << std::boolalpha << test.empty() << std::endl << std::endl;
 
@@ -600,70 +601,6 @@ static void	test_iterator_incrementers_std()
 	std::cout << "*it = " << *it << std::endl << std::endl;
 }
 
-void 	test_iterator_arithmetics_ft()
-{
-	ft::vector<int>				v;
-	ft::vector<int>::iterator	it;
-
-	std::cout << "#### FT PART ####" << std::endl;
-	std::cout << "For a vector : ";
-	v.push_back(5);
-	v.push_back(42);
-	v.push_back(56);
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
-	std::cout << "{";
-	for (size_t i = 0; i < v.size() - 1; i++)
-		std::cout << v[i] << ", ";
-	std::cout << v[v.size() - 1];
-	std::cout << "}" << std::endl;
-
-	it = v.begin();
-	std::cout << "it = v.begin();" << std::endl;
-	std::cout << "*(it + 0) = " << *(it + 0) << std::endl;
-	std::cout << "*(it + 1) = " << *(it + 1) << std::endl;
-	std::cout << "*(it + 5) = " << *(it + 5) << std::endl << std::endl;
-
-	it = v.end() - 1;
-	std::cout << "it = v.end() - 1;" << std::endl;
-	std::cout << "*(it - 0) = " << *(it - 0) << std::endl;
-	std::cout << "*(it - 1) = " << *(it - 1) << std::endl;
-	std::cout << "*(it - 5) = " << *(it - 5) << std::endl << std::endl;
-}
-
-static void	test_iterator_arithmetics_std()
-{
-	std::vector<int>				v;
-	std::vector<int>::iterator	it;
-
-	std::cout << "#### STD PART ####" << std::endl;
-	std::cout << "For a vector : ";
-	v.push_back(5);
-	v.push_back(42);
-	v.push_back(56);
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
-	std::cout << "{";
-	for (size_t i = 0; i < v.size() - 1; i++)
-		std::cout << v[i] << ", ";
-	std::cout << v[v.size() - 1];
-	std::cout << "}" << std::endl;
-
-	it = v.begin();
-	std::cout << "it = v.begin();" << std::endl;
-	std::cout << "*(it + 0) = " << *(it + 0) << std::endl;
-	std::cout << "*(it + 1) = " << *(it + 1) << std::endl;
-	std::cout << "*(it + 5) = " << *(it + 5) << std::endl << std::endl;
-
-	it = v.end() - 1;
-	std::cout << "it = v.end() - 1;" << std::endl;
-	std::cout << "*(it - 0) = " << *(it - 0) << std::endl;
-	std::cout << "*(it - 1) = " << *(it - 1) << std::endl;
-	std::cout << "*(it - 5) = " << *(it - 5) << std::endl << std::endl;
-}
-
 static void	test_iterator_booleans_ft()
 {
 	ft::vector<int>				v;
@@ -906,14 +843,6 @@ static void	test_iterator(void)
 	std::getline(std::cin, input_line);
 	clearscreen();
 
-	std::cout << "## TESTS FOR ARITHMETICS : it + a, it - a ##" << std::endl;
-	test_iterator_arithmetics_ft();
-	test_iterator_arithmetics_std();
-
-	std::cout << std::endl <<"Press enter to the next iterator test" << std::endl;
-	std::getline(std::cin, input_line);
-	clearscreen();
-
 	std::cout << "## TESTS FOR BOOLEANS : <, >, <=, >=, ==, != ##" << std::endl;
 	test_iterator_booleans_ft();
 	test_iterator_booleans_std();
@@ -960,13 +889,6 @@ static void	test_reverse_iterator_std(void)
 	it -= 4;
 	std::cout << "it -= 4" << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
-
-	it = v.rbegin();
-	std::cout << "cout *(it + 0) = " << *(it + 0) << std::endl;
-	std::cout << "cout *(it + 1) = " << *(it + 1) << std::endl;
-	std::cout << "cout *(it + 2) = " << *(it + 2) << std::endl;
-	std::cout << "cout *(it + 3) = " << *(it + 3) << std::endl;
-	std::cout << "cout *(it + 4) = " << *(it + 4) << std::endl << std::endl;
 }
 
 static void	test_reverse_iterator(void)
@@ -1003,12 +925,6 @@ static void	test_reverse_iterator(void)
 	std::cout << "it -= 4" << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
 
-	it = v.rbegin();
-	std::cout << "cout *(it + 0) = " << *(it + 0) << std::endl;
-	std::cout << "cout *(it + 1) = " << *(it + 1) << std::endl;
-	std::cout << "cout *(it + 2) = " << *(it + 2) << std::endl;
-	std::cout << "cout *(it + 3) = " << *(it + 3) << std::endl;
-	std::cout << "cout *(it + 4) = " << *(it + 4) << std::endl << std::endl;
 	test_reverse_iterator_std();
 }
 
@@ -2066,187 +1982,6 @@ static void	test_swap(void)
 	test_swap_std();
 }
 
-static void	test_non_member_ope_std(void)
-{
-	std::cout << "#### STD NON-MEMBER OPERATORS TEST ####" << std::endl;
-	std::cout << "#- EQUAL & NON-EQUAL -#" << std::endl;
-
-	ft::vector<std::string>	v_str1;
-
-	v_str1.push_back("Mulhouse");
-	v_str1.push_back("Niort");
-	v_str1.push_back("Locmaria grand-champ");
-	v_str1.push_back("Vatan");
-	v_str1.push_back("jouy-en-josasse");
-
-	ft::vector<std::string>	v_str2(v_str1);
-
-	ft::vector<std::string>	v_str3;
-
-	v_str3.push_back("Paris");
-	v_str3.push_back("Lyon");
-	v_str3.push_back("Toulouse");
-	v_str3.push_back("Grenoble");
-	v_str3.push_back("Brest");
-
-	std::cout << "For string vector v_str1 : " << v_str1 << std::endl;
-	std::cout << "For string vector v_str2 : " << v_str2 << std::endl;
-	std::cout << "For string vector v_str3 : " << v_str3 << std::endl << std::endl;
-
-	std::cout << "v_str1 == v_str1 : " << std::boolalpha << (v_str1 == v_str1) << std::endl << std::endl;
-
-	std::cout << "v_str1 == v_str2 : " << std::boolalpha << (v_str1 == v_str2) << std::endl;
-	std::cout << "v_str1 != v_str2 : " << std::boolalpha << (v_str1 != v_str2) << std::endl << std::endl;
-
-	std::cout << "v_str1 == v_str3 : " << std::boolalpha << (v_str1 == v_str3) << std::endl;
-	std::cout << "v_str1 != v_str3 : " << std::boolalpha << (v_str1 != v_str3) << std::endl << std::endl;
-
-	std::cout << "#- SUPERIOR & EQUAL-SUPERIOR -#" << std::endl;
-	ft::vector<int>	v_nums1;
-
-	v_nums1.push_back(0);
-	v_nums1.push_back(1);
-	v_nums1.push_back(10);
-	v_nums1.push_back(11);
-	v_nums1.push_back(100);
-	v_nums1.push_back(101);
-	v_nums1.push_back(110);
-	v_nums1.push_back(111);
-
-	ft::vector<int>	v_nums2(v_nums1);
-
-	v_nums2.push_back(1000);
-
-	std::cout << "For int string vector v_nums1 : " << v_nums1 << std::endl;
-	std::cout << "For int string vector v_nums2 : " << v_nums2 << std::endl << std::endl;
-
-	std::cout << "v_nums1 < v_nums1 = " << (v_nums1 < v_nums1) << std::endl;
-	std::cout << "v_nums1 < v_nums2 = " << (v_nums1 < v_nums2) << std::endl;
-	std::cout << "v_nums2 < v_nums1 = " << (v_nums2 < v_nums1) << std::endl;
-	std::cout << "v_nums1 <= v_nums1 = " << (v_nums1 <= v_nums1) << std::endl;
-	std::cout << "v_nums1 <= v_nums2 = " << (v_nums1 <= v_nums2) << std::endl;
-	std::cout << "v_nums2 <= v_nums1 = " << (v_nums2 <= v_nums1) << std::endl << std::endl;
-
-	std::cout << "#- INFERIOR & EQUAL-INFERIOR -#" << std::endl << std::endl;
-
-	std::cout << "v_nums1 > v_nums1 = " << (v_nums1 > v_nums1) << std::endl;
-	std::cout << "v_nums1 > v_nums2 = " << (v_nums1 > v_nums2) << std::endl;
-	std::cout << "v_nums2 > v_nums1 = " << (v_nums2 > v_nums1) << std::endl;
-	std::cout << "v_nums1 >= v_nums1 = " << (v_nums1 >= v_nums1) << std::endl;
-	std::cout << "v_nums1 >= v_nums2 = " << (v_nums1 >= v_nums2) << std::endl;
-	std::cout << "v_nums2 >= v_nums1 = " << (v_nums2 >= v_nums1) << std::endl << std::endl;
-
-}
-
-static void	test_non_member_ope(void)
-{
-	std::cout << "#### FT NON-MEMBER OPERATORS TEST ####" << std::endl;
-	std::cout << "#- EQUAL & NON-EQUAL -#" << std::endl;
-
-	ft::vector<std::string>	v_str1;
-
-	v_str1.push_back("Mulhouse");
-	v_str1.push_back("Niort");
-	v_str1.push_back("Locmaria grand-champ");
-	v_str1.push_back("Vatan");
-	v_str1.push_back("jouy-en-josasse");
-
-	ft::vector<std::string>	v_str2(v_str1);
-
-	ft::vector<std::string>	v_str3;
-
-	v_str3.push_back("Paris");
-	v_str3.push_back("Lyon");
-	v_str3.push_back("Toulouse");
-	v_str3.push_back("Grenoble");
-	v_str3.push_back("Brest");
-
-	std::cout << "For string vector v_str1 : " << v_str1 << std::endl;
-	std::cout << "For string vector v_str2 : " << v_str2 << std::endl;
-	std::cout << "For string vector v_str3 : " << v_str3 << std::endl << std::endl;
-
-	std::cout << "v_str1 == v_str1 : " << std::boolalpha << (v_str1 == v_str1) << std::endl << std::endl;
-
-	std::cout << "v_str1 == v_str2 : " << std::boolalpha << (v_str1 == v_str2) << std::endl;
-	std::cout << "v_str1 != v_str2 : " << std::boolalpha << (v_str1 != v_str2) << std::endl << std::endl;
-
-	std::cout << "v_str1 == v_str3 : " << std::boolalpha << (v_str1 == v_str3) << std::endl;
-	std::cout << "v_str1 != v_str3 : " << std::boolalpha << (v_str1 != v_str3) << std::endl << std::endl;
-
-	std::cout << "#- SUPERIOR & EQUAL-SUPERIOR -#" << std::endl;
-	ft::vector<int>	v_nums1;
-
-	v_nums1.push_back(0);
-	v_nums1.push_back(1);
-	v_nums1.push_back(10);
-	v_nums1.push_back(11);
-	v_nums1.push_back(100);
-	v_nums1.push_back(101);
-	v_nums1.push_back(110);
-	v_nums1.push_back(111);
-
-	ft::vector<int>	v_nums2(v_nums1);
-
-	v_nums2.push_back(1000);
-
-	std::cout << "For int string vector v_nums1 : " << v_nums1 << std::endl;
-	std::cout << "For int string vector v_nums2 : " << v_nums2 << std::endl << std::endl;
-
-	std::cout << "v_nums1 < v_nums1 = " << (v_nums1 < v_nums1) << std::endl;
-	std::cout << "v_nums1 < v_nums2 = " << (v_nums1 < v_nums2) << std::endl;
-	std::cout << "v_nums2 < v_nums1 = " << (v_nums2 < v_nums1) << std::endl;
-	std::cout << "v_nums1 <= v_nums1 = " << (v_nums1 <= v_nums1) << std::endl;
-	std::cout << "v_nums1 <= v_nums2 = " << (v_nums1 <= v_nums2) << std::endl;
-	std::cout << "v_nums2 <= v_nums1 = " << (v_nums2 <= v_nums1) << std::endl << std::endl;
-
-	std::cout << "#- INFERIOR & EQUAL-INFERIOR -#" << std::endl << std::endl;
-
-	std::cout << "v_nums1 > v_nums1 = " << (v_nums1 > v_nums1) << std::endl;
-	std::cout << "v_nums1 > v_nums2 = " << (v_nums1 > v_nums2) << std::endl;
-	std::cout << "v_nums2 > v_nums1 = " << (v_nums2 > v_nums1) << std::endl;
-	std::cout << "v_nums1 >= v_nums1 = " << (v_nums1 >= v_nums1) << std::endl;
-	std::cout << "v_nums1 >= v_nums2 = " << (v_nums1 >= v_nums2) << std::endl;
-	std::cout << "v_nums2 >= v_nums1 = " << (v_nums2 >= v_nums1) << std::endl << std::endl;
-
-	test_non_member_ope_std();
-}
-
-static void	test_non_member_swap_std(void)
-{
-	std::cout << "#### FT NON-MEMBER SWAP ####" << std::endl;
-
-	ft::vector<int> v_nums_a(10, 10);
-	ft::vector<int> v_nums_b(10, 50);
-
-	std::cout << "For int vector v_nums_a : " << v_nums_a << std::endl;
-	std::cout << "For int vector v_nums_b : " << v_nums_b << std::endl << std::endl;
-
-	std::cout << "swap(v_nums_a, v_nums_b);" << std::endl << std::endl;
-	swap(v_nums_a, v_nums_b);
-
-	std::cout << "v_nums_a : " << v_nums_a << std::endl;
-	std::cout << "v_nums_b : " << v_nums_b << std::endl << std::endl;
-}
-
-static void	test_non_member_swap(void)
-{
-	std::cout << "#### FT NON-MEMBER SWAP ####" << std::endl;
-
-	ft::vector<int> v_nums_a(10, 10);
-	ft::vector<int> v_nums_b(10, 50);
-
-	std::cout << "For int vector v_nums_a : " << v_nums_a << std::endl;
-	std::cout << "For int vector v_nums_b : " << v_nums_b << std::endl << std::endl;
-
-	std::cout << "swap(v_nums_a, v_nums_b);" << std::endl << std::endl;
-	swap(v_nums_a, v_nums_b);
-
-	std::cout << "v_nums_a : " << v_nums_a << std::endl;
-	std::cout << "v_nums_b : " << v_nums_b << std::endl << std::endl;
-
-	test_non_member_swap_std();
-}
-
 #include "utils_tester.hpp"
 
 void	main_vector(void)
@@ -2286,12 +2021,6 @@ void	main_vector(void)
 
 	v_test_funs.push_back(test_swap);
 	v_descriptions.push_back("10 : swap");
-
-	v_test_funs.push_back(test_non_member_ope);
-	v_descriptions.push_back("11 : Non-member operators");
-
-	v_test_funs.push_back(test_non_member_swap);
-	v_descriptions.push_back("12 : Non-memver swap");
 
 	menu(v_test_funs, v_descriptions, "VECTOR");
 }

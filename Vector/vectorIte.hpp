@@ -135,6 +135,13 @@ namespace ft
 
 		/********* RANDOM ACCESS ITERATORS *********/
 		// Supports arithmetic operators + and -
+		/*random_access_iterator operator+(int n) const
+		{
+			random_access_iterator tmp(*this);
+			while (n--)
+				tmp++;
+			return (tmp);
+		};*/
 		difference_type operator +(random_access_iterator other)
 			{ return (this->_nodePtr + other._nodePtr); };
 		difference_type operator -(random_access_iterator other)

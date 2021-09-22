@@ -62,6 +62,7 @@ std::ostream	&operator<<(std::ostream &o, std::map<Tkey, Tvalue, Compare> &i)
 		o << *it << std::endl;
 	return (o);
 };*/
+void	main_vector(void);
 
 void	print_header(std::string content);
 void	menu(std::vector<void (*)()> lst_funs, std::vector<std::string> lst_messages, std::string title);
