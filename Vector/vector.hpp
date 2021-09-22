@@ -16,6 +16,8 @@
 #include <memory>
 #include "vectorIte.hpp"
 #include <iostream>
+#include <stdexcept>
+#include <sstream>
 
 namespace ft
 {
@@ -33,36 +35,35 @@ namespace ft
 			typedef typename Allocator::size_type 		size_type;
 
 			typedef ft::random_access_iterator<T>			iterator;
-		//	typedef ft::input_iterator<T>					input_iterator;
 			typedef ft::const_random_access_iterator<T>		const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		//	typedef ft::VectorIterator<T>					reverse_iterator;
-		//	typedef ft::VectorIterator<T>				const_reverse_iterator;
 		
-			/********* COPLIEN *********/
-			vector();
-			vector(vector & other);
-			explicit vector( size_type n, const value_type& val = value_type(), const Allocator& alloc = Allocator() )
+			/********* CONSTRUCTEURS *********/
+			explicit vector(const allocator_type& alloc = allocator_type());
+			explicit vector(size_type n, const value_type& val = value_type(), const Allocator& alloc = Allocator())
 				{	this->_endNode = NULL;
-				 	 this->_cap = 0;
+				 	this->_cap = 0;
+					this->_allocator = alloc;
 					this->_headNode = this->_allocator.allocate(0);
 					this->_number = 0;
 					this->insert(this->begin(), n, val); };
 			template< class random_access_iterator >
-			vector( random_access_iterator first, random_access_iterator last, const Allocator& alloc = Allocator() )
-				{ this->_endNode = NULL;
-				  this->_cap = 0;
-				  this->_headNode = this->_allocator.allocate(0);
-				  this->_number = 0;
-				  this->assign(first, last); };//HERE
-			vector &	operator=(vector & other);
+			vector(random_access_iterator first, random_access_iterator last, const Allocator& alloc = Allocator())
+				{ 	this->_endNode = NULL;
+				  	this->_cap = 0;
+					this->_allocator = alloc;
+				  	this->_headNode = this->_allocator.allocate(0);
+				  	this->_number = 0;
+				  	this->assign(first, last); };
+			vector(vector const & other);
+			vector & operator=(vector const & other);
 			~vector();
 
 			/********* ITERATORS *********/
-			iterator 	begin() { return pointer(_headNode); };
-			const_iterator 	begin() const { return pointer(_headNode); };
-			iterator	end() { return pointer(_endNode + 1); };
-			const_iterator	end() const { return pointer(_endNode + 1); };
+			iterator 			begin() { return pointer(_headNode); };
+			const_iterator	 	begin() const { return pointer(_headNode); };
+			iterator			end() { return pointer(_endNode + 1); };
+			const_iterator		end() const { return pointer(_endNode + 1); };
 			reverse_iterator 	rbegin() { return pointer(_endNode + 1); };
 			reverse_iterator 	rend() { return pointer(_headNode); };
 
@@ -75,12 +76,12 @@ namespace ft
 			void		reserve(size_type n);
 		
 			/********* ELEMENT ACCESS *********/
-			reference	operator[] (size_type n) { return _headNode[n]; };
+			reference		operator[] (size_type n) { return _headNode[n]; };
 			const_reference	operator[] (size_type n) const { return _headNode[n]; };
-			reference	at(size_type n);
+			reference		at(size_type n);
 			const_reference	at(size_type n) const;
-			reference	front() { return *_headNode; };
-			reference	back() { return *_endNode; };
+			reference		front() { return *_headNode; };
+			reference		back() { return *_endNode; };
 
 			/********* MODIFIERS *********/
 			void		assign(iterator first, iterator last);
@@ -107,12 +108,13 @@ namespace ft
 			allocator_type	_allocator;
 	};
 
-	/********* COPLIEN *********/
+	/********* CONSTRUCTEURS *********/
 	template< typename T, typename Allocator >
-	vector<T, Allocator>::vector()
+	vector<T, Allocator>::vector(const allocator_type& alloc)
 	{
 		this->_endNode = NULL;
 		this->_cap = 0;
+		this->_allocator = alloc;
 		this->_headNode = this->_allocator.allocate(0);
 		this->_number = 0;
 	}
@@ -126,20 +128,20 @@ namespace ft
 	}
 
 	template< typename T, typename Allocator >
-	vector<T, Allocator>::vector(vector<T, Allocator> & other)
+	vector<T, Allocator>::vector(vector<T, Allocator> const & other)
 	{
 		this->_endNode = NULL;
 		this->_cap = 0;
 		this->_headNode = this->_allocator.allocate(0);
 		this->_number = 0;
-		*this = other;//HERE
+		*this = other;
 	}
 
 	template< typename T, typename Allocator >
-	vector<T, Allocator> &	vector<T, Allocator>::operator=(vector<T, Allocator> & other)
+	vector<T, Allocator> &	vector<T, Allocator>::operator=(vector<T, Allocator> const & other)
 	{
 		size_type	i;
-		iterator it = other.begin();
+		const_iterator it = other.begin();
 
 		if (this->_number > 0)
 			this->clear();
@@ -158,11 +160,6 @@ namespace ft
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::resize(size_type n, value_type val)
 	{
-		if (n > this->max_size())
-		{
-			perror("resize");
-			exit(EXIT_FAILURE);
-		}
 		if (n < this->_number)
 		{
 			while (this->_number > n)
@@ -202,7 +199,9 @@ namespace ft
 	{
 		if (n >= this->_number)
 		{
-			perror("throw exception out of range for at > size");
+		//	std::string num = static_cast<std::ostringstream*>( &(std::ostringstream() << n))->str();
+		//	std::string msg = "vector::_M_range_check: __n (which is " + num + ") >= this->size() (which is " + this->_number + ")";
+			throw std::out_of_range("vector:: request of an element beyond size()");
 		}
 		return this->_headNode[n];
 	}
@@ -212,7 +211,7 @@ namespace ft
 	{
 		if (n >= this->_number)
 		{
-			perror("throw exception out of range for at > size");
+			throw std::out_of_range("vector:: request of an element beyond size()");
 		}
 		return this->_headNode[n];
 	}
@@ -255,11 +254,8 @@ namespace ft
 	void	vector<T, Allocator>::push_back(const value_type& val)
 	{
 		if (this->_cap == 0)
-		{
-			this->_headNode = this->_allocator.allocate(1);
-			this->_cap = 1;
-		}
-		if (this->_cap == this->_number)
+			this->reserve(1);
+		if (this->_cap <= this->_number)
 			this->reserve(this->_number * 2);
 		this->_allocator.construct(&this->_headNode[this->_number], val);
 		this->_endNode = &this->_headNode[this->_number];
@@ -272,7 +268,6 @@ namespace ft
 		this->_number--;
 		this->_endNode = &this->_headNode[this->_number - 1];
 		this->_allocator.destroy(&this->_headNode[this->_number]);
-		//this->_headNode[this->_number] = 0;
 	}
 
 	template< typename T, typename Allocator >
@@ -282,13 +277,7 @@ namespace ft
 		iterator it;
 		for (it = this->begin(); it != position; it++)
 			dist++;
-		pointer tmp;
-	//	std::cout << "insert 1 cap = " << this->_cap << " number = " << this->_number << std::endl;
-	//	if (this->_cap < this->_number + 1)
-	//		tmp = this->_allocator.allocate(this->_cap = this->_number * 2);
-	//	else
-			tmp = this->_allocator.allocate(this->_cap = this->_number + 1);
-	//	std::cout << "insert 1 cap = " << this->_cap << std::endl;
+		pointer tmp = this->_allocator.allocate(this->_cap = this->_number + 1);
 
 		size_type j = 0;
 		while (j < dist)
@@ -317,8 +306,6 @@ namespace ft
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::insert(iterator position, size_type n, const value_type& val)
 	{
-//		if (this->_number + n > this->_number * 2)
-//			this->reserve(n);
 		size_type i = 0;
 		iterator ret = position;
 		while (i < n)
@@ -345,7 +332,6 @@ namespace ft
 		this->_number--;
 		iterator it = this->begin();
 		size_type i = 0;
-	//	size_type z = position - this->begin() ;
 		while (it != position)
 		{
 			it++;
@@ -485,13 +471,6 @@ template <class T, class Alloc>
 void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
 {
 	x.swap(y);
-}
-
-template <class T, class Alloc>
-std::ostream & operator<<(std::ostream & o, ft::vector<T, Alloc> const & vector)
-{
-	std::cout << "operator << pas implémenté\n";
-	return o;
 }
 
 #endif

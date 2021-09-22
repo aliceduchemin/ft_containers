@@ -16,12 +16,12 @@ CXX			= clang++
 
 RM			= rm -f
 
-CFLAGS		= -Wall -Wextra -Werror -I . -I ./Vector -std=c++98
+FLAGS		= -Wall -Wextra -Werror -g -I . -I ./Vector -std=c++98
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) -o ${NAME} ${OBJS} ${CFLAGS}
+			$(CC) ${FLAGS} ${OBJS} -o ${NAME}
 
 valgrind:	$(NAME)
 			valgrind ./$(NAME)

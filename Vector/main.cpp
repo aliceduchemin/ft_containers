@@ -160,12 +160,17 @@ void	ft_vector_2(ft::vector<int> myVector)
 int	main()
 {
 //	testRealvector();
-	main_vector();
+//	main_vector();
 	std::cout << "\n****************************" << std::endl;
 	std::cout << "custom vector" << std::endl;
 	ft::vector<int>		myVector;
 	std::vector<int>	theirVector;
-
+	myVector.push_back(1);
+	std::cout << "push back 1, my capacity ? " << myVector.capacity() << std::endl;
+//	std::cout << "push back 1, my at(5) " << myVector.at(5) << std::endl;
+	theirVector.push_back(1);
+	std::cout << "push back 1, their capacity ? " << theirVector.capacity() << std::endl;
+//	std::cout << "push back 1, their at(5) " << theirVector.at(5) << std::endl;
 	ft::vector<int>::iterator it00 = myVector.begin();
 	myVector.insert(it00, 6);
 	std::vector<int>::iterator it01 = theirVector.begin();
@@ -175,7 +180,6 @@ int	main()
 	std::cout << "their vector size = " << theirVector.size() << std::endl;
 	std::cout << "their vector capacity = " << theirVector.capacity() << std::endl;
 	
-
 	myVector.resize(5, 1);
 	std::cout << "\nmy vector size = " << myVector.size() << std::endl;
 	std::cout << "my vector capacity = " << myVector.capacity() << std::endl;
@@ -358,8 +362,12 @@ int	main()
 
 	it0 = myVector.begin() + 2;
 	itT = theirVector.begin() + 2;
-	ft::vector<int>		myVector3;
 	std::vector<int>	theirVector2;
+	theirVector2.push_back(1);
+	std::cout << "elem 0 = " << theirVector2[0] << std::endl;
+	ft::vector<int>		myVector3;
+	myVector3.push_back(1);
+	std::cout << "elem 0 = " << myVector3[0] << std::endl;
 
 	myVector3.assign(it0, it0 + 5);
 	theirVector2.assign(itT, itT + 5);
