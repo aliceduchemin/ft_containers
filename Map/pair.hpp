@@ -33,6 +33,8 @@ namespace ft
 			pair & operator=(pair const & other);
 			~pair() {};
 
+			pair	make_pair(T1 x, T2 y) { return ( pair<T1,T2>(x,y) ); };
+
 		private:
 			first_type	first;
 			second_type	second;
@@ -71,11 +73,5 @@ template< class T1, class T2 >
 bool	operator>=(const ft::pair<T1, T2>& lhs,
 					const ft::pair<T1, T2>& rhs)
 {	return !(lhs<rhs);	}
-/*
-template< class T1, class T2 >
-ft::pair<T1,T2> make_pair(T1 x, T2 y)
-{
-	return ( pair<T1,T2>(x,y) );
-}*/
 
 #endif
