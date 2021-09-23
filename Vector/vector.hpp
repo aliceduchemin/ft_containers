@@ -26,8 +26,8 @@ namespace ft
 	class	vector
 	{
 		public:
-			typedef typename Allocator::value_type		value_type;
 			typedef Allocator 							allocator_type;
+			typedef typename Allocator::value_type		value_type;
 			typedef typename Allocator::reference 		reference;
 			typedef typename Allocator::const_reference const_reference;
 			typedef typename Allocator::pointer			pointer;

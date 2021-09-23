@@ -1,6 +1,4 @@
-SRCS		= ./Vector/main.cpp \
-			./Vector/tests.cpp \
-			./Vector/menu.cpp
+SRCS		= ./Map/main.cpp
 #./Vector/testVector.cpp
 #./Vector/main.cpp \
 			./Vector/tests.cpp \
@@ -16,7 +14,7 @@ CXX			= clang++
 
 RM			= rm -f
 
-FLAGS		= -Wall -Wextra -Werror -g -I . -I ./Vector -I ./Stack -std=c++98
+FLAGS		= -Wall -Wextra -Werror -g -I . -I ./Vector -I ./Stack -I ./Map -std=c++98
 
 all:		$(NAME)
 
