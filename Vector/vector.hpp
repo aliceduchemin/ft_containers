@@ -90,9 +90,8 @@ namespace ft
 			const_reference	back() const { return *_endNode; };
 
 			/********* MODIFIERS *********/
-		//	template < class InputIterator >
-			void	assign(iterator first, iterator last);
-		/*	void	assign(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator first, InputIterator last)
+			template < class InputIterator >
+			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
 				{	if (this->_number != 0)
 						this->clear();
 					while (first != last)
@@ -102,15 +101,21 @@ namespace ft
 						this->_allocator.construct(&this->_headNode[this->_number], *first);
 						this->_endNode = &this->_headNode[this->_number];
 						this->_number++;
-						first++;
-					} };*/
+						first++; 
+					} };
 			void		assign(size_type n, const value_type& val);
 			void		push_back(const value_type& val);
 			void		pop_back();
 			iterator	insert(iterator position, const value_type& val);
 			void		insert(iterator position, size_type n, const value_type& val);
-		//	template < class InputIterator >
-			void		insert(iterator position, iterator first, iterator last);
+			template < class InputIterator >
+			void		insert(iterator position, InputIterator first, InputIterator last)
+			{	iterator ret = position;
+				while (first != last)
+				{
+					ret = this->insert(ret, *first);
+					first++;
+				} };
 			iterator	erase(iterator position);
 			iterator	erase(iterator first, iterator last);
 			void		swap(vector& x);
@@ -255,22 +260,6 @@ namespace ft
 	}
 	
 	template< typename T, typename Allocator >
-	void	vector<T, Allocator>::assign(iterator first, iterator last)
-	{
-		if (this->_number != 0)
-			this->clear();
-		while (first != last)
-		{
-			if (this->_cap <= this->_number)
-				this->reserve(this->_number + 1);
-			this->_allocator.construct(&this->_headNode[this->_number], *first);
-			this->_endNode = &this->_headNode[this->_number];
-			this->_number++;
-			first++;
-		}
-	}
-
-	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::push_back(const value_type& val)
 	{
 		if (this->_cap == 0)
@@ -334,7 +323,7 @@ namespace ft
 			i++;
 		}
 	}
-
+/*
 	template< typename T, typename Allocator >
 	void	vector<T, Allocator>::insert(iterator position, iterator first, iterator last)
 	{
@@ -344,7 +333,7 @@ namespace ft
 			ret = this->insert(ret, *first);
 			first++;
 		}
-	}
+	}*/
 
 	template< typename T, typename Allocator >
 	ft::random_access_iterator<T>	vector<T, Allocator>::erase(iterator position)

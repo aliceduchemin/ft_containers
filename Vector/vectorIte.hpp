@@ -38,6 +38,19 @@ namespace ft
 	template<class T>
 	struct enable_if<true, T> { typedef T type; };
 
+	template<typename _Tp, _Tp __v>
+	struct integral_constant
+	{
+		static constexpr _Tp				value = __v;
+		typedef _Tp							value_type;
+		typedef integral_constant<_Tp, __v>	type;
+		constexpr operator value_type() const noexcept { return value; }
+		constexpr value_type operator()() const noexcept { return value; }
+	};
+
+	template<class T>
+	struct is_integral : public integral_constant<bool, __is_integral(T)> {};
+
 	template < class Iterator >
 	struct iterator_traits {
 		typedef typename Iterator::value_type			value_type;
