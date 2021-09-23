@@ -32,15 +32,26 @@ int main()
 	std::cout << "2nd stack top = " << mySecondStack.top() << std::endl;
 
 
-//	bool ret = myStack != mySecondStack;
-//	std::cout << "my <= = " << ret << std::endl;
-/*
-	ret = myStack != mySecondStack;
-	std::cout << "my comparaison = " << ret << std::endl;
+	bool ret = myStack != mySecondStack;
+	std::cout << "!= ? " << ret << std::endl;
+
+	ret = myStack == mySecondStack;
+	std::cout << "== ? " << ret << std::endl;
+	ret = myStack <= mySecondStack;
+	std::cout << "<= ? " << ret << std::endl;
+	ret = myStack > mySecondStack;
+	std::cout << "> ? " << ret << std::endl;
 
 	myStack = mySecondStack;
-	ret = myStack != mySecondStack;
-	std::cout << "my comparaison = " << ret << std::endl;
-*/
+	ret = myStack == mySecondStack;
+	std::cout << "== ? " << ret << std::endl;
+	ret = myStack <= mySecondStack;
+	std::cout << "<= ? " << ret << std::endl;
+	ret = myStack > mySecondStack;
+	std::cout << "> ? " << ret << std::endl;
+
+	ret = myStack < mySecondStack;
+	std::cout << "< ? " << ret << std::endl;
+
 	return 0;
 }

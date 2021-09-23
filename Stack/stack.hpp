@@ -28,10 +28,6 @@ namespace ft
 			typedef typename Container::value_type		value_type;
 			typedef typename Container::size_type 		size_type;
 
-			typedef ft::random_access_iterator<T>			iterator;
-			typedef ft::const_random_access_iterator<T>		const_iterator;
-			typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		
 			/********* CONSTRUCTEURS *********/
 			explicit stack(const container_type& ctnr = container_type()) { _container = ctnr; };
 			stack(stack const & other) { this->_container = other._container; };
@@ -39,72 +35,39 @@ namespace ft
 			~stack() {};
 
 			/********* CAPACITY *********/
-			int			size() const { return this->_container.size(); };
+			size_type	size() const { return this->_container.size(); };
 			bool		empty() { return (this->_container.size() == 0); };
 		
 			/********* ELEMENT ACCESS *********/
-			value_type&		top() { return this->_container.back(); };
-			value_type&		top() const { return this->_container.back(); };
+			value_type&			top() { return this->_container.back(); };
+			const value_type&	top() const { return this->_container.back(); };
 
 			/********* MODIFIERS *********/
 			void		push(const value_type& val) { this->_container.push_back(val); };
 			void		pop() { this->_container.pop_back(); };
 
+			/********* COMPARATORS *********/
+			friend bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+				{ return lhs._container != rhs._container; };
+
+			friend bool	operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+				{ return lhs._container == rhs._container; };
+
+			friend bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+				{ return lhs._container <= rhs._container; };
+
+			friend bool	operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+				{ return lhs._container < rhs._container; };
+
+			friend bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+				{ return lhs._container >= rhs._container; };
+			
+			friend bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+				{ return lhs._container > rhs._container; };
+
 		private:
 			container_type	_container;		
 	};
-}
-
-template< class T, class Container >
-bool	operator==(const ft::stack<T, Container>& lhs,
-					const ft::stack<T, Container>& rhs)
-{
-	return lhs._container != rhs._container;
-}
-
-template< class T, class Container >
-bool	operator!=(const ft::stack<T, Container>& lhs,
-					const ft::stack<T, Container>& rhs)
-{
-	if (!(lhs == rhs))
-		return true;
-	return false;
-}
-
-template< class T, class Container >
-bool	operator<(const ft::stack<T, Container>& lhs,
-					const ft::stack<T, Container>& rhs)
-{
-	if (lhs.size() < rhs.size())
-		return true;
-	return false;
-}
-
-template< class T, class Container >
-bool	operator<=(const ft::stack<T, Container>& lhs,
-					const ft::stack<T, Container>& rhs)
-{
-	if (lhs.size() <= rhs.size())
-		return true;
-	return false;
-}
-
-template< class T, class Container >
-bool	operator>(const ft::stack<T, Container>& lhs,
-					const ft::stack<T, Container>& rhs)
-{
-	if (lhs < rhs)
-		return false;
-	return true;
-}
-
-template< class T, class Container >
-bool	operator>=(const ft::stack<T, Container>& lhs,
-					const ft::stack<T, Container>& rhs)
-{
-	if (lhs <= rhs)
-		return false;
-	return true;
 }
 
 #endif

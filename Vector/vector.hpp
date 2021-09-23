@@ -18,6 +18,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
+#include <limits>
 
 namespace ft
 {
@@ -37,18 +38,19 @@ namespace ft
 			typedef ft::random_access_iterator<T>			iterator;
 			typedef ft::const_random_access_iterator<T>		const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
+			typedef ft::const_reverse_iterator<iterator>	const_reverse_iterator;
 		
 			/********* CONSTRUCTEURS *********/
 			explicit vector(const allocator_type& alloc = allocator_type());
-			explicit vector(size_type n, const value_type& val = value_type(), const Allocator& alloc = Allocator())
+			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 				{	this->_endNode = NULL;
 				 	this->_cap = 0;
 					this->_allocator = alloc;
 					this->_headNode = this->_allocator.allocate(0);
 					this->_number = 0;
 					this->insert(this->begin(), n, val); };
-			template< class input_iterator >
-			vector(input_iterator first, input_iterator last, const Allocator& alloc = Allocator())
+			template< class InputIterator >
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 				{ 	this->_endNode = NULL;
 				  	this->_cap = 0;
 					this->_allocator = alloc;
@@ -60,19 +62,21 @@ namespace ft
 			~vector();
 
 			/********* ITERATORS *********/
-			iterator 			begin() { return pointer(_headNode); };
-			const_iterator	 	begin() const { return pointer(_headNode); };
-			iterator			end() { return pointer(_endNode + 1); };
-			const_iterator		end() const { return pointer(_endNode + 1); };
-			reverse_iterator 	rbegin() { return pointer(_endNode + 1); };
-			reverse_iterator 	rend() { return pointer(_headNode); };
+			iterator 				begin() { return pointer(_headNode); };
+			const_iterator	 		begin() const { return pointer(_headNode); };
+			iterator				end() { return pointer(_endNode + 1); };
+			const_iterator			end() const { return pointer(_endNode + 1); };
+			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
+			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
+			reverse_iterator 		rend() { return pointer(_headNode); };
+			const_reverse_iterator 	rend() const { return pointer(_headNode); };
 
 			/********* CAPACITY *********/
-			int			size() const { return _number; };
+			size_type	size() const { return _number; };
 			size_type	max_size() const { return _allocator.max_size(); };
 			void		resize(size_type n, value_type val = value_type());
 			size_type	capacity() const { return _cap; };
-			bool		empty() { return (_number == 0); };
+			bool		empty() const { return (_number == 0); };
 			void		reserve(size_type n);
 		
 			/********* ELEMENT ACCESS *********/
@@ -81,15 +85,31 @@ namespace ft
 			reference		at(size_type n);
 			const_reference	at(size_type n) const;
 			reference		front() { return *_headNode; };
+			const_reference	front() const { return *_headNode; };
 			reference		back() { return *_endNode; };
+			const_reference	back() const { return *_endNode; };
 
 			/********* MODIFIERS *********/
-			void		assign(iterator first, iterator last);
+		//	template < class InputIterator >
+			void	assign(iterator first, iterator last);
+		/*	void	assign(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator first, InputIterator last)
+				{	if (this->_number != 0)
+						this->clear();
+					while (first != last)
+					{
+						if (this->_cap <= this->_number)
+							this->reserve(this->_number + 1);
+						this->_allocator.construct(&this->_headNode[this->_number], *first);
+						this->_endNode = &this->_headNode[this->_number];
+						this->_number++;
+						first++;
+					} };*/
 			void		assign(size_type n, const value_type& val);
 			void		push_back(const value_type& val);
 			void		pop_back();
 			iterator	insert(iterator position, const value_type& val);
 			void		insert(iterator position, size_type n, const value_type& val);
+		//	template < class InputIterator >
 			void		insert(iterator position, iterator first, iterator last);
 			iterator	erase(iterator position);
 			iterator	erase(iterator first, iterator last);
@@ -426,45 +446,35 @@ template< class T, class Alloc >
 bool	operator!=(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
 {
-	if (!(lhs == rhs))
-		return true;
-	return false;
+	return (!(lhs == rhs)) ? true : false;
 }
 
 template< class T, class Alloc >
 bool	operator<(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs.size() < rhs.size())
-		return true;
-	return false;
+	return (lhs.size() < rhs.size()) ? true : false;
 }
 
 template< class T, class Alloc >
 bool	operator<=(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs.size() <= rhs.size())
-		return true;
-	return false;
+	return (lhs.size() <= rhs.size()) ? true : false;
 }
 
 template< class T, class Alloc >
 bool	operator>(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs < rhs)
-		return false;
-	return true;
+	return (lhs.size() > rhs.size()) ? true : false;
 }
 
 template< class T, class Alloc >
 bool	operator>=(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
 {
-	if (lhs <= rhs)
-		return false;
-	return true;
+	return (lhs.size() >= rhs.size()) ? true : false;
 }
 
 template <class T, class Alloc>

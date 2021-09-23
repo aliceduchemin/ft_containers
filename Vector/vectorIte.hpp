@@ -318,5 +318,85 @@ namespace ft
 		private:
 			iterator_type _it;
 	};
+
+	/*********** CONST REVERSE ITERATOR ***********/
+	template <class Iterator>
+	class const_reverse_iterator : ft::reverse_iterator<Iterator>
+	{
+		public:
+			typedef	Iterator	iterator_type;
+			typedef typename ft::iterator_traits<Iterator>::value_type			value_type;
+			typedef typename ft::iterator_traits<Iterator>::difference_type		difference_type;
+			typedef typename ft::iterator_traits<Iterator>::pointer				pointer;
+			typedef typename ft::iterator_traits<Iterator>::reference			reference;
+			typedef typename ft::iterator_traits<Iterator>::iterator_category	iterator_category;
+		
+		/********* COPLIEN *********/
+		const_reverse_iterator() : _it(0) { };
+		const_reverse_iterator(pointer other) : _it(other) { };
+		explicit const_reverse_iterator (iterator_type other) : _it(other) 
+			{ };//HERE
+		const_reverse_iterator & operator=(const_reverse_iterator const & other)
+			{ _it = other._it; return *this; };
+		const_reverse_iterator(const_reverse_iterator const & other)
+			{ *this = other; };
+		~const_reverse_iterator() {};
+	
+		/********* ITERATORS *********/
+		iterator_type base() const { return _it; };
+		const_reverse_iterator &	operator++() //++i
+			{ this->_it--; return *this; }
+		const_reverse_iterator	operator++(int) //i++
+			{ const_reverse_iterator tmp(*this); operator++(); return tmp; };
+		const_reverse_iterator &	operator--()
+			{ this->_it++; return *this; }
+		const_reverse_iterator	operator--(int)
+			{ const_reverse_iterator tmp(*this); operator--(); return tmp; };
+
+		bool operator==(const_reverse_iterator const & other) const
+			{ return this->_it == other._it; };
+		bool operator!=(const_reverse_iterator const & other) const
+			{ return this->_it != other._it; };
+		reference operator*() const
+			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+		pointer operator->() 
+			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+		
+		difference_type operator +(const_reverse_iterator other)
+			{ return (this->_it + other._it); };
+		difference_type operator -(const_reverse_iterator other)
+			{ return (this->_it - other._it); };
+		friend const_reverse_iterator operator+(const_reverse_iterator const & other, int n)
+			{ return (other._it + n); };
+		friend const_reverse_iterator operator+(int n, const_reverse_iterator const & other)
+			{ return (other._it + n); };
+		friend const_reverse_iterator operator-(const_reverse_iterator const & other, int n)
+			{ return (other._it - n); };
+		friend const_reverse_iterator operator-(int n, const_reverse_iterator const & other)
+			{ return (other._it - n); };
+
+		bool operator<(const_reverse_iterator const & other) const
+			{ return this->_it < other._it; };
+		bool operator<=(const_reverse_iterator const & other) const
+			{ return this->_it <= other._it; };
+		bool operator>(const_reverse_iterator const & other) const
+			{ return this->_it > other._it; };
+		bool operator>=(const_reverse_iterator const & other) const
+			{ return this->_it >= other._it; };
+
+		const_reverse_iterator	&operator+=(int n)
+			{	int i = 0;
+				while (i < n) {	operator++(); i++; }
+				return *this; };
+		const_reverse_iterator	&operator-=(int n)
+			{	int i = 0;
+				while (i < n) {	operator--(); i++; }
+				return *this; };
+		
+		reference operator[](int n)	{ return (*(*this + n)); }
+
+		private:
+			iterator_type _it;
+	};
 }
 #endif
