@@ -31,11 +31,37 @@ namespace ft
 	template <class T1, class T2>
 	class BinarySearchTree
 	{
-		private:
-			tree_node<T1, T2>* _root;
-		
 		public:
+			tree_node<T1,T2>* _root;
+		
 			BinarySearchTree() { _root = NULL; };
+			
+			tree_node<T1,T2> &advance(tree_node<T1,T2> data)
+			{
+			//	if (this->isEmpty() || this->search(data) == false)
+			//		return ;
+				bool found = false;
+				tree_node<T1, T2>* curr = _root;
+				tree_node<T1, T2>* parent;
+				while (curr != NULL)
+				{
+					if (curr->data == data)
+					{
+						found = true;
+						break;
+					}
+					else
+					{
+						parent = curr;
+						if (data > curr->data)
+							curr = curr->right;
+						else
+							curr = curr->left;
+					}
+				}
+				curr = curr->right;
+				return curr;
+			};
 
 			bool	search(ft::pair<T1,T2> data)
 			{

@@ -43,12 +43,12 @@ namespace ft
 			typedef typename Allocator::difference_type 	difference_type;
 			typedef typename Allocator::size_type 			size_type;
 			
-			typedef ft::BinarySearchTree<Key, T>	bstree;
+			typedef ft::BinarySearchTree<Key, T>			bstree;
 
-			typedef ft::random_access_iterator<T>			iterator;
-			typedef ft::const_random_access_iterator<T>		const_iterator;
-			typedef ft::reverse_iterator<iterator>			reverse_iterator;
-			typedef ft::const_reverse_iterator<iterator>	const_reverse_iterator;
+			typedef ft::map_random_access_iterator<Key, T>	iterator;
+		//	typedef ft::const_random_access_iterator<T>		const_iterator;
+		//	typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		//	typedef ft::const_reverse_iterator<iterator>	const_reverse_iterator;
 			class value_compare
 			{
 				friend class map;
@@ -65,27 +65,35 @@ namespace ft
 
 			/********* CONSTRUCTEURS *********/
 			explicit map(const key_compare& comp = key_compare(), 
-						const allocator_type& alloc = allocator_type());
+						const allocator_type& alloc = allocator_type())
+				{	this->_comp = comp;
+					this->_allocator = alloc;
+					this->_tree = new ft::BinarySearchTree<Key, T>();
+				//	this->_pair = ft::pair<Key, T>();
+					this->_number = 0; };
 			template< class InputIterator >
 			map(InputIterator first, InputIterator last, 
 				const key_compare& comp = key_compare(), 
 				const allocator_type& alloc = allocator_type())
-				{	_comp = comp; _allocator = alloc;
-					/*this->assign(first, last);*/ };
-			map(map const & other);
-			map & operator=(map const & other);
-			~map();
+				{	this->_comp = comp;
+					this->_allocator = alloc;
+					this->_tree = ft::BinarySearchTree<Key, T>();
+					this->_number = 0;
+					this->insert(first, last); };
+			map(map const & other) {};
+			map & operator=(map const & other) {};
+			~map() {};
 
 			/********* ITERATORS *********/
 			iterator 				begin() { return pointer(_headNode); };
-			const_iterator	 		begin() const { return pointer(_headNode); };
-			iterator				end() { return pointer(_endNode + 1); };
+		//	const_iterator	 		begin() const { return pointer(_headNode); };
+		/*	iterator				end() { return pointer(_endNode + 1); };
 			const_iterator			end() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
 			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rend() { return pointer(_headNode); };
 			const_reverse_iterator 	rend() const { return pointer(_headNode); };
-
+*/
 			/********* CAPACITY *********/
 			bool		empty() const { return (_number == 0); };
 			size_type	size() const { return _number; };
@@ -93,14 +101,24 @@ namespace ft
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
-			{ /*(*((this->insert(make_pair(k,mapped_type()))).first)).second;*/ };
+				{	value_type pair = ft::make_pair(k,mapped_type());
+					this->_tree->insert(pair);
+					this->_number++;
+					return pair.second; };
+			//	{ (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
 
 			/********* MODIFIERS *********/
-			ft::pair<iterator, bool>	insert(const value_type& val);
+			ft::pair<iterator, bool>	insert(const value_type& val)
+				{	this->_tree->insert(val);
+					iterator it(this->_tree);
+				//	while (*it != val)
+				//		it++;
+					return ft::make_pair(it, true); };
+			
 			iterator 					insert(iterator position, const value_type& val);
 			template < class InputIterator >
 			void						insert(InputIterator first, InputIterator last);
-			/*{	iterator ret = position;
+		/*	{	iterator ret = position;
 				while (first != last)
 				{
 					ret = this->insert(ret, *first);
@@ -118,13 +136,13 @@ namespace ft
 
 			/********* OPERATIONS *********/
 			iterator								find(const key_type& k);
-			const_iterator							find(const key_type& k) const;
+		//	const_iterator							find(const key_type& k) const;
 			size_type								count(const key_type& k) const;
 			iterator								lower_bound(const key_type& k);
-			const_iterator							lower_bound(const key_type& k) const;
+		//	const_iterator							lower_bound(const key_type& k) const;
 			iterator								upper_bound(const key_type& k);
-			const_iterator							upper_bound(const key_type& k) const;
-			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
+		//	const_iterator							upper_bound(const key_type& k) const;
+		//	pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
 			pair<iterator, iterator>				equal_range(const key_type& k);
 
 			/********* ALLOCATOR *********/
@@ -135,49 +153,16 @@ namespace ft
 			pointer			_endNode;
 			pointer			_container;	
 		
-			bstree			_elem;
+			bstree*			_tree;
 			key_compare		_comp;
-			value_type		_pair;
+		//	value_type		_pair;
 			size_type		_number;
 			allocator_type	_allocator;
 	};
 
-	/********* CONSTRUCTEURS *********/
-	template< class Key, class T, class Compare, class Allocator >
-	map<Key, T, Compare, Allocator>::map(const key_compare& comp, const allocator_type& alloc)
-	{
-		this->_comp = comp;
-		this->_allocator = alloc;
-		this->_pair = ft::pair<Key, T>();
-		this->_number = 0;
-	}
-
-	template< class Key, class T, class Compare, class Allocator >
-	map<Key, T, Compare, Allocator>::~map()
-	{
-	}
-
-	template< class Key, class T, class Compare, class Allocator >
-	map<Key, T, Compare, Allocator>::map(map<Key, T, Compare, Allocator> const & other)
-	{
-	}
-
-	template< class Key, class T, class Compare, class Allocator >
-	map<Key, T, Compare, Allocator> &	map<Key, T, Compare, Allocator>::operator=(map<Key, T, Compare, Allocator> const & other)
-	{
-//		return *this;
-	}
-
 	/********* MODIFIERS *********/
-	template< class Key, class T, class Compare, class Allocator >
-	ft::pair<ft::random_access_iterator<T>, bool>	
-		map<Key, T, Compare, Allocator>::insert(const value_type& val)
-	{
-		//this->_pair
-	}
-
-	template< class Key, class T, class Compare, class Allocator >
-	ft::random_access_iterator<T>	map<Key, T, Compare, Allocator>::insert(iterator position, const value_type& val)
+/*	template< class Key, class T, class Compare, class Allocator >
+	ft::random_access_iterator<Key, T>	map<Key, T, Compare, Allocator>::insert(iterator position, const value_type& val)
 	{
 	}
 
@@ -205,7 +190,7 @@ namespace ft
 	{
 	
 	}
-
+*/
 	/********* ALLOCATOR *********/
 	template< class Key, class T, class Compare, class Allocator >
 	Allocator	map<Key, T, Compare, Allocator>::get_allocator() const

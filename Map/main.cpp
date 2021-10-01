@@ -8,8 +8,8 @@
 
 int	main()
 {
+	std::cout << "\n--- STD::MAP ---" <<std::endl;
 	std::map<std::string, int>	theirMap;
-//	ft::map<std::string, int>	myMap;
 	
 	theirMap["jupiter"] = 6;
 	std::cout << "theirMap[earth] = " << theirMap["earth"] << std::endl;
@@ -42,6 +42,7 @@ int	main()
 	else
 		std::cout << "word uranus not found" <<std::endl;
 
+	std::cout << "\n--- LEXICOGRAPHICAL COMPARE ---" <<std::endl;
 	char foo[] = "Apple";
 	char bar[] = "apartment";
 	std::cout << "comparison apple vs apartment" << std::endl;
@@ -50,62 +51,8 @@ int	main()
 	std::cout << "comparison ple vs apartment" << std::endl;
 	std::cout << ft::lexicographical_compare(foo2,foo2+3,bar,bar+9)<<std::endl;
 
-
-	std::cout << "\n---- test bst ----" << std::endl;
-	ft::BinarySearchTree<int, std::string> tr;
-	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
-	ft::pair<int, std::string> a(9, "lol");
-	ft::pair<int, std::string> b(3, "koq");
-	ft::pair<int, std::string> c(7, "cao");
-	ft::pair<int, std::string> d(1, "zut");
-	ft::pair<int, std::string> e(47, "blop");
-	ft::pair<int, std::string> f(3, "bil");
-	ft::pair<int, std::string> g(2, "boul");
-	tr.insert(a);
-	tr.insert(b);
-	tr.insert(c);
-	tr.insert(d);
-	tr.insert(e);
-	tr.insert(f);
-	tr.insert(g);
-	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
-	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
-	std::cout << "pair c is in tree ? " << tr.search(c) << std::endl;
-	std::cout << "print tree in order : " << std::endl;
-	tr.print_inorder();
-	std::cout << std::endl;
-	ft::pair<int, std::string> h(38, "bob");
-	tr.remove(h);
-	tr.print_inorder();
-	std::cout << std::endl;
-	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
-	tr.remove(c);
-	tr.remove(d);
-	tr.print_inorder();
-	std::cout << std::endl;
-	tr.insert(a);
-	ft::pair<int, std::string> i(18, "mark");
-	tr.insert(i);
-	tr.insert(c);
-	ft::pair<int, std::string> j(75, "paris");
-	tr.insert(j);
-	ft::pair<int, std::string> k(59, "cotentin");
-	tr.insert(k);
-	tr.insert(d);
-	ft::pair<int, std::string> l(4, "sudoku");
-	tr.insert(l);
-	ft::pair<int, std::string> m(11, "zak");
-	tr.insert(m);
-	tr.print_inorder();
-	std::cout << std::endl;
-	tr.remove(j);
-	tr.remove(a);
-	tr.remove(c);
-	tr.remove(g);
-	tr.print_inorder();
-	std::cout << std::endl;
-
-	/*std::pair <std::string, int> product1;
+	std::cout << "\n--- PAIR ---" <<std::endl;
+	std::pair <std::string, int> product1;
 	ft::pair <std::string, int> product1bis;
 	std::pair <std::string, int> product2 ("tomatoes", 2);
 	ft::pair <std::string, int> product2bis ("tomatoes", 2);
@@ -139,7 +86,102 @@ int	main()
 	ret = product1 != product2;
 	ret2 = product1bis != product2bis;
 	std::cout << "product1 != product2 ? " << ret << " " << ret2 << std::endl;
-	*/
+	
+
+	std::cout << "\n--- BST ---" <<std::endl;
+	ft::BinarySearchTree<std::string, int> tr;
+	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
+	ft::pair<std::string, int> a("lol", 9);
+	ft::pair<std::string, int> b("koq", 3);
+	ft::pair<std::string, int> c("cao", 7);
+	ft::pair<std::string, int> d("zut", 1);
+	ft::pair<std::string, int> e("blop", 47);
+	ft::pair<std::string, int> f("bil", 3);
+	ft::pair<std::string, int> g("boul", 2);
+	tr.insert(a);
+	tr.insert(b);
+	tr.insert(c);
+	tr.insert(d);
+	tr.insert(e);
+	tr.insert(f);
+	tr.insert(g);
+	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
+	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
+	std::cout << "pair c is in tree ? " << tr.search(c) << std::endl;
+	std::cout << "print tree in order : " << std::endl;
+	tr.print_inorder();
+	std::cout << std::endl;
+	ft::pair<std::string, int> h("bob", 38);
+	tr.remove(h);
+	tr.print_inorder();
+	std::cout << std::endl;
+	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
+	tr.remove(c);
+	tr.remove(d);
+	tr.print_inorder();
+	std::cout << std::endl;
+	tr.insert(a);
+	ft::pair<std::string, int> i("mark", 18);
+	tr.insert(i);
+	tr.insert(c);
+	ft::pair<std::string, int> j("paris", 75);
+	tr.insert(j);
+	ft::pair<std::string, int> k("cotentin", 59);
+	tr.insert(k);
+	tr.insert(d);
+	ft::pair<std::string, int> l("sudoku", 4);
+	tr.insert(l);
+	ft::pair<std::string, int> m("zak", 11);
+	tr.insert(m);
+	tr.print_inorder();
+	std::cout << std::endl;
+	tr.remove(j);
+	tr.remove(a);
+	tr.remove(c);
+	tr.remove(g);
+	tr.print_inorder();
+	std::cout << std::endl;
+
+	std::cout << "\n--- FT::MAP ---" <<std::endl;
+	ft::map<std::string, int>	myMap;
+	
+	int lol = myMap["jupiter"] = 6;
+	std::cout << "retour [] : " << lol <<std::endl;
+//	std::cout << "myMap[earth] = " << myMap["earth"] << std::endl;
+	std::cout << "myMap size = " << myMap.size() << std::endl;
+//	ft::map<std::string, int>::iterator it2;
+	ft::pair<ft::map<std::string, int>::iterator, bool> ret4 = myMap.insert(ft::make_pair("sun", 9));
+	ft::map<std::string, int>::iterator it6 = ret4.first;
+	std::cout << "retour insert, key " << it6.getNodePtr()->_root->data.first << std::endl;
+//	std::cout << "return insert = " << *(ret4.first) << " " << ret4.second << std::endl;
+/*
+	std::map<std::string, int>::iterator it = myMap.begin();
+	while (it != myMap.end())
+	{
+		std::cout << it->first << " :: " << it->second << std::endl;
+		it++;
+	}	
+	myMap.insert(std::make_pair("moon", 7));
+	myMap["earth"] = 2;
+	myMap["sun"] = 4;
+	std::cout << std::endl;
+	it = myMap.begin();
+	while (it != myMap.end())
+	{
+		std::cout << it->first << " :: " << it->second << std::endl;
+		it++;
+	}	
+	std::cout << "myMap size = " << myMap.size() << std::endl;
+	if (myMap.find("sun") != myMap.end())
+		std::cout << "word sun found" <<std::endl;
+	else
+		std::cout << "word sun not found" <<std::endl;
+	if (myMap.find("uranus") != myMap.end())
+		std::cout << "word uranus found" <<std::endl;
+	else
+		std::cout << "word uranus not found" <<std::endl;
+
+*/
 	
 	return 0;
 }

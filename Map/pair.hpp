@@ -25,16 +25,16 @@ namespace ft
 			typedef T2		second_type;
 		
 			/********* CONSTRUCTEURS *********/
-			pair() {};
+			pair(): first(), second() {};
 			template<class U, class V>
-			pair(const pair<U,V>& pr)
-				{ this->first = pr.first; this->second = pr.second; };
+			pair(const pair<U,V>& pr)  : first(pr.first), second(pr.second)	{};
+//				{ first = pr.first; second = pr.second; };
 			pair(const first_type& a, const second_type& b)
 				{ this->first = a; this->second = b; };
 		//	pair(pair const & other);
 		//		{ this->first = other.first; this->second = other.second; };
-			pair & operator=(pair const & other)
-				{ this->first = other.first; this->second = other.second; return *this; };
+		//	pair & operator=(pair const & other)
+		//		{ *this(other); return *this; };
 			~pair() {};
 
 			first_type	first;
