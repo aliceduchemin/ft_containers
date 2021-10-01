@@ -90,5 +90,21 @@ int	main()
 	tr.remove(2);
 	tr.print_inorder();
 	std::cout << std::endl;
+
+	std::pair <std::string, int> product1;
+	ft::pair <std::string, int> product1bis;
+	ft::pair <std::string, int> product2 ("tomatoes", 2);
+	ft::pair <std::string, int> product3 (product2);
+	std::pair <std::string, int> product4;
+
+	product1bis = ft::make_pair(std::string("lightbulbs"), 1);
+	product4.first = "shoes";
+	product4.second = 39;
+
+	std::cout << "The price of " << product1.first << " is €" << product1.second << std::endl;
+	std::cout << "The price of " << product1bis.first << " is €" << product1bis.second << std::endl;
+	std::cout << "The price of " << product2.first << " is €" << product2.second << std::endl;
+	std::cout << "The price of " << product3.first << " is €" << product3.second << std::endl;
+	std::cout << "The price of " << product4.first << " is €" << product4.second << std::endl;
 	return 0;
 }
