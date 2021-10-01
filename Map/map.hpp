@@ -42,12 +42,13 @@ namespace ft
 			typedef typename Allocator::const_pointer		const_pointer;
 			typedef typename Allocator::difference_type 	difference_type;
 			typedef typename Allocator::size_type 			size_type;
+			
+			typedef ft::BinarySearchTree<Key, T>	bstree;
 
 			typedef ft::random_access_iterator<T>			iterator;
 			typedef ft::const_random_access_iterator<T>		const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef ft::const_reverse_iterator<iterator>	const_reverse_iterator;
-		
 			class value_compare
 			{
 				friend class map;
@@ -134,8 +135,9 @@ namespace ft
 			pointer			_endNode;
 			pointer			_container;	
 		
+			bstree			_elem;
 			key_compare		_comp;
-			pointer			_pair;
+			value_type		_pair;
 			size_type		_number;
 			allocator_type	_allocator;
 	};
@@ -144,8 +146,10 @@ namespace ft
 	template< class Key, class T, class Compare, class Allocator >
 	map<Key, T, Compare, Allocator>::map(const key_compare& comp, const allocator_type& alloc)
 	{
-		_comp = comp;
-		_allocator = alloc;
+		this->_comp = comp;
+		this->_allocator = alloc;
+		this->_pair = ft::pair<Key, T>();
+		this->_number = 0;
 	}
 
 	template< class Key, class T, class Compare, class Allocator >

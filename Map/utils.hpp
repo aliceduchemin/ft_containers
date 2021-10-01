@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include "pair.hpp"
 
 namespace ft
 {
@@ -19,26 +20,26 @@ namespace ft
 		return (first2!=last2);
 	};
 
-	template <class T>
+	template <class T1, class T2>
 	struct tree_node
 	{
-		tree_node<T>* left;
-		tree_node<T>* right;
-		T data;
+		tree_node<T1,T2>* left;
+		tree_node<T1,T2>* right;
+		ft::pair<T1,T2>	data;
 	};
 
-	template <class T>
+	template <class T1, class T2>
 	class BinarySearchTree
 	{
 		private:
-			tree_node<T>* _root;
+			tree_node<T1, T2>* _root;
 		
 		public:
-			BinarySearchTree() { _root = NULL; }
+			BinarySearchTree() { _root = NULL; };
 
-			bool	search(T data)
+			bool	search(ft::pair<T1,T2> data)
 			{
-				tree_node<T>* temp = _root;
+				tree_node<T1, T2>* temp = _root;
 				while (temp != NULL)
 				{
 					if (temp->data == data)
@@ -56,27 +57,22 @@ namespace ft
 
 			bool	isEmpty() const { return _root==NULL; }
 			void	print_inorder() { inorder(_root); };
-			void	inorder(tree_node<T>* t)
+			void	inorder(tree_node<T1, T2>* t)
 			{
 				if (t != NULL)
 				{
 					if (t->left)
 						inorder(t->left);
-					std::cout << " " << t->data << " ";
+					std::cout << "key: " << t->data.first << " value: " << t->data.second << " --- ";
 					if (t->right)
 						inorder(t->right);
 				}
 			}
 
-			void	print_preorder();
-			void	preorder(tree_node<T>*);
-			void	print_postorder();
-			void	postorder(tree_node<T>*);
-
-			void	insert(T data)
+			void	insert(ft::pair<T1,T2> data)
 			{
-				tree_node<T>* temp = new tree_node<T>;
-				tree_node<T>* parent;
+				tree_node<T1, T2>* temp = new tree_node<T1, T2>;
+				tree_node<T1, T2>* parent;
 				temp->data = data;
 				temp->left = NULL;
 				temp->right = NULL;
@@ -86,7 +82,7 @@ namespace ft
 					_root = temp;
 				else
 				{
-					tree_node<T>* curr;
+					tree_node<T1, T2>* curr;
 					curr = _root;
 					while (curr)
 					{
@@ -105,13 +101,13 @@ namespace ft
 				}
 			}
 
-			void remove(T data)
+			void remove(ft::pair<T1,T2> data)
 			{
 				if (this->isEmpty() || this->search(data) == false)
 					return ;
 				bool found = false;
-				tree_node<T>* curr = _root;
-				tree_node<T>* parent;
+				tree_node<T1, T2>* curr = _root;
+				tree_node<T1, T2>* parent;
 				while (curr != NULL)
 				{
 					if (curr->data == data)
@@ -157,7 +153,7 @@ namespace ft
 				}
 				else if (curr->left != NULL && curr->right != NULL)
 				{
-					tree_node<T>* chkr;
+					tree_node<T1, T2>* chkr;
 					chkr = curr->right;
 					if ((chkr->left == NULL) && (chkr->right = NULL))
 					{
@@ -169,8 +165,8 @@ namespace ft
 					{
 						if ((curr->right)->left != NULL)
 						{
-							tree_node<T>* lcurr;
-							tree_node<T>* lcurrp;
+							tree_node<T1, T2>* lcurr;
+							tree_node<T1, T2>* lcurrp;
 							lcurrp = curr->right;
 							lcurr = (curr->right)->left;
 							while (lcurr->left != NULL)
@@ -184,7 +180,7 @@ namespace ft
 						}
 						else
 						{
-							tree_node<T>* tmp;
+							tree_node<T1, T2>* tmp;
 							tmp = curr->right;
 							curr->data = tmp->data;
 							curr->right = tmp->right;

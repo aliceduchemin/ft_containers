@@ -8,35 +8,36 @@
 
 int	main()
 {
-	std::map<std::string, int>	myMap;
+	std::map<std::string, int>	theirMap;
+//	ft::map<std::string, int>	myMap;
 	
-	myMap["jupiter"] = 6;
-	std::cout << "myMap[earth] = " << myMap["earth"] << std::endl;
-	std::cout << "myMap size = " << myMap.size() << std::endl;
+	theirMap["jupiter"] = 6;
+	std::cout << "theirMap[earth] = " << theirMap["earth"] << std::endl;
+	std::cout << "theirMap size = " << theirMap.size() << std::endl;
 
-	std::map<std::string, int>::iterator it = myMap.begin();
-	while (it != myMap.end())
+	std::map<std::string, int>::iterator it = theirMap.begin();
+	while (it != theirMap.end())
 	{
 		std::cout << it->first << " :: " << it->second << std::endl;
 		it++;
 	}	
-	myMap.insert(std::make_pair("sun", 9));
-	myMap.insert(std::make_pair("moon", 7));
-	myMap["earth"] = 2;
-	myMap["sun"] = 4;
+	theirMap.insert(std::make_pair("sun", 9));
+	theirMap.insert(std::make_pair("moon", 7));
+	theirMap["earth"] = 2;
+	theirMap["sun"] = 4;
 	std::cout << std::endl;
-	it = myMap.begin();
-	while (it != myMap.end())
+	it = theirMap.begin();
+	while (it != theirMap.end())
 	{
 		std::cout << it->first << " :: " << it->second << std::endl;
 		it++;
 	}	
-	std::cout << "myMap size = " << myMap.size() << std::endl;
-	if (myMap.find("sun") != myMap.end())
+	std::cout << "theirMap size = " << theirMap.size() << std::endl;
+	if (theirMap.find("sun") != theirMap.end())
 		std::cout << "word sun found" <<std::endl;
 	else
 		std::cout << "word sun not found" <<std::endl;
-	if (myMap.find("uranus") != myMap.end())
+	if (theirMap.find("uranus") != theirMap.end())
 		std::cout << "word uranus found" <<std::endl;
 	else
 		std::cout << "word uranus not found" <<std::endl;
@@ -50,52 +51,66 @@ int	main()
 	std::cout << ft::lexicographical_compare(foo2,foo2+3,bar,bar+9)<<std::endl;
 
 
-	std::cout << "test bst" << std::endl;
-	ft::BinarySearchTree<int> tr;
+	std::cout << "\n---- test bst ----" << std::endl;
+	ft::BinarySearchTree<int, std::string> tr;
 	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
-	tr.insert(9);
-	tr.insert(3);
-	tr.insert(7);
-	tr.insert(1);
-	tr.insert(47);
-	tr.insert(3);
-	tr.insert(2);
+	ft::pair<int, std::string> a(9, "lol");
+	ft::pair<int, std::string> b(3, "koq");
+	ft::pair<int, std::string> c(7, "cao");
+	ft::pair<int, std::string> d(1, "zut");
+	ft::pair<int, std::string> e(47, "blop");
+	ft::pair<int, std::string> f(3, "bil");
+	ft::pair<int, std::string> g(2, "boul");
+	tr.insert(a);
+	tr.insert(b);
+	tr.insert(c);
+	tr.insert(d);
+	tr.insert(e);
+	tr.insert(f);
+	tr.insert(g);
 	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
-	std::cout << "value 9 is in tree ? " << tr.search(9) << std::endl;
-	std::cout << "value 7 is in tree ? " << tr.search(7) << std::endl;
+	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
+	std::cout << "pair c is in tree ? " << tr.search(c) << std::endl;
 	std::cout << "print tree in order : " << std::endl;
 	tr.print_inorder();
 	std::cout << std::endl;
-	tr.remove(38);
+	ft::pair<int, std::string> h(38, "bob");
+	tr.remove(h);
 	tr.print_inorder();
 	std::cout << std::endl;
-	std::cout << "value 9 is in tree ? " << tr.search(9) << std::endl;
-	tr.remove(7);
-	tr.remove(1);
+	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
+	tr.remove(c);
+	tr.remove(d);
 	tr.print_inorder();
 	std::cout << std::endl;
-	tr.insert(9);
-	tr.insert(18);
-	tr.insert(7);
-	tr.insert(75);
-	tr.insert(59);
-	tr.insert(1);
-	tr.insert(4);
-	tr.insert(11);
+	tr.insert(a);
+	ft::pair<int, std::string> i(18, "mark");
+	tr.insert(i);
+	tr.insert(c);
+	ft::pair<int, std::string> j(75, "paris");
+	tr.insert(j);
+	ft::pair<int, std::string> k(59, "cotentin");
+	tr.insert(k);
+	tr.insert(d);
+	ft::pair<int, std::string> l(4, "sudoku");
+	tr.insert(l);
+	ft::pair<int, std::string> m(11, "zak");
+	tr.insert(m);
 	tr.print_inorder();
 	std::cout << std::endl;
-	tr.remove(75);
-	tr.remove(9);
-	tr.remove(7);
-	tr.remove(2);
+	tr.remove(j);
+	tr.remove(a);
+	tr.remove(c);
+	tr.remove(g);
 	tr.print_inorder();
 	std::cout << std::endl;
 
-	std::pair <std::string, int> product1;
+	/*std::pair <std::string, int> product1;
 	ft::pair <std::string, int> product1bis;
-	ft::pair <std::string, int> product2 ("tomatoes", 2);
-	ft::pair <std::string, int> product3 (product2);
-	std::pair <std::string, int> product4;
+	std::pair <std::string, int> product2 ("tomatoes", 2);
+	ft::pair <std::string, int> product2bis ("tomatoes", 2);
+	ft::pair <std::string, int> product3 (product2bis);
+	ft::pair <std::string, int> product4;
 
 	product1bis = ft::make_pair(std::string("lightbulbs"), 1);
 	product4.first = "shoes";
@@ -106,5 +121,25 @@ int	main()
 	std::cout << "The price of " << product2.first << " is €" << product2.second << std::endl;
 	std::cout << "The price of " << product3.first << " is €" << product3.second << std::endl;
 	std::cout << "The price of " << product4.first << " is €" << product4.second << std::endl;
+	bool ret = product1 < product2;
+	bool ret2 = product1bis < product2bis;
+	std::cout << "product1 < product2 ? " << ret << " " << ret2 << std::endl;
+	ret = product1 > product2;
+	ret2 = product1bis > product2bis;
+	std::cout << "product1 > product2 ? " << ret << " " << ret2 << std::endl;
+	ret = product1 <= product2;
+	ret2 = product1bis <= product2bis;
+	std::cout << "product1 <= product2 ? " << ret << " " << ret2 << std::endl;
+	ret = product1 >= product2;
+	ret2 = product1bis >= product2bis;
+	std::cout << "product1 >= product2 ? " << ret << " " << ret2 << std::endl;
+	ret = product1 == product2;
+	ret2 = product1bis == product2bis;
+	std::cout << "product1 == product2 ? " << ret << " " << ret2 << std::endl;
+	ret = product1 != product2;
+	ret2 = product1bis != product2bis;
+	std::cout << "product1 != product2 ? " << ret << " " << ret2 << std::endl;
+	*/
+	
 	return 0;
 }
