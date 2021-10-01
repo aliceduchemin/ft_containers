@@ -90,14 +90,14 @@ namespace ft
 		public:
 			typedef ft::pair<Key, T>				value_type;
 			typedef ft::pair<Key, T>&				reference;
-		//	typedef ft::tree_node<Key, T>*			pointer;
-			typedef ft::BinarySearchTree<Key, T>*	pointer;
+			typedef ft::tree_node<Key, T>*			pointer;
+			typedef ft::BinarySearchTree<Key, T>*	bstree;
 			typedef ptrdiff_t						difference_type;
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
-		map_random_access_iterator() : _nodePtr(0) { };
-		map_random_access_iterator(pointer nodePtr) : _nodePtr(nodePtr) { };
+		map_random_access_iterator() : _nodePtr(0), _rootTree(0) { };
+		map_random_access_iterator(bstree root) : _rootTree(root) { };
 		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
 			{ _nodePtr = other._nodePtr; return *this; };
 		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
@@ -117,11 +117,13 @@ namespace ft
 			{ return this->_nodePtr == other._nodePtr; };
 		bool operator!=(map_random_access_iterator const & other) const
 			{ return this->_nodePtr != other._nodePtr; };
+		bool operator!=(value_type const & other) const
+			{ return this->_nodePtr->data != other; };
 		// Can be dereferenced as an rvalue
 		reference operator*() const
-			{ return *this->_nodePtr; };
+			{ return this->_nodePtr->data; };
 		pointer operator->() const
-			{ return *this->_nodePtr; };
+			{ return *this->_nodePtr->data; };
 		pointer getNodePtr() const//HERE
 			{ return this->_nodePtr; };
 
@@ -180,8 +182,9 @@ namespace ft
 		// Supports offset dereference operator ([])
 		reference operator[](int n)	{ return (*(*this + n)); }
 
-		private:
+		//private:
 			pointer	_nodePtr;
+			bstree	_rootTree;
 	};
 
 	/*********** CONST ITERATOR ***********/

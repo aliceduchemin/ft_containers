@@ -32,20 +32,21 @@ namespace ft
 	class BinarySearchTree
 	{
 		public:
-			tree_node<T1,T2>* _root;
+			tree_node<T1,T2>*	_root;
+			size_t				_number;
 		
-			BinarySearchTree() { _root = NULL; };
+			BinarySearchTree() { _root = NULL; _number = 0; };
 			
-			tree_node<T1,T2> &advance(tree_node<T1,T2> data)
+			tree_node<T1,T2>*	advance(ft::pair<T1,T2>	data)
 			{
-			//	if (this->isEmpty() || this->search(data) == false)
+			//	if (this->isEmpty() || this->search(node) == false)
 			//		return ;
 				bool found = false;
 				tree_node<T1, T2>* curr = _root;
 				tree_node<T1, T2>* parent;
 				while (curr != NULL)
 				{
-					if (curr->data == data)
+					if (curr->data.first == data.first)
 					{
 						found = true;
 						break;
@@ -53,14 +54,32 @@ namespace ft
 					else
 					{
 						parent = curr;
-						if (data > curr->data)
+						if (data.first > curr->data.first)
 							curr = curr->right;
 						else
 							curr = curr->left;
 					}
 				}
-				curr = curr->right;
+			//	curr = curr->right;
 				return curr;
+			};
+
+			tree_node<T1,T2>*	nextNode(ft::pair<T1,T2> data)
+			{
+				tree_node<T1, T2>* temp = _root;
+				while (temp != NULL)
+				{
+					if (temp->data == data)
+						return true;
+					else
+					{
+						if (data > temp->data)
+							temp = temp->right;
+						else
+							temp = temp->left;
+					}
+				}
+				return temp;
 			};
 
 			bool	search(ft::pair<T1,T2> data)
@@ -125,6 +144,7 @@ namespace ft
 					else if (temp->data > parent->data)
 						parent->right = temp;
 				}
+				this->_number++;
 			}
 
 			void remove(ft::pair<T1,T2> data)

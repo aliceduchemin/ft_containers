@@ -147,13 +147,13 @@ int	main()
 	
 	int lol = myMap["jupiter"] = 6;
 	std::cout << "retour [] : " << lol <<std::endl;
-//	std::cout << "myMap[earth] = " << myMap["earth"] << std::endl;
+	
+	ft::pair<ft::map<std::string, int>::iterator, bool> ret4;
+	ret4 = myMap.insert(ft::make_pair("sun", 9));
+	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
+	ret4 = myMap.insert(ft::make_pair("earth", 3));
+	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	std::cout << "myMap size = " << myMap.size() << std::endl;
-//	ft::map<std::string, int>::iterator it2;
-	ft::pair<ft::map<std::string, int>::iterator, bool> ret4 = myMap.insert(ft::make_pair("sun", 9));
-	ft::map<std::string, int>::iterator it6 = ret4.first;
-	std::cout << "retour insert, key " << it6.getNodePtr()->_root->data.first << std::endl;
-//	std::cout << "return insert = " << *(ret4.first) << " " << ret4.second << std::endl;
 /*
 	std::map<std::string, int>::iterator it = myMap.begin();
 	while (it != myMap.end())

@@ -70,7 +70,7 @@ namespace ft
 					this->_allocator = alloc;
 					this->_tree = new ft::BinarySearchTree<Key, T>();
 				//	this->_pair = ft::pair<Key, T>();
-					this->_number = 0; };
+					 };
 			template< class InputIterator >
 			map(InputIterator first, InputIterator last, 
 				const key_compare& comp = key_compare(), 
@@ -78,7 +78,6 @@ namespace ft
 				{	this->_comp = comp;
 					this->_allocator = alloc;
 					this->_tree = ft::BinarySearchTree<Key, T>();
-					this->_number = 0;
 					this->insert(first, last); };
 			map(map const & other) {};
 			map & operator=(map const & other) {};
@@ -95,24 +94,25 @@ namespace ft
 			const_reverse_iterator 	rend() const { return pointer(_headNode); };
 */
 			/********* CAPACITY *********/
-			bool		empty() const { return (_number == 0); };
-			size_type	size() const { return _number; };
+			bool		empty() const { return (this->size() == 0); };
+			size_type	size() const { return _tree->_number; };
 			size_type	max_size() const { return _allocator.max_size(); };
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
 				{	value_type pair = ft::make_pair(k,mapped_type());
 					this->_tree->insert(pair);
-					this->_number++;
 					return pair.second; };
 			//	{ (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
 
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
 				{	this->_tree->insert(val);
-					iterator it(this->_tree);
-				//	while (*it != val)
-				//		it++;
+					iterator it(this->_tree->_root);
+				//	std::cout << "* : " << it.getNodePtr()->/*_root->*/data.first << std::endl;
+					std::cout << "* : " << (*it).first << std::endl;
+					while (it != val)
+						it._nodePtr = this->_tree->advance(val);
 					return ft::make_pair(it, true); };
 			
 			iterator 					insert(iterator position, const value_type& val);
@@ -156,7 +156,7 @@ namespace ft
 			bstree*			_tree;
 			key_compare		_comp;
 		//	value_type		_pair;
-			size_type		_number;
+		//	size_type		_number;
 			allocator_type	_allocator;
 	};
 
