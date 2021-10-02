@@ -96,10 +96,10 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
-		map_random_access_iterator() : _nodePtr(0), _rootTree(0) { };
-		map_random_access_iterator(bstree root) : _rootTree(root) { };
+		map_random_access_iterator() : _rootTree(0), _nodePtr(0) { };
+		map_random_access_iterator(bstree root, pointer node) : _rootTree(root), _nodePtr(node) { };
 		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
-			{ _nodePtr = other._nodePtr; return *this; };
+			{ _rootTree = other._rootTree; _nodePtr = other._nodePtr; return *this; };
 		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
 			{ *this = other; };
 		~map_random_access_iterator() {};
@@ -125,7 +125,7 @@ namespace ft
 		pointer operator->() const
 			{ return *this->_nodePtr->data; };
 		pointer getNodePtr() const//HERE
-			{ return this->_nodePtr; };
+			{ return this->_nodePtr.data; };
 
 		/********* OUTPUT ITERATORS *********/
 		// Can be dereferenced as an lvalue (only mutable iterator types)

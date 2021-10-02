@@ -33,9 +33,10 @@ namespace ft
 	{
 		public:
 			tree_node<T1,T2>*	_root;
+			tree_node<T1,T2>*	_lastNode;
 			size_t				_number;
 		
-			BinarySearchTree() { _root = NULL; _number = 0; };
+			BinarySearchTree() { _root = NULL; _lastNode = NULL; _number = 0; };
 			
 			tree_node<T1,T2>*	advance(ft::pair<T1,T2>	data)
 			{
@@ -114,14 +115,25 @@ namespace ft
 				}
 			}
 
+			void	lastNode(tree_node<T1, T2>* t)
+			{
+				if (t != NULL)
+				{
+					if (t->left)
+						lastNode(t->left);
+					this->_lastNode = t;
+					if (t->right)
+						lastNode(t->right);
+				}
+			}
+
 			void	insert(ft::pair<T1,T2> data)
 			{
 				tree_node<T1, T2>* temp = new tree_node<T1, T2>;
-				tree_node<T1, T2>* parent;
+				tree_node<T1, T2>* parent = NULL;
 				temp->data = data;
 				temp->left = NULL;
 				temp->right = NULL;
-				parent = NULL;
 				
 				if (this->isEmpty())
 					_root = temp;
@@ -145,6 +157,8 @@ namespace ft
 						parent->right = temp;
 				}
 				this->_number++;
+				parent = _root;
+				this->lastNode(parent);
 			}
 
 			void remove(ft::pair<T1,T2> data)

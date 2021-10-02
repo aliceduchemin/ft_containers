@@ -39,11 +39,13 @@ namespace ft
 			typedef typename Allocator::reference 			reference;
 			typedef typename Allocator::const_reference 	const_reference;
 			typedef typename Allocator::pointer				pointer;
+		//	typedef value_type*								pointer;
+		//	typedef ft::tree_node<Key,T>*					pointer;
 			typedef typename Allocator::const_pointer		const_pointer;
 			typedef typename Allocator::difference_type 	difference_type;
 			typedef typename Allocator::size_type 			size_type;
 			
-			typedef ft::BinarySearchTree<Key, T>			bstree;
+			typedef ft::BinarySearchTree<Key, T>*			bstree;
 
 			typedef ft::map_random_access_iterator<Key, T>	iterator;
 		//	typedef ft::const_random_access_iterator<T>		const_iterator;
@@ -68,6 +70,7 @@ namespace ft
 						const allocator_type& alloc = allocator_type())
 				{	this->_comp = comp;
 					this->_allocator = alloc;
+					this->_headNode = this->_allocator.allocate(0);
 					this->_tree = new ft::BinarySearchTree<Key, T>();
 				//	this->_pair = ft::pair<Key, T>();
 					 };
@@ -77,6 +80,7 @@ namespace ft
 				const allocator_type& alloc = allocator_type())
 				{	this->_comp = comp;
 					this->_allocator = alloc;
+					this->_headNode = this->_allocator.allocate(0);
 					this->_tree = ft::BinarySearchTree<Key, T>();
 					this->insert(first, last); };
 			map(map const & other) {};
@@ -84,10 +88,10 @@ namespace ft
 			~map() {};
 
 			/********* ITERATORS *********/
-			iterator 				begin() { return pointer(_headNode); };
+			iterator 				begin() { return iterator(_tree, _tree->_root); };
 		//	const_iterator	 		begin() const { return pointer(_headNode); };
-		/*	iterator				end() { return pointer(_endNode + 1); };
-			const_iterator			end() const { return pointer(_endNode + 1); };
+			iterator				end() { return iterator(_tree, _tree->_lastNode/* + 1*/); };
+		/*	const_iterator			end() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
 			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rend() { return pointer(_headNode); };
@@ -108,11 +112,12 @@ namespace ft
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
 				{	this->_tree->insert(val);
-					iterator it(this->_tree->_root);
-				//	std::cout << "* : " << it.getNodePtr()->/*_root->*/data.first << std::endl;
+					iterator it = this->begin();
+				//	std::cout << "* : " << it.getNodePtr().first << std::endl;
 					std::cout << "* : " << (*it).first << std::endl;
 					while (it != val)
 						it._nodePtr = this->_tree->advance(val);
+						std::cout << "advance it: "<< (*it).first <<std::endl;
 					return ft::make_pair(it, true); };
 			
 			iterator 					insert(iterator position, const value_type& val);
@@ -153,7 +158,7 @@ namespace ft
 			pointer			_endNode;
 			pointer			_container;	
 		
-			bstree*			_tree;
+			bstree			_tree;
 			key_compare		_comp;
 		//	value_type		_pair;
 		//	size_type		_number;
