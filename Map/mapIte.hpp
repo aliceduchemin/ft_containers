@@ -90,14 +90,17 @@ namespace ft
 		public:
 			typedef ft::pair<Key, T>				value_type;
 			typedef ft::pair<Key, T>&				reference;
-			typedef ft::tree_node<Key, T>*			pointer;
+			typedef ft::pair<Key, T>*				pointer;
+		//	typedef ft::tree_node<Key, T>&			reference;
+		//	typedef ft::tree_node<Key, T>*			pointer;
+			typedef ft::tree_node<Key, T>*			nodePtr;
 			typedef ft::BinarySearchTree<Key, T>*	bstree;
 			typedef ptrdiff_t						difference_type;
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
 		map_random_access_iterator() : _rootTree(0), _nodePtr(0) { };
-		map_random_access_iterator(bstree root, pointer node) : _rootTree(root), _nodePtr(node) { };
+		map_random_access_iterator(bstree root, nodePtr node) : _rootTree(root), _nodePtr(node) { };
 		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
 			{ _rootTree = other._rootTree; _nodePtr = other._nodePtr; return *this; };
 		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
@@ -107,7 +110,12 @@ namespace ft
 		/********* ITERATORS *********/
 		// can be incremented
 		map_random_access_iterator &operator++() //++i
-			{ this->_nodePtr++; return *this; }
+			{ /*this->_nodePtr++; */
+				std::cout << "node to find : " << this->_nodePtr->data.first<<std::endl;
+				nodePtr tmp = _rootTree->findNode(this->_nodePtr);
+			//	std::cout << "node found ? " << tmp->data.first<<std::endl;
+				this->_nodePtr = _rootTree->nextNode(tmp);
+				return *this; }
 		map_random_access_iterator	operator++(int) //i++
 			{ map_random_access_iterator tmp(*this); operator++(); return tmp; };
 		
@@ -123,9 +131,9 @@ namespace ft
 		reference operator*() const
 			{ return this->_nodePtr->data; };
 		pointer operator->() const
-			{ return *this->_nodePtr->data; };
-		pointer getNodePtr() const//HERE
-			{ return this->_nodePtr.data; };
+			{ return &this->_nodePtr->data; };
+	//	pointer getNodePtr() const//HERE
+	//		{ return this->_nodePtr->data; };
 
 		/********* OUTPUT ITERATORS *********/
 		// Can be dereferenced as an lvalue (only mutable iterator types)
@@ -183,7 +191,7 @@ namespace ft
 		reference operator[](int n)	{ return (*(*this + n)); }
 
 		//private:
-			pointer	_nodePtr;
+			nodePtr	_nodePtr;
 			bstree	_rootTree;
 	};
 

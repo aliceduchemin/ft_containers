@@ -113,11 +113,11 @@ namespace ft
 			ft::pair<iterator, bool>	insert(const value_type& val)
 				{	this->_tree->insert(val);
 					iterator it = this->begin();
-				//	std::cout << "* : " << it.getNodePtr().first << std::endl;
-					std::cout << "* : " << (*it).first << std::endl;
+				//	std::cout << "* : " << (*it).first << std::endl;
 					while (it != val)
 						it._nodePtr = this->_tree->advance(val);
-						std::cout << "advance it: "<< (*it).first <<std::endl;
+				//	std::cout << "advance it: "<< (*it).first <<std::endl;
+				//	std::cout << "advance it: "<< it->first <<std::endl;
 					return ft::make_pair(it, true); };
 			
 			iterator 					insert(iterator position, const value_type& val);

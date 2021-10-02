@@ -145,31 +145,37 @@ int	main()
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
 	ft::map<std::string, int>	myMap;
 	
-	int lol = myMap["jupiter"] = 6;
+	int lol = myMap["c"] = 6;
 	std::cout << "retour [] : " << lol <<std::endl;
 	
 	ft::pair<ft::map<std::string, int>::iterator, bool> ret4;
 	ft::map<std::string, int>::iterator ret5;// = myMap.begin();
 //	std::cout << "ret5* = " << (*ret5).first<<std::endl;
-	ret4 = myMap.insert(ft::make_pair("sun", 9));
+	ret4 = myMap.insert(ft::make_pair("a", 9));
 //	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
-	ret4 = myMap.insert(ft::make_pair("earth", 3));
+	ret4 = myMap.insert(ft::make_pair("d", 3));
 //	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	std::cout << "myMap size = " << myMap.size() << std::endl;
 
-	ft::map<std::string, int>::iterator itbis = myMap.begin();
-	std::cout << "itbis* = " << (*itbis).first<<std::endl;
+/*	ft::map<std::string, int>::iterator itbis = myMap.begin();
+	std::cout << "\nitbis->first = " << itbis->first<<std::endl;
 	ft::map<std::string, int>::iterator itebis = myMap.end();
 	std::cout << "itebis* = " << (*itebis).first<<std::endl;
-	ret4 = myMap.insert(ft::make_pair("uranus", 23));
+	ret4 = myMap.insert(ft::make_pair("b", 23));
 	itebis = myMap.end();
 	std::cout << "itebis* = " << (*itebis).first<<std::endl;
-/*	while (it != myMap.end())
+	itbis = myMap.begin();
+	std::cout << "it begin = " << itbis->first << std::endl << std::endl;
+	itbis++;
+	std::cout << "it++ = " << itbis->first << std::endl;*/
+//	itbis++;
+//	std::cout << "it++ = " << itbis->first << std::endl;
+	/*while (itbis != myMap.end())
 	{
-		std::cout << it->first << " :: " << it->second << std::endl;
-		it++;
-	}	
-	myMap.insert(std::make_pair("moon", 7));
+		std::cout << itbis->first << " :: " << itbis->second << std::endl;
+		itbis++;
+	}*/	
+/*	myMap.insert(std::make_pair("moon", 7));
 	myMap["earth"] = 2;
 	myMap["sun"] = 4;
 	std::cout << std::endl;

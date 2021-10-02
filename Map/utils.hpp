@@ -23,9 +23,10 @@ namespace ft
 	template <class T1, class T2>
 	struct tree_node
 	{
-		tree_node<T1,T2>* left;
-		tree_node<T1,T2>* right;
-		ft::pair<T1,T2>	data;
+		tree_node<T1,T2>*	left;
+		tree_node<T1,T2>*	right;
+		ft::pair<T1,T2>		data;
+		tree_node<T1,T2>*	parent;
 	};
 
 	template <class T1, class T2>
@@ -33,54 +34,56 @@ namespace ft
 	{
 		public:
 			tree_node<T1,T2>*	_root;
-			tree_node<T1,T2>*	_lastNode;
+			tree_node<T1,T2>*	_smallestNode;
+			tree_node<T1,T2>*	_biggestNode;
 			size_t				_number;
 		
-			BinarySearchTree() { _root = NULL; _lastNode = NULL; _number = 0; };
+			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _number = 0; };
 			
 			tree_node<T1,T2>*	advance(ft::pair<T1,T2>	data)
 			{
 			//	if (this->isEmpty() || this->search(node) == false)
 			//		return ;
 				bool found = false;
-				tree_node<T1, T2>* curr = _root;
+				tree_node<T1, T2>* temp = _root;
 				tree_node<T1, T2>* parent;
-				while (curr != NULL)
+				while (temp != NULL)
 				{
-					if (curr->data.first == data.first)
+					if (temp->data.first == data.first)
 					{
 						found = true;
 						break;
 					}
 					else
 					{
-						parent = curr;
-						if (data.first > curr->data.first)
-							curr = curr->right;
-						else
-							curr = curr->left;
-					}
-				}
-			//	curr = curr->right;
-				return curr;
-			};
-
-			tree_node<T1,T2>*	nextNode(ft::pair<T1,T2> data)
-			{
-				tree_node<T1, T2>* temp = _root;
-				while (temp != NULL)
-				{
-					if (temp->data == data)
-						return true;
-					else
-					{
-						if (data > temp->data)
+						parent = temp;
+						if (data.first > temp->data.first)
 							temp = temp->right;
 						else
 							temp = temp->left;
 					}
 				}
+			//	temp = temp->right;
 				return temp;
+			};
+
+			tree_node<T1,T2>*	minValue(ft::tree_node<T1,T2>* node)
+			{
+				tree_node<T1, T2>* temp = node;
+				while (temp->left != NULL)
+					temp = temp->left;
+				return temp;
+			}
+
+			tree_node<T1,T2>*	inorderSuccessor(ft::tree_node<T1,T2>* node)
+			{
+				tree_node<T1, T2>* temp = _root;
+
+				if (node->right != NULL)
+					return minValue(node->right);
+				tree_node<T1, T2>* parent = _root;
+
+				return node;
 			};
 
 			bool	search(ft::pair<T1,T2> data)
@@ -101,6 +104,33 @@ namespace ft
 				return false;
 			}
 
+			ft::tree_node<T1,T2>*	findNode(ft::tree_node<T1,T2>* node)
+			{
+				tree_node<T1, T2>* temp = _root;
+				while (temp != NULL)
+				{
+					if (temp->data == node->data)
+					{
+						std::cout << "find node = " <<temp->data.first<<std::endl;
+						return temp;
+					}
+					else
+					{
+						if (node->data > temp->data)
+						{
+						std::cout << "node > temp"<<std::endl;
+							temp = temp->right;
+						}
+						else
+						{
+						std::cout << "else"<<std::endl;
+							temp = temp->left;
+						}
+					}
+				}
+				return _root;
+			}
+
 			bool	isEmpty() const { return _root==NULL; }
 			void	print_inorder() { inorder(_root); };
 			void	inorder(tree_node<T1, T2>* t)
@@ -115,35 +145,51 @@ namespace ft
 				}
 			}
 
-			void	lastNode(tree_node<T1, T2>* t)
+			void	smallestNode(tree_node<T1, T2>* t)
+			{
+				if (t != NULL)
+				{
+					if (t->right)
+						smallestNode(t->right);
+					this->_smallestNode = t;
+					if (t->left)
+						smallestNode(t->left);
+				}
+			}
+
+			void	biggestNode(tree_node<T1, T2>* t)
 			{
 				if (t != NULL)
 				{
 					if (t->left)
-						lastNode(t->left);
-					this->_lastNode = t;
+						biggestNode(t->left);
+					this->_biggestNode = t;
 					if (t->right)
-						lastNode(t->right);
+						biggestNode(t->right);
 				}
 			}
 
 			void	insert(ft::pair<T1,T2> data)
 			{
 				tree_node<T1, T2>* temp = new tree_node<T1, T2>;
-				tree_node<T1, T2>* parent = NULL;
+			//	tree_node<T1, T2>* parent = NULL;
 				temp->data = data;
 				temp->left = NULL;
 				temp->right = NULL;
 				
 				if (this->isEmpty())
+				{
 					_root = temp;
+					_root->parent = temp;
+				}
 				else
 				{
 					tree_node<T1, T2>* curr;
 					curr = _root;
 					while (curr)
 					{
-						parent = curr;
+						temp->parent = curr;
+					//	std::cout << "parent = " << temp->parent->data.first<<std::endl;
 						if (temp->data == curr->data)
 							break;
 						else if (temp->data > curr->data)
@@ -151,14 +197,25 @@ namespace ft
 						else
 							curr = curr->left;
 					}
-					if (temp->data < parent->data)
-						parent->left = temp;
-					else if (temp->data > parent->data)
-						parent->right = temp;
+					if (temp->data < temp->parent->data)
+					{
+						std::cout << "left\n";
+						temp->parent->left = temp;
+					}
+					else if (temp->data > temp->parent->data)
+					{
+						std::cout << "right\n";
+						temp->parent->right = temp;
+					}
 				}
+				tree_node<T1, T2>* set = NULL;
 				this->_number++;
-				parent = _root;
-				this->lastNode(parent);
+				set = _root;
+				this->smallestNode(set);
+				set = _root;
+				this->biggestNode(set);
+				std::cout<< "end insert of value " << data.first<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<<std::endl;
+				std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
 			}
 
 			void remove(ft::pair<T1,T2> data)
