@@ -72,7 +72,6 @@ namespace ft
 					this->_allocator = alloc;
 					this->_headNode = this->_allocator.allocate(0);
 					this->_tree = new ft::BinarySearchTree<Key, T>();
-				//	this->_pair = ft::pair<Key, T>();
 					 };
 			template< class InputIterator >
 			map(InputIterator first, InputIterator last, 
@@ -88,9 +87,9 @@ namespace ft
 			~map() {};
 
 			/********* ITERATORS *********/
-			iterator 				begin() { return iterator(_tree, _tree->_root); };
+			iterator 				begin() { return iterator(_tree, _tree->_smallestNode); };
 		//	const_iterator	 		begin() const { return pointer(_headNode); };
-			iterator				end() { return iterator(_tree, _tree->_lastNode/* + 1*/); };
+			iterator				end() { return iterator(_tree, _tree->_biggestNode /*+ 1*/); };
 		/*	const_iterator			end() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
 			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
@@ -113,11 +112,8 @@ namespace ft
 			ft::pair<iterator, bool>	insert(const value_type& val)
 				{	this->_tree->insert(val);
 					iterator it = this->begin();
-				//	std::cout << "* : " << (*it).first << std::endl;
 					while (it != val)
-						it._nodePtr = this->_tree->advance(val);
-				//	std::cout << "advance it: "<< (*it).first <<std::endl;
-				//	std::cout << "advance it: "<< it->first <<std::endl;
+						it++;
 					return ft::make_pair(it, true); };
 			
 			iterator 					insert(iterator position, const value_type& val);

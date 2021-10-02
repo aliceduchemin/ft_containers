@@ -39,7 +39,7 @@ namespace ft
 			size_t				_number;
 		
 			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _number = 0; };
-			
+			/*
 			tree_node<T1,T2>*	advance(ft::pair<T1,T2>	data)
 			{
 			//	if (this->isEmpty() || this->search(node) == false)
@@ -65,7 +65,7 @@ namespace ft
 				}
 			//	temp = temp->right;
 				return temp;
-			};
+			};*/
 
 			tree_node<T1,T2>*	minValue(ft::tree_node<T1,T2>* node)
 			{
@@ -81,9 +81,13 @@ namespace ft
 
 				if (node->right != NULL)
 					return minValue(node->right);
-				tree_node<T1, T2>* parent = _root;
-
-				return node;
+				tree_node<T1, T2>* parent = node->parent;
+				while (parent != NULL && node == parent->right)
+				{
+					node = parent;
+					parent = parent->parent;
+				}
+				return parent;
 			};
 
 			bool	search(ft::pair<T1,T2> data)

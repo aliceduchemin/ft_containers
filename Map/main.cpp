@@ -157,44 +157,35 @@ int	main()
 //	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	std::cout << "myMap size = " << myMap.size() << std::endl;
 
-/*	ft::map<std::string, int>::iterator itbis = myMap.begin();
+	ft::map<std::string, int>::iterator itbis = myMap.begin();
 	std::cout << "\nitbis->first = " << itbis->first<<std::endl;
 	ft::map<std::string, int>::iterator itebis = myMap.end();
 	std::cout << "itebis* = " << (*itebis).first<<std::endl;
 	ret4 = myMap.insert(ft::make_pair("b", 23));
 	itebis = myMap.end();
-	std::cout << "itebis* = " << (*itebis).first<<std::endl;
-	itbis = myMap.begin();
-	std::cout << "it begin = " << itbis->first << std::endl << std::endl;
-	itbis++;
-	std::cout << "it++ = " << itbis->first << std::endl;*/
-//	itbis++;
-//	std::cout << "it++ = " << itbis->first << std::endl;
-	/*while (itbis != myMap.end())
+	//std::cout << "itebis* = " << (*itebis).first<<std::endl;
+	while (itbis != myMap.end())
 	{
 		std::cout << itbis->first << " :: " << itbis->second << std::endl;
 		itbis++;
-	}*/	
-/*	myMap.insert(std::make_pair("moon", 7));
-	myMap["earth"] = 2;
-	myMap["sun"] = 4;
+	}
+	myMap.insert(ft::make_pair("z", 7));
+	myMap["e"] = 2;
+	myMap["j"] = 4;
+	itebis = myMap.end();
+	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
+		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
-	it = myMap.begin();
-	while (it != myMap.end())
-	{
-		std::cout << it->first << " :: " << it->second << std::endl;
-		it++;
-	}	
+	
 	std::cout << "myMap size = " << myMap.size() << std::endl;
-	if (myMap.find("sun") != myMap.end())
-		std::cout << "word sun found" <<std::endl;
+/*	if (myMap.find("j") != myMap.end())
+		std::cout << "j found" <<std::endl;
 	else
-		std::cout << "word sun not found" <<std::endl;
-	if (myMap.find("uranus") != myMap.end())
-		std::cout << "word uranus found" <<std::endl;
+		std::cout << "j not found" <<std::endl;
+	if (myMap.find("k") != myMap.end())
+		std::cout << "k found" <<std::endl;
 	else
-		std::cout << "word uranus not found" <<std::endl;
-
+		std::cout << "k not found" <<std::endl;
 */
 	
 	return 0;

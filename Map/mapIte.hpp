@@ -110,11 +110,7 @@ namespace ft
 		/********* ITERATORS *********/
 		// can be incremented
 		map_random_access_iterator &operator++() //++i
-			{ /*this->_nodePtr++; */
-				std::cout << "node to find : " << this->_nodePtr->data.first<<std::endl;
-				nodePtr tmp = _rootTree->findNode(this->_nodePtr);
-			//	std::cout << "node found ? " << tmp->data.first<<std::endl;
-				this->_nodePtr = _rootTree->nextNode(tmp);
+			{	this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
 				return *this; }
 		map_random_access_iterator	operator++(int) //i++
 			{ map_random_access_iterator tmp(*this); operator++(); return tmp; };
