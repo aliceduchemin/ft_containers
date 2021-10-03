@@ -178,7 +178,7 @@ int	main()
 	std::cout << std::endl;
 	
 	std::cout << "myMap size = " << myMap.size() << std::endl;
-/*	if (myMap.find("j") != myMap.end())
+	if (myMap.find("j") != myMap.end())
 		std::cout << "j found" <<std::endl;
 	else
 		std::cout << "j not found" <<std::endl;
@@ -186,7 +186,7 @@ int	main()
 		std::cout << "k found" <<std::endl;
 	else
 		std::cout << "k not found" <<std::endl;
-*/
+
 	
 	return 0;
 }

@@ -135,6 +135,24 @@ namespace ft
 				return _root;
 			}
 
+			ft::tree_node<T1,T2>*	findNode(T1 const & key)
+			{
+				tree_node<T1, T2>* temp = _root;
+				while (temp != NULL)
+				{
+					if (temp->data.first == key)
+						return temp;
+					else
+					{
+						if (key > temp->data.first)
+							temp = temp->right;
+						else
+							temp = temp->left;
+					}
+				}
+				return this->_biggestNode;
+			}
+
 			bool	isEmpty() const { return _root==NULL; }
 			void	print_inorder() { inorder(_root); };
 			void	inorder(tree_node<T1, T2>* t)

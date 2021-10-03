@@ -46,6 +46,7 @@ namespace ft
 			typedef typename Allocator::size_type 			size_type;
 			
 			typedef ft::BinarySearchTree<Key, T>*			bstree;
+			typedef ft::tree_node<Key, T>*					nodePtr;
 
 			typedef ft::map_random_access_iterator<Key, T>	iterator;
 		//	typedef ft::const_random_access_iterator<T>		const_iterator;
@@ -136,7 +137,9 @@ namespace ft
 			value_compare	value_comp() const;
 
 			/********* OPERATIONS *********/
-			iterator								find(const key_type& k);
+			iterator								find(const key_type& k)
+			{	nodePtr	tmp = this->_tree->findNode(k);
+				return iterator(this->_tree, tmp);	};
 		//	const_iterator							find(const key_type& k) const;
 			size_type								count(const key_type& k) const;
 			iterator								lower_bound(const key_type& k);
