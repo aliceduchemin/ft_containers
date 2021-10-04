@@ -128,8 +128,6 @@ namespace ft
 			{ return this->_nodePtr->data; };
 		pointer operator->() const
 			{ return &this->_nodePtr->data; };
-	//	pointer getNodePtr() const//HERE
-	//		{ return this->_nodePtr->data; };
 
 		/********* OUTPUT ITERATORS *********/
 		// Can be dereferenced as an lvalue (only mutable iterator types)
@@ -143,7 +141,9 @@ namespace ft
 		/********* BIDIRECTIONAL ITERATORS *********/
 		// Can be decremented
 		map_random_access_iterator &	operator--()
-			{ this->_nodePtr--; return *this; }
+			{/* std::cout << "node to decrement = " << this->_nodePtr->data.first<<std::endl;
+			*/this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
+				return *this; }
 		map_random_access_iterator	operator--(int)
 			{ map_random_access_iterator tmp(*this); operator--(); return tmp; };
 		//*a--

@@ -150,11 +150,9 @@ int	main()
 	
 	ft::pair<ft::map<std::string, int>::iterator, bool> ret4;
 	ft::map<std::string, int>::iterator ret5;// = myMap.begin();
-//	std::cout << "ret5* = " << (*ret5).first<<std::endl;
+//	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	ret4 = myMap.insert(ft::make_pair("a", 9));
-//	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	ret4 = myMap.insert(ft::make_pair("d", 3));
-//	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	std::cout << "myMap size = " << myMap.size() << std::endl;
 
 	ft::map<std::string, int>::iterator itbis = myMap.begin();
@@ -162,16 +160,16 @@ int	main()
 	ft::map<std::string, int>::iterator itebis = myMap.end();
 	std::cout << "itebis* = " << (*itebis).first<<std::endl;
 	ret4 = myMap.insert(ft::make_pair("b", 23));
+	itbis++;
 	itebis = myMap.end();
-	//std::cout << "itebis* = " << (*itebis).first<<std::endl;
 	while (itbis != myMap.end())
 	{
 		std::cout << itbis->first << " :: " << itbis->second << std::endl;
 		itbis++;
 	}
 	myMap.insert(ft::make_pair("z", 7));
-	myMap["e"] = 2;
 	myMap["j"] = 4;
+	myMap["e"] = 2;
 	itebis = myMap.end();
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
@@ -187,6 +185,60 @@ int	main()
 	else
 		std::cout << "k not found" <<std::endl;
 
+	itbis = myMap.begin();
+	std::cout <<"itbis begin = " << itbis->first<<std::endl;
+	itbis++;
+	std::cout << "itbis++ : " << itbis->first << std::endl;
+	itbis++;
+	std::cout << "itbis++ : " << itbis->first << std::endl;
+	itbis++;
+	std::cout << "itbis++ : " << itbis->first << std::endl;
+	itbis--;
+	std::cout << "itbis-- : " << itbis->first << std::endl;
+	itbis--;
+	std::cout << "itbis-- : " << itbis->first << std::endl;
+	itbis--;
+	std::cout << "itbis-- : " << itbis->first << std::endl;
 	
+	ft::map<std::string, int> myMap2;
+	myMap2.insert(itbis, myMap.end());
+	ft::map<std::string, int>::iterator it2bis = myMap2.begin();
+	ft::map<std::string, int>::iterator ite2bis = myMap2.end();
+	myMap2["f"] = 6;
+	std::cout <<"it2bis = " << it2bis->first<<std::endl;
+	std::cout <<"ite2bis = " << ite2bis->first<<std::endl;
+	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
+		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
+	std::cout << std::endl;
+
+/*	itbis = myMap2.begin();
+	for (itebis = myMap2.end(); itbis != itebis; --itbis)
+		std::cout << itbis->first << " :: " << itbis->second << " ; ";
+	std::cout << std::endl;*/
+
+	it2bis = myMap2.begin();
+	std::cout << "it2bis begin : " << it2bis->first << std::endl;
+	it2bis++;
+	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	it2bis++;
+	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	it2bis++;
+	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	it2bis++;
+	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	it2bis++;
+	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	it2bis--;
+	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	it2bis--;
+	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	it2bis--;
+	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	it2bis--;
+	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	it2bis--;
+	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+
 	return 0;
 }

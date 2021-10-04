@@ -72,12 +72,14 @@ namespace ft
 				tree_node<T1, T2>* temp = node;
 				while (temp->left != NULL)
 					temp = temp->left;
+			//	std::cout <<"min value return = " <<temp->data.first<<std::endl;
 				return temp;
 			}
 
 			tree_node<T1,T2>*	inorderSuccessor(ft::tree_node<T1,T2>* node)
 			{
-				tree_node<T1, T2>* temp = _root;
+			//	std::cout <<"\ninorder successr node = " << node->data.first<<std::endl;
+			//	tree_node<T1, T2>* temp = _root;
 
 				if (node->right != NULL)
 					return minValue(node->right);
@@ -86,9 +88,42 @@ namespace ft
 				{
 					node = parent;
 					parent = parent->parent;
+			//	std::cout <<"boucle parent !=null, return = " <<parent->data.first<<std::endl;
 				}
 				return parent;
-			};
+			}
+
+			tree_node<T1,T2>*	maxValue(ft::tree_node<T1,T2>* node)
+			{
+			//	std::cout << "max value node : " <<node->data.first<<std::endl;
+				tree_node<T1, T2>* temp = node;
+				while (temp->right != NULL)
+					temp = temp->right;
+			//	std::cout << "return max value : " <<temp->data.first<<std::endl;
+				return temp;
+			}
+
+			tree_node<T1,T2>*	inorderPredecessor(ft::tree_node<T1,T2>* node)
+			{
+			//	std::cout <<"\ninorder predecessor node = " << node->data.first<<std::endl;
+				
+			//	std::cout << "parent node = " << node->parent->data.first<<std::endl;
+				if (node->left)
+			//		std::cout << "left node = " << node->left->data.first<<std::endl;
+				if (node->right)
+			//		std::cout << "right node = " << node->right->data.first<<std::endl;
+			
+				if (node->left != NULL)
+					return maxValue(node->left);
+				tree_node<T1, T2>* parent = node->parent;
+				while (parent != NULL && node == parent->left)//right
+				{
+					node = parent;
+					parent = parent->parent;
+			//	std::cout <<"boucle parent !=null, return = " <<node->data.first<<std::endl;
+				}
+				return parent;
+			}
 
 			bool	search(ft::pair<T1,T2> data)
 			{
@@ -115,19 +150,19 @@ namespace ft
 				{
 					if (temp->data == node->data)
 					{
-						std::cout << "find node = " <<temp->data.first<<std::endl;
+					//	std::cout << "find node = " <<temp->data.first<<std::endl;
 						return temp;
 					}
 					else
 					{
 						if (node->data > temp->data)
 						{
-						std::cout << "node > temp"<<std::endl;
+					//	std::cout << "node > temp"<<std::endl;
 							temp = temp->right;
 						}
 						else
 						{
-						std::cout << "else"<<std::endl;
+					//	std::cout << "else"<<std::endl;
 							temp = temp->left;
 						}
 					}
@@ -221,12 +256,12 @@ namespace ft
 					}
 					if (temp->data < temp->parent->data)
 					{
-						std::cout << "left\n";
+					//	std::cout << "left\n";
 						temp->parent->left = temp;
 					}
 					else if (temp->data > temp->parent->data)
 					{
-						std::cout << "right\n";
+					//	std::cout << "right\n";
 						temp->parent->right = temp;
 					}
 				}

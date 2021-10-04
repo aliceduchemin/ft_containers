@@ -117,15 +117,16 @@ namespace ft
 						it++;
 					return ft::make_pair(it, true); };
 			
-			iterator 					insert(iterator position, const value_type& val);
+			iterator 					insert(iterator position, const value_type& val)
+				{	};
 			template < class InputIterator >
-			void						insert(InputIterator first, InputIterator last);
-		/*	{	iterator ret = position;
-				while (first != last)
-				{
-					ret = this->insert(ret, *first);
-					first++;
-				} };*/
+			void						insert(InputIterator first, InputIterator last)
+			{	InputIterator tmp = first;
+				while (tmp != first)
+					tmp++;
+				while (tmp != last) {
+					this->insert(*tmp++);
+					/*tmp++;*/ }	};
 			void						erase(iterator position);
 			size_type					erase(const key_type& k);
 			void						erase(iterator first, iterator last);
@@ -159,8 +160,6 @@ namespace ft
 		
 			bstree			_tree;
 			key_compare		_comp;
-		//	value_type		_pair;
-		//	size_type		_number;
 			allocator_type	_allocator;
 	};
 
