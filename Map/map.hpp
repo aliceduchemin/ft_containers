@@ -104,10 +104,13 @@ namespace ft
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
-				{	value_type pair = ft::make_pair(k,mapped_type());
-					this->_tree->insert(pair);
-					return pair.second; };
-			//	{ (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
+				{	iterator	tmp = this->find(k);
+					if (tmp != this->end())
+						return tmp->second;
+				//	value_type pair = ft::make_pair(k,mapped_type());
+				//	this->_tree->insert(pair);
+				//	return pair.second;
+					return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
 
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
@@ -125,8 +128,7 @@ namespace ft
 				while (tmp != first)
 					tmp++;
 				while (tmp != last) {
-					this->insert(*tmp++);
-					/*tmp++;*/ }	};
+					this->insert(*tmp++); }	};
 			void						erase(iterator position);
 			size_type					erase(const key_type& k);
 			void						erase(iterator first, iterator last);
@@ -140,6 +142,7 @@ namespace ft
 			/********* OPERATIONS *********/
 			iterator								find(const key_type& k)
 			{	nodePtr	tmp = this->_tree->findNode(k);
+			//	std::cout << "find : " << tmp->data.first<<std::endl;
 				return iterator(this->_tree, tmp);	};
 		//	const_iterator							find(const key_type& k) const;
 			size_type								count(const key_type& k) const;

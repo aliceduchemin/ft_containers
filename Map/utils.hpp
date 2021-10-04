@@ -39,33 +39,6 @@ namespace ft
 			size_t				_number;
 		
 			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _number = 0; };
-			/*
-			tree_node<T1,T2>*	advance(ft::pair<T1,T2>	data)
-			{
-			//	if (this->isEmpty() || this->search(node) == false)
-			//		return ;
-				bool found = false;
-				tree_node<T1, T2>* temp = _root;
-				tree_node<T1, T2>* parent;
-				while (temp != NULL)
-				{
-					if (temp->data.first == data.first)
-					{
-						found = true;
-						break;
-					}
-					else
-					{
-						parent = temp;
-						if (data.first > temp->data.first)
-							temp = temp->right;
-						else
-							temp = temp->left;
-					}
-				}
-			//	temp = temp->right;
-				return temp;
-			};*/
 
 			tree_node<T1,T2>*	minValue(ft::tree_node<T1,T2>* node)
 			{
@@ -172,19 +145,25 @@ namespace ft
 
 			ft::tree_node<T1,T2>*	findNode(T1 const & key)
 			{
+			//	std::cout << "key to find : " << key <<std::endl;
 				tree_node<T1, T2>* temp = _root;
 				while (temp != NULL)
 				{
 					if (temp->data.first == key)
+					{
+				//		std::cout << "temp data = key"<<std::endl;
 						return temp;
+					}
 					else
 					{
+			//			std::cout << "else"<<std::endl;
 						if (key > temp->data.first)
 							temp = temp->right;
 						else
 							temp = temp->left;
 					}
 				}
+			//	std::cout << " return : " << this->_biggestNode->data.first<<std::endl;
 				return this->_biggestNode;
 			}
 
@@ -226,16 +205,16 @@ namespace ft
 				}
 			}
 
-			void	insert(ft::pair<T1,T2> data)
+			ft::pair<T1,T2>		insert(ft::pair<T1,T2> data)
 			{
 				tree_node<T1, T2>* temp = new tree_node<T1, T2>;
-			//	tree_node<T1, T2>* parent = NULL;
 				temp->data = data;
 				temp->left = NULL;
 				temp->right = NULL;
-				
+			//	std::cout << "insert " << data.first << std::endl;
 				if (this->isEmpty())
 				{
+				//	std::cout << "empty" << temp->data.first<<std::endl;
 					_root = temp;
 					_root->parent = temp;
 				}
@@ -271,8 +250,9 @@ namespace ft
 				this->smallestNode(set);
 				set = _root;
 				this->biggestNode(set);
-				std::cout<< "end insert of value " << data.first<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<<std::endl;
+				std::cout<< "end insert of value " << data.first << " second = " << data.second<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<<std::endl;
 				std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
+				return temp->data;
 			}
 
 			void remove(ft::pair<T1,T2> data)

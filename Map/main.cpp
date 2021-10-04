@@ -23,8 +23,11 @@ int	main()
 	}	
 	theirMap.insert(std::make_pair("sun", 9));
 	theirMap.insert(std::make_pair("moon", 7));
+	int loli = theirMap["pluto"] = 6;
+	std::cout << "pluto = " << theirMap["pluto"] << std::endl;
 	theirMap["earth"] = 2;
 	theirMap["sun"] = 4;
+	theirMap["earth"] = 18;
 	std::cout << std::endl;
 	it = theirMap.begin();
 	while (it != theirMap.end())
@@ -41,6 +44,12 @@ int	main()
 		std::cout << "word uranus found" <<std::endl;
 	else
 		std::cout << "word uranus not found" <<std::endl;
+
+	std::cout << "\n--- MAP ITERATORS ---" <<std::endl;
+	it = theirMap.begin();
+//	it = it + 5; pas possible
+	std::cout << theirMap["sun"] << std::endl;
+
 
 	std::cout << "\n--- LEXICOGRAPHICAL COMPARE ---" <<std::endl;
 	char foo[] = "Apple";
@@ -144,9 +153,23 @@ int	main()
 
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
 	ft::map<std::string, int>	myMap;
+	myMap.insert(ft::make_pair("a", 9));
+	myMap.insert(ft::make_pair("f", 10));
+	myMap.insert(ft::make_pair("b", 3));
+	myMap.insert(ft::make_pair("z", 1));
+	myMap.insert(ft::make_pair("c", 7));
+//	std::cout << "myMap[r] = " << myMap["r"] << std::endl;
 	
-	int lol = myMap["c"] = 6;
-	std::cout << "retour [] : " << lol <<std::endl;
+	int lol = myMap["a"];
+	std::cout << "retour [a] : " << lol <<std::endl;
+	lol = myMap["c"];
+	std::cout << "retour [c] : " << lol <<std::endl;
+	lol = myMap["y"] = 6;
+	std::cout << "retour [y] : " << lol <<std::endl;
+	lol = myMap["u"] = 41;
+	std::cout << "retour [u] : " << lol <<std::endl;
+	lol = myMap["b"] = 60;
+	std::cout << "retour [b] : " << lol <<std::endl;
 	
 	ft::pair<ft::map<std::string, int>::iterator, bool> ret4;
 	ft::map<std::string, int>::iterator ret5;// = myMap.begin();
@@ -160,14 +183,14 @@ int	main()
 	ft::map<std::string, int>::iterator itebis = myMap.end();
 	std::cout << "itebis* = " << (*itebis).first<<std::endl;
 	ret4 = myMap.insert(ft::make_pair("b", 23));
-	itbis++;
 	itebis = myMap.end();
+	std::cout << "print my map : "<<std::endl;
 	while (itbis != myMap.end())
 	{
 		std::cout << itbis->first << " :: " << itbis->second << std::endl;
 		itbis++;
 	}
-	myMap.insert(ft::make_pair("z", 7));
+/*	myMap.insert(ft::make_pair("z", 7));
 	myMap["j"] = 4;
 	myMap["e"] = 2;
 	itebis = myMap.end();
@@ -199,8 +222,8 @@ int	main()
 	std::cout << "itbis-- : " << itbis->first << std::endl;
 	itbis--;
 	std::cout << "itbis-- : " << itbis->first << std::endl;
-	
-	ft::map<std::string, int> myMap2;
+	*/
+/*	ft::map<std::string, int> myMap2;
 	myMap2.insert(itbis, myMap.end());
 	ft::map<std::string, int>::iterator it2bis = myMap2.begin();
 	ft::map<std::string, int>::iterator ite2bis = myMap2.end();
@@ -210,14 +233,14 @@ int	main()
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 
 /*	itbis = myMap2.begin();
 	for (itebis = myMap2.end(); itbis != itebis; --itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;*/
 
-	it2bis = myMap2.begin();
+/*	it2bis = myMap2.begin();
 	std::cout << "it2bis begin : " << it2bis->first << std::endl;
 	it2bis++;
 	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
@@ -239,6 +262,6 @@ int	main()
 	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
 	it2bis--;
 	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
-
+*/
 	return 0;
 }
