@@ -33,12 +33,16 @@ namespace ft
 	class BinarySearchTree
 	{
 		public:
+			typedef T1					key_type;
+			typedef T2					mapped_type;
+
 			tree_node<T1,T2>*	_root;
 			tree_node<T1,T2>*	_smallestNode;
 			tree_node<T1,T2>*	_biggestNode;
+			tree_node<T1,T2>*	_lastNode;
 			size_t				_number;
 		
-			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _number = 0; };
+			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _lastNode = NULL; _number = 0; };
 
 			tree_node<T1,T2>*	minValue(ft::tree_node<T1,T2>* node)
 			{
@@ -145,25 +149,37 @@ namespace ft
 
 			ft::tree_node<T1,T2>*	findNode(T1 const & key)
 			{
-			//	std::cout << "key to find : " << key <<std::endl;
+			//	std::cout << "\nkey to find : " << key <<std::endl;
 				tree_node<T1, T2>* temp = _root;
 				while (temp != NULL)
 				{
 					if (temp->data.first == key)
 					{
-				//		std::cout << "temp data = key"<<std::endl;
+					//	std::cout << "temp data = key"<<std::endl;
 						return temp;
 					}
 					else
 					{
-			//			std::cout << "else"<<std::endl;
+					//	std::cout << "else, temp = "<<temp->data.first<<std::endl;
 						if (key > temp->data.first)
+						{
+					//	std::cout << "right"<<std::endl;
+							if (temp->data.first == _lastNode->parent->data.first)
+							{
+					//	std::cout << "last"<<std::endl;
+								//return _lastNode;
+								break;
+							}
 							temp = temp->right;
+						}
 						else
+						{
+					//	std::cout << "left"<<std::endl;
 							temp = temp->left;
+						}
 					}
 				}
-				return NULL;
+				return _lastNode;
 			}
 
 			bool	isEmpty() const { return _root==NULL; }
@@ -210,26 +226,35 @@ namespace ft
 				temp->data = data;
 				temp->left = NULL;
 				temp->right = NULL;
-			//	std::cout << "insert " << data.first << std::endl;
+			//	std::cout << "\ninsert " << data.first << std::endl;
 				if (this->isEmpty())
 				{
 				//	std::cout << "empty" << temp->data.first<<std::endl;
 					_root = temp;
 					_root->parent = temp;
+					tree_node<T1, T2>* last = new tree_node<T1, T2>;
+					_lastNode = last;
+					_lastNode->parent = _root;
+					_lastNode->left = NULL;
+					_lastNode->right = NULL;
+					_lastNode->data = ft::make_pair(key_type(), mapped_type());
 				}
 				else
 				{
 					tree_node<T1, T2>* curr;
 					curr = _root;
+					
 					while (curr)
 					{
 						temp->parent = curr;
-					//	std::cout << "parent = " << temp->parent->data.first<<std::endl;
+					//	std::cout << "boucle, parent = " << temp->parent->data.first<<std::endl;
 						if (temp->data == curr->data)
 							break;
-						else if (temp->data > curr->data)
-							curr = curr->right;
-						else
+						else if (temp->data > curr->data) { 
+							if (curr->data == _lastNode->parent->data)
+								break;
+							curr = curr->right;}
+						else  
 							curr = curr->left;
 					}
 					if (temp->data < temp->parent->data)
@@ -242,15 +267,22 @@ namespace ft
 					//	std::cout << "right\n";
 						temp->parent->right = temp;
 					}
+					//	std::cout <<"parent = " <<temp->parent->data.first<<std::endl;
 				}
+			//	std::cout<< "end insert\n";
 				tree_node<T1, T2>* set = NULL;
 				this->_number++;
 				set = _root;
 				this->smallestNode(set);
 				set = _root;
 				this->biggestNode(set);
-			//	std::cout<< "end insert of value " << data.first << " second = " << data.second<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<< "\t";
-			//	std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
+			//	std::cout << "ok1 retour biggest node = " << _biggestNode->data.first <<std::endl;
+				if (this->_biggestNode != temp)
+					this->_biggestNode = this->_biggestNode->parent;
+				this->_biggestNode->right = this->_lastNode;
+				this->_lastNode->parent = this->_biggestNode;
+				std::cout<< "end insert of value " << data.first << " second = " << data.second<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<< "\t";
+				std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
 				return temp->data;
 			}
 

@@ -16,6 +16,7 @@ int	main()
 	std::cout << "theirMap size = " << theirMap.size() << std::endl;
 
 	std::map<std::string, int>::iterator it = theirMap.begin();
+	std::cout << "print end " << theirMap.end()->first<<std::endl;
 	while (it != theirMap.end())
 	{
 		std::cout << it->first << " :: " << it->second << std::endl;
@@ -153,12 +154,14 @@ int	main()
 	tr.insert(l);
 	ft::pair<std::string, int> m("zak", 11);
 	tr.insert(m);
+	std::cout << std::endl;
 	tr.print_inorder();
 	std::cout << std::endl;
 	tr.remove(j);
 	tr.remove(a);
 	tr.remove(c);
 	tr.remove(g);
+	std::cout << std::endl;
 	tr.print_inorder();
 	std::cout << std::endl;
 
@@ -199,7 +202,7 @@ int	main()
 		std::cout << itbis->first << " :: " << itbis->second << std::endl;
 		itbis++;
 	}
-/*	myMap.insert(ft::make_pair("z", 7));
+	myMap.insert(ft::make_pair("z", 7));
 	myMap["j"] = 4;
 	myMap["e"] = 2;
 	itebis = myMap.end();
@@ -231,46 +234,46 @@ int	main()
 	std::cout << "itbis-- : " << itbis->first << std::endl;
 	itbis--;
 	std::cout << "itbis-- : " << itbis->first << std::endl;
-	*/
-/*	ft::map<std::string, int> myMap2;
+	
+	ft::map<std::string, int> myMap2;
 	myMap2.insert(itbis, myMap.end());
 	ft::map<std::string, int>::iterator it2bis = myMap2.begin();
 	ft::map<std::string, int>::iterator ite2bis = myMap2.end();
 	myMap2["f"] = 6;
 	std::cout <<"it2bis = " << it2bis->first<<std::endl;
-	std::cout <<"ite2bis = " << ite2bis->first<<std::endl;
+	std::cout <<"ite2bis = " << myMap2.end()->first<<std::endl;
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
-	std::cout << std::endl;*/
+	std::cout << std::endl;
 
 /*	itbis = myMap2.begin();
 	for (itebis = myMap2.end(); itbis != itebis; --itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;*/
 
-/*	it2bis = myMap2.begin();
+	it2bis = myMap2.begin();
 	std::cout << "it2bis begin : " << it2bis->first << std::endl;
 	it2bis++;
-	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	std::cout << "it2bis++ : " << it2bis->first << std::endl;
 	it2bis++;
-	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	std::cout << "it2bis++ : " << it2bis->first << std::endl;
 	it2bis++;
-	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	std::cout << "it2bis++ : " << it2bis->first << std::endl;
 	it2bis++;
-	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	std::cout << "it2bis++ : " << it2bis->first << std::endl;
 	it2bis++;
-	std::cout << "MAIN it2bis++ : " << it2bis->first << std::endl;
+	std::cout << "it2bis++ : " << it2bis->first << std::endl;
 	it2bis--;
-	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	std::cout << "it2bis-- : " << it2bis->first << std::endl;
 	it2bis--;
-	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	std::cout << "it2bis-- : " << it2bis->first << std::endl;
 	it2bis--;
-	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	std::cout << "it2bis-- : " << it2bis->first << std::endl;
 	it2bis--;
-	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
+	std::cout << "it2bis-- : " << it2bis->first << std::endl;
 	it2bis--;
-	std::cout << "MAIN it2bis-- : " << it2bis->first << std::endl;
-*/
+	std::cout << "it2bis-- : " << it2bis->first << std::endl;
+
 	return 0;
 }

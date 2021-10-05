@@ -90,7 +90,7 @@ namespace ft
 			/********* ITERATORS *********/
 			iterator 				begin() { return iterator(_tree, _tree->_smallestNode); };
 		//	const_iterator	 		begin() const { return pointer(_headNode); };
-			iterator				end() { return iterator(_tree, _tree->_biggestNode->right /*+ 1*/); };
+			iterator				end() { return iterator(_tree, _tree->_biggestNode->right); };
 		/*	const_iterator			end() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
 			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
@@ -106,9 +106,7 @@ namespace ft
 			mapped_type&	operator[] (const key_type& k)
 				{	iterator	tmp = this->find(k);
 					if (tmp != this->end())
-					{std::cout << "k = " <<  k << " was found\n";
-						return tmp->second;}
-					
+						return tmp->second;
 				//	value_type pair = ft::make_pair(k,mapped_type());
 				//	this->_tree->insert(pair);
 				//	return pair.second;
