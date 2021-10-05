@@ -110,7 +110,10 @@ namespace ft
 		/********* ITERATORS *********/
 		// can be incremented
 		map_random_access_iterator &operator++() //++i
-			{	this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
+			{	if (this->_nodePtr == this->_rootTree->_biggestNode)
+					this->_nodePtr = this->_nodePtr->right;
+				else
+					this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
 				return *this; }
 		map_random_access_iterator	operator++(int) //i++
 			{ map_random_access_iterator tmp(*this); operator++(); return tmp; };

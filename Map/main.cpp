@@ -158,11 +158,11 @@ int	main()
 	myMap.insert(ft::make_pair("b", 3));
 	myMap.insert(ft::make_pair("z", 1));
 	myMap.insert(ft::make_pair("c", 7));
-//	std::cout << "myMap[r] = " << myMap["r"] << std::endl;
+	std::cout << "myMap[r] = " << myMap["r"] << std::endl;
 	
 	int lol = myMap["a"];
 	std::cout << "retour [a] : " << lol <<std::endl;
-	lol = myMap["c"];
+	lol = myMap["c"] = 8;
 	std::cout << "retour [c] : " << lol <<std::endl;
 	lol = myMap["y"] = 6;
 	std::cout << "retour [y] : " << lol <<std::endl;
@@ -172,16 +172,14 @@ int	main()
 	std::cout << "retour [b] : " << lol <<std::endl;
 	
 	ft::pair<ft::map<std::string, int>::iterator, bool> ret4;
-	ft::map<std::string, int>::iterator ret5;// = myMap.begin();
+//	ft::map<std::string, int>::iterator ret5;// = myMap.begin();
 //	std::cout << "retour insert, key " << ret4.first.getNodePtr()->data.first << std::endl;
 	ret4 = myMap.insert(ft::make_pair("a", 9));
 	ret4 = myMap.insert(ft::make_pair("d", 3));
 	std::cout << "myMap size = " << myMap.size() << std::endl;
 
 	ft::map<std::string, int>::iterator itbis = myMap.begin();
-	std::cout << "\nitbis->first = " << itbis->first<<std::endl;
 	ft::map<std::string, int>::iterator itebis = myMap.end();
-	std::cout << "itebis* = " << (*itebis).first<<std::endl;
 	ret4 = myMap.insert(ft::make_pair("b", 23));
 	itebis = myMap.end();
 	std::cout << "print my map : "<<std::endl;

@@ -163,8 +163,7 @@ namespace ft
 							temp = temp->left;
 					}
 				}
-			//	std::cout << " return : " << this->_biggestNode->data.first<<std::endl;
-				return this->_biggestNode;
+				return NULL;
 			}
 
 			bool	isEmpty() const { return _root==NULL; }
@@ -250,8 +249,8 @@ namespace ft
 				this->smallestNode(set);
 				set = _root;
 				this->biggestNode(set);
-				std::cout<< "end insert of value " << data.first << " second = " << data.second<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<<std::endl;
-				std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
+			//	std::cout<< "end insert of value " << data.first << " second = " << data.second<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<< "\t";
+			//	std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
 				return temp->data;
 			}
 
