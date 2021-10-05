@@ -116,11 +116,16 @@ namespace ft
 
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
-				{	this->_tree->insert(val);
-					iterator it = this->begin();
-					while (it != val)
-						it++;
-					return ft::make_pair(it, true); };
+				{	iterator	tmp;
+					if (this->empty() == false)
+					{	tmp = this->find(val.first);
+						if (tmp != this->end())
+							return ft::make_pair(tmp, false); }
+					this->_tree->insert(val);
+					tmp = this->begin();
+					while (tmp != val)
+						tmp++;
+					return ft::make_pair(tmp, true); };
 			
 			iterator 					insert(iterator position, const value_type& val)
 				{	};

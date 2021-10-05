@@ -45,6 +45,17 @@ int	main()
 	else
 		std::cout << "word uranus not found" <<std::endl;
 
+	theirMap.insert(std::make_pair("b", 3));
+	int lola = theirMap["b"] = 60;
+	std::cout << "retour [b] : " << lola <<std::endl;
+	theirMap.insert(std::make_pair("b", 23));
+	it = theirMap.begin();
+	while (it != theirMap.end())
+	{
+		std::cout << it->first << " :: " << it->second << std::endl;
+		it++;
+	}	
+
 	std::cout << "\n--- MAP ITERATORS ---" <<std::endl;
 	it = theirMap.begin();
 //	it = it + 5; pas possible
