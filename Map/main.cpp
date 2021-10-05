@@ -127,18 +127,18 @@ int	main()
 	tr.insert(f);
 	tr.insert(g);
 	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
-	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
-	std::cout << "pair c is in tree ? " << tr.search(c) << std::endl;
+	std::cout << "pair a is in tree ? " << tr.search(a.first) << std::endl;
+	std::cout << "pair c is in tree ? " << tr.search(c.first) << std::endl;
 	std::cout << "print tree in order : " << std::endl;
 	tr.print_inorder();
 	std::cout << std::endl;
 	ft::pair<std::string, int> h("bob", 38);
-	tr.remove(h);
+	tr.remove(h.first);
 	tr.print_inorder();
 	std::cout << std::endl;
-	std::cout << "pair a is in tree ? " << tr.search(a) << std::endl;
-	tr.remove(c);
-	tr.remove(d);
+	std::cout << "pair a is in tree ? " << tr.search(a.first) << std::endl;
+	tr.remove(c.first);
+	tr.remove(d.first);
 	tr.print_inorder();
 	std::cout << std::endl;
 	tr.insert(a);
@@ -157,10 +157,10 @@ int	main()
 	std::cout << std::endl;
 	tr.print_inorder();
 	std::cout << std::endl;
-	tr.remove(j);
-	tr.remove(a);
-	tr.remove(c);
-	tr.remove(g);
+	tr.remove(j.first);
+	tr.remove(a.first);
+	tr.remove(c.first);
+	tr.remove(g.first);
 	std::cout << std::endl;
 	tr.print_inorder();
 	std::cout << std::endl;
@@ -247,11 +247,6 @@ int	main()
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
-/*	itbis = myMap2.begin();
-	for (itebis = myMap2.end(); itbis != itebis; --itbis)
-		std::cout << itbis->first << " :: " << itbis->second << " ; ";
-	std::cout << std::endl;*/
-
 	it2bis = myMap2.begin();
 	std::cout << "it2bis begin : " << it2bis->first << std::endl;
 	it2bis++;
@@ -274,6 +269,45 @@ int	main()
 	std::cout << "it2bis-- : " << it2bis->first << std::endl;
 	it2bis--;
 	std::cout << "it2bis-- : " << it2bis->first << std::endl;
+	it2bis = myMap2.insert(it2bis, ft::make_pair("x", 99));
+	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
+		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
+	std::cout << std::endl;
+	ft::map<std::string, int>	myMap3(myMap2);
+//	myMap3 = myMap2;
+	std::cout <<"Copy : " <<std::endl;
+//	myMap2.erase
+	ft::map<std::string, int>::iterator it3bis = myMap3.begin();
+	ft::map<std::string, int>::iterator ite3bis = myMap3.end();
+	std::cout << "\nPrinting myMap3 : " <<std::endl;
+	for (it3bis = myMap2.begin(); it3bis != ite3bis; ++it3bis)
+		std::cout << it3bis->first << " :: " << it3bis->second << " ; ";
+	std::cout << std::endl;
 
+	std::cout << "erase tests : " << std::endl;
+	myMap3.erase("a");
+	myMap3.erase("z");
+	//it3bis = myMap2.begin();
+	//it3bis++;
+	myMap3.erase(it3bis);
+	std::cout << "\nPrinting myMap3 : " <<std::endl;
+	for (it3bis = myMap2.begin(); it3bis != ite3bis; ++it3bis)
+		std::cout << it3bis->first << " :: " << it3bis->second << " ; ";
+	std::cout << std::endl;
+
+//à tester après implémentation reverse iterator :
+/*	std::cout << "Comp : " << std::endl;
+	std::map<char,int>	theirTestMap;
+	std::map<char,int>::key_compare theirComp = theirTestMap.key_comp();
+	theirTestMap['a']=100;
+	theirTestMap['c']=200;
+	theirTestMap['b']=300;
+	char highest = theirTestMap.rbegin()->first;
+	std::map<char,int>::iterator ik = theirTestMap.begin();
+	do {
+		std::cout << ik->first << " => " <<ik->second<<"\n";
+	} while ( theirComp((*ik++).first, highest));
+	std::cout << std::endl;*/
 	return 0;
 }

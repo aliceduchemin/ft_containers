@@ -26,7 +26,7 @@ namespace ft
 {
 	template <class Key,													// map::key_type
 			  class T,														// map::mapped_type
-			  class Compare = std::less<Key>,								// map::key_comapre
+			  class Compare = std::less<Key>,								// map::key_compare
 			  class Allocator = std::allocator<ft::pair<const Key,T> > >	// map::allocator_type
 	class	map
 	{
@@ -39,8 +39,6 @@ namespace ft
 			typedef typename Allocator::reference 			reference;
 			typedef typename Allocator::const_reference 	const_reference;
 			typedef typename Allocator::pointer				pointer;
-		//	typedef value_type*								pointer;
-		//	typedef ft::tree_node<Key,T>*					pointer;
 			typedef typename Allocator::const_pointer		const_pointer;
 			typedef typename Allocator::difference_type 	difference_type;
 			typedef typename Allocator::size_type 			size_type;
@@ -71,20 +69,22 @@ namespace ft
 						const allocator_type& alloc = allocator_type())
 				{	this->_comp = comp;
 					this->_allocator = alloc;
-					this->_headNode = this->_allocator.allocate(0);
-					this->_tree = new ft::BinarySearchTree<Key, T>();
-					 };
+					this->_tree = new ft::BinarySearchTree<Key, T>();	};
 			template< class InputIterator >
 			map(InputIterator first, InputIterator last, 
 				const key_compare& comp = key_compare(), 
 				const allocator_type& alloc = allocator_type())
 				{	this->_comp = comp;
 					this->_allocator = alloc;
-					this->_headNode = this->_allocator.allocate(0);
 					this->_tree = ft::BinarySearchTree<Key, T>();
-					this->insert(first, last); };
-			map(map const & other) {};
-			map & operator=(map const & other) {};
+					this->insert(first, last);	};
+			map(map const & other)
+				{	*this = other;	};
+			map & operator=(map const & other)
+				{	this->_comp = other._comp;
+					this->_allocator = other._allocator;
+					this->_tree = other._tree;
+					return *this;	};
 			~map() {};
 
 			/********* ITERATORS *********/
@@ -107,9 +107,6 @@ namespace ft
 				{	iterator	tmp = this->find(k);
 					if (tmp != this->end())
 						return tmp->second;
-				//	value_type pair = ft::make_pair(k,mapped_type());
-				//	this->_tree->insert(pair);
-				//	return pair.second;
 					return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
 
 			/********* MODIFIERS *********/
@@ -126,23 +123,34 @@ namespace ft
 					return ft::make_pair(tmp, true); };
 			
 			iterator 					insert(iterator position, const value_type& val)
-				{	};
+				{	(void)position;
+					return (this->insert(val)).first;	};
+
 			template < class InputIterator >
 			void						insert(InputIterator first, InputIterator last)
-			{	InputIterator tmp = first;
-				while (tmp != first)
-					tmp++;
-				while (tmp != last) {
-					this->insert(*tmp++); }	};
-			void						erase(iterator position);
-			size_type					erase(const key_type& k);
+			{	//InputIterator tmp = first;
+			//	while (tmp != first)
+			//		tmp++;
+				while (first != last) {
+					this->insert(*first++); }	};
+			void						erase(iterator position)
+			{
+				iterator it = this->begin();
+				std::cout << "it begin = "/* << it->first*/<<std::endl;
+				while (it != position)
+					it++;
+				this->_tree->remove(it->first);
+			};
+			size_type					erase(const key_type& k)
+			{	this->_tree->remove(k);
+				return 1;	};
 			void						erase(iterator first, iterator last);
 			void						swap(map& x);
 			void						clear();
 
 			/********* OBSERVERS *********/
-			key_compare		key_comp() const;
-			value_compare	value_comp() const;
+			key_compare		key_comp() const {	return this->_comp;	};
+			value_compare	value_comp() const {	return value_compare(this->_comp);	};//VERIF
 
 			/********* OPERATIONS *********/
 			iterator								find(const key_type& k)
@@ -162,10 +170,6 @@ namespace ft
 			allocator_type	get_allocator() const;
 
 		private:
-			pointer			_headNode;
-			pointer			_endNode;
-			pointer			_container;	
-		
 			bstree			_tree;
 			key_compare		_comp;
 			allocator_type	_allocator;
