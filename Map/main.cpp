@@ -109,7 +109,7 @@ int	main()
 	std::cout << "product1 != product2 ? " << ret << " " << ret2 << std::endl;
 	
 
-	std::cout << "\n--- BST ---" <<std::endl;
+	std::cout << "\n--- BST ---" <<std::endl;/*
 	ft::BinarySearchTree<std::string, int> tr;
 	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
 	ft::pair<std::string, int> a("lol", 9);
@@ -163,12 +163,12 @@ int	main()
 	tr.remove(g.first);
 	std::cout << std::endl;
 	tr.print_inorder();
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
 	ft::map<std::string, int>	myMap;
-	myMap.insert(ft::make_pair("a", 9));
 	myMap.insert(ft::make_pair("f", 10));
+	myMap.insert(ft::make_pair("a", 9));
 	myMap.insert(ft::make_pair("b", 3));
 	myMap.insert(ft::make_pair("z", 1));
 	myMap.insert(ft::make_pair("c", 7));
@@ -236,6 +236,8 @@ int	main()
 	std::cout << "itbis-- : " << itbis->first << std::endl;
 	
 	ft::map<std::string, int> myMap2;
+	itbis++;
+	itbis++;
 	myMap2.insert(itbis, myMap.end());
 	ft::map<std::string, int>::iterator it2bis = myMap2.begin();
 	ft::map<std::string, int>::iterator ite2bis = myMap2.end();
@@ -270,6 +272,8 @@ int	main()
 	it2bis--;
 	std::cout << "it2bis-- : " << it2bis->first << std::endl;
 	it2bis = myMap2.insert(it2bis, ft::make_pair("x", 99));
+	myMap2["a"] = 86;
+	myMap2["b"] = 89;
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
@@ -286,14 +290,20 @@ int	main()
 	std::cout << std::endl;
 
 	std::cout << "erase tests : " << std::endl;
-	myMap3.erase("a");
-	myMap3.erase("z");
-	//it3bis = myMap2.begin();
-	//it3bis++;
-	myMap3.erase(it3bis);
-	std::cout << "\nPrinting myMap3 : " <<std::endl;
-	for (it3bis = myMap2.begin(); it3bis != ite3bis; ++it3bis)
-		std::cout << it3bis->first << " :: " << it3bis->second << " ; ";
+	myMap2.erase("a");
+	it2bis = myMap2.begin();
+	std::cout <<" it2bis = " << it2bis->first<<std::endl;
+	itebis = myMap2.end();
+	itebis--;
+	std::cout <<" ite2bis = " << ite2bis->first<<std::endl;
+	itebis++;
+//	myMap2.erase("z");
+	//it2bis = myMap2.begin();
+	//it2bis++;
+//	myMap2.erase(it2bis);
+	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
+		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
 //à tester après implémentation reverse iterator :

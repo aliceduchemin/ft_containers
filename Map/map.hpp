@@ -136,7 +136,7 @@ namespace ft
 			void						erase(iterator position)
 			{
 				iterator it = this->begin();
-				std::cout << "it begin = "/* << it->first*/<<std::endl;
+			//	std::cout << "it begin = "/* << it->first*/<<std::endl;
 				while (it != position)
 					it++;
 				this->_tree->remove(it->first);

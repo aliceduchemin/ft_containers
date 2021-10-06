@@ -200,6 +200,7 @@ namespace ft
 					if (t->left)
 						biggestNode(t->left);
 					this->_biggestNode = t;
+					std::cout << "t = " << _biggestNode->data.first<<std::endl;
 					if (t->right)
 						biggestNode(t->right);
 				}
@@ -275,16 +276,12 @@ namespace ft
 			{
 				if (this->isEmpty() || this->search(k) == false)
 					return ;
-			//	bool found = false;
 				tree_node<T1, T2>* curr = _root;
 				tree_node<T1, T2>* parent;
 				while (curr != NULL)
 				{
 					if (curr->data.first == k)
-					{
-					//	found = true;
 						break;
-					}
 					else
 					{
 						parent = curr;
@@ -294,47 +291,94 @@ namespace ft
 							curr = curr->left;
 					}
 				}
+				std::cout << "curr = " << curr->data.first << std::endl;
+				std::cout << "curr parent = " << parent->data.first << std::endl;
+				std::cout << "_root = " << _root->data.first << std::endl;
+			
+				if (curr->left)
+					std::cout << "curr->left = "<<curr->left->data.first<<std::endl;				
+				if (curr->right)
+					std::cout << "curr->right = "<<curr->right->data.first<<std::endl;				
+				
 				if ((curr->left == NULL && curr->right != NULL) ||
 					(curr->left != NULL && curr->right == NULL))
 				{
+					std::cout << "node with single child" << std::endl;
 					if (curr->left == NULL && curr->right != NULL)
 					{
-						if (parent->left == curr)
+					std::cout << "single child is at right" << std::endl;
+						if (parent->left && parent->left == curr)
+						{
+							std::cout << "child is at left, curr = " <<curr->data.first<< std::endl;
+							std::cout << "parent curr = " <<curr->parent->data.first<< std::endl;
+							std::cout << "curr right= " <<curr->right->data.first<< std::endl;
 							parent->left = curr->right;
-						else if (parent->right == curr)
+							curr->right->parent = curr->parent;
+							delete curr;
+						}
+						else if (parent->right && parent->right == curr)
+						{
+							std::cout << "child is at right" << std::endl;
 							parent->right = curr->right;
-						delete curr;
+							curr->right->parent = curr->parent;
+							delete curr;
+						}
+						else
+						{
+							std::cout<<"root\n";
+							this->_root = curr->right;
+							this->_root->parent = this->_root;
+							delete curr;
+						}
+						
 					}
 					else
 					{
-						if (parent->left == curr)
+					std::cout << "left has a child, not right" << std::endl;
+						if (parent->left && parent->left == curr)
+						{
 							parent->left = curr->left;
-						else if (parent->right == curr)
+							std::cout << "new parent left = "<< parent->left->data.first<<std::endl;
+							curr->left->parent = curr->parent;
+							delete curr;
+						}
+						else if (parent->right && parent->right == curr)
+						{
 							parent->right = curr->left;
+							std::cout << "new parent right = "<< parent->right->data.first<<std::endl;
+							curr->left->parent = curr->parent;
+							delete curr;
+						}
 					}
 				}
 				else if (curr->left == NULL && curr->right == NULL)
 				{
+					std::cout << "leaf node" << std::endl;
 					if (parent->left == curr)
 						parent->left = NULL;
 					else
 						parent->right = NULL;
 					delete curr;					
 				}
-				else if (curr->left != NULL && curr->right != NULL)
+				else if (curr->left != NULL && curr->right != NULL && curr->right != this->_lastNode)
 				{
+					std::cout << "node with 2 children\n";
+					std::cout << "replace node with smallest value in right subtree\n";
 					tree_node<T1, T2>* chkr;
 					chkr = curr->right;
-					if ((chkr->left == NULL) && (chkr->right = NULL))
+					if ((chkr->left == NULL) && (chkr->right == NULL))
 					{
+						chkr->parent = curr->parent;//a verif
 						curr = chkr;
 						delete chkr;
 						curr->right = NULL;
 					}
 					else
 					{
+						std::cout << "right child has children\n";
 						if ((curr->right)->left != NULL)
 						{
+							std::cout << "if node's right child hast a left child, move all the way down to locate smallest element\n";
 							tree_node<T1, T2>* lcurr;
 							tree_node<T1, T2>* lcurrp;
 							lcurrp = curr->right;
@@ -350,6 +394,7 @@ namespace ft
 						}
 						else
 						{
+							std::cout <<"else\n";
 							tree_node<T1, T2>* tmp;
 							tmp = curr->right;
 							curr->data = tmp->data;
@@ -358,6 +403,20 @@ namespace ft
 						}
 					}
 				}
+				tree_node<T1, T2>* set = NULL;
+				this->_number--;
+				set = _root;
+				this->smallestNode(set);
+				set = _root;
+				this->biggestNode(set);
+				if (this->_biggestNode == this->_lastNode)
+					this->_biggestNode = this->_biggestNode->parent;
+				std::cout << "biggstnode = " << this->_biggestNode->data.first <<std::endl;
+			//	this->_biggestNode->right = this->_lastNode;
+				this->_lastNode->parent = this->_biggestNode;
+				std::cout<< "end remove, _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<< "\n";
+				this->print_inorder();
+				std::cout<<std::endl;
 			}
 	};
 };
