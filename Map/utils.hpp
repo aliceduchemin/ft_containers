@@ -52,6 +52,7 @@ namespace ft
 					this->_biggestNode = other._biggestNode;
 					this->_lastNode = other._lastNode;
 					this->_number = other._number;
+					std::cout<<"operator= bst\n";
 					return *this;	};
 			~BinarySearchTree() {};
 
@@ -429,6 +430,18 @@ namespace ft
 				this->resetNode();
 			//	std::cout<< "end remove, _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<< "\n";
 			//	this->print_inorder();
+			}
+
+			void	clear(tree_node<T1, T2>* t)
+			{
+				if (t != NULL)
+				{
+					if (t->left)
+						clear(t->left);
+					if (t->right)
+						clear(t->right);
+					delete t;
+				}
 			}
 	};
 };

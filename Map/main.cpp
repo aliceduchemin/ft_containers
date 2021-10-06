@@ -16,7 +16,7 @@ int	main()
 	std::cout << "theirMap size = " << theirMap.size() << std::endl;
 
 	std::map<std::string, int>::iterator it = theirMap.begin();
-	std::cout << "print end " << theirMap.end()->first<<std::endl;
+//	std::cout << "print end " << theirMap.end()->first<<std::endl;
 	while (it != theirMap.end())
 	{
 		std::cout << it->first << " :: " << it->second << std::endl;
@@ -109,7 +109,7 @@ int	main()
 	std::cout << "product1 != product2 ? " << ret << " " << ret2 << std::endl;
 	
 
-	std::cout << "\n--- BST ---" <<std::endl;/*
+/*	std::cout << "\n--- BST ---" <<std::endl;
 	ft::BinarySearchTree<std::string, int> tr;
 	std::cout << "tree is empty ? " << tr.isEmpty() << std::endl;
 	ft::pair<std::string, int> a("lol", 9);
@@ -278,14 +278,13 @@ int	main()
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
+	std::cout <<"\nCopy : " <<std::endl;
 	ft::map<std::string, int>	myMap3(myMap2);
 //	myMap3 = myMap2;
-	std::cout <<"Copy : " <<std::endl;
-//	myMap2.erase
 	ft::map<std::string, int>::iterator it3bis = myMap3.begin();
 	ft::map<std::string, int>::iterator ite3bis = myMap3.end();
 	std::cout << "\nPrinting myMap3 : " <<std::endl;
-	for (it3bis = myMap2.begin(); it3bis != ite3bis; ++it3bis)
+	for (it3bis = myMap3.begin(); it3bis != ite3bis; ++it3bis)
 		std::cout << it3bis->first << " :: " << it3bis->second << " ; ";
 	std::cout << std::endl;
 
@@ -298,11 +297,13 @@ int	main()
 	it2bis++;
 	ite2bis = it2bis;
 	ite2bis++;
-	ite2bis++;
-	ite2bis++;
+//	ite2bis++;
+//	ite2bis++;
 	std::cout <<"start of iterator erase : " << it2bis->first << std::endl;
 	std::cout <<"end of iterator erase : " << ite2bis->first << std::endl;
 	myMap2.erase(it2bis, ite2bis);
+	std::cout <<"ok\n";
+
 	ite2bis = myMap2.end();
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
@@ -314,8 +315,8 @@ int	main()
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
 
+	std::cout<< "Swaping maps : " <<std::endl;
 	myMap.swap(myMap2);
-	std::cout<< "Swaping maps: "<<std::endl;
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	ite2bis = myMap2.end();
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)

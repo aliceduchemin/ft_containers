@@ -68,38 +68,51 @@ namespace ft
 			explicit map(const key_compare& comp = key_compare(), 
 						const allocator_type& alloc = allocator_type())
 				{	this->_comp = comp;
+					this->_number = 0;
 					this->_allocator = alloc;
-					this->_tree = new ft::BinarySearchTree<Key, T>();	};
+					this->_tree = new ft::BinarySearchTree<Key, T>();
+				};
 			template< class InputIterator >
 			map(InputIterator first, InputIterator last, 
 				const key_compare& comp = key_compare(), 
 				const allocator_type& alloc = allocator_type())
 				{	this->_comp = comp;
+					this->_number = 0;
 					this->_allocator = alloc;
-					this->_tree = ft::BinarySearchTree<Key, T>();
+					this->_tree = new ft::BinarySearchTree<Key, T>();
 					this->insert(first, last);	};
 			map(map const & other)
-				{	*this = other;	};
+				{	this->_tree = new ft::BinarySearchTree<Key, T>();
+					this->_number = 0;
+					*this = other;	};
 			map & operator=(map const & other)
-				{	this->_comp = other._comp;
+				{	
+					this->_comp = other._comp;
 					this->_allocator = other._allocator;
 					this->_tree = other._tree;
+				std::cout << "\nsize ? " << size() <<std::endl;
+					this->clear();
+				//	this->_tree->clear(this->_tree->_root);
+					this->insert(other.begin(), other.end());
+				std::cout << "size ? " << size() <<std::endl;
 					return *this;	};
-			~map() {};
+			~map() 
+				{	this->_tree->clear(this->_tree->_root); 
+					delete this->_tree;	};
 
 			/********* ITERATORS *********/
 			iterator 				begin() { return iterator(_tree, _tree->_smallestNode); };
-		//	const_iterator	 		begin() const { return pointer(_headNode); };
+			/*const_*/iterator	 		begin() const { return iterator(_tree, _tree->_smallestNode); };
 			iterator				end() { return iterator(_tree, _tree->_biggestNode->right); };
-		/*	const_iterator			end() const { return pointer(_endNode + 1); };
-			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
+		/*	const_*/iterator			end() const { return iterator(_tree, _tree->_biggestNode->right); };
+		/*	reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
 			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
 			reverse_iterator 		rend() { return pointer(_headNode); };
 			const_reverse_iterator 	rend() const { return pointer(_headNode); };
 */
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
-			size_type	size() const { return _tree->_number; };
+			size_type	size() const { return this->_number; };
 			size_type	max_size() const { return _allocator.max_size(); };
 		
 			/********* ELEMENT ACCESS *********/
@@ -107,6 +120,7 @@ namespace ft
 				{	iterator	tmp = this->find(k);
 					if (tmp != this->end())
 						return tmp->second;
+					this->_number++;
 					return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
 
 			/********* MODIFIERS *********/
@@ -120,10 +134,12 @@ namespace ft
 					tmp = this->begin();
 					while (tmp != val)
 						tmp++;
+					this->_number++;
 					return ft::make_pair(tmp, true); };
 			
 			iterator 					insert(iterator position, const value_type& val)
 				{	(void)position;
+					this->_number++;
 					return (this->insert(val)).first;	};
 
 			template < class InputIterator >
@@ -137,24 +153,42 @@ namespace ft
 				while (it != position)
 					it++;
 				std::cout << "it remove = " << it->first<<std::endl;
+				this->_number--;
 				this->_tree->remove(it->first);
 			};
 			size_type					erase(const key_type& k)
 			{	this->_tree->remove(k);
+				this->_number--;
 				return 1;	};
 			void						erase(iterator first, iterator last)
 			{	
 				size_t length = 0;
-				iterator tmp = first;
-				while (tmp != last) {tmp++; length++;}
-			//	std::cout << "length = " << length << std::endl;
-				
+				iterator oo = first;
+				while (oo != last) {oo++; length++;}
+				std::cout << "length = " << length << std::endl;
+				/*
 				size_t i = 0;
 				while (i != length) {
-				//	tmp = first;
-					erase(tmp = first);
+					tmp = first++;
+					first--;
+					erase(first);
+					first = tmp;
 					i++;
-				}	};
+				}*/
+				
+				iterator	tmp;
+				size_t i = 0;
+					std::cout <<"last : "<<last->first<<std::endl;
+				while (i < length)
+				{
+					std::cout <<"round : "<<first->first<<std::endl;
+					tmp = first++;
+					first--;
+					this->erase(first);
+					first = tmp;
+					i++;
+				}
+				};
 
 			void						swap(map& x)
 			{
@@ -163,14 +197,19 @@ namespace ft
 				*this = x;
 				x = tmp;
 			};
+
 			void						clear()
 			{
-				iterator it = this->begin();
-				iterator ite = this->end();
-				while (it != ite)
+				if (this->empty() == 0)
 				{
-					this->erase(it->first);
-					it = this->begin();
+					iterator it = this->begin();
+					iterator ite = this->end();
+					this->erase(it, ite);
+				/*	while (it != ite)
+					{
+						this->erase(it->first);
+						it = this->begin();
+					}*/
 				}
 			};
 
@@ -199,6 +238,7 @@ namespace ft
 			bstree			_tree;
 			key_compare		_comp;
 			allocator_type	_allocator;
+			size_type		_number;
 	};
 
 	/********* MODIFIERS *********/
