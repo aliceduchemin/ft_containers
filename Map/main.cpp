@@ -308,6 +308,26 @@ int	main()
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
+	std::cout << "\nPrinting myMap : " <<std::endl;
+	itebis = myMap.end();
+	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
+		std::cout << itbis->first << " :: " << itbis->second << " ; ";
+	std::cout << std::endl;
+
+	myMap.swap(myMap2);
+
+	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	ite2bis = myMap2.end();
+	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
+		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
+	std::cout << std::endl;
+
+	std::cout << "\nPrinting myMap : " <<std::endl;
+	itebis = myMap.end();
+	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
+		std::cout << itbis->first << " :: " << itbis->second << " ; ";
+	std::cout << std::endl;
+
 
 //à tester après implémentation reverse iterator :
 /*	std::cout << "Comp : " << std::endl;

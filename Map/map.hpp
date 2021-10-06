@@ -156,7 +156,13 @@ namespace ft
 					i++;
 				}	};
 
-			void						swap(map& x);
+			void						swap(map& x)
+			{
+				map	tmp;
+				tmp = *this;
+				*this = x;
+				x = tmp;
+			};
 			void						clear();
 
 			/********* OBSERVERS *********/
