@@ -130,19 +130,32 @@ namespace ft
 			void						insert(InputIterator first, InputIterator last)
 			{	while (first != last) {
 					this->insert(*first++); }	};
-					
+
 			void						erase(iterator position)
 			{
 				iterator it = this->begin();
-			//	std::cout << "it begin = "/* << it->first*/<<std::endl;
 				while (it != position)
 					it++;
+				std::cout << "it remove = " << it->first<<std::endl;
 				this->_tree->remove(it->first);
 			};
 			size_type					erase(const key_type& k)
 			{	this->_tree->remove(k);
 				return 1;	};
-			void						erase(iterator first, iterator last);
+			void						erase(iterator first, iterator last)
+			{	
+				size_t length = 0;
+				iterator tmp = first;
+				while (tmp != last) {tmp++; length++;}
+				std::cout << "length = " << length << std::endl;
+				
+				size_t i = 0;
+				while (i != length) {
+				//	tmp = first;
+					erase(tmp = first);
+					i++;
+				}	};
+
 			void						swap(map& x);
 			void						clear();
 

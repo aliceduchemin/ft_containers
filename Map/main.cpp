@@ -296,7 +296,14 @@ int	main()
 	myMap2.erase("y");
 	it2bis = myMap2.begin();
 	it2bis++;
-	myMap2.erase(it2bis);
+	ite2bis = it2bis;
+	ite2bis++;
+	ite2bis++;
+	ite2bis++;
+	std::cout <<"start of iterator erase : " << it2bis->first << std::endl;
+	std::cout <<"end of iterator erase : " << ite2bis->first << std::endl;
+	myMap2.erase(it2bis, ite2bis);
+	ite2bis = myMap2.end();
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
