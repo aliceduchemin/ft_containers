@@ -290,17 +290,13 @@ int	main()
 	std::cout << std::endl;
 
 	std::cout << "erase tests : " << std::endl;
+	myMap2.erase("c");
 	myMap2.erase("a");
+	myMap2.erase("z");
+	myMap2.erase("y");
 	it2bis = myMap2.begin();
-	std::cout <<" it2bis = " << it2bis->first<<std::endl;
-	itebis = myMap2.end();
-	itebis--;
-	std::cout <<" ite2bis = " << ite2bis->first<<std::endl;
-	itebis++;
-//	myMap2.erase("z");
-	//it2bis = myMap2.begin();
-	//it2bis++;
-//	myMap2.erase(it2bis);
+	it2bis++;
+	myMap2.erase(it2bis);
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";

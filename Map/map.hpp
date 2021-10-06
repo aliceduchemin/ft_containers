@@ -128,11 +128,9 @@ namespace ft
 
 			template < class InputIterator >
 			void						insert(InputIterator first, InputIterator last)
-			{	//InputIterator tmp = first;
-			//	while (tmp != first)
-			//		tmp++;
-				while (first != last) {
+			{	while (first != last) {
 					this->insert(*first++); }	};
+					
 			void						erase(iterator position)
 			{
 				iterator it = this->begin();
