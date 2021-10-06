@@ -147,7 +147,7 @@ namespace ft
 				size_t length = 0;
 				iterator tmp = first;
 				while (tmp != last) {tmp++; length++;}
-				std::cout << "length = " << length << std::endl;
+			//	std::cout << "length = " << length << std::endl;
 				
 				size_t i = 0;
 				while (i != length) {
@@ -163,7 +163,16 @@ namespace ft
 				*this = x;
 				x = tmp;
 			};
-			void						clear();
+			void						clear()
+			{
+				iterator it = this->begin();
+				iterator ite = this->end();
+				while (it != ite)
+				{
+					this->erase(it->first);
+					it = this->begin();
+				}
+			};
 
 			/********* OBSERVERS *********/
 			key_compare		key_comp() const {	return this->_comp;	};

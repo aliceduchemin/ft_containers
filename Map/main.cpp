@@ -315,7 +315,7 @@ int	main()
 	std::cout << std::endl;
 
 	myMap.swap(myMap2);
-
+	std::cout<< "Swaping maps: "<<std::endl;
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	ite2bis = myMap2.end();
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
@@ -326,6 +326,16 @@ int	main()
 	itebis = myMap.end();
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
+	std::cout << std::endl;
+
+	std::cout << "clear map2 :"<<std::endl;
+	myMap2.clear();
+	std::cout << "size of my map 2 ? " << myMap2.size()<<std::endl;
+	std::cout << "my map 2 empty ? " << myMap2.empty()<<std::endl;
+	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	ite2bis = myMap2.end();
+	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
+		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
 
