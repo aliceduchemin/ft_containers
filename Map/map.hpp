@@ -166,8 +166,6 @@ namespace ft
 				return 1;	};
 			void						erase(iterator first, iterator last)
 			{	
-				
-
 				size_t length = 0;
 				iterator tmp = first;
 				while (tmp != last) {tmp++; length++;}
@@ -222,13 +220,36 @@ namespace ft
 				//	std::cout << "find : " << tmp->data.first<<std::endl;
 				return iterator(this->_tree, tmp);	};
 		//	const_iterator							find(const key_type& k) const;
-			size_type								count(const key_type& k) const;
-			iterator								lower_bound(const key_type& k);
+			size_type								count(const key_type& k) //const
+			{	
+				if (this->find(k) != this->end())
+					return 1;
+				return 0;//CONST
+			};
+			iterator								lower_bound(const key_type& k)
+			{
+				iterator it = this->begin();
+				while (it != this->end() && it->first < k)
+					it++;
+				return it;
+			};
 		//	const_iterator							lower_bound(const key_type& k) const;
-			iterator								upper_bound(const key_type& k);
+			iterator								upper_bound(const key_type& k)
+			{
+				iterator it = this->begin();
+				while (it != this->end() && it->first <= k)
+					it++;
+				return it;
+			};
 		//	const_iterator							upper_bound(const key_type& k) const;
 		//	pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
-			pair<iterator, iterator>				equal_range(const key_type& k);
+			pair<iterator, iterator>				equal_range(const key_type& k)
+			{
+				iterator it = this->find(k);
+				if (it != this->end())
+					return ft::make_pair(it, it++);
+				return ft::make_pair(this->upper_bound(k), this->upper_bound(k));
+			};
 
 			/********* ALLOCATOR *********/
 			allocator_type	get_allocator() const;

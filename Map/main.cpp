@@ -25,6 +25,14 @@ int	main()
 	}	
 	theirMap.insert(std::make_pair("sun", 9));
 	theirMap.insert(std::make_pair("moon", 7));
+	it = theirMap.lower_bound("moon");
+	std::cout << "return lower_bound for moon = "<< it->first<<std::endl;
+	it = theirMap.upper_bound("moon");
+	std::cout << "return upper_bound for moon = "<< it->first<<std::endl;
+	std::pair <std::map<std::string, int>::iterator, std::map<std::string, int>::iterator> retu;
+	retu = theirMap.equal_range("moono");
+	std::cout << "return equal_range for moono = "<< retu.first->first<<std::endl;
+
 	int loli = theirMap["pluto"] = 6;
 	std::cout << "pluto = " << theirMap["pluto"] << std::endl;
 	theirMap["earth"] = 2;
@@ -299,7 +307,15 @@ int	main()
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
-	
+	std::cout << "count b : "<< myMap.count("b")<<std::endl;
+	itbis = myMap.lower_bound("j");
+	std::cout << "return lower_bound for j = "<< itbis->first<<std::endl;
+	itbis = myMap.upper_bound("j");
+	std::cout << "return upper_bound for j = "<< itbis->first<<std::endl;
+	ft::pair <ft::map<std::string, int>::iterator, ft::map<std::string, int>::iterator> retur;
+	retur = myMap.equal_range("j");
+	std::cout << "return equal_range for j = "<< retur.first->first<<std::endl;
+
 	std::cout << "clear map2 :"<<std::endl;
 	std::cout << "size of my map 2 ? " << myMap2.size()<<std::endl;
 	myMap2.clear();
