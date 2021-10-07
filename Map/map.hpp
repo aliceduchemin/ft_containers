@@ -139,7 +139,6 @@ namespace ft
 			
 			iterator 					insert(iterator position, const value_type& val)
 				{	(void)position;
-					this->_number++;
 					return (this->insert(val)).first;	};
 
 			template < class InputIterator >
@@ -156,11 +155,19 @@ namespace ft
 				this->_tree->remove(it->first);
 			};
 			size_type					erase(const key_type& k)
-			{	this->_tree->remove(k);
+			{	
+				if (this->empty() == false)
+				{
+					if (this->find(k) == this->end())
+						return 0;
+				}
+				this->_tree->remove(k);
 				this->_number--;
 				return 1;	};
 			void						erase(iterator first, iterator last)
 			{	
+				
+
 				size_t length = 0;
 				iterator tmp = first;
 				while (tmp != last) {tmp++; length++;}
@@ -179,7 +186,7 @@ namespace ft
 			void						swap(map& x)
 			{
 				map	tmp;
-				
+
 				tmp = *this;
 				*this = x;
 				x = tmp;
@@ -200,6 +207,7 @@ namespace ft
 						this->_number--;
 						i++;
 					}
+				//	std::cout<<"_number end of clear = " << _number << std::endl;
 					this->_tree->removeLastNode();
 				}
 			};

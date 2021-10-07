@@ -14,7 +14,8 @@ int	main()
 	theirMap["jupiter"] = 6;
 	std::cout << "theirMap[earth] = " << theirMap["earth"] << std::endl;
 	std::cout << "theirMap size = " << theirMap.size() << std::endl;
-
+	std::cout <<"erase non existing \n";
+	theirMap.erase("lol");
 	std::map<std::string, int>::iterator it = theirMap.begin();
 //	std::cout << "print end " << theirMap.end()->first<<std::endl;
 	while (it != theirMap.end())
@@ -216,21 +217,6 @@ int	main()
 		std::cout << "k found" <<std::endl;
 	else
 		std::cout << "k not found" <<std::endl;
-
-	itbis = myMap.begin();
-	std::cout <<"itbis begin = " << itbis->first<<std::endl;
-	itbis++;
-	std::cout << "itbis++ : " << itbis->first << std::endl;
-	itbis++;
-	std::cout << "itbis++ : " << itbis->first << std::endl;
-	itbis++;
-	std::cout << "itbis++ : " << itbis->first << std::endl;
-	itbis--;
-	std::cout << "itbis-- : " << itbis->first << std::endl;
-	itbis--;
-	std::cout << "itbis-- : " << itbis->first << std::endl;
-	itbis--;
-	std::cout << "itbis-- : " << itbis->first << std::endl;
 	
 	ft::map<std::string, int> myMap2;
 	myMap2._name = "myMap2";
@@ -255,7 +241,7 @@ int	main()
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
-	
+
 	ft::map<std::string, int>	myMap3(myMap2);
 	myMap3._name = "myMap3";
 	myMap3["v"] = 10;
@@ -273,7 +259,7 @@ int	main()
 	for (it3bis = myMap3.begin(); it3bis != ite3bis; ++it3bis)
 		std::cout << it3bis->first << " :: " << it3bis->second << " ; ";
 	std::cout << std::endl;
-
+//HERE
 	std::cout << "erase tests : " << std::endl;
 	myMap2.erase("c");
 	myMap2.erase("a");
@@ -283,8 +269,6 @@ int	main()
 	it2bis++;
 	ite2bis = it2bis;
 	ite2bis++;
-//	ite2bis++;
-//	ite2bis++;
 	std::cout <<"start of iterator erase : " << it2bis->first << std::endl;
 	std::cout <<"end of iterator erase : " << ite2bis->first << std::endl;
 	myMap2.erase("d");
@@ -315,18 +299,19 @@ int	main()
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
-	/*
+	
 	std::cout << "clear map2 :"<<std::endl;
-	myMap2.clear();
 	std::cout << "size of my map 2 ? " << myMap2.size()<<std::endl;
+	myMap2.clear();
 	std::cout << "my map 2 empty ? " << myMap2.empty()<<std::endl;
+	std::cout << "size of my map 2 ? " << myMap2.size()<<std::endl;
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	ite2bis = myMap2.end();
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
-*/
+
 //à tester après implémentation reverse iterator :
 /*	std::cout << "Comp : " << std::endl;
 	std::map<char,int>	theirTestMap;
