@@ -52,7 +52,6 @@ namespace ft
 					this->_biggestNode = other._biggestNode;
 					this->_lastNode = other._lastNode;
 					this->_number = other._number;
-					std::cout<<"operator= bst\n";
 					return *this;	};
 			~BinarySearchTree() {};
 
@@ -168,7 +167,7 @@ namespace ft
 				return _lastNode;
 			}
 
-			bool	isEmpty() const { return _root==NULL; }
+			bool	isEmpty() const { return _number == 0; }
 			void	print_inorder() { inorder(_root); };
 			void	inorder(tree_node<T1, T2>* t)
 			{
@@ -226,7 +225,9 @@ namespace ft
 				temp->data = data;
 				temp->left = NULL;
 				temp->right = NULL;
-			//	std::cout << "\ninsert " << data.first << std::endl;
+				
+			//	std::cout << "\nTREE insert " << data.first << std::endl;
+			//	std::cout << "tree number ? " << this->_number << std::endl;
 				if (this->isEmpty())
 				{
 				//	std::cout << "empty" << temp->data.first<<std::endl;
@@ -306,8 +307,8 @@ namespace ft
 							curr = curr->left;
 					}
 				}
-			/*	std::cout << "\ncurr = " << curr->data.first << std::endl;
-				if (curr != _root)
+			//	std::cout << "\ncurr = " << curr->data.first << std::endl;
+			/*	if (curr != _root)
 					std::cout << "curr parent = " << parent->data.first << std::endl;
 				std::cout << "_root = " << _root->data.first << std::endl;
 			
@@ -330,6 +331,7 @@ namespace ft
 				//			std::cout << "curr right= " <<curr->right->data.first<< std::endl;
 							parent->left = curr->right;
 							curr->right->parent = curr->parent;
+				//			std::cout<< "free 1: "<< curr->data.first<<std::endl;
 							delete curr;
 						}
 						else if (parent->right && parent->right == curr)
@@ -339,6 +341,7 @@ namespace ft
 							std::cout << "child is at right" << std::endl;
 					*/		parent->right = curr->right;
 							curr->right->parent = curr->parent;
+				//			std::cout<< "free 2: "<< curr->data.first<<std::endl;
 							delete curr;
 						}
 						else
@@ -346,6 +349,7 @@ namespace ft
 			//				std::cout<<"root\n";
 							this->_root = curr->right;
 							this->_root->parent = this->_root;
+			//				std::cout<< "free 3: "<< curr->data.first<<std::endl;
 							delete curr;
 						}
 						
@@ -358,6 +362,7 @@ namespace ft
 							parent->left = curr->left;
 				//			std::cout << "new parent left = "<< parent->left->data.first<<std::endl;
 							curr->left->parent = curr->parent;
+				//			std::cout<< "free 4: "<< curr->data.first<<std::endl;
 							delete curr;
 						}
 						else if (parent->right && parent->right == curr)
@@ -365,6 +370,7 @@ namespace ft
 							parent->right = curr->left;
 					//		std::cout << "new parent right = "<< parent->right->data.first<<std::endl;
 							curr->left->parent = curr->parent;
+				//			std::cout<< "free 5: "<< curr->data.first<<std::endl;
 							delete curr;
 						}
 					/*	if (curr->right == this->_lastNode)
@@ -380,6 +386,7 @@ namespace ft
 						parent->left = NULL;
 					else
 						parent->right = NULL;
+			//				std::cout<< "free 6: "<< curr->data.first<<std::endl;
 					delete curr;					
 				}
 				else if (curr->left != NULL && curr->right != NULL && curr->right != this->_lastNode)
@@ -393,6 +400,7 @@ namespace ft
 				//		std::cout << "chekr\n";
 						chkr->parent = curr->parent;//a verif
 						curr = chkr;
+				//			std::cout<< "free 7: "<< chkr->data.first<<std::endl;
 						delete chkr;
 						curr->right = NULL;
 					}
@@ -412,6 +420,7 @@ namespace ft
 								lcurr = lcurr->left;
 							}
 							curr->data = lcurr->data;
+					//		std::cout<< "free 8: "<< lcurr->data.first<<std::endl;
 							delete lcurr;
 							lcurrp->left = NULL;
 						}
@@ -420,8 +429,12 @@ namespace ft
 				//			std::cout <<"else\n";
 							tree_node<T1, T2>* tmp;
 							tmp = curr->right;
+				//			std::cout <<"tmp right = "<<tmp->right->data.first<< std::endl;
+				//			std::cout <<"tmp right parent = "<<tmp->right->parent->data.first<< " curr = " <<curr->data.first<<std::endl;
 							curr->data = tmp->data;
 							curr->right = tmp->right;
+							tmp->right->parent = curr;
+				//			std::cout<< "free 9: "<< tmp->data.first<<std::endl;
 							delete tmp;
 						}
 					}
@@ -432,7 +445,12 @@ namespace ft
 			//	this->print_inorder();
 			}
 
-			void	clear(tree_node<T1, T2>* t)
+			void	removeLastNode()
+			{
+				delete this->_lastNode;
+			}
+
+		/*	void	clear(tree_node<T1, T2>* t)
 			{
 				if (t != NULL)
 				{
@@ -440,9 +458,10 @@ namespace ft
 						clear(t->left);
 					if (t->right)
 						clear(t->right);
+							std::cout<< "free 10: "<< t->data.first<<std::endl;
 					delete t;
 				}
-			}
+			}*/
 	};
 };
 

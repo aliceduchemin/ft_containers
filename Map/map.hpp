@@ -86,18 +86,14 @@ namespace ft
 					this->_number = 0;
 					*this = other;	};
 			map & operator=(map const & other)
-				{	
-					this->_comp = other._comp;
+				{	this->_comp = other._comp;
 					this->_allocator = other._allocator;
-					this->_tree = other._tree;
-				std::cout << "\nsize ? " << size() <<std::endl;
 					this->clear();
-				//	this->_tree->clear(this->_tree->_root);
 					this->insert(other.begin(), other.end());
-				std::cout << "size ? " << size() <<std::endl;
 					return *this;	};
 			~map() 
-				{	this->_tree->clear(this->_tree->_root); 
+				{	//std::cout<<"deleting "<< _name <<" tree of size : "<<size()<<std::endl;
+					this->clear(); 
 					delete this->_tree;	};
 
 			/********* ITERATORS *********/
@@ -117,19 +113,23 @@ namespace ft
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
-				{	iterator	tmp = this->find(k);
-					if (tmp != this->end())
-						return tmp->second;
-					this->_number++;
+				{	if (this->empty() == false)
+					{
+						iterator	tmp = this->find(k);
+						if (tmp != this->end())
+							return tmp->second;
+					}
 					return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second; };
 
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
 				{	iterator	tmp;
 					if (this->empty() == false)
-					{	tmp = this->find(val.first);
+					{	
+						tmp = this->find(val.first);
 						if (tmp != this->end())
-							return ft::make_pair(tmp, false); }
+							return ft::make_pair(tmp, false);
+					}
 					this->_tree->insert(val);
 					tmp = this->begin();
 					while (tmp != val)
@@ -152,7 +152,6 @@ namespace ft
 				iterator it = this->begin();
 				while (it != position)
 					it++;
-				std::cout << "it remove = " << it->first<<std::endl;
 				this->_number--;
 				this->_tree->remove(it->first);
 			};
@@ -163,36 +162,24 @@ namespace ft
 			void						erase(iterator first, iterator last)
 			{	
 				size_t length = 0;
-				iterator oo = first;
-				while (oo != last) {oo++; length++;}
-				std::cout << "length = " << length << std::endl;
-				/*
-				size_t i = 0;
-				while (i != length) {
-					tmp = first++;
-					first--;
-					erase(first);
-					first = tmp;
-					i++;
-				}*/
+				iterator tmp = first;
+				while (tmp != last) {tmp++; length++;}
 				
-				iterator	tmp;
 				size_t i = 0;
-					std::cout <<"last : "<<last->first<<std::endl;
+				tmp = first;
 				while (i < length)
 				{
-					std::cout <<"round : "<<first->first<<std::endl;
-					tmp = first++;
-					first--;
-					this->erase(first);
-					first = tmp;
+				//	std::cout << "round tmp = "<<tmp->first<<std::endl;;
+					this->_tree->remove(tmp->first);
+					this->_number--;
 					i++;
 				}
-				};
+			};
 
 			void						swap(map& x)
 			{
 				map	tmp;
+				
 				tmp = *this;
 				*this = x;
 				x = tmp;
@@ -200,16 +187,20 @@ namespace ft
 
 			void						clear()
 			{
-				if (this->empty() == 0)
+				if (this->empty() == false)
 				{
-					iterator it = this->begin();
-					iterator ite = this->end();
-					this->erase(it, ite);
-				/*	while (it != ite)
+				/*	std::cout <<" CLEAR () tree : " << _name <<" "<< this->_tree->_root->data.first<<std::endl;
+					std::cout << "this->begin = " << this->begin()->first<<std::endl;
+					std::cout << "this->end = " << this->end()->first<<std::endl;
+				*/	size_t i = 0;
+					while (this->begin() != this->end())
 					{
-						this->erase(it->first);
-						it = this->begin();
-					}*/
+					//	std::cout << "clearing round = "<<this->begin()->first<<std::endl;;
+						this->_tree->remove(this->begin()->first);
+						this->_number--;
+						i++;
+					}
+					this->_tree->removeLastNode();
 				}
 			};
 
@@ -239,6 +230,8 @@ namespace ft
 			key_compare		_comp;
 			allocator_type	_allocator;
 			size_type		_number;
+		public:
+			std::string		_name;
 	};
 
 	/********* MODIFIERS *********/
