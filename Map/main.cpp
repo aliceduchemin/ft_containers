@@ -332,7 +332,25 @@ int	main()
 
 
 	ft::map<std::string, int>::const_iterator constIt = myMap3.begin();
+	ft::map<std::string, int>::const_iterator constIte = myMap3.end();
 	std::cout << "const : " << constIt->first<<std::endl;
+	std::cout << "const : " << constIte->first<<std::endl;
+
+	ft::map<std::string, int>::reverse_iterator rev_deb1 (myMap3.end());
+	ft::map<std::string, int>::reverse_iterator rev_end1 (myMap3.begin());
+	std::cout << "rev : " << rev_deb1->first<<std::endl;
+	std::cout << "rev ite : " << rev_end1->first<<std::endl;
+	while (rev_deb1 != rev_end1)
+	{
+		std::cout << ' ' << rev_deb1->first << " : " << rev_deb1->second << " - ";
+		rev_deb1++;
+	}
+	std::cout << "\n";
+
+	ft::map<std::string, int>::const_reverse_iterator rev_const_deb1 (myMap3.end());
+	ft::map<std::string, int>::const_reverse_iterator rev_const_end1 (myMap3.begin());
+	std::cout << "const rev : " << rev_const_deb1->first<<std::endl;
+	std::cout << "const rev ite : " << rev_const_end1->first<<std::endl;
 
 
 //à tester après implémentation reverse iterator :

@@ -92,7 +92,8 @@ namespace ft
 			/********* MODIFIERS *********/
 			template < class InputIterator >
 			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
-				{	if (this->_number != 0)
+				{	
+					if (this->_number != 0)
 						this->clear();
 					while (first != last)
 					{
@@ -102,7 +103,8 @@ namespace ft
 						this->_endNode = &this->_headNode[this->_number];
 						this->_number++;
 						first++; 
-					} };
+					} 
+				};
 			void		assign(size_type n, const value_type& val);
 			void		push_back(const value_type& val);
 			void		pop_back();
@@ -110,12 +112,14 @@ namespace ft
 			void		insert(iterator position, size_type n, const value_type& val);
 			template < class InputIterator >
 			void		insert(iterator position, InputIterator first, InputIterator last)
-			{	iterator ret = position;
-				while (first != last)
-				{
-					ret = this->insert(ret, *first);
-					first++;
-				} };
+				{	
+					iterator ret = position;
+					while (first != last)
+					{
+						ret = this->insert(ret, *first);
+						first++;
+					} 
+				};
 			iterator	erase(iterator position);
 			iterator	erase(iterator first, iterator last);
 			void		swap(vector& x);

@@ -48,8 +48,9 @@ namespace ft
 
 			typedef ft::map_random_access_iterator<Key, T>			iterator;
 			typedef ft::const_map_random_access_iterator<Key, T>	const_iterator;
-		//	typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		//	typedef ft::const_reverse_iterator<iterator>	const_reverse_iterator;
+			typedef ft::map_reverse_iterator<iterator>				reverse_iterator;
+			typedef ft::const_map_reverse_iterator<iterator>		const_reverse_iterator;
+			
 			class value_compare
 			{
 				friend class map;
@@ -113,11 +114,11 @@ namespace ft
 			const_iterator	 		begin() const { return iterator(_tree, _tree->_smallestNode); };
 			iterator				end() { return iterator(_tree, _tree->_biggestNode->right); };
 			const_iterator			end() const { return iterator(_tree, _tree->_biggestNode->right); };
-		/*	reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
-			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
-			reverse_iterator 		rend() { return pointer(_headNode); };
-			const_reverse_iterator 	rend() const { return pointer(_headNode); };
-*/
+			reverse_iterator 		rbegin() { return reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
+			const_reverse_iterator 	rbegin() const { return const_reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
+			reverse_iterator 		rend() { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
+			const_reverse_iterator 	rend() const { return const_reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
+
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
 			size_type	size() const { return this->_number; };

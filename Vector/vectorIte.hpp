@@ -351,6 +351,7 @@ namespace ft
 			{ };//HERE
 		const_reverse_iterator & operator=(const_reverse_iterator const & other)
 			{ _it = other._it; return *this; };
+			//HERE
 		const_reverse_iterator(const_reverse_iterator const & other)
 			{ *this = other; };
 		~const_reverse_iterator() {};
