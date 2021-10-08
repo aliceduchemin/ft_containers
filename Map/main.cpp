@@ -17,6 +17,7 @@ int	main()
 	std::cout <<"erase non existing \n";
 	theirMap.erase("lol");
 	std::map<std::string, int>::iterator it = theirMap.begin();
+	std::map<std::string, int>::iterator ite = theirMap.end();
 //	std::cout << "print end " << theirMap.end()->first<<std::endl;
 	while (it != theirMap.end())
 	{
@@ -69,6 +70,11 @@ int	main()
 	std::cout << "\n--- MAP ITERATORS ---" <<std::endl;
 	it = theirMap.begin();
 //	it = it + 5; pas possible
+//	std::cout << "TEST : " << theirMap[2] << std::endl;
+//	it = it + 3;
+//	it += 3;
+	bool reponse = it != ite;
+	std::cout << "TEST : " << reponse << std::endl;
 	std::cout << theirMap["sun"] << std::endl;
 
 
@@ -176,7 +182,6 @@ int	main()
 
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
 	ft::map<std::string, int>	myMap;
-	myMap._name = "myMap";
 	myMap.insert(ft::make_pair("f", 10));
 	myMap.insert(ft::make_pair("a", 9));
 	myMap.insert(ft::make_pair("b", 3));
@@ -227,7 +232,6 @@ int	main()
 		std::cout << "k not found" <<std::endl;
 	
 	ft::map<std::string, int> myMap2;
-	myMap2._name = "myMap2";
 	itbis = myMap.begin();
 	itbis++;
 	myMap2.insert(itbis, myMap.end());
@@ -251,7 +255,6 @@ int	main()
 	std::cout << std::endl;
 
 	ft::map<std::string, int>	myMap3(myMap2);
-	myMap3._name = "myMap3";
 	myMap3["v"] = 10;
 	myMap3.insert(ft::make_pair("c", 2));
 	myMap3["z"] = 1;
@@ -326,6 +329,10 @@ int	main()
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
+
+
+	ft::map<std::string, int>::const_iterator constIt = myMap3.begin();
+	std::cout << "const : " << constIt->first<<std::endl;
 
 
 //à tester après implémentation reverse iterator :

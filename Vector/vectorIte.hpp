@@ -106,11 +106,11 @@ namespace ft
 	
 		/********* ITERATORS *********/
 		// can be incremented
-		random_access_iterator &operator++() //++i
-			{ this->_nodePtr++; return *this; }
 		random_access_iterator	operator++(int) //i++
 			{ random_access_iterator tmp(*this); operator++(); return tmp; };
-		
+		random_access_iterator &operator++() //++i
+			{ this->_nodePtr++; return *this; }
+
 		/********* INPUT ITERATORS *********/
 		// Supports equality/inequality comparisons
 		bool operator==(random_access_iterator const & other) const
@@ -122,7 +122,7 @@ namespace ft
 			{ return *this->_nodePtr; };
 		pointer operator->() const
 			{ return *this->_nodePtr; };
-		pointer getNodePtr() const//HERE
+		pointer getNodePtr() const
 			{ return this->_nodePtr; };
 
 		/********* OUTPUT ITERATORS *********/
@@ -218,14 +218,14 @@ namespace ft
 		const_random_access_iterator &	operator--()
 			{ this->_nodePtr--; return *this; }
 
+		bool operator==(const_random_access_iterator const & other) const
+			{ return this->_nodePtr == other._nodePtr; };
+		bool operator!=(const_random_access_iterator const & other) const
+			{ return this->_nodePtr != other._nodePtr; };
 		reference operator*() const
 			{ return *this->_nodePtr; };
 		pointer operator->() 
 			{ return *this->_nodePtr; };
-		bool operator!=(const_random_access_iterator const & other) const
-			{ return this->_nodePtr != other._nodePtr; };
-		bool operator==(const_random_access_iterator const & other) const
-			{ return this->_nodePtr == other._nodePtr; };
 		
 		difference_type operator +(const_random_access_iterator other)
 			{ return (this->_nodePtr + other._nodePtr); };

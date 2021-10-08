@@ -91,8 +91,6 @@ namespace ft
 			typedef ft::pair<Key, T>				value_type;
 			typedef ft::pair<Key, T>&				reference;
 			typedef ft::pair<Key, T>*				pointer;
-		//	typedef ft::tree_node<Key, T>&			reference;
-		//	typedef ft::tree_node<Key, T>*			pointer;
 			typedef ft::tree_node<Key, T>*			nodePtr;
 			typedef ft::BinarySearchTree<Key, T>*	bstree;
 			typedef ptrdiff_t						difference_type;
@@ -109,14 +107,16 @@ namespace ft
 	
 		/********* ITERATORS *********/
 		// can be incremented
+		map_random_access_iterator	operator++(int) //i++
+			{ map_random_access_iterator tmp(*this); operator++(); return tmp; };
 		map_random_access_iterator &operator++() //++i
-			{	if (this->_nodePtr == this->_rootTree->_biggestNode)
+			{	
+				if (this->_nodePtr == this->_rootTree->_biggestNode)
 					this->_nodePtr = this->_nodePtr->right;
 				else
 					this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
-				return *this; }
-		map_random_access_iterator	operator++(int) //i++
-			{ map_random_access_iterator tmp(*this); operator++(); return tmp; };
+				return *this;
+			};
 		
 		/********* INPUT ITERATORS *********/
 		// Supports equality/inequality comparisons
@@ -132,15 +132,6 @@ namespace ft
 		pointer operator->() const
 			{ return &this->_nodePtr->data; };
 
-		/********* OUTPUT ITERATORS *********/
-		// Can be dereferenced as an lvalue (only mutable iterator types)
-		//*a = t
-		//*a++ = t
-
-		/********* FORWARD ITERATORS *********/
-		// Multipass: neither dereferencing nor incrementing affects dereferenceability 
-		//b=; *a++; *b
-
 		/********* BIDIRECTIONAL ITERATORS *********/
 		// Can be decremented
 		map_random_access_iterator &	operator--()
@@ -151,117 +142,78 @@ namespace ft
 			{ map_random_access_iterator tmp(*this); operator--(); return tmp; };
 		//*a--
 
-		/********* RANDOM ACCESS ITERATORS *********/
-		// Supports arithmetic operators + and -
-		difference_type operator +(map_random_access_iterator other)
-			{ return (this->_nodePtr + other._nodePtr); };
-		difference_type operator -(map_random_access_iterator other)
-			{ return (this->_nodePtr - other._nodePtr); };
-		friend map_random_access_iterator operator+(map_random_access_iterator const & other, int n)
-			{ return (other._nodePtr + n); };
-		friend map_random_access_iterator operator+(int n, map_random_access_iterator const & other)
-			{ return (other._nodePtr + n); };
-		friend map_random_access_iterator operator-(map_random_access_iterator const & other, int n)
-			{ return (other._nodePtr - n); };
-		friend map_random_access_iterator operator-(int n, map_random_access_iterator const & other)
-			{ return (other._nodePtr - n); };
+		/********* GETTERS *********/
+		bstree		getRootTree() const
+		{	return this->_rootTree;	};
 
-		// Supports inequality comparisons (<, >, <= and >=° between iterators)
-		bool operator<(map_random_access_iterator const & other) const
-			{ return this->_nodePtr < other._nodePtr; };
-		bool operator<=(map_random_access_iterator const & other) const
-			{ return this->_nodePtr <= other._nodePtr; };
-		bool operator>(map_random_access_iterator const & other) const
-			{ return this->_nodePtr > other._nodePtr; };
-		bool operator>=(map_random_access_iterator const & other) const
-			{ return this->_nodePtr >= other._nodePtr; };
+		nodePtr		getNodePtr() const
+		{	return this->_nodePtr;	};
 
-		// Supports compound assignment operations += and -=
-		map_random_access_iterator	&operator+=(int n)
-			{	int i = 0;
-				while (i < n) {	operator++(); i++; }
-				return *this; };
-		map_random_access_iterator	&operator-=(int n)
-			{	int i = 0;
-				while (i < n) {	operator--(); i++; }
-				return *this; };
-
-		// Supports offset dereference operator ([])
-		reference operator[](int n)	{ return (*(*this + n)); }
-
-		//private:
+		private:
 			nodePtr	_nodePtr;
 			bstree	_rootTree;
 	};
 
 	/*********** CONST ITERATOR ***********/
-/*	template <class T>
-	class const_random_access_iterator : ft::iterator<ft::random_access_iterator_tag, T>
+	template <class Key, class T>
+	class const_map_random_access_iterator
 	{
 		public:
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
-	*/	
-		/********* COPLIEN *********/
-	/*	const_random_access_iterator() : _nodePtr(0) { };
-		const_random_access_iterator(pointer nodePtr) : _nodePtr(nodePtr) { };
-		const_random_access_iterator<T> & operator=(const_random_access_iterator<T> const & other)
-			{ _nodePtr = other._nodePtr; return *this; };
-		const_random_access_iterator<T> & operator=(random_access_iterator<T> const & other)
-			{ _nodePtr = other.getNodePtr(); return *this; };
-		const_random_access_iterator(const_random_access_iterator<T> const & other)
-			{ *this = other; };
-		const_random_access_iterator(random_access_iterator<T> const & other)
-			{ *this = other; };
-		~const_random_access_iterator() {};
-	*/
-		/********* ITERATORS *********/
-	/*	const_random_access_iterator	operator++(int) //i++
-			{ const_random_access_iterator tmp(*this); operator++(); return tmp; };
-		const_random_access_iterator &	operator++() //++i
-			{ this->_nodePtr++; return *this; }
-		const_random_access_iterator	operator--(int)
-			{ const_random_access_iterator tmp(*this); operator--(); return tmp; };
-		const_random_access_iterator &	operator--()
-			{ this->_nodePtr--; return *this; }
-
-		reference operator*() const
-			{ return *this->_nodePtr; };
-		pointer operator->() 
-			{ return *this->_nodePtr; };
-		bool operator!=(const_random_access_iterator const & other) const
-			{ return this->_nodePtr != other._nodePtr; };
-		bool operator==(const_random_access_iterator const & other) const
-			{ return this->_nodePtr == other._nodePtr; };
+			typedef ft::pair<Key, T>				value_type;
+			typedef ft::pair<Key, T>&				reference;
+			typedef ft::pair<Key, T>*				pointer;
+			typedef ft::tree_node<Key, T>*			nodePtr;
+			typedef ft::BinarySearchTree<Key, T>*	bstree;
+			typedef ptrdiff_t						difference_type;
 		
-		difference_type operator +(const_random_access_iterator other)
-			{ return (this->_nodePtr + other._nodePtr); };
-		difference_type operator -(const_random_access_iterator other)
-			{ return (this->_nodePtr - other._nodePtr); };
-		friend const_random_access_iterator operator+(const_random_access_iterator const & other, int n)
-			{ return (other._nodePtr + n); };
-		friend const_random_access_iterator operator+(int n, const_random_access_iterator const & other)
-			{ return (n + other._nodePtr); };
-		friend const_random_access_iterator operator-(const_random_access_iterator const & other, int n)
-			{ return (other._nodePtr - n); };
-*/
-		/********* RANDOM ACCESS ITERATORS *********/
-/*		bool operator<(const_random_access_iterator const & other) const
-			{ return this->_nodePtr < other._nodePtr; };
-		bool operator<=(const_random_access_iterator const & other) const
-			{ return this->_nodePtr <= other._nodePtr; };
-		bool operator>(const_random_access_iterator const & other) const
-			{ return this->_nodePtr > other._nodePtr; };
-		bool operator>=(const_random_access_iterator const & other) const
-			{ return this->_nodePtr >= other._nodePtr; };
+		/********* COPLIEN *********/
+		const_map_random_access_iterator() : _rootTree(0), _nodePtr(0) { };
+		const_map_random_access_iterator(bstree root, nodePtr node) : _rootTree(root), _nodePtr(node) { };
+		const_map_random_access_iterator<Key, T> & operator=(const_map_random_access_iterator<Key, T> const & other)
+			{ _rootTree = other._rootTree; _nodePtr = other._nodePtr; return *this; };
+		const_map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
+			{ _rootTree = other.getRootTree(); _nodePtr = other.getNodePtr(); return *this; };
+		const_map_random_access_iterator(const_map_random_access_iterator<Key, T> const & other)
+			{ *this = other; };
+		const_map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
+			{ *this = other; };
+		~const_map_random_access_iterator() {};
+	
+		/********* ITERATORS *********/
+		const_map_random_access_iterator	operator++(int) //i++
+			{ const_map_random_access_iterator tmp(*this); operator++(); return tmp; };
+		const_map_random_access_iterator &operator++() //++i
+			{	
+				if (this->_nodePtr == this->_rootTree->_biggestNode)
+					this->_nodePtr = this->_nodePtr->right;
+				else
+					this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
+				return *this; 
+			};
+		const_map_random_access_iterator	operator--(int)
+			{ const_map_random_access_iterator tmp(*this); operator--(); return tmp; };
+		const_map_random_access_iterator &	operator--()
+			{
+				this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
+					return *this;
+			};
+		
+		bool operator==(const_map_random_access_iterator const & other) const
+			{ return this->_nodePtr == other._nodePtr; };
+		bool operator!=(const_map_random_access_iterator const & other) const
+			{ return this->_nodePtr != other._nodePtr; };
+		bool operator!=(value_type const & other) const
+			{ return this->_nodePtr->data != other; };
+		reference operator*() const
+			{ return this->_nodePtr->data; };
+		pointer operator->() 
+			{ return &this->_nodePtr->data; };
 
 		private:
-			pointer	_nodePtr;
+			nodePtr	_nodePtr;
+			bstree	_rootTree;
 	};
-*/
+
 	/*********** REVERSE ITERATOR ***********/
 /*	template <class Iterator>
 	class reverse_iterator

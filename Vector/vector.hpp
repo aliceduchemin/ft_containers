@@ -434,42 +434,30 @@ bool	operator==(const ft::vector<T, Alloc>& lhs,
 template< class T, class Alloc >
 bool	operator!=(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
-{
-	return (!(lhs == rhs)) ? true : false;
-}
+{	return (!(lhs == rhs)) ? true : false;	}
 
 template< class T, class Alloc >
 bool	operator<(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
-{
-	return (lhs.size() < rhs.size()) ? true : false;
-}
+{	return (lhs.size() < rhs.size()) ? true : false;	}
 
 template< class T, class Alloc >
 bool	operator<=(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
-{
-	return (lhs.size() <= rhs.size()) ? true : false;
-}
+{	return (lhs.size() <= rhs.size()) ? true : false;	}
 
 template< class T, class Alloc >
 bool	operator>(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
-{
-	return (lhs.size() > rhs.size()) ? true : false;
-}
+{	return (lhs.size() > rhs.size()) ? true : false;	}
 
 template< class T, class Alloc >
 bool	operator>=(const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs)
-{
-	return (lhs.size() >= rhs.size()) ? true : false;
-}
+{	return (lhs.size() >= rhs.size()) ? true : false;	}
 
 template <class T, class Alloc>
 void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
-{
-	x.swap(y);
-}
+{	x.swap(y);	}
 
 #endif
