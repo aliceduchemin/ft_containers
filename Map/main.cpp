@@ -336,6 +336,9 @@ int	main()
 	std::cout << "const : " << constIt->first<<std::endl;
 	std::cout << "const : " << constIte->first<<std::endl;
 
+	ft::map<std::string, int>::const_iterator const_it_test = myMap3.find("b");
+	std::cout << "find const it = " << const_it_test->first<<std::endl;
+
 	ft::map<std::string, int>::reverse_iterator rev_deb1 (myMap3.end());
 	ft::map<std::string, int>::reverse_iterator rev_end1 (myMap3.begin());
 	std::cout << "rev : " << rev_deb1->first<<std::endl;
@@ -351,10 +354,10 @@ int	main()
 	ft::map<std::string, int>::const_reverse_iterator rev_const_end1 (myMap3.begin());
 	std::cout << "const rev : " << rev_const_deb1->first<<std::endl;
 	std::cout << "const rev ite : " << rev_const_end1->first<<std::endl;
-
+	
 
 //à tester après implémentation reverse iterator :
-/*	std::cout << "Comp : " << std::endl;
+	std::cout << "Comp : " << std::endl;
 	std::map<char,int>	theirTestMap;
 	std::map<char,int>::key_compare theirComp = theirTestMap.key_comp();
 	theirTestMap['a']=100;
@@ -365,6 +368,6 @@ int	main()
 	do {
 		std::cout << ik->first << " => " <<ik->second<<"\n";
 	} while ( theirComp((*ik++).first, highest));
-	std::cout << std::endl;*/
+	std::cout << std::endl;
 	return 0;
 }

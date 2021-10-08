@@ -246,7 +246,11 @@ namespace ft
 				return iterator(this->_tree, tmp);
 			};
 
-		//	const_iterator							find(const key_type& k) const;
+			const_iterator							find(const key_type& k) const
+			{
+				nodePtr	tmp = this->_tree->findNode(k);
+				return const_iterator(this->_tree, tmp);
+			};
 		
 			size_type								count(const key_type& k) //const
 			{	
@@ -263,7 +267,13 @@ namespace ft
 				return it;
 			};
 
-		//	const_iterator							lower_bound(const key_type& k) const;
+			const_iterator							lower_bound(const key_type& k) const
+			{
+				const_iterator it = this->begin();
+				while (it != this->end() && it->first < k)
+					it++;
+				return it;
+			};
 			
 			iterator								upper_bound(const key_type& k)
 			{
@@ -273,7 +283,13 @@ namespace ft
 				return it;
 			};
 
-		//	const_iterator							upper_bound(const key_type& k) const;
+			const_iterator							upper_bound(const key_type& k) const
+			{
+				const_iterator it = this->begin();
+				while (it != this->end() && it->first <= k)
+					it++;
+				return it;
+			};
 		
 			pair<iterator, iterator>				equal_range(const key_type& k)
 			{
@@ -283,7 +299,13 @@ namespace ft
 				return ft::make_pair(this->upper_bound(k), this->upper_bound(k));
 			};
 	
-		//	pair<const_iterator, const_iterator>	equal_range(const key_type& k) const;
+			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
+			{
+				const_iterator it = this->find(k);
+				if (it != this->end())
+					return ft::make_pair(it, it++);
+				return ft::make_pair(this->upper_bound(k), this->upper_bound(k));
+			};
 
 			/********* ALLOCATOR *********/
 			allocator_type	get_allocator() const
