@@ -536,10 +536,44 @@ int	main()
 	std::cout<< "iterator to empty vector : " << *ap << std::endl;
 	for (ap = apple.begin(); ap != apple.end(); ap++)
 		std::cout << *ap << " | ";
-	//for (typename T::const_iterator it = cont.begin(); it != cont.end(); it++)
-      //  std::cout << *it << " | ";
+
+	std::cout << "their reverse tests\n";
+	std::vector<int>	their;
+	their.push_back(888);
+	std::vector<int>::reverse_iterator th = their.rbegin();
+	std::vector<int>::reverse_iterator the = their.rend();
+	std::cout << "th = " << *th << "\n";
+	for (th = their.rbegin(); th != their.rend(); ++th)
+		std::cout << *th << " | ";
+	std::cout<<std::endl;
+	the = their.rbegin() - 1;
+	th = their.rend() - 1;
+	std::cout << "their.rbegin() - 1 = " <<*the <<std::endl;
+	std::cout << "their.rend() - 1 = " <<*th <<std::endl;
+	for (the = their.rend() - 1; the != their.rbegin() - 1; the = the - 1)
+		std::cout << *the << " | ";
+	std::cout << std::endl;
+
+	std::cout << "my reverse tests\n";
+	ft::vector<int>	my;
+	my.push_back(888);
+	ft::vector<int>::reverse_iterator mm = my.rbegin();
+	ft::vector<int>::reverse_iterator mme = my.rend();
+	std::cout << "mm = " << *mm << "\n";
+	for (mm = my.rbegin(); mm != my.rend(); ++mm)
+		std::cout << *mm << " | ";
+	std::cout<<std::endl;
+	mme = my.rbegin() - 1;
+	mm = my.rend() - 1;
+	std::cout << "my.rbegin() - 1 = " <<*mme <<std::endl;
+	std::cout << "my.rend() - 1 = " <<*mm <<std::endl;
+	for (mme = my.rend() - 1; mme != my.rbegin() - 1; mme = mme - 1)
+		std::cout << *mme << " | ";
+	std::cout << std::endl;
+
 
 	//CLEAR NE CLEAR PAS LES VALEURS (+ leaks)
+	//end sur container null à faire sur map
 
 	return 0;
 }

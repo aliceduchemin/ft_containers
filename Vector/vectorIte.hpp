@@ -314,17 +314,17 @@ namespace ft
 			{ iterator_type tmp(this->_it); tmp--; return tmp; };
 		
 		difference_type operator +(reverse_iterator other)
-			{ return (this->_it + other._it); };
+			{ return (this->_it + other._it); };//HERE
 		difference_type operator -(reverse_iterator other)
 			{ return (this->_it - other._it); };
 		friend reverse_iterator operator+(reverse_iterator const & other, int n)
-			{ return reverse_iterator(other._it + n); };
+			{ return reverse_iterator(other._it - n); };
 		friend reverse_iterator operator+(int n, reverse_iterator const & other)
-			{ return reverse_iterator(other._it + n); };
+			{ return reverse_iterator(other._it - n); };
 		friend reverse_iterator operator-(reverse_iterator const & other, int n)
-			{ return reverse_iterator(other._it - n); };
+			{ return reverse_iterator(other._it + n); };
 		friend reverse_iterator operator-(int n, reverse_iterator const & other)
-			{ return reverse_iterator(other._it - n); };
+			{ return reverse_iterator(other._it + n); };
 
 		bool operator<(reverse_iterator const & other) const
 			{ return this->_it < other._it; };
@@ -336,13 +336,15 @@ namespace ft
 			{ return this->_it >= other._it; };
 
 		reverse_iterator	&operator+=(int n)
-			{	int i = 0;
-				while (i < n) {	operator++(); i++; }
-				return *this; };
+			{	
+				this->_it -= n;
+				return *this;
+			};
 		reverse_iterator	&operator-=(int n)
-			{	int i = 0;
-				while (i < n) {	operator--(); i++; }
-				return *this; };
+			{	
+				this->_it += n;
+				return *this;
+			};
 		
 		reference operator[](int n)	{ return (*(*this + n)); }
 
@@ -412,13 +414,13 @@ namespace ft
 		difference_type operator -(const_reverse_iterator other)
 			{ return (this->_it - other._it); };
 		friend const_reverse_iterator operator+(const_reverse_iterator const & other, int n)
-			{ return const_reverse_iterator(other._it + n); };
+			{ return const_reverse_iterator(other._it - n); };
 		friend const_reverse_iterator operator+(int n, const_reverse_iterator const & other)
-			{ return const_reverse_iterator(other._it + n); };
+			{ return const_reverse_iterator(other._it - n); };
 		friend const_reverse_iterator operator-(const_reverse_iterator const & other, int n)
-			{ return const_reverse_iterator(other._it - n); };
+			{ return const_reverse_iterator(other._it + n); };
 		friend const_reverse_iterator operator-(int n, const_reverse_iterator const & other)
-			{ return const_reverse_iterator(other._it - n); };
+			{ return const_reverse_iterator(other._it + n); };
 
 		bool operator<(const_reverse_iterator const & other) const
 			{ return this->_it < other._it; };
