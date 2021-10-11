@@ -46,6 +46,7 @@ namespace ft
 				 	this->_cap = 0;
 					this->_allocator = alloc;
 					this->_headNode = this->_allocator.allocate(0);
+					this->_endNode = this->_headNode;
 					this->_number = 0;
 					this->insert(this->begin(), n, val); };
 			template< class InputIterator >
@@ -54,6 +55,7 @@ namespace ft
 				  	this->_cap = 0;
 					this->_allocator = alloc;
 				  	this->_headNode = this->_allocator.allocate(0);
+					this->_endNode = this->_headNode;
 				  	this->_number = 0;
 				  	this->assign(first, last); };
 			vector(vector const & other);
@@ -63,10 +65,30 @@ namespace ft
 			/********* ITERATORS *********/
 			iterator 				begin() { return iterator(_headNode); };
 			const_iterator	 		begin() const { return const_iterator(_headNode); };
-			iterator				end() { return iterator(_endNode + 1); };
-			const_iterator			end() const { return const_iterator(_endNode + 1); };
-			reverse_iterator 		rbegin() { return reverse_iterator(_endNode + 1); };
-			const_reverse_iterator 	rbegin() const { return const_reverse_iterator(_endNode + 1); };
+			iterator				end()
+				{ 	
+					if (this->empty())
+						return iterator(_headNode);
+					return iterator(_endNode + 1);
+				};
+			const_iterator			end() const
+				{
+					if (this->empty())
+						return const_iterator(_headNode);
+					return const_iterator(_endNode + 1);
+				};
+			reverse_iterator 		rbegin()
+				{
+					if (this->empty())
+						return reverse_iterator(_headNode);
+					return reverse_iterator(_endNode + 1);
+				};
+			const_reverse_iterator 	rbegin() const
+				{
+					if (this->empty())
+						return const_reverse_iterator(_headNode);
+					return const_reverse_iterator(_endNode + 1);
+				};
 			reverse_iterator 		rend() { return reverse_iterator(_headNode); };
 			const_reverse_iterator 	rend() const { return const_reverse_iterator(_headNode); };
 

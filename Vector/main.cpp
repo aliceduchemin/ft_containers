@@ -521,12 +521,25 @@ int	main()
 	std::cout << "their rbegin = " << *rev_deb << std::endl;
 	std::cout << "their rend = " << *rev_end << std::endl;
 
-	ft::vector<std::string> apple(4, "lol");
+	ft::vector<std::string> apple;/*(4, "lol");
 	ft::vector<std::string>::iterator ap = apple.begin();
 	ft::vector<std::string>::iterator ape = apple.end();
 	std::cout << "my vector apple:";
 	while (ap != ape)
 		std::cout << ' ' << *ap++;
 	std::cout << std::endl;
+
+	apple.clear();
+	std::cout << "after clear, is apple empty ? " << apple.empty() << std::endl;
+	ap = apple.begin();*/
+	ft::vector<std::string>::iterator ap = apple.begin();
+	std::cout<< "iterator to empty vector : " << *ap << std::endl;
+	for (ap = apple.begin(); ap != apple.end(); ap++)
+		std::cout << *ap << " | ";
+	//for (typename T::const_iterator it = cont.begin(); it != cont.end(); it++)
+      //  std::cout << *it << " | ";
+
+	//CLEAR NE CLEAR PAS LES VALEURS (+ leaks)
+
 	return 0;
 }
