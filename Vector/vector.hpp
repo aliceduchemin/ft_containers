@@ -110,7 +110,7 @@ namespace ft
 			iterator	insert(iterator position, const value_type& val);
 			void		insert(iterator position, size_type n, const value_type& val);
 			template < class InputIterator >
-			void		insert(iterator position, InputIterator first, InputIterator last)
+			void		insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 				{	
 					iterator ret = position;
 					while (first != last)

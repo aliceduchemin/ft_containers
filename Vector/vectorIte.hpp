@@ -279,10 +279,10 @@ namespace ft
 		explicit reverse_iterator (iterator_type other) : _it(other) { };//HERE
 		template <class Iter>
 		reverse_iterator(const reverse_iterator<Iter>& rev_it)
-		{	*this = rev_it.base();	};
+		{	*this = rev_it._it;	};
 		template <class Iter>
 		reverse_iterator& operator=(const reverse_iterator<Iter>& rev_it)
-		{	_it = rev_it.base(); return *this;	};
+		{	_it = rev_it._it; return *this;	};
 		reverse_iterator(pointer other) : _it(other) { };
 		
 	//	reverse_iterator & operator=(reverse_iterator const & other)
@@ -310,19 +310,21 @@ namespace ft
 			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
 		pointer operator->() 
 			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+		iterator_type getNodePtr() const
+			{ iterator_type tmp(this->_it); tmp--; return tmp; };
 		
 		difference_type operator +(reverse_iterator other)
 			{ return (this->_it + other._it); };
 		difference_type operator -(reverse_iterator other)
 			{ return (this->_it - other._it); };
 		friend reverse_iterator operator+(reverse_iterator const & other, int n)
-			{ return (other._it + n); };
+			{ return reverse_iterator(other._it + n); };
 		friend reverse_iterator operator+(int n, reverse_iterator const & other)
-			{ return (other._it + n); };
+			{ return reverse_iterator(other._it + n); };
 		friend reverse_iterator operator-(reverse_iterator const & other, int n)
-			{ return (other._it - n); };
+			{ return reverse_iterator(other._it - n); };
 		friend reverse_iterator operator-(int n, reverse_iterator const & other)
-			{ return (other._it - n); };
+			{ return reverse_iterator(other._it - n); };
 
 		bool operator<(reverse_iterator const & other) const
 			{ return this->_it < other._it; };
@@ -366,16 +368,16 @@ namespace ft
 			{ };//HERE
 		template <class Iter>
 		const_reverse_iterator(const const_reverse_iterator<Iter>& rev_it)
-		{	*this = rev_it.base();	};
+		{	*this = rev_it._it;	};
 		template <class Iter>
 		const_reverse_iterator(const reverse_iterator<Iter>& rev_it)
-		{	*this = rev_it.base();	};
+		{	_it = rev_it.getNodePtr();	};
 		template <class Iter>
 		const_reverse_iterator& operator=(const const_reverse_iterator<Iter>& rev_it)
-		{	_it = rev_it.base(); return *this;	};
+		{	_it = rev_it._it; return *this;	};
 		template <class Iter>
 		const_reverse_iterator& operator=(const reverse_iterator<Iter>& rev_it)
-		{	_it = rev_it.base(); return *this;	};
+		{	_it = rev_it.getNodePtr(); return *this;	};
 
 		const_reverse_iterator(pointer other) : _it(other) { };
 	//	const_reverse_iterator & operator=(const_reverse_iterator const & other)
@@ -410,13 +412,13 @@ namespace ft
 		difference_type operator -(const_reverse_iterator other)
 			{ return (this->_it - other._it); };
 		friend const_reverse_iterator operator+(const_reverse_iterator const & other, int n)
-			{ return (other._it + n); };
+			{ return const_reverse_iterator(other._it + n); };
 		friend const_reverse_iterator operator+(int n, const_reverse_iterator const & other)
-			{ return (other._it + n); };
+			{ return const_reverse_iterator(other._it + n); };
 		friend const_reverse_iterator operator-(const_reverse_iterator const & other, int n)
-			{ return (other._it - n); };
+			{ return const_reverse_iterator(other._it - n); };
 		friend const_reverse_iterator operator-(int n, const_reverse_iterator const & other)
-			{ return (other._it - n); };
+			{ return const_reverse_iterator(other._it - n); };
 
 		bool operator<(const_reverse_iterator const & other) const
 			{ return this->_it < other._it; };
