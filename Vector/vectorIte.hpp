@@ -20,9 +20,9 @@ namespace ft
 			   class Distance,		//iterator::difference_type
 			   class Pointer,		//iterator::pointer
 			   class Reference		//iterator::reference
-			   > class iterator;
+			   > struct iterator;
 
-	template < class Category, class T, class Distance = ptrdiff_t,
+	template < class Category, class T, class Distance = std::ptrdiff_t,
 			   class Pointer = T*, class Reference = T& >
 		struct iterator {
 			typedef T			value_type;
@@ -41,11 +41,10 @@ namespace ft
 	template<typename _Tp, _Tp __v>
 	struct integral_constant
 	{
-		static constexpr _Tp				value = __v;
+		static const _Tp				value = __v;
 		typedef _Tp							value_type;
 		typedef integral_constant<_Tp, __v>	type;
-		constexpr operator value_type() const noexcept { return value; }
-		constexpr value_type operator()() const noexcept { return value; }
+		const operator _Tp() {	return __v;	}
 	};
 
 	template<class T>
@@ -69,7 +68,7 @@ namespace ft
 	template < class T >
 	struct iterator_traits<T*> {
 		typedef T								value_type;
-		typedef ptrdiff_t						difference_type;
+		typedef std::ptrdiff_t					difference_type;
 		typedef T*								pointer;
 		typedef T&								reference;
 		typedef random_access_iterator_tag		iterator_category;
@@ -78,7 +77,7 @@ namespace ft
 	template < class T >
 	struct iterator_traits<const T*> {
 		typedef T								value_type;
-		typedef ptrdiff_t						difference_type;
+		typedef std::ptrdiff_t					difference_type;
 		typedef T*								pointer;
 		typedef T&								reference;
 		typedef random_access_iterator_tag		iterator_category;
@@ -237,6 +236,8 @@ namespace ft
 			{ return (n + other._nodePtr); };
 		friend const_random_access_iterator operator-(const_random_access_iterator const & other, int n)
 			{ return (other._nodePtr - n); };
+		friend const_random_access_iterator operator-(int n, const_random_access_iterator const & other)
+			{ return (other._nodePtr - n); };
 
 		/********* RANDOM ACCESS ITERATORS *********/
 		bool operator<(const_random_access_iterator const & other) const
@@ -247,6 +248,15 @@ namespace ft
 			{ return this->_nodePtr > other._nodePtr; };
 		bool operator>=(const_random_access_iterator const & other) const
 			{ return this->_nodePtr >= other._nodePtr; };
+
+		const_random_access_iterator	&operator+=(int n)
+			{	int i = 0;
+				while (i < n) {	operator++(); i++; }
+				return *this; };
+		const_random_access_iterator	&operator-=(int n)
+			{	int i = 0;
+				while (i < n) {	operator--(); i++; }
+				return *this; };
 
 		private:
 			pointer	_nodePtr;
@@ -266,13 +276,19 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		reverse_iterator() : _it(0) { };
+		explicit reverse_iterator (iterator_type other) : _it(other) { };//HERE
+		template <class Iter>
+		reverse_iterator(const reverse_iterator<Iter>& rev_it)
+		{	*this = rev_it.base();	};
+		template <class Iter>
+		reverse_iterator& operator=(const reverse_iterator<Iter>& rev_it)
+		{	_it = rev_it.base(); return *this;	};
 		reverse_iterator(pointer other) : _it(other) { };
-		explicit reverse_iterator (iterator_type other) : _it(other) 
-			{ };//HERE
-		reverse_iterator & operator=(reverse_iterator const & other)
-			{ _it = other._it; return *this; };
-		reverse_iterator(reverse_iterator const & other)
-			{ *this = other; };
+		
+	//	reverse_iterator & operator=(reverse_iterator const & other)
+	//		{ _it = other._it; return *this; };
+	//	reverse_iterator(reverse_iterator const & other)
+	//		{ *this = other; };
 		~reverse_iterator() {};
 	
 		/********* ITERATORS *********/
@@ -346,14 +362,27 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_reverse_iterator() : _it(0) { };
-		const_reverse_iterator(pointer other) : _it(other) { };
 		explicit const_reverse_iterator (iterator_type other) : _it(other) 
 			{ };//HERE
-		const_reverse_iterator & operator=(const_reverse_iterator const & other)
-			{ _it = other._it; return *this; };
+		template <class Iter>
+		const_reverse_iterator(const const_reverse_iterator<Iter>& rev_it)
+		{	*this = rev_it.base();	};
+		template <class Iter>
+		const_reverse_iterator(const reverse_iterator<Iter>& rev_it)
+		{	*this = rev_it.base();	};
+		template <class Iter>
+		const_reverse_iterator& operator=(const const_reverse_iterator<Iter>& rev_it)
+		{	_it = rev_it.base(); return *this;	};
+		template <class Iter>
+		const_reverse_iterator& operator=(const reverse_iterator<Iter>& rev_it)
+		{	_it = rev_it.base(); return *this;	};
+
+		const_reverse_iterator(pointer other) : _it(other) { };
+	//	const_reverse_iterator & operator=(const_reverse_iterator const & other)
+	//		{ _it = other._it; return *this; };
 			//HERE
-		const_reverse_iterator(const_reverse_iterator const & other)
-			{ *this = other; };
+	//	const_reverse_iterator(const_reverse_iterator const & other)
+	//		{ *this = other; };
 		~const_reverse_iterator() {};
 	
 		/********* ITERATORS *********/

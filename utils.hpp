@@ -3,10 +3,26 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "pair.hpp"
+#include "./Map/pair.hpp"
 
 namespace ft
 {
+
+	const                        
+	class nullptr_t
+	{
+		public:
+		template<class T>          
+		operator T*() const        
+			{ return 0; }           
+		template<class C, class T> 
+			operator T C::*() const 
+			{ return 0; }   
+
+		private:
+		void operator&() const;    
+	} nullptr_t = {}; 
+
 	template <class InputIterator1, class InputIterator2>
 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
 									InputIterator2 first2, InputIterator2 last2)

@@ -13,12 +13,11 @@
 #ifndef __VECTOR_HPP__
 # define __VECTOR_HPP__
 
-#include <memory>
+//#include <memory>
 #include "vectorIte.hpp"
-#include <iostream>
-#include <stdexcept>
-#include <sstream>
-#include <limits>
+#include "../utils.hpp"
+//#include <sstream>
+//#include <limits>
 
 namespace ft
 {
@@ -62,14 +61,14 @@ namespace ft
 			~vector();
 
 			/********* ITERATORS *********/
-			iterator 				begin() { return pointer(_headNode); };
-			const_iterator	 		begin() const { return pointer(_headNode); };
-			iterator				end() { return pointer(_endNode + 1); };
-			const_iterator			end() const { return pointer(_endNode + 1); };
-			reverse_iterator 		rbegin() { return pointer(_endNode + 1); };
-			const_reverse_iterator 	rbegin() const { return pointer(_endNode + 1); };
-			reverse_iterator 		rend() { return pointer(_headNode); };
-			const_reverse_iterator 	rend() const { return pointer(_headNode); };
+			iterator 				begin() { return iterator(_headNode); };
+			const_iterator	 		begin() const { return const_iterator(_headNode); };
+			iterator				end() { return iterator(_endNode + 1); };
+			const_iterator			end() const { return const_iterator(_endNode + 1); };
+			reverse_iterator 		rbegin() { return reverse_iterator(_endNode + 1); };
+			const_reverse_iterator 	rbegin() const { return const_reverse_iterator(_endNode + 1); };
+			reverse_iterator 		rend() { return reverse_iterator(_headNode); };
+			const_reverse_iterator 	rend() const { return const_reverse_iterator(_headNode); };
 
 			/********* CAPACITY *********/
 			size_type	size() const { return _number; };
@@ -91,7 +90,7 @@ namespace ft
 
 			/********* MODIFIERS *********/
 			template < class InputIterator >
-			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft::nullptr_t)
 				{	
 					if (this->_number != 0)
 						this->clear();
