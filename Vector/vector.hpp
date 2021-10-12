@@ -105,10 +105,10 @@ namespace ft
 			const_reference	operator[] (size_type n) const { return _headNode[n]; };
 			reference		at(size_type n);
 			const_reference	at(size_type n) const;
-			reference		front() { return *(this->_headNode); };
-			const_reference	front() const { return *(this->_headNode); };
-			reference		back() { return *(this->_endNode); };
-			const_reference	back() const { return (this->*_endNode); };
+			reference		front() { return *_headNode; };
+			const_reference	front() const { return *_headNode; };
+			reference		back() { return *_endNode; };
+			const_reference	back() const { return *_endNode; };
 
 			/********* MODIFIERS *********/
 			template < class InputIterator >
