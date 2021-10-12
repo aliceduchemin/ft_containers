@@ -540,8 +540,8 @@ int	main()
 	std::cout << "their reverse tests\n";
 	std::vector<int>	their;
 	their.push_back(888);
-	std::vector<int>::reverse_iterator th = their.rbegin();
-	std::vector<int>::reverse_iterator the = their.rend();
+	std::vector<int>::const_reverse_iterator th = their.rbegin();
+	std::vector<int>::const_reverse_iterator the = their.rend();
 	std::cout << "th = " << *th << "\n";
 	for (th = their.rbegin(); th != their.rend(); ++th)
 		std::cout << *th << " | ";
@@ -553,12 +553,15 @@ int	main()
 	for (the = their.rend() - 1; the != their.rbegin() - 1; the = the - 1)
 		std::cout << *the << " | ";
 	std::cout << std::endl;
+	for (th = their.rbegin(); th != their.rend(); ++th)
+        std::cout << *th << " | ";
+	std::cout<<std::endl;
 
-	std::cout << "my reverse tests\n";
+	std::cout << "\nmy reverse tests\n";
 	ft::vector<int>	my;
 	my.push_back(888);
-	ft::vector<int>::reverse_iterator mm = my.rbegin();
-	ft::vector<int>::reverse_iterator mme = my.rend();
+	ft::vector<int>::const_reverse_iterator mm = my.rbegin();
+	ft::vector<int>::const_reverse_iterator mme = my.rend();
 	std::cout << "mm = " << *mm << "\n";
 	for (mm = my.rbegin(); mm != my.rend(); ++mm)
 		std::cout << *mm << " | ";
@@ -570,10 +573,40 @@ int	main()
 	for (mme = my.rend() - 1; mme != my.rbegin() - 1; mme = mme - 1)
 		std::cout << *mme << " | ";
 	std::cout << std::endl;
-
+	for (mm = my.rbegin(); mm != my.rend(); ++mm)
+        std::cout << *mm << " | ";
+	std::cout<<std::endl;
 
 	//CLEAR NE CLEAR PAS LES VALEURS (+ leaks)
 	//end sur container null à faire sur map
 
+	std::cout<<"insert\n";
+	std::vector<int>	cont;
+	cont.push_back(88);
+	cont.push_back(5466);
+    std::vector<int> tmp;// = cont;
+	tmp.push_back(8);
+	tmp.push_back(54);
+    tmp.insert(tmp.begin(), cont.begin(), cont.end());
+	std::vector<int>::iterator tm = tmp.begin();
+	for (tm = tmp.begin(); tm != tmp.end(); tm++)
+        std::cout << *tm << " | ";
+	std::cout<<std::endl;
+
+	ft::vector<int>	cont2;
+	cont2.push_back(88);
+	cont2.push_back(5466);
+    ft::vector<int> tmp2;// = cont2;
+	tmp2.push_back(8);
+	tmp2.push_back(54);
+    tmp2.insert(tmp2.begin(), cont2.begin(), cont2.end());
+	ft::vector<int>::iterator tm2 = tmp2.begin();
+	for (tm2 = tmp2.begin(); tm2 != tmp2.end(); tm2++)
+        std::cout << *tm2 << " | ";
+	std::cout<<std::endl;
+   
+	//CLEAR NE CLEAR PAS LES VALEURS (+ leaks)
+	//end sur container null à faire sur map
+	
 	return 0;
 }

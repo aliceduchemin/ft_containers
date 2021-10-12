@@ -135,9 +135,13 @@ namespace ft
 			void		insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 				{	
 					iterator ret = position;
+					iterator it;
 					while (first != last)
 					{
-						ret = this->insert(ret, *first);
+						if (ret == position)
+							ret = this->insert(ret, *first);
+						else
+							ret = this->insert(++ret, *first);
 						first++;
 					} 
 				};
@@ -312,7 +316,6 @@ namespace ft
 		for (it = this->begin(); it != position; it++)
 			dist++;
 		pointer tmp = this->_allocator.allocate(this->_cap = this->_number + 1);
-
 		size_type j = 0;
 		while (j < dist)
 		{
@@ -320,7 +323,8 @@ namespace ft
 			this->_allocator.destroy(&this->_headNode[j]);
 			j++;
 		}
-		this->_allocator.construct(&tmp[j++], val);
+		this->_allocator.construct(&tmp[j], val);
+		j++;
 		it = &tmp[0] + dist;
 		this->_number++;
 
