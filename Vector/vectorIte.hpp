@@ -366,8 +366,7 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_reverse_iterator() : _it(0) { };
-		explicit const_reverse_iterator (iterator_type other) : _it(other) 
-			{ };//HERE
+		explicit const_reverse_iterator (iterator_type other) : _it(other)	{ };//HERE
 		template <class Iter>
 		const_reverse_iterator(const const_reverse_iterator<Iter>& rev_it)
 			{	*this = rev_it._it;	};
@@ -392,11 +391,11 @@ namespace ft
 		/********* ITERATORS *********/
 		iterator_type base() const { return _it; };
 		const_reverse_iterator &	operator++() //++i
-			{ this->_it--; return *this; }
+			{ this->_it = this->_it - 1; return *this; }
 		const_reverse_iterator	operator++(int) //i++
 			{ const_reverse_iterator tmp(*this); operator++(); return tmp; };
 		const_reverse_iterator &	operator--()
-			{ this->_it++; return *this; }
+			{ this->_it = this->_it + 1; return *this; }
 		const_reverse_iterator	operator--(int)
 			{ const_reverse_iterator tmp(*this); operator--(); return tmp; };
 

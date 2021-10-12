@@ -537,28 +537,43 @@ int	main()
 	for (ap = apple.begin(); ap != apple.end(); ap++)
 		std::cout << *ap << " | ";
 
-	std::cout << "their reverse tests\n";
-	std::vector<int>	their;
-	their.push_back(888);
-	std::vector<int>::const_reverse_iterator th = their.rbegin();
-	std::vector<int>::const_reverse_iterator the = their.rend();
-	std::cout << "th = " << *th << "\n";
-	for (th = their.rbegin(); th != their.rend(); ++th)
+	std::cout << "\ntheir const tests\n";
+	std::vector<int>	thei;
+	thei.push_back(9);
+	thei.push_back(9);
+	thei.push_back(9);
+	thei.push_back(9);
+	thei.push_back(9);
+	const std::vector<int>	their(thei);
+	for (std::vector<int>::const_reverse_iterator th = their.rbegin(); th != their.rend(); ++th)
 		std::cout << *th << " | ";
 	std::cout<<std::endl;
-	the = their.rbegin() - 1;
-	th = their.rend() - 1;
-	std::cout << "their.rbegin() - 1 = " <<*the <<std::endl;
-	std::cout << "their.rend() - 1 = " <<*th <<std::endl;
-	for (the = their.rend() - 1; the != their.rbegin() - 1; the = the - 1)
-		std::cout << *the << " | ";
-	std::cout << std::endl;
-	for (th = their.rbegin(); th != their.rend(); ++th)
-        std::cout << *th << " | ";
-	std::cout<<std::endl;
+	std::cout << "rbegin = " << *(their.rbegin()) << std::endl;
+	std::cout << "rend = " << *(their.rend()) << std::endl;
+	
 
-	std::cout << "\nmy reverse tests\n";
-	ft::vector<int>	my;
+	std::cout << "\nmy const tests\n";
+	ft::vector<int>	cust;
+	cust.push_back(9);
+	cust.push_back(9);
+	cust.push_back(9);
+	cust.push_back(9);
+	cust.push_back(9);
+
+	const ft::vector<int>	custo(cust);
+	for (ft::vector<int>::const_reverse_iterator cu = custo.rbegin() ; cu != custo.rend(); ++cu)
+		std::cout << *cu << " | ";
+	std::cout<<std::endl;
+	std::cout << "rbegin = " << *(custo.rbegin()) << std::endl;
+	std::cout << "rend = " << *(custo.rend()) << std::endl;
+	std::cout << "size = " << custo.size() << std::endl;
+	std::cout << "front : " << custo.front()<<std::endl;
+
+//	for (const_reverse_iterator it = cont.rbegin(); it != cont.rend(); ++it)
+  //      std::cout << *it << " | ";
+
+
+/*	ft::vector<int>	my;
 	my.push_back(888);
 	ft::vector<int>::const_reverse_iterator mm = my.rbegin();
 	ft::vector<int>::const_reverse_iterator mme = my.rend();
@@ -575,11 +590,9 @@ int	main()
 	std::cout << std::endl;
 	for (mm = my.rbegin(); mm != my.rend(); ++mm)
         std::cout << *mm << " | ";
-	std::cout<<std::endl;
+	std::cout<<std::endl;*/
 
-	//CLEAR NE CLEAR PAS LES VALEURS (+ leaks)
-	//end sur container null à faire sur map
-
+/*
 	std::cout<<"insert\n";
 	std::vector<int>	cont;
 	cont.push_back(88);
@@ -603,10 +616,72 @@ int	main()
 	ft::vector<int>::iterator tm2 = tmp2.begin();
 	for (tm2 = tmp2.begin(); tm2 != tmp2.end(); tm2++)
         std::cout << *tm2 << " | ";
-	std::cout<<std::endl;
+	std::cout<<std::endl;*/
    
+
+	std::vector<std::string> lol;
+	lol.push_back("coucou");
+	lol.push_back("pepouze");
+	lol.push_back("cestpaslesvacances");
+	try
+    {
+        std::cout << "at : " << lol.at(20)<<std::endl;
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "range exception\n";
+    }
+	std::cout << "at : " << lol.at(2)<<std::endl;
+	std::cout << "front  " << lol.front()<<std::endl;
+	
+
+	ft::vector<std::string> lol2;
+	lol2.push_back("coucou");
+	lol2.push_back("pepouze");
+	lol2.push_back("cestpaslesvacances");
+	try
+    {
+		std::cout << "at : " << lol2.at(20)<<std::endl;
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "range exception\n";
+    }
+	std::cout << "at : " << lol2.at(2)<<std::endl;
+	std::cout << "front  " << lol2.front()<<std::endl;
+	
+
+    lol.assign(lol.size(), lol.front());
+	std::vector<std::string>::iterator lo = lol.begin();
+	for (lo = lol.begin(); lo != lol.end(); lo++)
+        std::cout << *lo << " | ";
+	std::cout<<std::endl;
+
+	lol2.assign(lol2.size(), lol2.front());
+	ft::vector<std::string>::iterator lo2 = lol2.begin();
+	for (lo2 = lol2.begin(); lo2 != lol2.end(); lo2++)
+        std::cout << *lo2 << " | ";
+	std::cout<<std::endl;
+
+	std::cout << "erase\n";
+	std::vector<std::string>::iterator iter = lol.erase(lol.begin() + 1, lol.end());
+	for (int i = 0; i < 20; ++i)
+            lol.push_back(" ");
+	for (lo = lol.begin(); lo != lol.end(); lo++)
+        std::cout << *lo << " | ";
+	std::cout<<std::endl;
+	
+
+	ft::vector<std::string>::iterator iter2 = lol2.erase(lol2.begin() + 1, lol2.end());
+	for (int i = 0; i < 20; ++i)
+            lol2.push_back(" ");
+	for (lo2 = lol2.begin(); lo2 != lol2.end(); lo2++)
+        std::cout << *lo2 << " | ";
+	std::cout<<std::endl;
+	
+
 	//CLEAR NE CLEAR PAS LES VALEURS (+ leaks)
 	//end sur container null à faire sur map
-	
+
 	return 0;
 }

@@ -86,11 +86,11 @@ namespace ft
 			const_reverse_iterator 	rbegin() const
 				{
 					if (this->empty())
-						return const_reverse_iterator(_headNode);
-					return const_reverse_iterator(_endNode + 1);
+						return reverse_iterator(_headNode);
+					return reverse_iterator(_endNode + 1);
 				};
 			reverse_iterator 		rend() { return reverse_iterator(_headNode); };
-			const_reverse_iterator 	rend() const { return const_reverse_iterator(_headNode); };
+			const_reverse_iterator 	rend() const { return reverse_iterator(_headNode); };
 
 			/********* CAPACITY *********/
 			size_type	size() const { return _number; };
@@ -105,10 +105,10 @@ namespace ft
 			const_reference	operator[] (size_type n) const { return _headNode[n]; };
 			reference		at(size_type n);
 			const_reference	at(size_type n) const;
-			reference		front() { return *_headNode; };
-			const_reference	front() const { return *_headNode; };
-			reference		back() { return *_endNode; };
-			const_reference	back() const { return *_endNode; };
+			reference		front() { return *(this->_headNode); };
+			const_reference	front() const { return *(this->_headNode); };
+			reference		back() { return *(this->_endNode); };
+			const_reference	back() const { return (this->*_endNode); };
 
 			/********* MODIFIERS *********/
 			template < class InputIterator >
@@ -251,7 +251,7 @@ namespace ft
 	template< typename T, typename Allocator >
 	typename vector<T, Allocator>::reference	vector<T, Allocator>::at(size_type n)
 	{
-		if (n >= this->_number)
+		if (n < 0 || n >= this->_number)
 		{
 		//	std::string num = static_cast<std::ostringstream*>( &(std::ostringstream() << n))->str();
 		//	std::string msg = "vector::_M_range_check: __n (which is " + num + ") >= this->size() (which is " + this->_number + ")";
@@ -263,7 +263,7 @@ namespace ft
 	template< typename T, typename Allocator >
 	typename vector<T, Allocator>::const_reference	vector<T, Allocator>::at(size_type n) const
 	{
-		if (n >= this->_number)
+		if (n < 0 || n >= this->_number)
 		{
 			throw std::out_of_range("vector:: request of an element beyond size()");
 		}
