@@ -1,6 +1,4 @@
-SRCS		= ./Vector/main.cpp \
-			./Vector/tests.cpp \
-			./Vector/menu.cpp
+SRCS		= ./Map/main.cpp
 #./Vector/testVector.cpp
 #./Vector/main.cpp \
 			./Vector/tests.cpp \

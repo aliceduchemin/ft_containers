@@ -115,9 +115,9 @@ namespace ft
 			iterator				end() { return iterator(_tree, _tree->_biggestNode->right); };
 			const_iterator			end() const { return iterator(_tree, _tree->_biggestNode->right); };
 			reverse_iterator 		rbegin() { return reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
-			const_reverse_iterator 	rbegin() const { return const_reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
+			const_reverse_iterator 	rbegin() const { return reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
 			reverse_iterator 		rend() { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
-			const_reverse_iterator 	rend() const { return const_reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
+			const_reverse_iterator 	rend() const { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
 
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
@@ -252,11 +252,11 @@ namespace ft
 				return const_iterator(this->_tree, tmp);
 			};
 		
-			size_type								count(const key_type& k) //const
+			size_type								count(const key_type& k) const
 			{	
 				if (this->find(k) != this->end())
 					return 1;
-				return 0;//CONST
+				return 0;
 			};
 		
 			iterator								lower_bound(const key_type& k)

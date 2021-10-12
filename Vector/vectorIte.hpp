@@ -298,7 +298,7 @@ namespace ft
 		reverse_iterator	operator++(int) //i++
 			{ reverse_iterator tmp(*this); operator++(); return tmp; };
 		reverse_iterator &	operator--()
-			{ this->_it++;return *this; }
+			{ this->_it++; return *this; }
 		reverse_iterator	operator--(int)
 			{ reverse_iterator tmp(*this); operator--(); return tmp; };
 

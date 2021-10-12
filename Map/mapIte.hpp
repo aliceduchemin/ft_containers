@@ -30,10 +30,10 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
-		map_random_access_iterator() : _rootTree(0), _nodePtr(0) { };
-		map_random_access_iterator(bstree root, nodePtr node) : _rootTree(root), _nodePtr(node) { };
+		map_random_access_iterator() : _nodePtr(0), _rootTree(0) { };
+		map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  { };
 		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
-			{ _rootTree = other._rootTree; _nodePtr = other._nodePtr; return *this; };
+			{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
 		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
 			{ *this = other; };
 		~map_random_access_iterator() {};
@@ -100,12 +100,12 @@ namespace ft
 			typedef std::ptrdiff_t						difference_type;
 		
 		/********* COPLIEN *********/
-		const_map_random_access_iterator() : _rootTree(0), _nodePtr(0) { };
-		const_map_random_access_iterator(bstree root, nodePtr node) : _rootTree(root), _nodePtr(node) { };
+		const_map_random_access_iterator() :  _nodePtr(0), _rootTree(0) { };
+		const_map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  { };
 		const_map_random_access_iterator<Key, T> & operator=(const_map_random_access_iterator<Key, T> const & other)
-			{ _rootTree = other._rootTree; _nodePtr = other._nodePtr; return *this; };
+			{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
 		const_map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
-			{ _rootTree = other.getRootTree(); _nodePtr = other.getNodePtr(); return *this; };
+			{ _nodePtr = other.getNodePtr(); _rootTree = other.getRootTree(); return *this; };
 		const_map_random_access_iterator(const_map_random_access_iterator<Key, T> const & other)
 			{ *this = other; };
 		const_map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
@@ -148,11 +148,11 @@ namespace ft
 	};
 
 	/*********** REVERSE ITERATOR ***********/
-	template <class map_random_access_iterator>
+	template <class Iterator>
 	class map_reverse_iterator
 	{
 		public:
-			typedef	map_random_access_iterator					iterator_type;
+			typedef	Iterator									iterator_type;
 			typedef typename iterator_type::value_type			value_type;
 			typedef typename iterator_type::reference			reference;
 			typedef typename iterator_type::pointer				pointer;
@@ -162,12 +162,19 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		map_reverse_iterator() : _it() {};
-		map_reverse_iterator(pointer other) : _it(other) {};
 		explicit map_reverse_iterator (iterator_type other) : _it(other) {};
-		map_reverse_iterator & operator=(map_reverse_iterator const & other)
-			{ _it = other._it; return *this; };
-		map_reverse_iterator(map_reverse_iterator const & other)
-			{ *this = other; };
+		template <class Iter>
+		map_reverse_iterator(const map_reverse_iterator<Iter>& rev_it)
+			{	*this = rev_it._it;	};
+		template <class Iter>
+		map_reverse_iterator& operator=(const map_reverse_iterator<Iter>& rev_it)
+			{	_it = rev_it._it; return *this;	};
+
+		map_reverse_iterator(pointer other) : _it(other) {};
+	//	map_reverse_iterator & operator=(map_reverse_iterator const & other)
+	//		{ _it = other._it; return *this; };
+	//	map_reverse_iterator(map_reverse_iterator const & other)
+	//		{ *this = other; };
 		~map_reverse_iterator() {};
 	
 		/********* ITERATORS *********/
@@ -189,17 +196,19 @@ namespace ft
 			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
 		pointer operator->() 
 			{ iterator_type tmp(this->_it); tmp--; return tmp.operator->(); };
+		iterator_type getNodePtr() const
+			{ iterator_type tmp(this->_it); tmp--; return tmp; };
 	
 		private:
 			iterator_type _it;
 	};
 
 	/*********** CONST REVERSE ITERATOR ***********/
-	template <class map_random_access_iterator>
-	class const_map_reverse_iterator : ft::map_reverse_iterator<map_random_access_iterator>
+	template <class Iterator>
+	class const_map_reverse_iterator : ft::map_reverse_iterator<Iterator>
 	{
 		public:
-			typedef	map_random_access_iterator					iterator_type;
+			typedef	Iterator									iterator_type;
 			typedef typename iterator_type::value_type			value_type;
 			typedef typename iterator_type::reference			reference;
 			typedef typename iterator_type::pointer				pointer;
@@ -209,12 +218,25 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_map_reverse_iterator() : _it() {};
-		const_map_reverse_iterator(pointer other) : _it(other) {};
 		explicit const_map_reverse_iterator (iterator_type other) : _it(other) {};
-		const_map_reverse_iterator & operator=(const_map_reverse_iterator const & other)
-			{ _it = other._it; return *this; };
-		const_map_reverse_iterator(const_map_reverse_iterator const & other)
-			{ *this = other; };
+		template <class Iter>
+		const_map_reverse_iterator(const const_map_reverse_iterator<Iter>& rev_it)
+			{	*this = rev_it._it;	};
+		template <class Iter>
+		const_map_reverse_iterator(const map_reverse_iterator<Iter>& rev_it)
+			{	_it = rev_it.getNodePtr();	};
+		template <class Iter>
+		const_map_reverse_iterator& operator=(const const_map_reverse_iterator<Iter>& rev_it)
+			{	_it = rev_it._it; return *this;	};
+		template <class Iter>
+		const_map_reverse_iterator& operator=(const map_reverse_iterator<Iter>& rev_it)
+			{	_it = rev_it.getNodePtr(); return *this;	};
+
+		const_map_reverse_iterator(pointer other) : _it(other) {};
+	//	const_map_reverse_iterator & operator=(const_map_reverse_iterator const & other)
+	//		{ _it = other._it; return *this; };
+	//	const_map_reverse_iterator(const_map_reverse_iterator const & other)
+	//		{ *this = other; };
 		~const_map_reverse_iterator() {};
 	
 		/********* ITERATORS *********/
