@@ -8,7 +8,7 @@
 
 int	main()
 {
-	std::cout << "\n--- STD::MAP ---" <<std::endl;
+	/*std::cout << "\n--- STD::MAP ---" <<std::endl;
 	std::map<std::string, int>	theirMap;
 	
 	theirMap["jupiter"] = 6;
@@ -122,7 +122,7 @@ int	main()
 	ret = product1 != product2;
 	ret2 = product1bis != product2bis;
 	std::cout << "product1 != product2 ? " << ret << " " << ret2 << std::endl;
-	
+	*/
 
 /*	std::cout << "\n--- BST ---" <<std::endl;
 	ft::BinarySearchTree<std::string, int> tr;
@@ -181,10 +181,10 @@ int	main()
 	std::cout << std::endl;*/
 
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
-/*	ft::map<std::string, int>	myMap;
+	ft::map<std::string, int>	myMap;
 	myMap.insert(ft::make_pair("f", 10));
 	myMap.insert(ft::make_pair("a", 9));
-	myMap.insert(ft::make_pair("b", 3));
+/*	myMap.insert(ft::make_pair("b", 3));
 	myMap.insert(ft::make_pair("z", 1));
 	myMap.insert(ft::make_pair("c", 7));
 	std::cout << "myMap[r] = " << myMap["r"] << std::endl;
@@ -408,6 +408,46 @@ int	main()
 			std::cout << "[" << test2It->first << "][" << test2It->second << "] | ";
 	std::cout<< std::endl;
 
+	std::cout<<"\ntheir reverse iterators"<< std::endl;
+	std::map<int, std::string>::const_reverse_iterator	reIt = test.rbegin();
+	std::map<int, std::string>::const_reverse_iterator	renIt = test.rend();
+	std::cout <<"rbegin = " << reIt->first<<std::endl;
+	renIt--;
+	std::cout <<"rend = " << renIt->first<<std::endl;
+	for (reIt = test.rbegin(); reIt != test.rend(); ++reIt)
+		std::cout << "[" << reIt->first << "][" << reIt->second << "] | ";
+	std::cout<< std::endl;
+	std::cout<< std::endl;
+
+	std::cout<<"\nmy reverse iterators"<< std::endl;
+	ft::map<int, std::string>::const_reverse_iterator	revIt = test2.rbegin();
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	ft::map<int, std::string>::const_reverse_iterator	revIte = test2.rend();
+//	revIte--;
+	std::cout <<"rend = " << revIte->first<<std::endl;
+	for (revIt = test2.rbegin(); revIt != test2.rend(); revIt++)
+		std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
+	std::cout<< std::endl;
+	
+	revIt = test2.rbegin();
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	if (revIt == test2.rend())
+		std::cout << "same\n";
+	else
+		std::cout << "different\n";
+	std::cout <<std::endl;
 
 	return 0;
 }
