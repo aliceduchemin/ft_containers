@@ -181,7 +181,7 @@ int	main()
 	std::cout << std::endl;*/
 
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
-	ft::map<std::string, int>	myMap;
+/*	ft::map<std::string, int>	myMap;
 	myMap.insert(ft::make_pair("f", 10));
 	myMap.insert(ft::make_pair("a", 9));
 	myMap.insert(ft::make_pair("b", 3));
@@ -369,5 +369,45 @@ int	main()
 		std::cout << ik->first << " => " <<ik->second<<"\n";
 	} while ( theirComp((*ik++).first, highest));
 	std::cout << std::endl;
+*/
+	std::pair<const int, std::string>	myP(1, "hello there");
+	std::pair<const int, std::string>	myPA(1248765, "SCHNELL");
+	std::pair<const int, std::string>	myPB(183648, "bonjour ici");
+	std::pair<const int, std::string>	myPC(-8, "bonjour ici");
+	std::pair<const int, std::string>	myPD(-9, "bonjour");
+	std::pair<const int, std::string>	myPE(-2147483648, "bonjour ici");
+	std::map<int, std::string>	test;
+	test.insert(myP);
+	test.insert(myPA);
+	test.insert(myPB);
+	test.insert(myPC);
+	test.insert(myPD);
+	test.insert(myPE);
+	std::map<int, std::string>::const_iterator	testIt = test.end();
+	for (testIt = test.end(); testIt != test.begin(); testIt--)
+		if (testIt != test.end())
+			std::cout << "[" << testIt->first << "][" << testIt->second << "] | ";
+	std::cout<< std::endl;
+
+	ft::pair<const int, std::string>	myP2(1, "hello there");
+	ft::pair<const int, std::string>	myPA2(1248765, "SCHNELL");
+	ft::pair<const int, std::string>	myPB2(183648, "bonjour ici");
+	ft::pair<const int, std::string>	myPC2(-8, "bonjour ici");
+	ft::pair<const int, std::string>	myPD2(-9, "bonjour");
+	ft::pair<const int, std::string>	myPE2(-2147483648, "bonjour ici");
+	ft::map<int, std::string>	test2;
+	test2.insert(myP2);
+	test2.insert(myPA2);
+	test2.insert(myPB2);
+	test2.insert(myPC2);
+	test2.insert(myPD2);
+	test2.insert(myPE2);
+	ft::map<int, std::string>::const_iterator	test2It = test2.end();
+	for (test2It = test2.end(); test2It != test2.begin(); test2It--)
+		if (test2It != test2.end())
+			std::cout << "[" << test2It->first << "][" << test2It->second << "] | ";
+	std::cout<< std::endl;
+
+
 	return 0;
 }

@@ -112,10 +112,30 @@ namespace ft
 			/********* ITERATORS *********/
 			iterator 				begin() { return iterator(_tree, _tree->_smallestNode); };
 			const_iterator	 		begin() const { return iterator(_tree, _tree->_smallestNode); };
-			iterator				end() { return iterator(_tree, _tree->_biggestNode->right); };
-			const_iterator			end() const { return iterator(_tree, _tree->_biggestNode->right); };
-			reverse_iterator 		rbegin() { return reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
-			const_reverse_iterator 	rbegin() const { return reverse_iterator(iterator(_tree, _tree->_biggestNode->right)); };
+			iterator				end()
+				{
+					if (this->empty())
+						return iterator(_tree, _tree->_smallestNode);
+					return iterator(_tree, _tree->_biggestNode->right);
+				};
+			const_iterator			end() const
+				{
+					if (this->empty())
+						return iterator(_tree, _tree->_smallestNode);
+					return iterator(_tree, _tree->_biggestNode->right);
+				};
+			reverse_iterator 		rbegin()
+				{
+					if (this->empty())
+						return reverse_iterator(iterator(_tree, _tree->_smallestNode));
+					return reverse_iterator(iterator(_tree, _tree->_biggestNode->right));
+				};
+			const_reverse_iterator 	rbegin() const
+				{
+					if (this->empty())
+						return reverse_iterator(iterator(_tree, _tree->_smallestNode));
+					return reverse_iterator(iterator(_tree, _tree->_biggestNode->right));
+				};
 			reverse_iterator 		rend() { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
 			const_reverse_iterator 	rend() const { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
 

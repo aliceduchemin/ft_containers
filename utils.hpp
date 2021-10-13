@@ -85,7 +85,6 @@ namespace ft
 			{
 			//	std::cout <<"\ninorder successr node = " << node->data.first<<std::endl;
 			//	tree_node<T1, T2>* temp = _root;
-
 				if (node->right != NULL)
 					return minValue(node->right);
 				tree_node<T1, T2>* parent = node->parent;
@@ -111,13 +110,15 @@ namespace ft
 			tree_node<T1,T2>*	inorderPredecessor(ft::tree_node<T1,T2>* node)
 			{
 			//	std::cout <<"\ninorder predecessor node = " << node->data.first<<std::endl;
-				
-			//	std::cout << "parent node = " << node->parent->data.first<<std::endl;
+			/*	
+				std::cout << "parent node = " << node->parent->data.first<<std::endl;
 				if (node->left)
-			//		std::cout << "left node = " << node->left->data.first<<std::endl;
+					std::cout << "left node = " << node->left->data.first<<std::endl;
 				if (node->right)
-			//		std::cout << "right node = " << node->right->data.first<<std::endl;
-			
+					std::cout << "right node = " << node->right->data.first<<std::endl;
+			*/
+				if (node == this->_smallestNode)
+					return this->_smallestNode;
 				if (node->left != NULL)
 					return maxValue(node->left);
 				tree_node<T1, T2>* parent = node->parent;

@@ -30,8 +30,8 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
-		map_random_access_iterator() : _nodePtr(0), _rootTree(0) { };
-		map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  { };
+		map_random_access_iterator() : _nodePtr(0), _rootTree(0) {};
+		map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  {};
 		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
 			{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
 		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
