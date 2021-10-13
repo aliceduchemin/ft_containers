@@ -56,11 +56,10 @@ namespace ft
 			tree_node<T1,T2>*	_smallestNode;
 			tree_node<T1,T2>*	_biggestNode;
 			tree_node<T1,T2>*	_lastNode;
-			tree_node<T1,T2>*	_rendNode;
 			size_t				_number;
 		
 			/********* CONSTRUCTEURS *********/
-			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _lastNode = NULL; _rendNode = NULL; _number = 0; };
+			BinarySearchTree() { _root = NULL; _smallestNode = NULL; _biggestNode = NULL; _lastNode = NULL; _number = 0; };
 			BinarySearchTree(BinarySearchTree const & other)
 				{	*this = other;	};
 			BinarySearchTree & operator=(BinarySearchTree const & other)
@@ -68,7 +67,6 @@ namespace ft
 					this->_smallestNode = other._smallestNode;
 					this->_biggestNode = other._biggestNode;
 					this->_lastNode = other._lastNode;
-					this->_rendNode = other._rendNode;
 					this->_number = other._number;
 					return *this;	};
 			~BinarySearchTree() {};
@@ -87,8 +85,6 @@ namespace ft
 			{
 			//	std::cout <<"\ninorder successr node = " << node->data.first<<std::endl;
 			//	tree_node<T1, T2>* temp = _root;
-				if (node == this->_biggestNode)
-					return this->_biggestNode;
 				if (node->right != NULL)
 					return minValue(node->right);
 				tree_node<T1, T2>* parent = node->parent;
@@ -178,15 +174,9 @@ namespace ft
 							}
 							temp = temp->right;
 						}
-						else if (key < temp->data.first)
+						else
 						{
 					//	std::cout << "left"<<std::endl;
-							if (temp->data.first == _rendNode->parent->data.first)
-							{
-					//	std::cout << "last"<<std::endl;
-								//return _lastNode;
-								break;
-							}
 							temp = temp->left;
 						}
 					}
@@ -238,10 +228,6 @@ namespace ft
 				tree_node<T1, T2>* set = this->_root;
 
 				this->smallestNode(set);
-				if (this->_smallestNode == this->_rendNode)
-					this->_smallestNode = this->_smallestNode->parent;
-				this->_rendNode->parent = this->_smallestNode;
-				this->_smallestNode->left = this->_rendNode;
 				set = _root;
 				this->biggestNode(set);
 				if (this->_biggestNode == this->_lastNode)
@@ -270,12 +256,6 @@ namespace ft
 					_lastNode->left = NULL;
 					_lastNode->right = NULL;
 					_lastNode->data = ft::make_pair(key_type(), mapped_type());
-					tree_node<T1, T2>* rend = new tree_node<T1, T2>;
-					_rendNode = rend;
-					_rendNode->parent = _root;
-					_rendNode->left = NULL;
-					_rendNode->right = NULL;
-					_rendNode->data = ft::make_pair(key_type(), mapped_type());
 				}
 				else
 				{
@@ -292,10 +272,8 @@ namespace ft
 							if (curr->data == _lastNode->parent->data)
 								break;
 							curr = curr->right;}
-						else  if (temp->data < curr->data) {
-							if (curr->data == _rendNode->parent->data)
-								break;
-							curr = curr->left;}
+						else  
+							curr = curr->left;
 					}
 					if (temp->data < temp->parent->data)
 					{
@@ -312,6 +290,15 @@ namespace ft
 			//	std::cout<< "end insert\n";
 				this->_number++;
 				this->resetNode();
+			/*	tree_node<T1, T2>* set = NULL;
+				set = _root;
+				this->smallestNode(set);
+				set = _root;
+				this->biggestNode(set);
+				if (this->_biggestNode == this->_lastNode)
+					this->_biggestNode = this->_biggestNode->parent;
+				this->_lastNode->parent = this->_biggestNode;
+			*/
 			//	this->_biggestNode->right = this->_lastNode;
 			//	std::cout<< "end insert of value " << data.first << " second = " << data.second<< ", _root = " << _root->data.first << " smallest node = " << _smallestNode->data.first << " biggest node = " << _biggestNode->data.first<< "\t";
 			//	std::cout<< "parent = "<< temp->parent->data.first<<std::endl;
@@ -347,7 +334,7 @@ namespace ft
 				if (curr->right)
 					std::cout << "curr->right = "<<curr->right->data.first<<std::endl;				
 			*/	
-				if (((curr->left == NULL || curr->left == this->_rendNode) && curr->right != NULL) ||
+				if ((curr->left == NULL && curr->right != NULL) ||
 					(curr->left != NULL && (curr->right == NULL || curr->right == this->_lastNode)))
 				{
 				//	std::cout << "node with single child" << std::endl;
@@ -419,7 +406,7 @@ namespace ft
 			//				std::cout<< "free 6: "<< curr->data.first<<std::endl;
 					delete curr;					
 				}
-				else if (curr->left != NULL && curr->left != this->_rendNode && curr->right != NULL && curr->right != this->_lastNode)
+				else if (curr->left != NULL && curr->right != NULL && curr->right != this->_lastNode)
 				{
 			//		std::cout << "node with 2 children\n";
 			//		std::cout << "replace node with smallest value in right subtree\n";
@@ -475,11 +462,23 @@ namespace ft
 			//	this->print_inorder();
 			}
 
-			void	removeExtremNode()
+			void	removeLastNode()
 			{
 				delete this->_lastNode;
-				delete this->_rendNode;
 			}
+
+		/*	void	clear(tree_node<T1, T2>* t)
+			{
+				if (t != NULL)
+				{
+					if (t->left)
+						clear(t->left);
+					if (t->right)
+						clear(t->right);
+							std::cout<< "free 10: "<< t->data.first<<std::endl;
+					delete t;
+				}
+			}*/
 	};
 };
 
