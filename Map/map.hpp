@@ -269,7 +269,7 @@ namespace ft
 				//		std::cout << "this->end = " << this->end()->first<<std::endl;
 					}
 				//	std::cout<<"_number end of clear = " << _number << std::endl;
-					this->_tree->removeLastNode();
+					this->_tree->removeExtremNodes();
 				}
 			};
 

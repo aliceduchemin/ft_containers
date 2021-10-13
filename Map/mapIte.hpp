@@ -70,9 +70,9 @@ namespace ft
 		map_random_access_iterator &	operator--()
 			{/* std::cout << "node to decrement = " << this->_nodePtr->data.first<<std::endl;
 			*/
-		/*	if (this->_nodePtr == this->_rootTree->_smallestNode)
+			if (this->_nodePtr == this->_rootTree->_smallestNode)
 				this->_nodePtr = this->_nodePtr->left;
-			else*/
+			else
 				this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
 				return *this; }
 		map_random_access_iterator	operator--(int)
@@ -87,7 +87,6 @@ namespace ft
 		{	return this->_nodePtr;	};
 
 		private:
-		//	nodePtr	_rend;
 			nodePtr	_nodePtr;
 			bstree	_rootTree;
 	};

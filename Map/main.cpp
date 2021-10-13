@@ -425,7 +425,7 @@ int	main()
 	ft::map<int, std::string>::const_reverse_iterator	revIte = test2.rend();
 //	revIte--;
 	std::cout <<"rend = " << revIte->first<<std::endl;
-	for (revIt = test2.rbegin(); revIt != test2.rend(); revIt++)
+	for (revIt = test2.rbegin(); revIt != test2.rend(); ++revIt)
 		std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
 	std::cout<< std::endl;
 	
