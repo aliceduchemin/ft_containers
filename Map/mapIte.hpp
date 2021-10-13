@@ -26,7 +26,7 @@ namespace ft
 			typedef ft::pair<Key, T>*				pointer;
 			typedef ft::tree_node<Key, T>*			nodePtr;
 			typedef ft::BinarySearchTree<Key, T>*	bstree;
-			typedef std::ptrdiff_t						difference_type;
+			typedef std::ptrdiff_t					difference_type;
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
@@ -69,7 +69,11 @@ namespace ft
 		// Can be decremented
 		map_random_access_iterator &	operator--()
 			{/* std::cout << "node to decrement = " << this->_nodePtr->data.first<<std::endl;
-			*/this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
+			*/
+			if (this->_nodePtr == this->_rootTree->_smallestNode)
+				this->_nodePtr = this->_nodePtr->left;
+			else
+				this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
 				return *this; }
 		map_random_access_iterator	operator--(int)
 			{ map_random_access_iterator tmp(*this); operator--(); return tmp; };
@@ -170,7 +174,7 @@ namespace ft
 		map_reverse_iterator& operator=(const map_reverse_iterator<Iter>& rev_it)
 			{	_it = rev_it._it; return *this;	};
 
-		map_reverse_iterator(pointer other) : _it(other) {};
+	//	map_reverse_iterator(pointer other) : _it(other) {};
 	//	map_reverse_iterator & operator=(map_reverse_iterator const & other)
 	//		{ _it = other._it; return *this; };
 	//	map_reverse_iterator(map_reverse_iterator const & other)
@@ -218,7 +222,7 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_map_reverse_iterator() : _it() {};
-		explicit const_map_reverse_iterator (iterator_type other) : _it(other) {};
+		explicit const_map_reverse_iterator (iterator_type other) : _it(other) {std::cout<<"constructeur const reverse it copy\n";};
 		template <class Iter>
 		const_map_reverse_iterator(const const_map_reverse_iterator<Iter>& rev_it)
 			{	*this = rev_it._it;	};
@@ -255,9 +259,9 @@ namespace ft
 		bool operator!=(const_map_reverse_iterator const & other) const
 			{ return this->_it != other._it; };
 		reference operator*() const
-			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+			{ iterator_type tmp(this->_it); /*tmp--;*/ return *tmp; };
 		pointer operator->() 
-			{ iterator_type tmp(this->_it); tmp--; return tmp.operator->(); };
+			{ iterator_type tmp(this->_it); /*tmp--;*/ return tmp.operator->(); };
 	
 		private:
 			iterator_type _it;

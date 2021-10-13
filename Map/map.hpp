@@ -106,7 +106,7 @@ namespace ft
 			~map()
 			{	
 				this->clear(); 
-					delete this->_tree;
+				delete this->_tree;
 			};
 
 			/********* ITERATORS *********/
@@ -128,6 +128,9 @@ namespace ft
 				{
 					if (this->empty())
 						return reverse_iterator(iterator(_tree, _tree->_smallestNode));
+				//	iterator it = iterator(_tree, _tree->_biggestNode->right);
+				//	reverse_iterator itr = reverse_iterator(it);
+				//	return itr;
 					return reverse_iterator(iterator(_tree, _tree->_biggestNode->right));
 				};
 			const_reverse_iterator 	rbegin() const
@@ -136,9 +139,24 @@ namespace ft
 						return reverse_iterator(iterator(_tree, _tree->_smallestNode));
 					return reverse_iterator(iterator(_tree, _tree->_biggestNode->right));
 				};
-			reverse_iterator 		rend() { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
-			const_reverse_iterator 	rend() const { return reverse_iterator(iterator(_tree, _tree->_smallestNode)); };
-
+			reverse_iterator 		rend() 
+				{ 
+				/*	nodePtr	revEnd = new tree_node<Key, T>;
+					revEnd->right = NULL;
+					revEnd->data = ft::make_pair(key_type(), mapped_type());
+					_tree->_smallestNode->left = revEnd;
+					revEnd->parent = _tree->_smallestNode;*/
+					return reverse_iterator(iterator(_tree, _tree->_smallestNode)); 
+				};
+			const_reverse_iterator 	rend() const //{ std::cout<<"const rend\n";return reverse_iterator(iterator(_tree, _tree->_smallestNode)); }
+				{ 
+				/*	nodePtr	revEnd = new tree_node<Key, T>;
+					revEnd->right = NULL;
+					revEnd->data = ft::make_pair(key_type(), mapped_type());
+					_tree->_smallestNode->left = revEnd;
+					revEnd->parent = _tree->_smallestNode;*/
+					return reverse_iterator(iterator(_tree, _tree->_smallestNode)); 
+				};
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
 			size_type	size() const { return this->_number; };
@@ -249,7 +267,7 @@ namespace ft
 						i++;
 					}
 				//	std::cout<<"_number end of clear = " << _number << std::endl;
-					this->_tree->removeLastNode();
+					this->_tree->removeExtremNode();
 				}
 			};
 

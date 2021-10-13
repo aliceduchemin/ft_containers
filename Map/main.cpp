@@ -181,7 +181,7 @@ int	main()
 	std::cout << std::endl;*/
 
 	std::cout << "\n--- FT::MAP ---" <<std::endl;
-/*	ft::map<std::string, int>	myMap;
+	ft::map<std::string, int>	myMap;
 	myMap.insert(ft::make_pair("f", 10));
 	myMap.insert(ft::make_pair("a", 9));
 	myMap.insert(ft::make_pair("b", 3));
@@ -369,7 +369,7 @@ int	main()
 		std::cout << ik->first << " => " <<ik->second<<"\n";
 	} while ( theirComp((*ik++).first, highest));
 	std::cout << std::endl;
-*/
+
 	std::pair<const int, std::string>	myP(1, "hello there");
 	std::pair<const int, std::string>	myPA(1248765, "SCHNELL");
 	std::pair<const int, std::string>	myPB(183648, "bonjour ici");
@@ -408,6 +408,46 @@ int	main()
 			std::cout << "[" << test2It->first << "][" << test2It->second << "] | ";
 	std::cout<< std::endl;
 
+	std::cout<<"\ntheir reverse iterators"<< std::endl;
+	std::map<int, std::string>::const_reverse_iterator	reIt = test.rbegin();
+	std::map<int, std::string>::const_reverse_iterator	renIt = test.rend();
+	std::cout <<"rbegin = " << reIt->first<<std::endl;
+	renIt--;
+	std::cout <<"rend = " << renIt->first<<std::endl;
+	for (reIt = test.rbegin(); reIt != test.rend(); ++reIt)
+		std::cout << "[" << reIt->first << "][" << reIt->second << "] | ";
+	std::cout<< std::endl;
+	std::cout<< std::endl;
+
+	std::cout<<"\nmy reverse iterators"<< std::endl;
+	ft::map<int, std::string>::const_reverse_iterator	revIt = test2.rbegin();
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	ft::map<int, std::string>::const_reverse_iterator	revIte = test2.rend();
+//	revIte--;
+	std::cout <<"rend = " << revIte->first<<std::endl;
+	for (revIt = test2.rbegin(); revIt != test2.rend(); revIt++)
+		std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
+	std::cout<< std::endl;
+	
+	revIt = test2.rbegin();
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	revIt++;
+	std::cout <<"rbegin = " << revIt->first<<std::endl;
+	if (revIt == test2.rend())
+		std::cout << "same\n";
+	else
+		std::cout << "different\n";
+	std::cout <<std::endl;
 
 	return 0;
 }
