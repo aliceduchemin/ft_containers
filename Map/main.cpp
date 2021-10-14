@@ -8,7 +8,7 @@
 
 int	main()
 {
-	/*std::cout << "\n--- STD::MAP ---" <<std::endl;
+/*	std::cout << "\n--- STD::MAP ---" <<std::endl;
 	std::map<std::string, int>	theirMap;
 	
 	theirMap["jupiter"] = 6;
@@ -184,13 +184,15 @@ int	main()
 	ft::map<std::string, int>	myMap;
 	myMap.insert(ft::make_pair("f", 10));
 	myMap.insert(ft::make_pair("a", 9));
-/*	myMap.insert(ft::make_pair("b", 3));
+	myMap.insert(ft::make_pair("b", 3));
 	myMap.insert(ft::make_pair("z", 1));
 	myMap.insert(ft::make_pair("c", 7));
+	myMap.insert(ft::make_pair("y", 6));
 	std::cout << "myMap[r] = " << myMap["r"] << std::endl;
 	
-	int lol = myMap["a"];
-	std::cout << "retour [a] : " << lol <<std::endl;
+	myMap.insert(ft::make_pair("s", 79));
+	int lol = myMap["u"] = 567;
+	std::cout << "retour [u] : " << lol <<std::endl;
 	lol = myMap["c"] = 8;
 	std::cout << "retour [c] : " << lol <<std::endl;
 	lol = myMap["y"] = 6;
@@ -369,7 +371,7 @@ int	main()
 		std::cout << ik->first << " => " <<ik->second<<"\n";
 	} while ( theirComp((*ik++).first, highest));
 	std::cout << std::endl;
-*/
+
 	std::pair<const int, std::string>	myP(1, "hello there");
 	std::pair<const int, std::string>	myPA(1248765, "SCHNELL");
 	std::pair<const int, std::string>	myPB(183648, "bonjour ici");
