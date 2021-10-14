@@ -1,4 +1,6 @@
-SRCS		= ./Map/main.cpp
+SRCS		= ./main42.cpp \
+			./Vector/tests.cpp
+		#	./testsVector.cpp
 #./Vector/testVector.cpp
 #./Vector/main.cpp \
 			./Vector/tests.cpp \
@@ -7,7 +9,7 @@ SRCS		= ./Map/main.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 
-NAME		= container_tests
+NAME		= test
 
 CC			= clang++
 

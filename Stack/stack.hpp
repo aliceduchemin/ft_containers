@@ -29,44 +29,44 @@ namespace ft
 			typedef typename Container::size_type 		size_type;
 
 			/********* CONSTRUCTEURS *********/
-			explicit stack(const container_type& ctnr = container_type()) { _container = ctnr; };
-			stack(stack const & other) { this->_container = other._container; };
-			stack & operator=(stack const & other) { this->_container = other._container; return *this; };
+			explicit stack(const container_type& ctnr = container_type()) { c = ctnr; };
+			stack(stack const & other) { this->c = other.c; };
+			stack & operator=(stack const & other) { this->c = other.c; return *this; };
 			~stack() {};
 
 			/********* CAPACITY *********/
-			size_type	size() const { return this->_container.size(); };
-			bool		empty() { return (this->_container.size() == 0); };
+			size_type	size() const { return this->c.size(); };
+			bool		empty() { return (this->c.size() == 0); };
 		
 			/********* ELEMENT ACCESS *********/
-			value_type&			top() { return this->_container.back(); };
-			const value_type&	top() const { return this->_container.back(); };
+			value_type&			top() { return this->c.back(); };
+			const value_type&	top() const { return this->c.back(); };
 
 			/********* MODIFIERS *********/
-			void		push(const value_type& val) { this->_container.push_back(val); };
-			void		pop() { this->_container.pop_back(); };
+			void		push(const value_type& val) { this->c.push_back(val); };
+			void		pop() { this->c.pop_back(); };
 
 			/********* COMPARATORS *********/
 			friend bool	operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-				{ return lhs._container != rhs._container; };
+				{ return lhs.c != rhs.c; };
 
 			friend bool	operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-				{ return lhs._container == rhs._container; };
+				{ return lhs.c == rhs.c; };
 
 			friend bool	operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-				{ return lhs._container <= rhs._container; };
+				{ return lhs.c <= rhs.c; };
 
 			friend bool	operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-				{ return lhs._container < rhs._container; };
+				{ return lhs.c < rhs.c; };
 
 			friend bool	operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-				{ return lhs._container >= rhs._container; };
+				{ return lhs.c >= rhs.c; };
 			
 			friend bool	operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
-				{ return lhs._container > rhs._container; };
+				{ return lhs.c > rhs.c; };
 
-		private:
-			container_type	_container;		
+		protected:
+			container_type	c;		
 	};
 }
 
