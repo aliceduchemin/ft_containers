@@ -1,8 +1,0 @@
-73c73
-< 			if (this->_nodePtr == this->_rootTree->_smallestNode)
----
-> 		/*	if (this->_nodePtr == this->_rootTree->_smallestNode)
-75c75
-< 			else
----
-> 			else*/

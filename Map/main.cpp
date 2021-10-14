@@ -431,6 +431,38 @@ int	main()
 		std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
 	std::cout<< std::endl;
 	
+	std::cout<<"other test on their reverse\n";
+	test.clear();
+	test[-2147483648] = "kafeolait";
+	test[-1] = "jul d'ananas";
+	test[0] = "42";
+	test[3] = "jura";
+	test[4] = "saperlipopette";
+	test[5] = "anticonstitutionnellement";
+	test[256] = "oui-oui";
+	test[58966] = "hello coco";
+	for (reIt = test.rend(); reIt != test.rbegin(); --reIt)
+		if (reIt != test.rend())
+			std::cout << "[" << reIt->first << "][" << reIt->second << "] | ";
+	std::cout<< std::endl;
+	std::cout<<"other test on my reverse\n";
+	test2.clear();
+	test2[-2147483648] = "kafeolait";
+	test2[-1] = "jul d'ananas";
+	test2[0] = "42";
+	test2[3] = "jura";
+	test2[4] = "saperlipopette";
+	test2[5] = "anticonstitutionnellement";
+	test2[256] = "oui-oui";
+	test2[58966] = "hello coco";
+	for (revIt = test2.rend(); revIt != test2.rbegin(); --revIt)
+		if (revIt != test2.rend())
+			std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
+	std::cout<< std::endl;
+
+	
+
+/*
 	revIt = test2.rbegin();
 	std::cout <<"rbegin = " << revIt->first<<std::endl;
 	revIt++;
@@ -450,6 +482,8 @@ int	main()
 	else
 		std::cout << "different\n";
 	std::cout <<std::endl;
+*/
+
 
 	return 0;
 }

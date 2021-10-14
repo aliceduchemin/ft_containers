@@ -256,19 +256,17 @@ namespace ft
 			{
 				if (this->empty() == false)
 				{
-					std::cout << "this->begin = " << this->begin()->first<<std::endl;
-					std::cout << "this->end = " << this->end()->first<<std::endl;
 					size_t i = 0;
 					while (this->begin() != this->end())
 					{
-						std::cout << "\nclearing round = "<<this->begin()->first<<std::endl;;
+				//		std::cout << "\nclearing round = "<<this->begin()->first<<std::endl;;
 						this->_tree->remove(this->begin()->first);
 						this->_number--;
 						i++;
 				//		std::cout << "this->begin = " << this->begin()->first<<std::endl;
 				//		std::cout << "this->end = " << this->end()->first<<std::endl;
 					}
-					std::cout<<"_number end of clear = " << _number << std::endl;
+				//	std::cout<<"_number end of clear = " << _number << std::endl;
 					this->_tree->removeExtremNodes();
 				}
 			};
