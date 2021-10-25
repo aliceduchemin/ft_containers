@@ -6,15 +6,17 @@
 #include <deque>
 #include <stdlib.h>
 
-#if 0 //CREATE A REAL STL EXAMPLE
+#define CHOICE 2
+
+#if CHOICE == 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
 	namespace ft = std;
 #else
-	#include "./Map/map.hpp"
-	#include "./Stack/stack.hpp"
-	#include "./Vector/vector.hpp"
+	#include "../Map/map.hpp"
+	#include "../Stack/stack.hpp"
+	#include "../includes/Vector/vector.hpp"
 #endif
 
 #define MAX_RAM 4294967296
@@ -47,8 +49,6 @@ public:
 	iterator end() { return this->c.end(); }
 };
 
-//void	testInt();
-//void	testInt2();
 void	test_push(void);
 void	test_element_access(void);
 void	test_re_serve_size(void);

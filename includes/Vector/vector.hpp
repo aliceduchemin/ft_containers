@@ -13,6 +13,7 @@
 #ifndef __VECTOR_HPP__
 # define __VECTOR_HPP__
 
+#include <iostream>
 //#include <memory>
 #include "vectorIte.hpp"
 #include "../utils.hpp"

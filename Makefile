@@ -1,6 +1,5 @@
-SRCS		= ./main42.cpp \
-			./Vector/tests.cpp
-		#	./testsVector.cpp
+SRCS		= ./main.cpp \
+			./testers/testsVectors.cpp
 #./Vector/testVector.cpp
 #./Vector/main.cpp \
 			./Vector/tests.cpp \
@@ -17,21 +16,18 @@ CXX			= clang++
 
 RM			= rm -f
 
-FLAGS		= -Wall -Wextra -Werror -g -I . -I ./Vector -I ./Stack -I ./Map -std=c++98
+FLAGS		= -Wall -Wextra -Werror -g -I . -I ./includes -I ./includes/Vector -I ./Stack -I ./Map -std=c++98
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) ${FLAGS} ${OBJS} -o ${NAME}
-
-valgrind:	$(NAME)
-			valgrind ./$(NAME)
+			@$(CC) ${FLAGS} ${OBJS} -o ${NAME}
 
 clean:
-			$(RM) $(OBJS)
+			@$(RM) $(OBJS)
 
 fclean:		clean
-			$(RM) $(NAME)
+			@$(RM) $(NAME)
 
 re:			fclean all
 

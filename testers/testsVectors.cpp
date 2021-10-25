@@ -1,17 +1,26 @@
 
-#include "../testsContainers.hpp"
+#include "testsContainers.hpp"
 
 void clearscreen()
 {
+	/*std::cout << std::endl <<"Press enter to the next test" << std::endl;
+	std::string input_line;
+	std::getline(std::cin, input_line);
 	std::cout << std::string( 100, '\n' );
+	
+	std::cout << std::endl <<"You're currently testing the ";
+	if (CHOICE == 0)
+		std::cout << "std library" << std::endl;
+	else if (CHOICE == 1)
+		std::cout << "ft library" << std::endl;*/
+	std::cout << "\n\n\n";
 }
 
 void	test_push(void)
 {
 	ft::vector<int> test;
 
-	std::cout << "## BASIC DEMONSTRATION ##" << std::endl;
-
+	std::cout << "## PUSH & INFO ##" << std::endl;
 	std::cout << "Creating vector test." << std::endl;
 
 	std::cout << "Empty() = " << std::boolalpha << test.empty() << std::endl << std::endl;
@@ -40,11 +49,9 @@ void	test_push(void)
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
 
-	// std::cout << "--MAX_SIZE--" << std::endl;
-	// std::cout << test.max_size() << std::endl;
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
+	std::cout << "--MAX_SIZE--" << std::endl;
+	std::cout << test.max_size() << std::endl;
+	
 	clearscreen();
 }
 
@@ -97,9 +104,6 @@ void	test_element_access(void)
 	std::cout << "front() = " << test2.front() << std::endl;
 	std::cout << "back() = " << test2.back() << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -146,9 +150,6 @@ void	test_re_serve_size(void)
 		std::cout << v2[i] << std::endl;
 	std::cout << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -268,9 +269,6 @@ void	test_pop_back(void)
 	std::cout << v[v.size() - 1];
 	std::cout << "}" << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -308,9 +306,6 @@ void	test_iterator_incrementers_ft()
 	std::cout << "*(--it) = " << *(--it) << std::endl;
 	std::cout << "*it = " << *it << std::endl << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -357,9 +352,6 @@ void	test_iterator_booleans_ft()
 	std::cout << "it_end >= it_beg is " << std::boolalpha << (it_end >= it_beg) << std::endl;
 	std::cout << "it_end >= it_end is " << std::boolalpha << (it_end >= it_end) << std::endl << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -434,9 +426,6 @@ void	test_iterator_deref_ft()
 	std::cout << "iterator it_cpy(it);" << std::endl;
 	std::cout << "cout *it_cpy = " << *it_cpy << std::endl << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -487,9 +476,6 @@ void	test_reverse_iterator(void)
 	std::cout << "it -= 4" << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -531,17 +517,15 @@ void	test_constructors(void)
 	for (ft::vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)
 		std::cout << *it << std::endl;
 
-	// std::cout << "#--- FILL CONSTRUCTOR ---#" << std::endl;
-	// std::cout << "ft::vector<int> v_fill(25, 42);" << std::endl;
-	// ft::vector<int> v_fill(25, 42);
+	std::cout << "#--- FILL CONSTRUCTOR ---#" << std::endl;
+	std::cout << "ft::vector<int> v_fill(25, 42);" << std::endl;
+	ft::vector<int> v_fill(25, 42);
 
-	// std::cout << "for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)" << std::endl;
-	// std::cout << "std::cout << *it << std::endl;" << std::endl;
-	// for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)
-	// 	std::cout << *it << std::endl;
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
+	std::cout << "for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)" << std::endl;
+	std::cout << "std::cout << *it << std::endl;" << std::endl;
+	for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)
+		std::cout << *it << std::endl;
+
 	clearscreen();
 }
 
@@ -597,9 +581,6 @@ void	test_assign(void)
 	std::cout << v2[v2.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -778,9 +759,6 @@ void	test_insert(void)
 	std::cout << apple[apple.size() - 1];
 	std::cout << "}" << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -889,9 +867,6 @@ void	test_clear_erase(void)
 		std::cout << "}" << std::endl;
 	std::cout << std::endl;
 
-	std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
 	clearscreen();
 }
 
@@ -1036,46 +1011,3 @@ void	test_swap(void)
 	else
 		std::cout << "}" << std::endl << std::endl;
 }
-/*
-#include "utils_tester.hpp"
-
-void	main_vector(void)
-{
-	std::vector<void(*)(void)>	v_test_funs;
-	std::vector<std::string>	v_descriptions;
-
-	v_test_funs.push_back(test_push);
-	v_descriptions.push_back("0 : empty() | op[] | push() | size() | capacity() | max_size()");
-
-	v_test_funs.push_back(test_element_access);
-	v_descriptions.push_back("1 : at() | front() | back()");
-
-	v_test_funs.push_back(test_re_serve_size);
-	v_descriptions.push_back("2 : reserve() | resize()");
-
-	v_test_funs.push_back(test_pop_back);
-	v_descriptions.push_back("3 : pop_back()");
-
-	v_test_funs.push_back(test_iterator);
-	v_descriptions.push_back("4 : iterators");
-
-	v_test_funs.push_back(test_reverse_iterator);
-	v_descriptions.push_back("5 : reverse_iterators");
-
-	v_test_funs.push_back(test_constructors);
-	v_descriptions.push_back("6 : constructors");
-
-	v_test_funs.push_back(test_assign);
-	v_descriptions.push_back("7 : assign");
-
-	v_test_funs.push_back(test_insert);
-	v_descriptions.push_back("8 : insert");
-
-	v_test_funs.push_back(test_clear_erase);
-	v_descriptions.push_back("9 : clear erase");
-
-	v_test_funs.push_back(test_swap);
-	v_descriptions.push_back("10 : swap");
-
-	menu(v_test_funs, v_descriptions, "VECTOR");
-}*/
