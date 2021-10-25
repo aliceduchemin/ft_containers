@@ -13,7 +13,7 @@
 #ifndef __MAPITE_HPP__
 # define __MAPITE_HPP__
 
-#include "../includes/utils.hpp"
+#include "../utils.hpp"
 
 namespace ft
 {
@@ -222,7 +222,7 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_map_reverse_iterator() : _it() {};
-		explicit const_map_reverse_iterator (iterator_type other) : _it(other) {std::cout<<"constructeur const reverse it copy\n";};
+		explicit const_map_reverse_iterator (iterator_type other) : _it(other) {};
 		template <class Iter>
 		const_map_reverse_iterator(const const_map_reverse_iterator<Iter>& rev_it)
 			{	*this = rev_it._it;	};

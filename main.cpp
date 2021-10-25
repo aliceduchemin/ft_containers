@@ -95,6 +95,9 @@ int main(int argc, char** argv)
 	std::cout << "##### STACK TESTS : #####\n" << std::endl;
 	stackTests();
 
+	std::cout << "##### MAP TESTS : #####\n" << std::endl;
+	mapTests();
+
 
 	gettimeofday(&end, 0);
 	long seconds = end.tv_sec - begin.tv_sec;

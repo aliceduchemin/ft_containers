@@ -15,7 +15,7 @@
 	#include <vector>
 	namespace ft = std;
 #else
-	#include "../Map/map.hpp"
+	#include "../includes/Map/map.hpp"
 	#include "../includes/Stack/stack.hpp"
 	#include "../includes/Vector/vector.hpp"
 #endif
@@ -52,20 +52,6 @@ public:
 
 void	vectorTests();
 void	stackTests();
-/*
-void	test_push(void);
-void	test_element_access(void);
-void	test_re_serve_size(void);
-void	test_pop_back(void);
-void	test_iterator_incrementers_ft();
-void	test_iterator_booleans_ft();
-void	test_iterator_deref_ft();
-void	test_iterator(void);
-void	test_reverse_iterator(void);
-void	test_constructors(void);
-void	test_assign(void);
-void	test_insert(void);
-void	test_clear_erase(void);
-void	test_swap(void);
-*/
+void	mapTests();
+
 #endif
