@@ -89,20 +89,12 @@ int main(int argc, char** argv)
 	}
 	std::cout << std::endl;
 */
-	test_push();
-	test_element_access();
-	test_re_serve_size();
-	test_pop_back();
-	test_constructors();
-	test_iterator_incrementers_ft();
-	test_iterator_booleans_ft();
-	test_iterator_deref_ft();
-	test_iterator();
-	test_reverse_iterator();
-	test_assign();
-	test_insert();
-	test_clear_erase();
-	test_swap();
+	std::cout << "##### VECTOR TESTS : #####\n" << std::endl;
+	vectorTests();
+
+	std::cout << "##### STACK TESTS : #####\n" << std::endl;
+	stackTests();
+
 
 	gettimeofday(&end, 0);
 	long seconds = end.tv_sec - begin.tv_sec;

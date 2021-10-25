@@ -1,9 +1,6 @@
-#include <iostream>
-#include <string>
-#include <stack>
-#include "stack.hpp"
+#include "testsContainers.hpp"
 
-int main()
+void stackTests()
 {
 	ft::stack<int>	myStack;
 
@@ -52,6 +49,4 @@ int main()
 
 	ret = myStack < mySecondStack;
 	std::cout << "< ? " << ret << std::endl;
-
-	return 0;
 }

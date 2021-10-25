@@ -1,21 +1,6 @@
 
 #include "testsContainers.hpp"
 
-void clearscreen()
-{
-	/*std::cout << std::endl <<"Press enter to the next test" << std::endl;
-	std::string input_line;
-	std::getline(std::cin, input_line);
-	std::cout << std::string( 100, '\n' );
-	
-	std::cout << std::endl <<"You're currently testing the ";
-	if (CHOICE == 0)
-		std::cout << "std library" << std::endl;
-	else if (CHOICE == 1)
-		std::cout << "ft library" << std::endl;*/
-	std::cout << "\n\n\n";
-}
-
 void	test_push(void)
 {
 	ft::vector<int> test;
@@ -52,7 +37,7 @@ void	test_push(void)
 	std::cout << "--MAX_SIZE--" << std::endl;
 	std::cout << test.max_size() << std::endl;
 	
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_element_access(void)
@@ -104,7 +89,7 @@ void	test_element_access(void)
 	std::cout << "front() = " << test2.front() << std::endl;
 	std::cout << "back() = " << test2.back() << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_re_serve_size(void)
@@ -150,7 +135,7 @@ void	test_re_serve_size(void)
 		std::cout << v2[i] << std::endl;
 	std::cout << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_pop_back(void)
@@ -269,7 +254,7 @@ void	test_pop_back(void)
 	std::cout << v[v.size() - 1];
 	std::cout << "}" << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_iterator_incrementers_ft()
@@ -306,7 +291,7 @@ void	test_iterator_incrementers_ft()
 	std::cout << "*(--it) = " << *(--it) << std::endl;
 	std::cout << "*it = " << *it << std::endl << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_iterator_booleans_ft()
@@ -352,7 +337,7 @@ void	test_iterator_booleans_ft()
 	std::cout << "it_end >= it_beg is " << std::boolalpha << (it_end >= it_beg) << std::endl;
 	std::cout << "it_end >= it_end is " << std::boolalpha << (it_end >= it_end) << std::endl << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_iterator_deref_ft()
@@ -426,7 +411,7 @@ void	test_iterator_deref_ft()
 	std::cout << "iterator it_cpy(it);" << std::endl;
 	std::cout << "cout *it_cpy = " << *it_cpy << std::endl << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_iterator(void)
@@ -476,7 +461,7 @@ void	test_reverse_iterator(void)
 	std::cout << "it -= 4" << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_constructors(void)
@@ -529,7 +514,7 @@ void	test_constructors(void)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_assign(void)
@@ -584,7 +569,7 @@ void	test_assign(void)
 	std::cout << v2[v2.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_insert(void)
@@ -762,7 +747,7 @@ void	test_insert(void)
 	std::cout << apple[apple.size() - 1];
 	std::cout << "}" << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_clear_erase(void)
@@ -870,7 +855,7 @@ void	test_clear_erase(void)
 		std::cout << "}" << std::endl;
 	std::cout << std::endl;
 
-	clearscreen();
+	std::cout << "\n\n\n";
 }
 
 void	test_swap(void)
@@ -1013,4 +998,22 @@ void	test_swap(void)
 	}
 	else
 		std::cout << "}" << std::endl << std::endl;
+}
+
+void	vectorTests()
+{
+	test_push();
+	test_element_access();
+	test_re_serve_size();
+	test_pop_back();
+	test_constructors();
+	test_iterator_incrementers_ft();
+	test_iterator_booleans_ft();
+	test_iterator_deref_ft();
+	test_iterator();
+	test_reverse_iterator();
+	test_assign();
+	test_insert();
+	test_clear_erase();
+	test_swap();
 }

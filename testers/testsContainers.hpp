@@ -16,7 +16,7 @@
 	namespace ft = std;
 #else
 	#include "../Map/map.hpp"
-	#include "../Stack/stack.hpp"
+	#include "../includes/Stack/stack.hpp"
 	#include "../includes/Vector/vector.hpp"
 #endif
 
@@ -50,6 +50,9 @@ public:
 	iterator end() { return this->c.end(); }
 };
 
+void	vectorTests();
+void	stackTests();
+/*
 void	test_push(void);
 void	test_element_access(void);
 void	test_re_serve_size(void);
@@ -64,5 +67,5 @@ void	test_assign(void);
 void	test_insert(void);
 void	test_clear_erase(void);
 void	test_swap(void);
-
+*/
 #endif
