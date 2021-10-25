@@ -1,6 +1,4 @@
 #include "./testers/testsContainers.hpp"
-#include <chrono>
-#include <sys/time.h>
 
 int main(int argc, char** argv) 
 {
@@ -20,7 +18,6 @@ int main(int argc, char** argv)
 
 	struct timeval begin, end;
 	gettimeofday(&begin, 0);
-	//auto start = std::chrono::high_resolution_clock::now();
 	
 /*	const int seed = atoi(argv[1]);
 	srand(seed);
@@ -113,8 +110,5 @@ int main(int argc, char** argv)
 	double elapsed = seconds / 1e-6 + microseconds ;
 	std::cout << "Duration : " << elapsed << " microseconds" << std::endl;
 
-/*	auto stop = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-	std::cout << "Duration : " << duration.count() << " microseconds" << std::endl;
-*/	return (0);
+	return (0);
 }

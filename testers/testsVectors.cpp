@@ -506,7 +506,8 @@ void	test_constructors(void)
 	std::cout << "for (ft::vector<int>::iterator it = v_it.begin(); it != v_it.end(); it++)" << std::endl;
 	std::cout << "    std::cout << *it << std::endl;" << std::endl;
 	for (ft::vector<int>::iterator it = v_it.begin(); it != v_it.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " -- ";
+	std::cout << std::endl;
 
 	std::cout << "--- COPY CONSTRUCTOR ---" << std::endl;
 	std::cout << "ft::vector<int> v_cpy(v_it);" << std::endl;
@@ -515,7 +516,8 @@ void	test_constructors(void)
 	std::cout << "for (ft::vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)" << std::endl;
 	std::cout << "std::cout << *it << std::endl;" << std::endl;
 	for (ft::vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " -- ";
+	std::cout << std::endl;
 
 	std::cout << "#--- FILL CONSTRUCTOR ---#" << std::endl;
 	std::cout << "ft::vector<int> v_fill(25, 42);" << std::endl;
@@ -524,7 +526,8 @@ void	test_constructors(void)
 	std::cout << "for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)" << std::endl;
 	std::cout << "std::cout << *it << std::endl;" << std::endl;
 	for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " -- ";
+	std::cout << std::endl;
 
 	clearscreen();
 }

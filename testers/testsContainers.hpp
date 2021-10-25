@@ -5,6 +5,7 @@
 #include <string>
 #include <deque>
 #include <stdlib.h>
+#include <sys/time.h>
 
 #define CHOICE 2
 
