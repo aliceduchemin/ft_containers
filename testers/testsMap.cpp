@@ -2,18 +2,7 @@
 
 void	mapTests()
 {
-/*	std::cout << "\n--- MAP ITERATORS ---" <<std::endl;
-	it = theirMap.begin();
-//	it = it + 5; pas possible
-//	std::cout << "TEST : " << theirMap[2] << std::endl;
-//	it = it + 3;
-//	it += 3;
-	bool reponse = it != ite;
-	std::cout << "TEST : " << reponse << std::endl;
-	std::cout << theirMap["sun"] << std::endl;
-*/
-
-	std::cout << "\n--- FT::MAP ---" <<std::endl;
+	std::cout << "Creating a string, int map, inserting elements with insert and []" << std::endl;
 	ft::map<std::string, int>	myMap;
 	myMap.insert(ft::make_pair("f", 10));
 	myMap.insert(ft::make_pair("a", 9));
@@ -115,8 +104,6 @@ void	mapTests()
 	std::cout <<"start of iterator erase : " << it2bis->first << std::endl;
 	std::cout <<"end of iterator erase : " << ite2bis->first << std::endl;
 	myMap2.erase("d");
-//	myMap2.erase(it2bis, ite2bis);
-	std::cout <<"ok\n";
 
 	ite2bis = myMap2.end();
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
@@ -166,7 +153,6 @@ void	mapTests()
 	ft::map<std::string, int>::const_iterator constIt = myMap3.begin();
 	ft::map<std::string, int>::const_iterator constIte = myMap3.end();
 	std::cout << "const : " << constIt->first<<std::endl;
-//	std::cout << "const : " << constIte->first<<std::endl;
 
 	ft::map<std::string, int>::const_iterator const_it_test = myMap3.find("b");
 	std::cout << "find const it = " << const_it_test->first<<std::endl;

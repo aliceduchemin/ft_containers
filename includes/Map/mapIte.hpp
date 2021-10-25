@@ -68,13 +68,13 @@ namespace ft
 		/********* BIDIRECTIONAL ITERATORS *********/
 		// Can be decremented
 		map_random_access_iterator &	operator--()
-			{/* std::cout << "node to decrement = " << this->_nodePtr->data.first<<std::endl;
-			*/
-			if (this->_nodePtr == this->_rootTree->_smallestNode)
-				this->_nodePtr = this->_nodePtr->left;
-			else
-				this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
-				return *this; }
+			{
+				if (this->_nodePtr == this->_rootTree->_smallestNode)
+					this->_nodePtr = this->_nodePtr->left;
+				else
+					this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
+				return *this;
+			}
 		map_random_access_iterator	operator--(int)
 			{ map_random_access_iterator tmp(*this); operator--(); return tmp; };
 		//*a--
@@ -143,7 +143,7 @@ namespace ft
 			{ return this->_nodePtr->data != other; };
 		reference operator*() const
 			{ return this->_nodePtr->data; };
-		pointer operator->() 
+		pointer operator->() const
 			{ return &this->_nodePtr->data; };
 
 		private:
