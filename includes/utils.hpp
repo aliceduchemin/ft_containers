@@ -35,6 +35,14 @@ namespace ft
 		return (first2!=last2);
 	};
 
+	template <typename T>
+	void	ft_swap(T & a, T & b)
+	{
+		T tmp = a;
+		a = b;
+		b = tmp;
+	}
+
 	template <class T1, class T2>
 	struct tree_node
 	{

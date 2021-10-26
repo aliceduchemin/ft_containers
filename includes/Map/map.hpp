@@ -248,11 +248,10 @@ namespace ft
 
 			void						swap(map& x)
 			{
-				map	tmp;
-
-				tmp = *this;
-				*this = x;
-				x = tmp;
+				ft::ft_swap(this->_allocator, x._allocator);
+				ft::ft_swap(this->_number, x._number);
+				ft::ft_swap(this->_tree, x._tree);
+				ft::ft_swap(this->_comp, x._comp);
 			};
 
 			void						clear()

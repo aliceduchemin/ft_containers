@@ -110,14 +110,22 @@ void	mapTests()
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
+	it2bis = myMap2.begin();
+
 	std::cout << "\nPrinting mymap : " <<std::endl;
 	itebis = myMap.end();
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
+	itbis = myMap.begin();
 
 	std::cout<< "Swaping maps : " <<std::endl;
 	myMap.swap(myMap2);
+	int restSwap = (itbis == myMap2.begin());
+	std::cout << "itbis == myMap2 ? " <<  restSwap <<std::endl;
+	restSwap = (it2bis == myMap.begin());
+	std::cout << "it2bis == myMap ? " <<  restSwap <<std::endl;
+
 	std::cout << "\nPrinting myMap2 : " <<std::endl;
 	ite2bis = myMap2.end();
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
@@ -174,7 +182,7 @@ void	mapTests()
 	ft::pair<const int, std::string>	myP2bis(87, "bilbo");
 	ft::pair<const int, std::string>	myPA2(1248765, "SCHNELL");
 	ft::pair<const int, std::string>	myPB2(183648, "bonjour ici");
-	ft::pair<const int, std::string>	myPC2(-8, "bonjour ici");
+	ft::pair<const int, std::string>	myPC2(-8, "michel");
 	ft::pair<const int, std::string>	myPD2(-9, "bonjour");
 	ft::pair<const int, std::string>	myPE2(-2147483648, "bonjour ici");
 	ft::map<int, std::string>	test2;
@@ -239,4 +247,6 @@ void	mapTests()
 	int resComp = (myMap > myMap2);
 
 	std::cout << "rest comp myMap avec myMap2 = " << resComp <<std::endl;
+	ft::map<float, MutantStack<int>> mp3;
+	ft::map<float, MutantStack<int>>::reverse_iterator it(mp3.rbegin());
 }
