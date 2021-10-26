@@ -116,13 +116,15 @@ namespace ft
 				{
 					if (this->empty())
 						return iterator(_tree, _tree->_smallestNode);
-					return iterator(_tree, _tree->_biggestNode->right);
+					return iterator(_tree, _tree->_lastNode);
+				//	return iterator(_tree, _tree->_biggestNode->right);
 				};
 			const_iterator			end() const
 				{
 					if (this->empty())
 						return iterator(_tree, _tree->_smallestNode);
-					return iterator(_tree, _tree->_biggestNode->right);
+					return iterator(_tree, _tree->_lastNode);
+				//	return iterator(_tree, _tree->_biggestNode->right);
 				};
 			reverse_iterator 		rbegin()
 				{
@@ -346,47 +348,50 @@ namespace ft
 			allocator_type	_allocator;
 			size_type		_number;
 	};
-}
 
-template< class Key, class T, class Compare, class Allocator >
-bool	operator==(const ft::map<Key, T, Compare, Allocator>& lhs,
-					const ft::map<Key, T, Compare, Allocator>& rhs)
-{
-	if (lhs.size() != rhs.size())
-		return false;
-	size_t i = 0;
-	while (i < lhs.size())
+	template< class Key, class T, class Compare, class Allocator >
+	bool	operator==(const ft::map<Key, T, Compare, Allocator>& lhs,
+						const ft::map<Key, T, Compare, Allocator>& rhs)
 	{
-		if (lhs[i] != rhs[i])
+		if (lhs.size() != rhs.size())
 			return false;
-		i++;
+
+		typename map<Key, T, Compare, Allocator>::const_iterator lhsFirst = lhs.begin();
+		typename map<Key, T, Compare, Allocator>::const_iterator rhsFirst = rhs.begin();
+		while (lhsFirst != lhs.end())
+		{
+			if (*lhsFirst != *rhsFirst)
+				return false;
+			++lhsFirst;
+			++rhsFirst;
+		}
+		return true;
 	}
-	return true;
+
+	template< class Key, class T, class Compare, class Allocator >
+	bool	operator!=(const ft::map<Key, T, Compare, Allocator>& lhs,
+						const ft::map<Key, T, Compare, Allocator>& rhs)
+	{	return (!(lhs == rhs)) ? true : false;	}
+
+	template< class Key, class T, class Compare, class Allocator >
+	bool	operator<(const ft::map<Key, T, Compare, Allocator>& lhs,
+						const ft::map<Key, T, Compare, Allocator>& rhs)
+	{	return (lhs.size() < rhs.size()) ? true : false;	}
+
+	template< class Key, class T, class Compare, class Allocator >
+	bool	operator<=(const ft::map<Key, T, Compare, Allocator>& lhs,
+						const ft::map<Key, T, Compare, Allocator>& rhs)
+	{	return (lhs.size() <= rhs.size()) ? true : false;	}
+
+	template< class Key, class T, class Compare, class Allocator >
+	bool	operator>(const ft::map<Key, T, Compare, Allocator>& lhs,
+						const ft::map<Key, T, Compare, Allocator>& rhs)
+	{	return (lhs.size() > rhs.size()) ? true : false;	}
+
+	template< class Key, class T, class Compare, class Allocator >
+	bool	operator>=(const ft::map<Key, T, Compare, Allocator>& lhs,
+						const ft::map<Key, T, Compare, Allocator>& rhs)
+	{	return (lhs.size() >= rhs.size()) ? true : false;	}
+
 }
-
-template< class Key, class T, class Compare, class Allocator >
-bool	operator!=(const ft::map<Key, T, Compare, Allocator>& lhs,
-					const ft::map<Key, T, Compare, Allocator>& rhs)
-{	return (!(lhs == rhs)) ? true : false;	}
-
-template< class Key, class T, class Compare, class Allocator >
-bool	operator<(const ft::map<Key, T, Compare, Allocator>& lhs,
-					const ft::map<Key, T, Compare, Allocator>& rhs)
-{	return (lhs.size() < rhs.size()) ? true : false;	}
-
-template< class Key, class T, class Compare, class Allocator >
-bool	operator<=(const ft::map<Key, T, Compare, Allocator>& lhs,
-					const ft::map<Key, T, Compare, Allocator>& rhs)
-{	return (lhs.size() <= rhs.size()) ? true : false;	}
-
-template< class Key, class T, class Compare, class Allocator >
-bool	operator>(const ft::map<Key, T, Compare, Allocator>& lhs,
-					const ft::map<Key, T, Compare, Allocator>& rhs)
-{	return (lhs.size() > rhs.size()) ? true : false;	}
-
-template< class Key, class T, class Compare, class Allocator >
-bool	operator>=(const ft::map<Key, T, Compare, Allocator>& lhs,
-					const ft::map<Key, T, Compare, Allocator>& rhs)
-{	return (lhs.size() >= rhs.size()) ? true : false;	}
-
 #endif

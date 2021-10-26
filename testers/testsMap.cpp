@@ -200,22 +200,43 @@ void	mapTests()
 	std::cout<< std::endl;
 
 	std::cout << "Max size = " << test2.max_size() << std::endl;
-	
-	/*
-	
-	std::cout<<"other tests on my reverse\n";
-	test2.clear();
-	test2[-2147483648] = "kafeolait";
-	test2[-1] = "jul d'ananas";
-	test2[0] = "42";
-	test2[3] = "jura";
-	test2[4] = "saperlipopette";
-	test2[5] = "anticonstitutionnellement";
-	test2[256] = "oui-oui";
-	test2[58966] = "hello coco";
-	for (revIt = test2.rend(); revIt != test2.rbegin(); --revIt)
-		if (revIt != test2.rend())
-			std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
-	std::cout<< std::endl;*/
 
+	ft::map<int, int> mp;
+	mp.insert(ft::make_pair(4, 5));
+	mp.insert(ft::make_pair(6, 7));
+	mp.insert(ft::make_pair(2, 7));
+	mp.insert(ft::make_pair(1, 7));
+	mp.insert(ft::make_pair(10, 5));
+	mp.insert(ft::make_pair(18, 7));
+	mp.insert(ft::make_pair(56, 7));
+	mp.insert(ft::make_pair(24, 7));
+	mp.insert(ft::make_pair(98, 7));
+	mp.insert(ft::make_pair(111, 7));
+
+	std::cout << "\nPrinting mp : " <<std::endl;
+	ft::map<int, int>::iterator	itit;
+	for (itit = mp.begin(); itit != mp.end(); ++itit)
+		std::cout << itit->first << " :: " << itit->second << " ; ";
+	std::cout << std::endl;
+
+	mp.erase(--(--(--mp.end())), --mp.end());
+
+	std::cout << "\nPrinting mp after erase: " <<std::endl;
+	for (itit = mp.begin(); itit != mp.end(); ++itit)
+		std::cout << itit->first << " :: " << itit->second << " ; ";
+	std::cout << std::endl;
+
+	const int valeur = 12;
+	ft::map<int, int>::iterator titi;
+	titi = mp.find(valeur);
+	ft::map<int, int>::iterator titiEnd = mp.end();
+	if (titi == titiEnd)
+		std::cout<<"value not found\n";
+	else
+		std::cout<<"value found\n";
+
+	(++(++myMap.begin()))->second = 42;
+	int resComp = (myMap > myMap2);
+
+	std::cout << "rest comp myMap avec myMap2 = " << resComp <<std::endl;
 }

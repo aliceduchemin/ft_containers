@@ -104,8 +104,8 @@ namespace ft
 			typedef std::ptrdiff_t						difference_type;
 		
 		/********* COPLIEN *********/
-		const_map_random_access_iterator() :  _nodePtr(0), _rootTree(0) { };
-		const_map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  { };
+		const_map_random_access_iterator() :  _nodePtr(0), _rootTree(0) {};
+		const_map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  {};
 		const_map_random_access_iterator<Key, T> & operator=(const_map_random_access_iterator<Key, T> const & other)
 			{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
 		const_map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)

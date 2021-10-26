@@ -443,51 +443,51 @@ namespace ft
 	{
 		return this->_allocator;
 	}
-}
 
-template< class T, class Alloc >
-bool	operator==(const ft::vector<T, Alloc>& lhs,
-					const ft::vector<T, Alloc>& rhs)
-{
-	if (lhs.size() != rhs.size())
-		return false;
-	size_t i = 0;
-	while (i < lhs.size())
+	template< class T, class Alloc >
+	bool	operator==(const ft::vector<T, Alloc>& lhs,
+						const ft::vector<T, Alloc>& rhs)
 	{
-		if (lhs[i] != rhs[i])
+		if (lhs.size() != rhs.size())
 			return false;
-		i++;
+		size_t i = 0;
+		while (i < lhs.size())
+		{
+			if (lhs[i] != rhs[i])
+				return false;
+			i++;
+		}
+		return true;
 	}
-	return true;
+
+	template< class T, class Alloc >
+	bool	operator!=(const ft::vector<T, Alloc>& lhs,
+						const ft::vector<T, Alloc>& rhs)
+	{	return (!(lhs == rhs)) ? true : false;	}
+
+	template< class T, class Alloc >
+	bool	operator<(const ft::vector<T, Alloc>& lhs,
+						const ft::vector<T, Alloc>& rhs)
+	{	return (lhs.size() < rhs.size()) ? true : false;	}
+
+	template< class T, class Alloc >
+	bool	operator<=(const ft::vector<T, Alloc>& lhs,
+						const ft::vector<T, Alloc>& rhs)
+	{	return (lhs.size() <= rhs.size()) ? true : false;	}
+
+	template< class T, class Alloc >
+	bool	operator>(const ft::vector<T, Alloc>& lhs,
+						const ft::vector<T, Alloc>& rhs)
+	{	return (lhs.size() > rhs.size()) ? true : false;	}
+
+	template< class T, class Alloc >
+	bool	operator>=(const ft::vector<T, Alloc>& lhs,
+						const ft::vector<T, Alloc>& rhs)
+	{	return (lhs.size() >= rhs.size()) ? true : false;	}
+
+	template <class T, class Alloc>
+	void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
+	{	x.swap(y);	}
 }
-
-template< class T, class Alloc >
-bool	operator!=(const ft::vector<T, Alloc>& lhs,
-					const ft::vector<T, Alloc>& rhs)
-{	return (!(lhs == rhs)) ? true : false;	}
-
-template< class T, class Alloc >
-bool	operator<(const ft::vector<T, Alloc>& lhs,
-					const ft::vector<T, Alloc>& rhs)
-{	return (lhs.size() < rhs.size()) ? true : false;	}
-
-template< class T, class Alloc >
-bool	operator<=(const ft::vector<T, Alloc>& lhs,
-					const ft::vector<T, Alloc>& rhs)
-{	return (lhs.size() <= rhs.size()) ? true : false;	}
-
-template< class T, class Alloc >
-bool	operator>(const ft::vector<T, Alloc>& lhs,
-					const ft::vector<T, Alloc>& rhs)
-{	return (lhs.size() > rhs.size()) ? true : false;	}
-
-template< class T, class Alloc >
-bool	operator>=(const ft::vector<T, Alloc>& lhs,
-					const ft::vector<T, Alloc>& rhs)
-{	return (lhs.size() >= rhs.size()) ? true : false;	}
-
-template <class T, class Alloc>
-void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
-{	x.swap(y);	}
 
 #endif

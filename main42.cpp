@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -14,7 +14,7 @@
 
 #include <stdlib.h>
 
-#define MAX_RAM 429496729
+#define MAX_RAM 42949672
 #define BUFFER_SIZE 4096
 struct Buffer
 {
@@ -43,6 +43,7 @@ public:
 	iterator begin() { return this->c.begin(); }
 	iterator end() { return this->c.end(); }
 };
+#include <sys/time.h>
 
 int main(int argc, char** argv) {
 	if (argc != 2)
@@ -52,6 +53,8 @@ int main(int argc, char** argv) {
 		std::cerr << "Count value:" << COUNT << std::endl;
 		return 1;
 	}
+	struct timeval begin, end;
+	gettimeofday(&begin, 0);
 	const int seed = atoi(argv[1]);
 	srand(seed);
 
@@ -117,5 +120,11 @@ int main(int argc, char** argv) {
 		std::cout << *it;
 	}
 	std::cout << std::endl;
+		gettimeofday(&end, 0);
+	long seconds = end.tv_sec - begin.tv_sec;
+	long microseconds = end.tv_usec - begin.tv_usec;
+	double elapsed = seconds  + microseconds * 1e-6;
+	std::cout << "Duration : " << elapsed << " seconds" << std::endl;
+
 	return (0);
 }
