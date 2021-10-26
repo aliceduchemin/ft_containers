@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#define CHOICE 2
+#define CHOICE 1
 
 #if CHOICE == 0 //CREATE A REAL STL EXAMPLE
 	#include <map>

@@ -10,7 +10,7 @@ void	mapTests()
 	myMap.insert(ft::make_pair("z", 1));
 	myMap.insert(ft::make_pair("c", 7));
 	myMap.insert(ft::make_pair("y", 6));
-	std::cout << "myMap[r] = " << myMap["r"] << std::endl;
+	std::cout << "map[r] = " << myMap["r"] << std::endl;
 	
 	myMap.insert(ft::make_pair("s", 79));
 	int lol = myMap["u"] = 567;
@@ -27,13 +27,13 @@ void	mapTests()
 	ft::pair<ft::map<std::string, int>::iterator, bool> ret4;
 	ret4 = myMap.insert(ft::make_pair("a", 9));
 	ret4 = myMap.insert(ft::make_pair("d", 3));
-	std::cout << "myMap size = " << myMap.size() << std::endl;
+	std::cout << "map size = " << myMap.size() << std::endl;
 
 	myMap.insert(ft::make_pair("b", 23));
 	ft::map<std::string, int>::iterator itbis = myMap.begin();
 	ft::map<std::string, int>::iterator itebis = myMap.end();
 	myMap["j"] = 4;
-	std::cout << "print my map : "<<std::endl;
+	std::cout << "print : "<<std::endl;
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
@@ -43,7 +43,9 @@ void	mapTests()
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
 	
-	std::cout << "myMap size = " << myMap.size() << std::endl;
+	std::cout << "map size = " << myMap.size() << std::endl;
+	
+	std::cout << "\nFind elements, existing and not :" << std::endl;
 	if (myMap.find("j") != myMap.end())
 		std::cout << "j found" <<std::endl;
 	else
@@ -53,6 +55,7 @@ void	mapTests()
 	else
 		std::cout << "k not found" <<std::endl;
 	
+	std::cout << "\nInsert iterator range :" << std::endl;
 	ft::map<std::string, int> myMap2;
 	itbis = myMap.begin();
 	itbis++;
@@ -61,38 +64,41 @@ void	mapTests()
 	ft::map<std::string, int>::iterator ite2bis = myMap2.end();
 	myMap2["k"] = 6;
 	std::cout <<"it2bis = " << it2bis->first << std::endl;
-	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	std::cout << "Printing map2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
 	
+	std::cout << "\nInsert position & value" << std::endl;
 	it2bis = myMap2.insert(it2bis, ft::make_pair("x", 99));
 	myMap2["a"] = 86;
 	myMap2["b"] = 89;
-	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	std::cout << "\nPrinting map2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
+	std::cout << "\nCopy constructor :" << std::endl;
 	ft::map<std::string, int>	myMap3(myMap2);
-	myMap3["v"] = 10;
-	myMap3.insert(ft::make_pair("c", 2));
-	myMap3["z"] = 1;
-	std::cout <<"\nmap3 : " <<std::endl;
-	myMap3.insert(ft::make_pair("u", 23));
-	std::cout <<"Copy : " <<std::endl;
-	std::cout <<"mymap3 v = " <<myMap3["v"]<<std::endl;
-//	myMap3 = myMap2;
-	std::cout <<"\nend of Copy\n" <<std::endl;
 	ft::map<std::string, int>::iterator it3bis = myMap3.begin();
 	ft::map<std::string, int>::iterator ite3bis = myMap3.end();
-	std::cout << "\nPrinting myMap3 : " <<std::endl;
+	std::cout << "Printing map3 : " <<std::endl;
 	for (it3bis = myMap3.begin(); it3bis != ite3bis; ++it3bis)
 		std::cout << it3bis->first << " :: " << it3bis->second << " ; ";
 	std::cout << std::endl;
 
-	std::cout << "erase tests : " << std::endl;
+	std::cout << "\nOperator = :" << std::endl;
+	ft::map<std::string, int>	myMap4;
+	myMap4 = myMap2;
+	ft::map<std::string, int>::iterator it4bis = myMap4.begin();
+	ft::map<std::string, int>::iterator ite4bis = myMap4.end();
+	std::cout << "Printing map4 : " <<std::endl;
+	for (it4bis = myMap4.begin(); it4bis != ite4bis; ++it4bis)
+		std::cout << it4bis->first << " :: " << it4bis->second << " ; ";
+	std::cout << std::endl;
+
+	std::cout << "\nErase tests : " << std::endl;
 	myMap2.erase("c");
 	myMap2.erase("a");
 	myMap2.erase("z");
@@ -106,38 +112,43 @@ void	mapTests()
 	myMap2.erase("d");
 
 	ite2bis = myMap2.end();
-	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	std::cout << "Printing partially erased map (map2) : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 	it2bis = myMap2.begin();
 
-	std::cout << "\nPrinting mymap : " <<std::endl;
+	std::cout << "Printing map : " <<std::endl;
 	itebis = myMap.end();
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
 	itbis = myMap.begin();
 
-	std::cout<< "Swaping maps : " <<std::endl;
+	std::cout<< "\nSwaping maps map and map2: " <<std::endl;
 	myMap.swap(myMap2);
 	int restSwap = (itbis == myMap2.begin());
 	std::cout << "itbis == myMap2 ? " <<  restSwap <<std::endl;
 	restSwap = (it2bis == myMap.begin());
 	std::cout << "it2bis == myMap ? " <<  restSwap <<std::endl;
 
-	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	std::cout << "Printing map2 : " <<std::endl;
 	ite2bis = myMap2.end();
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
-	std::cout << "\nPrinting myMap : " <<std::endl;
+	std::cout << "Printing map : " <<std::endl;
 	itebis = myMap.end();
 	for (itbis = myMap.begin(); itbis != itebis; ++itbis)
 		std::cout << itbis->first << " :: " << itbis->second << " ; ";
 	std::cout << std::endl;
+
+
+	std::cout << "\nCount : " <<std::endl;
 	std::cout << "count b : "<< myMap.count("b")<<std::endl;
+
+	std::cout << "\nBounds & equal_range : " <<std::endl;
 	itbis = myMap.lower_bound("j");
 	std::cout << "return lower_bound for j = "<< itbis->first<<std::endl;
 	itbis = myMap.upper_bound("j");
@@ -146,25 +157,26 @@ void	mapTests()
 	retur = myMap.equal_range("j");
 	std::cout << "return equal_range for j = "<< retur.first->first<<std::endl;
 
-	std::cout << "clear map2 :"<<std::endl;
-	std::cout << "size of my map 2 ? " << myMap2.size()<<std::endl;
+	std::cout << "\nClear map2 :"<<std::endl;
 	myMap2.clear();
 	std::cout << "my map 2 empty ? " << myMap2.empty()<<std::endl;
-	std::cout << "size of my map 2 ? " << myMap2.size()<<std::endl;
-	std::cout << "\nPrinting myMap2 : " <<std::endl;
+	std::cout << "size of map2 ? " << myMap2.size()<<std::endl;
+	std::cout << "\nPrinting map2 : " <<std::endl;
 	ite2bis = myMap2.end();
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
 	std::cout << std::endl;
 
 
+	std::cout << "\nConst iterators : " <<std::endl;
 	ft::map<std::string, int>::const_iterator constIt = myMap3.begin();
 	ft::map<std::string, int>::const_iterator constIte = myMap3.end();
-	std::cout << "const : " << constIt->first<<std::endl;
+	std::cout << "const : " << constIt->first << std::endl;
 
 	ft::map<std::string, int>::const_iterator const_it_test = myMap3.find("b");
-	std::cout << "find const it = " << const_it_test->first<<std::endl;
+	std::cout << "find const it = " << const_it_test->first << std::endl;
 
+	std::cout << "\nReverse iterators : " <<std::endl;
 	ft::map<std::string, int>::reverse_iterator rev_deb1 (myMap3.end());
 	ft::map<std::string, int>::reverse_iterator rev_end1 (myMap3.begin());
 	while (rev_deb1 != rev_end1)
@@ -174,10 +186,6 @@ void	mapTests()
 	}
 	std::cout << "\n";
 
-	ft::map<std::string, int>::const_reverse_iterator rev_const_deb1 (myMap3.end());
-	ft::map<std::string, int>::const_reverse_iterator rev_const_end1 (myMap3.begin());
-
-	std::cout << "Comp : " << std::endl;
 	ft::pair<const int, std::string>	myP2(1, "hello there");
 	ft::pair<const int, std::string>	myP2bis(87, "bilbo");
 	ft::pair<const int, std::string>	myPA2(1248765, "SCHNELL");
@@ -193,13 +201,14 @@ void	mapTests()
 	test2.insert(myPC2);
 	test2.insert(myPD2);
 	test2.insert(myPE2);
+	std::cout << "\nConst iterators : " <<std::endl;
 	ft::map<int, std::string>::const_iterator	test2It = test2.end();
 	for (test2It = test2.end(); test2It != test2.begin(); test2It--)
 		if (test2It != test2.end())
 			std::cout << "[" << test2It->first << "][" << test2It->second << "] | ";
 	std::cout<< std::endl;
 
-	std::cout<<"\nReverse iterators"<< std::endl;
+	std::cout << "\nConst reverse iterators : " <<std::endl;
 	ft::map<int, std::string>::const_reverse_iterator	revIt = test2.rbegin();
 	std::cout <<"rbegin = " << revIt->first<<std::endl;
 	ft::map<int, std::string>::const_reverse_iterator	revIte = test2.rend();
@@ -207,46 +216,6 @@ void	mapTests()
 		std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
 	std::cout<< std::endl;
 
-	std::cout << "Max size = " << test2.max_size() << std::endl;
+	std::cout << "\nMax size = " << test2.max_size() << std::endl;
 
-	ft::map<int, int> mp;
-	mp.insert(ft::make_pair(4, 5));
-	mp.insert(ft::make_pair(6, 7));
-	mp.insert(ft::make_pair(2, 7));
-	mp.insert(ft::make_pair(1, 7));
-	mp.insert(ft::make_pair(10, 5));
-	mp.insert(ft::make_pair(18, 7));
-	mp.insert(ft::make_pair(56, 7));
-	mp.insert(ft::make_pair(24, 7));
-	mp.insert(ft::make_pair(98, 7));
-	mp.insert(ft::make_pair(111, 7));
-
-	std::cout << "\nPrinting mp : " <<std::endl;
-	ft::map<int, int>::iterator	itit;
-	for (itit = mp.begin(); itit != mp.end(); ++itit)
-		std::cout << itit->first << " :: " << itit->second << " ; ";
-	std::cout << std::endl;
-
-	mp.erase(--(--(--mp.end())), --mp.end());
-
-	std::cout << "\nPrinting mp after erase: " <<std::endl;
-	for (itit = mp.begin(); itit != mp.end(); ++itit)
-		std::cout << itit->first << " :: " << itit->second << " ; ";
-	std::cout << std::endl;
-
-	const int valeur = 12;
-	ft::map<int, int>::iterator titi;
-	titi = mp.find(valeur);
-	ft::map<int, int>::iterator titiEnd = mp.end();
-	if (titi == titiEnd)
-		std::cout<<"value not found\n";
-	else
-		std::cout<<"value found\n";
-
-	(++(++myMap.begin()))->second = 42;
-	int resComp = (myMap > myMap2);
-
-	std::cout << "rest comp myMap avec myMap2 = " << resComp <<std::endl;
-	ft::map<float, MutantStack<int>> mp3;
-	ft::map<float, MutantStack<int>>::reverse_iterator it(mp3.rbegin());
 }
