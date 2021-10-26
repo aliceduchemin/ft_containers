@@ -160,7 +160,8 @@ namespace ft
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
 			size_type	size() const { return this->_number; };
-			size_type	max_size() const { return _allocator.max_size(); };
+			size_type	max_size() const { 
+				return std::numeric_limits<difference_type>::max() / (sizeof(tree_node<Key, T>) ?: 1); };
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
@@ -300,7 +301,7 @@ namespace ft
 			iterator								lower_bound(const key_type& k)
 			{
 				iterator it = this->begin();
-				while (it != this->end() && it->first < k)
+				while (it != this->end() && _comp(it->first, k))
 					it++;
 				return it;
 			};
@@ -308,7 +309,7 @@ namespace ft
 			const_iterator							lower_bound(const key_type& k) const
 			{
 				const_iterator it = this->begin();
-				while (it != this->end() && it->first < k)
+				while (it != this->end() && _comp(it->first, k))
 					it++;
 				return it;
 			};
@@ -316,7 +317,7 @@ namespace ft
 			iterator								upper_bound(const key_type& k)
 			{
 				iterator it = this->begin();
-				while (it != this->end() && it->first <= k)
+				while (it != this->end() && !_comp(k, it->first))
 					it++;
 				return it;
 			};
@@ -324,26 +325,16 @@ namespace ft
 			const_iterator							upper_bound(const key_type& k) const
 			{
 				const_iterator it = this->begin();
-				while (it != this->end() && it->first <= k)
+				while (it != this->end() && !_comp(k, it->first))
 					it++;
 				return it;
 			};
 		
 			pair<iterator, iterator>				equal_range(const key_type& k)
-			{
-				iterator it = this->find(k);
-				if (it != this->end())
-					return ft::make_pair(it, it++);
-				return ft::make_pair(this->upper_bound(k), this->upper_bound(k));
-			};
+			{	return ft::make_pair(this->lower_bound(k), this->upper_bound(k));	};
 	
 			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
-			{
-				const_iterator it = this->find(k);
-				if (it != this->end())
-					return ft::make_pair(it, it++);
-				return ft::make_pair(this->upper_bound(k), this->upper_bound(k));
-			};
+			{	return ft::make_pair(this->lower_bound(k), this->upper_bound(k));	};
 
 			/********* ALLOCATOR *********/
 			allocator_type	get_allocator() const

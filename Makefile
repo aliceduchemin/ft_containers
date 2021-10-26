@@ -1,4 +1,4 @@
-SRCS		= ./main.cpp \
+SRCS		= ./main42.cpp #\
 			./testers/testsVector.cpp \
 			./testers/testsStack.cpp \
 			./testers/testsMap.cpp

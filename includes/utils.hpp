@@ -7,7 +7,6 @@
 
 namespace ft
 {
-
 	const                        
 	class nullptr_t
 	{
@@ -43,6 +42,7 @@ namespace ft
 		tree_node<T1,T2>*	right;
 		ft::pair<T1,T2>		data;
 		tree_node<T1,T2>*	parent;
+		tree_node<T1,T2>*	out;
 	};
 
 	template <class T1, class T2>

@@ -7,13 +7,14 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#define CHOICE 2
+//#define CHOICE 2
 
-#if CHOICE == 0 //CREATE A REAL STL EXAMPLE
+#if 1 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
 	namespace ft = std;
+//#elif CHOICE == 1
 #else
 	#include "../includes/Map/map.hpp"
 	#include "../includes/Stack/stack.hpp"

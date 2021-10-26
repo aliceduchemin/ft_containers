@@ -1,0 +1,8 @@
+2c2
+< You are testing the std library
+---
+> You are testing the ft library
+77c77
+< Duration : 279 microseconds
+---
+> Duration : 510 microseconds
