@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   testsContainers.hpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aduchemi <aduchemi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/27 17:45:51 by aduchemi          #+#    #+#             */
+/*   Updated: 2021/10/27 17:45:54 by aduchemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef __TESTS_FT_CONTAINERS_HPP__
 # define __TESTS_FT_CONTAINERS_HPP__
 
 #include <iostream>
 #include <string>
-#include <deque>
 #include <stdlib.h>
 #include <sys/time.h>
 
-#define CHOICE 2
+#define CHOICE 1
 
 #if CHOICE == 0 //CREATE A REAL STL EXAMPLE
 	#include <map>

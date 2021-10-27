@@ -31,52 +31,62 @@ namespace ft
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
 		map_random_access_iterator() : _nodePtr(0), _rootTree(0) {};
-		map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  {};
+
+		map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root) {};
+
 		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
-			{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
+		{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
+
 		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
-			{ *this = other; };
+		{ *this = other; };
+
 		~map_random_access_iterator() {};
 	
 		/********* ITERATORS *********/
 		// can be incremented
 		map_random_access_iterator	operator++(int) //i++
-			{ map_random_access_iterator tmp(*this); operator++(); return tmp; };
+		{ map_random_access_iterator tmp(*this); operator++(); return tmp; };
+
 		map_random_access_iterator &operator++() //++i
-			{	
-				if (this->_nodePtr == this->_rootTree->_biggestNode)
-					this->_nodePtr = this->_nodePtr->right;
-				else
-					this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
-				return *this;
-			};
+		{	
+			if (this->_nodePtr == this->_rootTree->_biggestNode)
+				this->_nodePtr = this->_nodePtr->right;
+			else
+				this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
+			return *this;
+		};
 		
 		/********* INPUT ITERATORS *********/
 		// Supports equality/inequality comparisons
 		bool operator==(map_random_access_iterator const & other) const
-			{ return this->_nodePtr == other._nodePtr; };
+		{ return this->_nodePtr == other._nodePtr; };
+
 		bool operator!=(map_random_access_iterator const & other) const
-			{ return this->_nodePtr != other._nodePtr; };
+		{ return this->_nodePtr != other._nodePtr; };
+
 		bool operator!=(value_type const & other) const
-			{ return this->_nodePtr->data != other; };
+		{ return this->_nodePtr->data != other; };
+
 		// Can be dereferenced as an rvalue
 		reference operator*() const
-			{ return this->_nodePtr->data; };
+		{ return this->_nodePtr->data; };
+
 		pointer operator->() const
-			{ return &this->_nodePtr->data; };
+		{ return &this->_nodePtr->data; };
 
 		/********* BIDIRECTIONAL ITERATORS *********/
 		// Can be decremented
 		map_random_access_iterator &	operator--()
-			{
-				if (this->_nodePtr == this->_rootTree->_smallestNode)
-					this->_nodePtr = this->_nodePtr->left;
-				else
-					this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
-				return *this;
-			}
+		{
+			if (this->_nodePtr == this->_rootTree->_smallestNode)
+				this->_nodePtr = this->_nodePtr->left;
+			else
+				this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
+			return *this;
+		};
+
 		map_random_access_iterator	operator--(int)
-			{ map_random_access_iterator tmp(*this); operator--(); return tmp; };
+		{ map_random_access_iterator tmp(*this); operator--(); return tmp; };
 		//*a--
 
 		/********* GETTERS *********/
@@ -105,46 +115,56 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_map_random_access_iterator() :  _nodePtr(0), _rootTree(0) {};
+
 		const_map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  {};
+
 		const_map_random_access_iterator<Key, T> & operator=(const_map_random_access_iterator<Key, T> const & other)
-			{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
+		{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
+
 		const_map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
-			{ _nodePtr = other.getNodePtr(); _rootTree = other.getRootTree(); return *this; };
+		{ _nodePtr = other.getNodePtr(); _rootTree = other.getRootTree(); return *this; };
+
 		const_map_random_access_iterator(const_map_random_access_iterator<Key, T> const & other)
-			{ *this = other; };
+		{ *this = other; };
+
 		const_map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
-			{ *this = other; };
+		{ *this = other; };
+
 		~const_map_random_access_iterator() {};
 	
 		/********* ITERATORS *********/
 		const_map_random_access_iterator	operator++(int) //i++
-			{ const_map_random_access_iterator tmp(*this); operator++(); return tmp; };
+		{ const_map_random_access_iterator tmp(*this); operator++(); return tmp; };
+
 		const_map_random_access_iterator &operator++() //++i
-			{	
-				if (this->_nodePtr == this->_rootTree->_biggestNode)
-					this->_nodePtr = this->_nodePtr->right;
-				else
-					this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
-				return *this; 
-			};
+		{	
+			if (this->_nodePtr == this->_rootTree->_biggestNode)
+				this->_nodePtr = this->_nodePtr->right;
+			else
+				this->_nodePtr = _rootTree->inorderSuccessor(this->_nodePtr);
+			return *this; 
+		};
+
 		const_map_random_access_iterator	operator--(int)
-			{ const_map_random_access_iterator tmp(*this); operator--(); return tmp; };
+		{ const_map_random_access_iterator tmp(*this); operator--(); return tmp; };
+
 		const_map_random_access_iterator &	operator--()
-			{
-				this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr);
-					return *this;
-			};
+		{	this->_nodePtr = _rootTree->inorderPredecessor(this->_nodePtr); return *this;	};
 		
 		bool operator==(const_map_random_access_iterator const & other) const
-			{ return this->_nodePtr == other._nodePtr; };
+		{ return this->_nodePtr == other._nodePtr; };
+
 		bool operator!=(const_map_random_access_iterator const & other) const
-			{ return this->_nodePtr != other._nodePtr; };
+		{ return this->_nodePtr != other._nodePtr; };
+
 		bool operator!=(value_type const & other) const
-			{ return this->_nodePtr->data != other; };
+		{ return this->_nodePtr->data != other; };
+
 		reference operator*() const
-			{ return this->_nodePtr->data; };
+		{ return this->_nodePtr->data; };
+
 		pointer operator->() const
-			{ return &this->_nodePtr->data; };
+		{ return &this->_nodePtr->data; };
 
 		private:
 			nodePtr	_nodePtr;
@@ -166,42 +186,47 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		map_reverse_iterator() : _it() {};
+
 		explicit map_reverse_iterator (iterator_type other) : _it(other) {};
+
 		template <class Iter>
 		map_reverse_iterator(const map_reverse_iterator<Iter>& rev_it)
-			{	*this = rev_it._it;	};
+		{	*this = rev_it._it;	};
+
 		template <class Iter>
 		map_reverse_iterator& operator=(const map_reverse_iterator<Iter>& rev_it)
-			{	_it = rev_it._it; return *this;	};
+		{	_it = rev_it._it; return *this;	};
 
-	//	map_reverse_iterator(pointer other) : _it(other) {};
-	//	map_reverse_iterator & operator=(map_reverse_iterator const & other)
-	//		{ _it = other._it; return *this; };
-	//	map_reverse_iterator(map_reverse_iterator const & other)
-	//		{ *this = other; };
 		~map_reverse_iterator() {};
 	
 		/********* ITERATORS *********/
 		iterator_type base() const { return _it; };
 		map_reverse_iterator &	operator++() //++i
-			{ this->_it--; return *this; }
+		{ this->_it--; return *this; };
+
 		map_reverse_iterator	operator++(int) //i++
-			{ map_reverse_iterator tmp(*this); operator++(); return tmp; };
+		{ map_reverse_iterator tmp(*this); operator++(); return tmp; };
+
 		map_reverse_iterator &	operator--()
-			{ this->_it++; return *this; }
+		{ this->_it++; return *this; };
+
 		map_reverse_iterator	operator--(int)
-			{ map_reverse_iterator tmp(*this); operator--(); return tmp; };
+		{ map_reverse_iterator tmp(*this); operator--(); return tmp; };
 
 		bool operator==(map_reverse_iterator const & other) const
-			{ return this->_it == other._it; };
+		{ return this->_it == other._it; };
+
 		bool operator!=(map_reverse_iterator const & other) const
-			{ return this->_it != other._it; };
+		{ return this->_it != other._it; };
+
 		reference operator*() const
-			{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+		{ iterator_type tmp(this->_it); tmp--; return *tmp; };
+
 		pointer operator->() 
-			{ iterator_type tmp(this->_it); tmp--; return tmp.operator->(); };
+		{ iterator_type tmp(this->_it); tmp--; return tmp.operator->(); };
+
 		iterator_type getNodePtr() const
-			{ iterator_type tmp(this->_it); tmp--; return tmp; };
+		{ iterator_type tmp(this->_it); tmp--; return tmp; };
 	
 		private:
 			iterator_type _it;
@@ -222,46 +247,55 @@ namespace ft
 		
 		/********* COPLIEN *********/
 		const_map_reverse_iterator() : _it() {};
+
 		explicit const_map_reverse_iterator (iterator_type other) : _it(other) {};
+
 		template <class Iter>
 		const_map_reverse_iterator(const const_map_reverse_iterator<Iter>& rev_it)
-			{	*this = rev_it._it;	};
+		{	*this = rev_it._it;	};
+
 		template <class Iter>
 		const_map_reverse_iterator(const map_reverse_iterator<Iter>& rev_it)
-			{	_it = rev_it.getNodePtr();	};
+		{	_it = rev_it.getNodePtr();	};
+
 		template <class Iter>
 		const_map_reverse_iterator& operator=(const const_map_reverse_iterator<Iter>& rev_it)
-			{	_it = rev_it._it; return *this;	};
+		{	_it = rev_it._it; return *this;	};
+
 		template <class Iter>
 		const_map_reverse_iterator& operator=(const map_reverse_iterator<Iter>& rev_it)
-			{	_it = rev_it.getNodePtr(); return *this;	};
+		{	_it = rev_it.getNodePtr(); return *this;	};
 
 		const_map_reverse_iterator(pointer other) : _it(other) {};
-	//	const_map_reverse_iterator & operator=(const_map_reverse_iterator const & other)
-	//		{ _it = other._it; return *this; };
-	//	const_map_reverse_iterator(const_map_reverse_iterator const & other)
-	//		{ *this = other; };
+
 		~const_map_reverse_iterator() {};
 	
 		/********* ITERATORS *********/
 		iterator_type base() const { return _it; };
+
 		const_map_reverse_iterator &	operator++() //++i
-			{ this->_it--; return *this; }
+		{ this->_it--; return *this; };
+
 		const_map_reverse_iterator	operator++(int) //i++
-			{ const_map_reverse_iterator tmp(*this); operator++(); return tmp; };
+		{ const_map_reverse_iterator tmp(*this); operator++(); return tmp; };
+
 		const_map_reverse_iterator &	operator--()
-			{ this->_it++; return *this; }
+		{ this->_it++; return *this; };
+
 		const_map_reverse_iterator	operator--(int)
-			{ const_map_reverse_iterator tmp(*this); operator--(); return tmp; };
+		{ const_map_reverse_iterator tmp(*this); operator--(); return tmp; };
 
 		bool operator==(const_map_reverse_iterator const & other) const
-			{ return this->_it == other._it; };
+		{ return this->_it == other._it; };
+
 		bool operator!=(const_map_reverse_iterator const & other) const
-			{ return this->_it != other._it; };
+		{ return this->_it != other._it; };
+
 		reference operator*() const
-			{ iterator_type tmp(this->_it); /*tmp--;*/ return *tmp; };
+		{ iterator_type tmp(this->_it); return *tmp; };
+
 		pointer operator->() 
-			{ iterator_type tmp(this->_it); /*tmp--;*/ return tmp.operator->(); };
+		{ iterator_type tmp(this->_it); return tmp.operator->(); };
 	
 		private:
 			iterator_type _it;

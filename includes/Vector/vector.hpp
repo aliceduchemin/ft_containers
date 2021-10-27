@@ -14,11 +14,8 @@
 # define __VECTOR_HPP__
 
 #include <iostream>
-//#include <memory>
 #include "vectorIte.hpp"
 #include "../utils.hpp"
-//#include <sstream>
-//#include <limits>
 
 namespace ft
 {
@@ -42,113 +39,163 @@ namespace ft
 		
 			/********* CONSTRUCTEURS *********/
 			explicit vector(const allocator_type& alloc = allocator_type());
+
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-				{	this->_endNode = NULL;
-				 	this->_cap = 0;
-					this->_allocator = alloc;
-					this->_headNode = this->_allocator.allocate(0);
-					this->_endNode = this->_headNode;
-					this->_number = 0;
-					this->insert(this->begin(), n, val); };
+			{	this->_endNode = NULL;
+				this->_cap = 0;
+				this->_allocator = alloc;
+				this->_headNode = this->_allocator.allocate(0);
+				this->_endNode = this->_headNode;
+				this->_number = 0;
+				this->insert(this->begin(), n, val);
+			};
+
 			template< class InputIterator >
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-				{ 	this->_endNode = NULL;
-				  	this->_cap = 0;
-					this->_allocator = alloc;
-				  	this->_headNode = this->_allocator.allocate(0);
-					this->_endNode = this->_headNode;
-				  	this->_number = 0;
-				  	this->assign(first, last); };
-			vector(vector const & other);
+			{ 	this->_endNode = NULL;
+				this->_cap = 0;
+				this->_allocator = alloc;
+				this->_headNode = this->_allocator.allocate(0);
+				this->_endNode = this->_headNode;
+				this->_number = 0;
+				this->assign(first, last);
+			};
+
+			vector(const vector& x)
+			{
+				this->_endNode = NULL;
+				this->_cap = 0;
+				this->_headNode = this->_allocator.allocate(0);
+				this->_number = 0;
+				*this = other;
+			};
+
 			vector & operator=(vector const & other);
-			~vector();
+
+			~vector()
+			{
+				if (this->_number > 0)
+					this->clear();
+				this->_allocator.deallocate(this->_headNode, this->_cap);
+			};
 
 			/********* ITERATORS *********/
 			iterator 				begin() { return iterator(_headNode); };
+
 			const_iterator	 		begin() const { return const_iterator(_headNode); };
+
 			iterator				end()
-				{ 	
-					if (this->empty())
-						return iterator(_headNode);
-					return iterator(_endNode + 1);
-				};
+			{ 	
+				if (this->empty())
+					return iterator(_headNode);
+				return iterator(_endNode + 1);
+			};
+
 			const_iterator			end() const
-				{
-					if (this->empty())
-						return const_iterator(_headNode);
-					return const_iterator(_endNode + 1);
-				};
+			{
+				if (this->empty())
+					return const_iterator(_headNode);
+				return const_iterator(_endNode + 1);
+			};
+
 			reverse_iterator 		rbegin()
-				{
-					if (this->empty())
-						return reverse_iterator(_headNode);
-					return reverse_iterator(_endNode + 1);
-				};
+			{
+				if (this->empty())
+					return reverse_iterator(_headNode);
+				return reverse_iterator(_endNode + 1);
+			};
+
 			const_reverse_iterator 	rbegin() const
-				{
-					if (this->empty())
-						return reverse_iterator(_headNode);
-					return reverse_iterator(_endNode + 1);
-				};
+			{
+				if (this->empty())
+					return reverse_iterator(_headNode);
+				return reverse_iterator(_endNode + 1);
+			};
+
 			reverse_iterator 		rend() { return reverse_iterator(_headNode); };
+
 			const_reverse_iterator 	rend() const { return reverse_iterator(_headNode); };
 
 			/********* CAPACITY *********/
 			size_type	size() const { return _number; };
+
 			size_type	max_size() const { return _allocator.max_size(); };
+
 			void		resize(size_type n, value_type val = value_type());
+
 			size_type	capacity() const { return _cap; };
+
 			bool		empty() const { return (_number == 0); };
+
 			void		reserve(size_type n);
 		
 			/********* ELEMENT ACCESS *********/
 			reference		operator[] (size_type n) { return _headNode[n]; };
+
 			const_reference	operator[] (size_type n) const { return _headNode[n]; };
+
 			reference		at(size_type n);
+
 			const_reference	at(size_type n) const;
+
 			reference		front() { return *_headNode; };
+
 			const_reference	front() const { return *_headNode; };
+
 			reference		back() { return *_endNode; };
+
 			const_reference	back() const { return *_endNode; };
 
 			/********* MODIFIERS *********/
 			template < class InputIterator >
-			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft::nullptr_t)
-				{	
-					if (this->_number != 0)
-						this->clear();
-					while (first != last)
-					{
-						if (this->_cap <= this->_number)
-							this->reserve(this->_number + 1);
-						this->_allocator.construct(&this->_headNode[this->_number], *first);
-						this->_endNode = &this->_headNode[this->_number];
-						this->_number++;
-						first++; 
-					} 
-				};
+			void	assign(InputIterator first, InputIterator last, 
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value, 
+					InputIterator>::type* = ft::nullptr_t)
+			{	
+				if (this->_number != 0)
+					this->clear();
+				while (first != last)
+				{
+					if (this->_cap <= this->_number)
+						this->reserve(this->_number + 1);
+					this->_allocator.construct(&this->_headNode[this->_number], *first);
+					this->_endNode = &this->_headNode[this->_number];
+					this->_number++;
+					first++; 
+				} 
+			};
+
 			void		assign(size_type n, const value_type& val);
+
 			void		push_back(const value_type& val);
+
 			void		pop_back();
+
 			iterator	insert(iterator position, const value_type& val);
+
 			void		insert(iterator position, size_type n, const value_type& val);
+
 			template < class InputIterator >
 			void		insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
-				{	
-					iterator ret = position;
-					iterator it;
-					while (first != last)
-					{
-						if (ret == position)
-							ret = this->insert(ret, *first);
-						else
-							ret = this->insert(++ret, *first);
-						first++;
-					} 
-				};
+			{	
+				iterator ret = position;
+				iterator it;
+				while (first != last)
+				{
+					if (ret == position)
+						ret = this->insert(ret, *first);
+					else
+						ret = this->insert(++ret, *first);
+					first++;
+				} 
+			};
+
 			iterator	erase(iterator position);
+
 			iterator	erase(iterator first, iterator last);
+
 			void		swap(vector& x);
+
 			void		clear();
 
 			/********* ALLOCATOR *********/
@@ -172,24 +219,6 @@ namespace ft
 		this->_allocator = alloc;
 		this->_headNode = this->_allocator.allocate(0);
 		this->_number = 0;
-	}
-
-	template< typename T, typename Allocator >
-	vector<T, Allocator>::~vector()
-	{
-		if (this->_number > 0)
-			this->clear();
-		this->_allocator.deallocate(this->_headNode, this->_cap);
-	}
-
-	template< typename T, typename Allocator >
-	vector<T, Allocator>::vector(vector<T, Allocator> const & other)
-	{
-		this->_endNode = NULL;
-		this->_cap = 0;
-		this->_headNode = this->_allocator.allocate(0);
-		this->_number = 0;
-		*this = other;
 	}
 
 	template< typename T, typename Allocator >
@@ -253,11 +282,7 @@ namespace ft
 	typename vector<T, Allocator>::reference	vector<T, Allocator>::at(size_type n)
 	{
 		if (n < 0 || n >= this->_number)
-		{
-		//	std::string num = static_cast<std::ostringstream*>( &(std::ostringstream() << n))->str();
-		//	std::string msg = "vector::_M_range_check: __n (which is " + num + ") >= this->size() (which is " + this->_number + ")";
 			throw std::out_of_range("vector:: request of an element beyond size()");
-		}
 		return this->_headNode[n];
 	}
 
@@ -265,9 +290,7 @@ namespace ft
 	typename vector<T, Allocator>::const_reference	vector<T, Allocator>::at(size_type n) const
 	{
 		if (n < 0 || n >= this->_number)
-		{
 			throw std::out_of_range("vector:: request of an element beyond size()");
-		}
 		return this->_headNode[n];
 	}
 
@@ -353,17 +376,6 @@ namespace ft
 			i++;
 		}
 	}
-/*
-	template< typename T, typename Allocator >
-	void	vector<T, Allocator>::insert(iterator position, iterator first, iterator last)
-	{
-		iterator ret = position;
-		while (first != last)
-		{
-			ret = this->insert(ret, *first);
-			first++;
-		}
-	}*/
 
 	template< typename T, typename Allocator >
 	ft::random_access_iterator<T>	vector<T, Allocator>::erase(iterator position)
@@ -489,5 +501,4 @@ namespace ft
 	void	swap(ft::vector<T, Alloc>& x, ft::vector<T, Alloc>& y)
 	{	x.swap(y);	}
 }
-
 #endif

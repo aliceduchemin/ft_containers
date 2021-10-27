@@ -28,6 +28,7 @@ namespace ft
 			  class T,														// map::mapped_type
 			  class Compare = std::less<Key>,								// map::key_compare
 			  class Allocator = std::allocator<ft::pair<const Key,T> > >	// map::allocator_type
+
 	class	map
 	{
 		public:
@@ -57,6 +58,7 @@ namespace ft
 				protected:
 					Compare comp;
 					value_compare (Compare c) :comp(c) {} // constructed with map's comparison object
+					
 				public:
 					typedef bool		result_type;
 					typedef	value_type	first_argument_type;
@@ -110,60 +112,53 @@ namespace ft
 			};
 
 			/********* ITERATORS *********/
-			iterator 				begin() { return iterator(_tree, _tree->_smallestNode); };
-			const_iterator	 		begin() const { return iterator(_tree, _tree->_smallestNode); };
+			iterator 				begin() 
+			{ return iterator(_tree, _tree->_smallestNode); };
+
+			const_iterator	 		begin() const
+			{ return iterator(_tree, _tree->_smallestNode); };
+
 			iterator				end()
-				{
-					if (this->empty())
-						return iterator(_tree, _tree->_smallestNode);
-					return iterator(_tree, _tree->_lastNode);
-				//	return iterator(_tree, _tree->_biggestNode->right);
-				};
+			{
+				if (this->empty())
+					return iterator(_tree, _tree->_smallestNode);
+				return iterator(_tree, _tree->_lastNode);
+			};
+
 			const_iterator			end() const
-				{
-					if (this->empty())
-						return iterator(_tree, _tree->_smallestNode);
-					return iterator(_tree, _tree->_lastNode);
-				//	return iterator(_tree, _tree->_biggestNode->right);
-				};
+			{
+				if (this->empty())
+					return iterator(_tree, _tree->_smallestNode);
+				return iterator(_tree, _tree->_lastNode);
+			};
+
 			reverse_iterator 		rbegin()
-				{
-					if (this->empty())
-						return reverse_iterator(iterator(_tree, _tree->_smallestNode));
-				//	iterator it = iterator(_tree, _tree->_biggestNode->right);
-				//	reverse_iterator itr = reverse_iterator(it);
-				//	return itr;
-					return reverse_iterator(iterator(_tree, _tree->_biggestNode->right));
-				};
+			{
+				if (this->empty())
+					return reverse_iterator(iterator(_tree, _tree->_smallestNode));
+				return reverse_iterator(iterator(_tree, _tree->_lastNode));
+			};
+
 			const_reverse_iterator 	rbegin() const
-				{
-					if (this->empty())
-						return reverse_iterator(iterator(_tree, _tree->_smallestNode));
-					return reverse_iterator(iterator(_tree, _tree->_biggestNode->right));
-				};
+			{
+				if (this->empty())
+					return reverse_iterator(iterator(_tree, _tree->_smallestNode));
+				return reverse_iterator(iterator(_tree, _tree->_lastNode));
+			};
+
 			reverse_iterator 		rend() 
-				{ 
-				/*	nodePtr	revEnd = new tree_node<Key, T>;
-					revEnd->right = NULL;
-					revEnd->data = ft::make_pair(key_type(), mapped_type());
-					_tree->_smallestNode->left = revEnd;
-					revEnd->parent = _tree->_smallestNode;*/
-					return reverse_iterator(iterator(_tree, _tree->_smallestNode)); 
-				};
-			const_reverse_iterator 	rend() const //{ std::cout<<"const rend\n";return reverse_iterator(iterator(_tree, _tree->_smallestNode)); }
-				{ 
-				/*	nodePtr	revEnd = new tree_node<Key, T>;
-					revEnd->right = NULL;
-					revEnd->data = ft::make_pair(key_type(), mapped_type());
-					_tree->_smallestNode->left = revEnd;
-					revEnd->parent = _tree->_smallestNode;*/
-					return reverse_iterator(iterator(_tree, _tree->_smallestNode)); 
-				};
+			{	return reverse_iterator(iterator(_tree, _tree->_smallestNode));	};
+
+			const_reverse_iterator 	rend() const
+			{	return reverse_iterator(iterator(_tree, _tree->_smallestNode));	};
+
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
+
 			size_type	size() const { return this->_number; };
-			size_type	max_size() const { 
-				return std::numeric_limits<difference_type>::max() / (sizeof(tree_node<Key, T>) ?: 1); };
+
+			size_type	max_size() const
+			{	return std::numeric_limits<difference_type>::max() / (sizeof(tree_node<Key, T>) ?: 1); };
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
@@ -261,14 +256,10 @@ namespace ft
 					size_t i = 0;
 					while (this->begin() != this->end())
 					{
-				//		std::cout << "\nclearing round = "<<this->begin()->first<<std::endl;;
 						this->_tree->remove(this->begin()->first);
 						this->_number--;
 						i++;
-				//		std::cout << "this->begin = " << this->begin()->first<<std::endl;
-				//		std::cout << "this->end = " << this->end()->first<<std::endl;
 					}
-				//	std::cout<<"_number end of clear = " << _number << std::endl;
 					this->_tree->removeExtremNodes();
 				}
 			};
@@ -276,13 +267,12 @@ namespace ft
 			/********* OBSERVERS *********/
 			key_compare		key_comp() const {	return this->_comp;	};
 			
-			value_compare	value_comp() const {	return value_compare(this->_comp);	};//VERIF
+			value_compare	value_comp() const {	return value_compare(this->_comp);	};
 
 			/********* OPERATIONS *********/
 			iterator								find(const key_type& k)
 			{	
 				nodePtr	tmp = this->_tree->findNode(k);
-				//	std::cout << "find : " << tmp->data.first<<std::endl;
 				return iterator(this->_tree, tmp);
 			};
 
@@ -391,6 +381,5 @@ namespace ft
 	bool	operator>=(const ft::map<Key, T, Compare, Allocator>& lhs,
 						const ft::map<Key, T, Compare, Allocator>& rhs)
 	{	return (lhs.size() >= rhs.size()) ? true : false;	}
-
 }
 #endif
