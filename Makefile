@@ -2,11 +2,6 @@ SRCS		= ./main.cpp \
 			./testers/testsVector.cpp \
 			./testers/testsStack.cpp \
 			./testers/testsMap.cpp
-#./Vector/testVector.cpp
-#./Vector/main.cpp \
-			./Vector/tests.cpp \
-			./Vector/menu.cpp
-#./Map/main.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 

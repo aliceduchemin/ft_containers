@@ -3,26 +3,24 @@
 
 void	test_push(void)
 {
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Creating vector test." << std::endl;
 	ft::vector<int> test;
 
-	std::cout << "## PUSH & INFO ##" << std::endl;
-	std::cout << "Creating vector test." << std::endl;
+	std::cout << "Empty() = " << test.empty() << std::endl;
 
-	std::cout << "Empty() = " << std::boolalpha << test.empty() << std::endl << std::endl;
-
-	std::cout << "--PUSH DATA--" << std::endl;
+	std::cout << "Push tests :" << std::endl;
 	test.push_back(56);
 	std::cout << "Push : " << test[0] << std::endl;
 	test.push_back(42);
 	std::cout << "Push : " << test[1] << std::endl;
 
-	std::cout << "Empty() = " << std::boolalpha << test.empty() << std::endl << std::endl;
+	std::cout << "Empty() = " << test.empty() << std::endl;
 
-	std::cout << "--INFOS--" << std::endl;
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
 
-	std::cout << "--PUSH DATA--" << std::endl;
+	std::cout << "Push tests :" << std::endl;
 	test.push_back(9);
 	std::cout << "Push : " << test[2] << std::endl;
 	test.push_back(0);
@@ -30,20 +28,17 @@ void	test_push(void)
 	test.push_back(13);
 	std::cout << "Push : " << test[4] << std::endl;
 
-	std::cout << "--INFOS--" << std::endl;
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
 
-	std::cout << "--MAX_SIZE--" << std::endl;
-	std::cout << test.max_size() << std::endl;
-	
-	std::cout << "\n\n\n";
+	std::cout << "Max size : " << test.max_size() << std::endl;
 }
 
 void	test_element_access(void)
 {
 	ft::vector<int> test;
-	std::cout << "## ELEMENT ACCESS DEMONSTRATION ##" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Element access :" << std::endl;
 
 	test.push_back(43);
 	test.push_back(1);
@@ -66,8 +61,8 @@ void	test_element_access(void)
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "-----           -----" << std::endl << std::endl;
-	std::cout << "----- TEST FRONT() & BACK() -----" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Test front() and back() :" << std::endl;
 	std::cout << "For a vector<std::string> = {\"999\", \"666\", \"123\", \"321\"}" << std::endl;
 
 	ft::vector<std::string> test1;
@@ -88,16 +83,15 @@ void	test_element_access(void)
 
 	std::cout << "front() = " << test2.front() << std::endl;
 	std::cout << "back() = " << test2.back() << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_re_serve_size(void)
 {
-	std::cout << "## RESERVE RESIZE DEMONSTRATION ##" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Reserve() and resize() :" << std::endl;
 
-	std::cout << "=== RESERVE TEST ===" << std::endl;
-	std::cout << "=== For a empty int vector = v ===" << std::endl;
+	std::cout << "Test reserve :" << std::endl;
+	std::cout << "For a empty int vector v :" << std::endl;
 
 	ft::vector<int> v;
 
@@ -109,8 +103,8 @@ void	test_re_serve_size(void)
 	std::cout << "v.reserve(1)" << std::endl;
 	std::cout << "v.capacity() = " << v.capacity() << std::endl;
 
-	std::cout << "=== RESIZE TEST ===" << std::endl;
-	std::cout << "=== For a empty int vector = v2 ===" << std::endl;
+	std::cout << "Test resize :" << std::endl;
+	std::cout << "For a empty int vector v2 :" << std::endl;
 
 	ft::vector<int> v2;
 
@@ -134,15 +128,14 @@ void	test_re_serve_size(void)
 	for (size_t i = 0; i < v2.size(); i++)
 		std::cout << v2[i] << std::endl;
 	std::cout << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_pop_back(void)
 {
-	std::cout << "## POP BACK DEMONSTRATION ##" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Pop back() :" << std::endl;
 
-	std::cout << "=== For a vector<std::string> empty ===" << std::endl;
+	std::cout << "For a vector<std::string> empty :" << std::endl;
 
 	ft::vector<std::string> v;
 
@@ -253,8 +246,6 @@ void	test_pop_back(void)
 		std::cout << v[i] << ", ";
 	std::cout << v[v.size() - 1];
 	std::cout << "}" << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_iterator_incrementers_ft()
@@ -262,7 +253,8 @@ void	test_iterator_incrementers_ft()
 	ft::vector<int>				v;
 	ft::vector<int>::iterator	it;
 
-	std::cout << "#### INCREMENTERS ####" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Test incrementers :" << std::endl;
 	std::cout << "For a vector : ";
 	v.push_back(5);
 	v.push_back(42);
@@ -278,7 +270,7 @@ void	test_iterator_incrementers_ft()
 
 	std::cout << "*(v.begin()) = " << *(v.begin()) << std::endl;
 
-	std::cout << "##TEST FOR : i++ ++i --i i-- ##" << std::endl;
+	std::cout << "Testing : i++ ++i --i i--" << std::endl;
 	it = v.begin();
 	std::cout << "it = v.begin();" << std::endl;
 	std::cout << "*it = " << *it << std::endl;
@@ -290,8 +282,6 @@ void	test_iterator_incrementers_ft()
 	std::cout << "*it = " << *it << std::endl;
 	std::cout << "*(--it) = " << *(--it) << std::endl;
 	std::cout << "*it = " << *it << std::endl << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_iterator_booleans_ft()
@@ -299,7 +289,8 @@ void	test_iterator_booleans_ft()
 	ft::vector<int>				v;
 	ft::vector<int>::iterator	it;
 
-	std::cout << "#### ITERATOR BOOLEANS ####" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Comparators on iterators :" << std::endl;
 	std::cout << "For a vector v : ";
 	v.push_back(5);
 	v.push_back(42);
@@ -336,8 +327,6 @@ void	test_iterator_booleans_ft()
 	std::cout << "it_beg >= it_end is " << std::boolalpha << (it_beg >= it_end) << std::endl;
 	std::cout << "it_end >= it_beg is " << std::boolalpha << (it_end >= it_beg) << std::endl;
 	std::cout << "it_end >= it_end is " << std::boolalpha << (it_end >= it_end) << std::endl << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_iterator_deref_ft()
@@ -345,7 +334,8 @@ void	test_iterator_deref_ft()
 	ft::vector<int>				v;
 	ft::vector<int>::iterator	it;
 
-	std::cout << "#### ITERATOR DEREF ####" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Test iterator dereferencing :" << std::endl;
 	std::cout << "For a vector v : ";
 	v.push_back(1);
 	v.push_back(2);
@@ -364,19 +354,18 @@ void	test_iterator_deref_ft()
 	it = v.begin();
 	std::cout << "it = v.begin()" << std::endl;
 
-	std::cout << "### * ###" << std::endl;
-	std::cout << "cout *it = " << *it << std::endl;
+	std::cout << "dereferencing with * : " << *it << std::endl;
 	*it = 5;
 	std::cout << "*it = 5" << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
 
-	std::cout << "### [] ###" << std::endl;
+	std::cout << "dereferencing with [] :" << std::endl;
 	std::cout << "cout it[3] = " << it[3] << std::endl;
 	it[3] = 42;
 	std::cout << "it[3] = 42" << std::endl;
 	std::cout << "cout it[3] = " << it[3] << std::endl;
 
-	std::cout << "### *i++ *i-- ###" << std::endl;
+	std::cout << "*i++ *i-- :" << std::endl;
 	std::cout << "For a vector v : ";
 	std::cout << "{";
 	for (size_t i = 0; i < v.size() - 1; i++)
@@ -410,21 +399,6 @@ void	test_iterator_deref_ft()
 	ft::vector<int>::iterator it_cpy(it);
 	std::cout << "iterator it_cpy(it);" << std::endl;
 	std::cout << "cout *it_cpy = " << *it_cpy << std::endl << std::endl;
-
-	std::cout << "\n\n\n";
-}
-
-void	test_iterator(void)
-{
-	std::cout << "## TESTS FOR INCREMENTERS : i++ ++i --i i-- ##" << std::endl;
-	test_iterator_incrementers_ft();
-
-	std::cout << "## TESTS FOR BOOLEANS : <, >, <=, >=, ==, != ##" << std::endl;
-	test_iterator_booleans_ft();
-
-	std::cout << "## TESTS FOR COMPOUND ASSIGNMENTS & DEREFERENCING : +=, -=, *, [], -> ##" << std::endl;
-	
-	test_iterator_deref_ft();
 }
 
 void	test_reverse_iterator(void)
@@ -432,13 +406,14 @@ void	test_reverse_iterator(void)
 	ft::vector<int>	v;
 	ft::vector<int>::reverse_iterator	it;
 
+	std::cout << "\n---------------------------- " << std::endl;
 	v.push_back(1);
 	v.push_back(2);
 	v.push_back(3);
 	v.push_back(4);
 	v.push_back(5);
 
-	std::cout << "#### REVERSE ITERATORS ####" << std::endl;
+	std::cout << "Reverse iterators :" << std::endl;
 	std::cout << "For a vector v = ";
 	std::cout << "{";
 	for (size_t i = 0; i < v.size() - 1; i++)
@@ -447,7 +422,7 @@ void	test_reverse_iterator(void)
 	std::cout << "}" << std::endl;
 
 	std::cout << "for it = v.rbegin(); it != v.rend(); it++" << std::endl;
-	std::cout << "	std::cout << *it << std::endl;" << std::endl;
+	std::cout << "std::cout << *it << std::endl;" << std::endl;
 	for (ft::vector<int>::reverse_iterator it2 = v.rbegin(); it2 != v.rend(); it2++)
 		std::cout << *it2 << std::endl;
 
@@ -460,17 +435,16 @@ void	test_reverse_iterator(void)
 	it -= 4;
 	std::cout << "it -= 4" << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_constructors(void)
 {
-	std::cout << "#### PART CONSTRUCTORS ####" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Constructors :" << std::endl;
 
 	ft::vector<int> v;
 
-	std::cout << "--- DEFAULT CONSTRUCTOR ---" << std::endl;
+	std::cout << "Default constructor :" << std::endl;
 	std::cout << "ft::vector<int> v;" << std::endl;
 	std::cout << "v.capacity() = " << v.capacity() << std::endl;
 	std::cout << "v.size() = " << v.size() << std::endl;
@@ -484,7 +458,7 @@ void	test_constructors(void)
 	std::cout << "v.push_back(56);" << std::endl;
 	std::cout << "v.push_back(123);" << std::endl;
 
-	std::cout << "--- ITERATORS CONSTRUCTOR ---" << std::endl;
+	std::cout << "Iterator constructor :" << std::endl;
 	std::cout << "ft::vector<int> v_it(v.begin(), v.end());" << std::endl;
 	ft::vector<int> v_it(v.begin(), v.end());
 
@@ -494,7 +468,7 @@ void	test_constructors(void)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
 
-	std::cout << "--- COPY CONSTRUCTOR ---" << std::endl;
+	std::cout << "Copy constructor :" << std::endl;
 	std::cout << "ft::vector<int> v_cpy(v_it);" << std::endl;
 	ft::vector<int> v_cpy(v_it);
 
@@ -504,7 +478,7 @@ void	test_constructors(void)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
 
-	std::cout << "#--- FILL CONSTRUCTOR ---#" << std::endl;
+	std::cout << "Fill constructor :" << std::endl;
 	std::cout << "ft::vector<int> v_fill(25, 42);" << std::endl;
 	ft::vector<int> v_fill(25, 42);
 
@@ -513,13 +487,12 @@ void	test_constructors(void)
 	for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_assign(void)
 {
-	std::cout << "#### PART CONSTRUCTORS ####" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Assign() :" << std::endl;
 
 	ft::vector<int> v1;
 	v1.push_back(42);
@@ -527,7 +500,6 @@ void	test_assign(void)
 	v1.push_back(56);
 	v1.push_back(123);
 
-	std::cout << "--- DEFAULT CONSTRUCTOR ---" << std::endl;
 	std::cout << "ft::vector<int> v1;" << std::endl;
 	std::cout << "For a vector v1 = ";
 	std::cout << "{";
@@ -568,15 +540,14 @@ void	test_assign(void)
 		std::cout << v2[i] << ", ";
 	std::cout << v2[v2.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_insert(void)
 {
-	std::cout << "#### PART CONSTRUCTORS ####" << std::endl << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Insert() :" << std::endl << std::endl;
 
-	std::cout << "#--- Single Element ---#" << std::endl;
+	std::cout << "Single element insertion :" << std::endl;
 	ft::vector<std::string>	v1;
 
 	v1.push_back("coucou");
@@ -584,7 +555,7 @@ void	test_insert(void)
 	v1.push_back("il");
 	v1.push_back("va ?");
 
-	std::cout << "#- Insert at the begining -#" << std::endl << std::endl;
+	std::cout << "Insert at the begining :" << std::endl << std::endl;
 	std::cout << "For a std::string vector v1 = ";
 	std::cout << "{";
 	for (size_t i = 0; i < v1.size() - 1; i++)
@@ -602,7 +573,7 @@ void	test_insert(void)
 	std::cout << v1[v1.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#- Insert in the middle -#" << std::endl << std::endl;
+	std::cout << "Insert in the middle :" << std::endl << std::endl;
 	v1.insert(v1.begin() + 3, "WIN SUKS ");
 	std::cout << "insert(v1.begin() + 3, \"WIN SUKS \")" << std::endl;
 
@@ -613,7 +584,7 @@ void	test_insert(void)
 	std::cout << v1[v1.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#- Insert at the end -#" << std::endl << std::endl;
+	std::cout << "Insert at the end :" << std::endl << std::endl;
 	v1.insert(v1.end(), "WIN SUKS ");
 	std::cout << "insert(v1.end(), \"WIN SUKS \")" << std::endl;
 
@@ -624,7 +595,7 @@ void	test_insert(void)
 	std::cout << v1[v1.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#- Insert in empty vector -#" << std::endl << std::endl;
+	std::cout << "Insert in empty vector :" << std::endl << std::endl;
 	ft::vector<std::string> v2;
 	std::cout << "For a std::string vector v2 = {}" << std::endl << std::endl;
 
@@ -638,7 +609,7 @@ void	test_insert(void)
 	std::cout << v2[v2.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#--- Fill ---#" << std::endl << std::endl;
+	std::cout << "\nFill insertion :" << std::endl << std::endl;
 
 	ft::vector<std::string>	v3;
 
@@ -649,7 +620,7 @@ void	test_insert(void)
 	v3.push_back("bananas");
 	v3.push_back("bwark");
 
-	std::cout << "#- Insert at the begining -#" << std::endl << std::endl;
+	std::cout << "Insert at the begining :" << std::endl << std::endl;
 
 	std::cout << "For a std::string vector v3 = ";
 	std::cout << "{";
@@ -667,7 +638,7 @@ void	test_insert(void)
 	std::cout << v3[v3.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#- Insert in the middle -#" << std::endl << std::endl;
+	std::cout << "Insert in the middle :" << std::endl << std::endl;
 
 	std::cout << "For a std::string vector v3 = ";
 	std::cout << "{";
@@ -685,7 +656,7 @@ void	test_insert(void)
 	std::cout << v3[v3.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#- Insert at the end -#" << std::endl << std::endl;
+	std::cout << "Insert at the end :" << std::endl << std::endl;
 
 	std::cout << "For a std::string vector v3 = ";
 	std::cout << "{";
@@ -703,7 +674,7 @@ void	test_insert(void)
 	std::cout << v3[v3.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#- Insert in empty vector -#" << std::endl << std::endl;
+	std::cout << "Insert in empty vector :" << std::endl << std::endl;
 
 	ft::vector<std::string> v4;
 
@@ -719,7 +690,7 @@ void	test_insert(void)
 	std::cout << v4[v4.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "#--- Range ---#" << std::endl << std::endl;
+	std::cout << "\nRange insertion :" << std::endl << std::endl;
 
 	ft::vector<std::string> apple(10, "🍎");
 	ft::vector<std::string> lemon(5, "🍋");
@@ -746,17 +717,14 @@ void	test_insert(void)
 		std::cout << apple[i] << ", ";
 	std::cout << apple[apple.size() - 1];
 	std::cout << "}" << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_clear_erase(void)
 {
-	std::cout << "#### PART CONSTRUCTORS ####" << std::endl << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Clear() :" << std::endl << std::endl;
 
 	ft::vector<std::string> mess(20, "MESS");
-
-	std::cout << "#--- Clear() ---#" << std::endl;
 
 	std::cout << "For a vector named mess = {";
 	for (ft::vector<std::string>::iterator it = mess.begin(); it + 1 != mess.end(); it++)
@@ -784,7 +752,8 @@ void	test_clear_erase(void)
 	std::cout << "mess.size() = " << mess.size() << std::endl;
 	std::cout << "mess.capacity() = " << mess.capacity() << std::endl << std::endl;
 
-	std::cout << "#--- Erase() ---#" << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Erase() :" << std::endl;
 
 	ft::vector<std::string> alien_hidden(10, "🎅");
 
@@ -854,13 +823,12 @@ void	test_clear_erase(void)
 	else
 		std::cout << "}" << std::endl;
 	std::cout << std::endl;
-
-	std::cout << "\n\n\n";
 }
 
 void	test_swap(void)
 {
-	std::cout << "#### PART CONSTRUCTORS ####" << std::endl << std::endl;
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Swap() :" << std::endl << std::endl;
 
 	ft::vector<std::string> victor(10, "🌹");
 	std::cout << "For a string vector victor = {";
@@ -1000,6 +968,42 @@ void	test_swap(void)
 		std::cout << "}" << std::endl << std::endl;
 }
 
+void	test_buffer()
+{
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Buffer test :" << std::endl;
+	ft::vector<Buffer> vector_buffer;
+	std::cout <<"COUNT value = " << COUNT << std::endl;
+
+	for (int i = 0; i < COUNT; i++)
+	{
+		vector_buffer.push_back(Buffer());
+	}
+
+	for (int i = 0; i < COUNT; i++)
+	{
+		const int idx = rand() % COUNT;
+		vector_buffer[idx].idx = 5;
+	}
+
+	ft::vector<Buffer>().swap(vector_buffer);
+
+	try
+	{
+		for (int i = 0; i < COUNT; i++)
+		{
+			const int idx = rand() % COUNT;
+			vector_buffer.at(idx);
+			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << "All went well" << std::endl;
+		//NORMAL ! :P
+	}
+}
+
 void	vectorTests()
 {
 	test_push();
@@ -1010,10 +1014,10 @@ void	vectorTests()
 	test_iterator_incrementers_ft();
 	test_iterator_booleans_ft();
 	test_iterator_deref_ft();
-	test_iterator();
 	test_reverse_iterator();
 	test_assign();
 	test_insert();
 	test_clear_erase();
 	test_swap();
+	test_buffer();
 }

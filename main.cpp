@@ -11,13 +11,13 @@ int main(int argc, char** argv)
 	struct timeval begin, end;
 	gettimeofday(&begin, 0);
 	
-	std::cout << "##### VECTOR TESTS : #####\n" << std::endl;
-//	vectorTests();
+	std::cout << "########## VECTOR TESTS : ##########\n" << std::endl;
+	vectorTests();
 
-	std::cout << "##### STACK TESTS : #####\n" << std::endl;
-//	stackTests();
+	std::cout << "\n\n\n########## STACK TESTS : ##########\n" << std::endl;
+	stackTests();
 
-	std::cout << "##### MAP TESTS : #####\n" << std::endl;
+	std::cout << "\n\n\n########## MAP TESTS : ##########\n" << std::endl;
 	mapTests();
 
 
