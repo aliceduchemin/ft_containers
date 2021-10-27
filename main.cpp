@@ -25,6 +25,6 @@ int main(int argc, char** argv)
 	long seconds = end.tv_sec - begin.tv_sec;
 	long microseconds = end.tv_usec - begin.tv_usec;
 	double elapsed = seconds / 1e-6 + microseconds ;
-	std::cout << "Duration : " << elapsed << " microseconds" << std::endl;
+	std::cout << "\n\nDuration : " << elapsed << " microseconds" << std::endl;
 	return (0);
 }

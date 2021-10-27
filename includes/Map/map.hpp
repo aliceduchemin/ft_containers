@@ -232,17 +232,17 @@ namespace ft
 			void						erase(iterator first, iterator last)
 			{	
 				size_t length = 0;
-				iterator tmp = first;
-				while (tmp != last) {tmp++; length++;}
+				iterator tmp = last;
+				tmp--;
+				while (first != last) {first++; length++;}
 				
-				size_t i = 0;
-				tmp = first;
-				while (i < length)
+				while (length)
 				{
-				//	std::cout << "round tmp = "<<tmp->first<<std::endl;;
 					this->_tree->remove(tmp->first);
+					tmp = last;
+					tmp--;
 					this->_number--;
-					i++;
+					length--;
 				}
 			};
 
