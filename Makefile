@@ -16,30 +16,34 @@ NAME_STL			= STL_containers
 
 RM					= rm -f
 
-RMDIR				= rmdir
+RMDIR				= rm -rf
 
 FLAGS_FT			= -Wall -Wextra -Werror -g -D NMSPC=ft -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -I ./includes/Map -std=c++98
 
 FLAGS_STL			= -Wall -Wextra -Werror -g -D NMSPC=std -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -I ./includes/Map -std=c++98
 
 $(OBJS_DIR_FT)%.o :	$(SRCS_DIR)%.cpp
-					mkdir -p objs_ft
-					clang++ $(FLAGS_FT) -c $< -o $@
+					@mkdir -p objs_ft
+					@clang++ $(FLAGS_FT) -c $< -o $@
 
 $(OBJS_DIR_STL)%.o :$(SRCS_DIR)%.cpp
-					mkdir -p objs_stl
-					clang++ $(FLAGS_STL) -c $< -o $@
+					@mkdir -p objs_stl
+					@clang++ $(FLAGS_STL) -c $< -o $@
 
 all:				$(NAME_FT) $(NAME_STL)
+					@echo "Compilation complete"
 
 $(NAME_FT):			$(OBJS_FT)
-					clang++ $(FLAGS_FT) $(OBJS_FT) -o $(NAME_FT) 
+					@echo "Compiling ft librairy..."
+					@clang++ $(FLAGS_FT) $(OBJS_FT) -o $(NAME_FT) 
 
 $(NAME_STL):		$(OBJS_STL)
-					clang++ $(FLAGS_STL) $(OBJS_STL) -o $(NAME_STL) 
+					@echo "Compiling st librairy..."
+					@clang++ $(FLAGS_STL) $(OBJS_STL) -o $(NAME_STL) 
 
 clean:
 					@$(RM) $(OBJS_FT) $(OBJS_STL)
+					@echo "Cleaning..."
 
 fclean:				clean
 					@$(RM) $(NAME_FT) $(NAME_STL)
