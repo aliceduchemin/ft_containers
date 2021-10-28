@@ -1,7 +1,7 @@
 SRCS_DIR			= ./testers/
 SRCS				= main.cpp \
-					testsVector.cpp #\
-					./testers/testsStack.cpp \
+					testsVector.cpp \
+					testsStack.cpp #\
 					./testers/testsMap.cpp
 
 OBJS_DIR_FT			= ./objs_ft/
@@ -16,9 +16,9 @@ NAME_STL			= STL_containers
 
 RM					= rm -f
 
-FLAGS_FT			= -Wall -Wextra -Werror -g -D NMSPC=ft -I ./testers/testsContainers.hpp -I ./includes/Vector -std=c++98
+FLAGS_FT			= -Wall -Wextra -Werror -g -D NMSPC=ft -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -std=c++98
 
-FLAGS_STL			= -Wall -Wextra -Werror -g -D NMSPC=std -I ./testers/testsContainers.hpp -I ./includes/Vector -std=c++98
+FLAGS_STL			= -Wall -Wextra -Werror -g -D NMSPC=std -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -std=c++98
 
 $(OBJS_DIR_FT)%.o :	$(SRCS_DIR)%.cpp
 					mkdir -p objs_ft

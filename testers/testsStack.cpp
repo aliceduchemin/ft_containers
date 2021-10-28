@@ -15,7 +15,7 @@
 void stackTests()
 {
 	std::cout << "Creating an int Stack :" << std::endl;
-	ft::stack<int>	myStack;
+	NMSPC::stack<int>	myStack;
 	std::cout << "Testing size and empty :" << std::endl;
 	std::cout << "stack size = " << myStack.size() << std::endl;
 	std::cout << "stack is empty ? = " << myStack.empty() << std::endl;
@@ -42,7 +42,7 @@ void stackTests()
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Second stack(first) : " << std::endl;
-	ft::stack<int> mySecondStack(myStack);
+	NMSPC::stack<int> mySecondStack(myStack);
 	std::cout << "2nd stack size = " << mySecondStack.size() << std::endl;
 	std::cout << "2nd stack top = " << mySecondStack.top() << std::endl;
 	mySecondStack.pop();
@@ -76,13 +76,13 @@ void stackTests()
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Creating an empty vector stack :" << std::endl;
-	ft::stack<int> firstVectorStack;
+	NMSPC::stack<int> firstVectorStack;
 	std::cout << "size of vector stack : " << firstVectorStack.size() <<std::endl;
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Creating a vector stack -> stack<int, vector<int>>:" << std::endl;
-	ft::vector<int> myVector (2,200);
-	ft::stack<int, ft::vector<int>> secondVectorStack(myVector);
+	NMSPC::vector<int> myVector (2,200);
+	NMSPC::stack<int, NMSPC::vector<int> > secondVectorStack(myVector);
 	std::cout << "size of vector stack : " << secondVectorStack.size() <<std::endl;
 	std::cout << "top of vector stack : " << secondVectorStack.top() <<std::endl;
 	secondVectorStack.pop();

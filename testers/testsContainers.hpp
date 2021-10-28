@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 //#include "../includes/Map/map.hpp"
-//#include "../includes/Stack/stack.hpp"
+#include "../includes/Stack/stack.hpp"
 #include "../includes/Vector/vector.hpp"
 #include <map>
 #include <stack>
@@ -33,9 +33,9 @@ struct Buffer
 };
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
-/*
+
 template<typename T>
-class MutantStack : public ft::stack<T>
+class MutantStack : public NMSPC::stack<T>
 {
 public:
 	MutantStack() {}
@@ -47,14 +47,14 @@ public:
 	}
 	~MutantStack() {}
 
-	typedef typename ft::stack<T>::container_type::iterator iterator;
+	typedef typename NMSPC::stack<T>::container_type::iterator iterator;
 
 	iterator begin() { return this->c.begin(); }
 	iterator end() { return this->c.end(); }
-};*/
+};
 
 void	vectorTests();
-//void	stackTests();
+void	stackTests();
 //void	mapTests();
 
 #endif

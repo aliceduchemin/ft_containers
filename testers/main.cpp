@@ -21,7 +21,7 @@ int main()
 	vectorTests();
 
 	std::cout << "\n\n\n########## STACK TESTS : ##########\n" << std::endl;
-//	stackTests();
+	stackTests();
 
 	std::cout << "\n\n\n########## MAP TESTS : ##########\n" << std::endl;
 //	mapTests();
@@ -30,7 +30,7 @@ int main()
 	gettimeofday(&end, 0);
 	long seconds = end.tv_sec - begin.tv_sec;
 	long microseconds = end.tv_usec - begin.tv_usec;
-	double elapsed = seconds / 1e-6 + microseconds ;
-	std::cout << "\n\nDuration : " << elapsed << " microseconds" << std::endl;
+	double elapsed = seconds + microseconds * 1e-6;
+	std::cout << "\n\nDuration : " << elapsed << " seconds" << std::endl;
 	return (0);
 }
