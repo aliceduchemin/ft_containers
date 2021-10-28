@@ -291,11 +291,6 @@ namespace ft
 		reverse_iterator& operator=(const reverse_iterator<Iter>& rev_it)
 			{	_it = rev_it._it; return *this;	};
 		reverse_iterator(pointer other) : _it(other) { };
-		
-	//	reverse_iterator & operator=(reverse_iterator const & other)
-	//		{ _it = other._it; return *this; };
-	//	reverse_iterator(reverse_iterator const & other)
-	//		{ *this = other; };
 		~reverse_iterator() {};
 	
 		/********* ITERATORS *********/
@@ -386,13 +381,7 @@ namespace ft
 		template <class Iter>
 		const_reverse_iterator& operator=(const reverse_iterator<Iter>& rev_it)
 			{	_it = rev_it.getNodePtr(); return *this;	};
-
 		const_reverse_iterator(pointer other) : _it(other) { };
-	//	const_reverse_iterator & operator=(const_reverse_iterator const & other)
-	//		{ _it = other._it; return *this; };
-			//HERE
-	//	const_reverse_iterator(const_reverse_iterator const & other)
-	//		{ *this = other; };
 		~const_reverse_iterator() {};
 	
 		/********* ITERATORS *********/

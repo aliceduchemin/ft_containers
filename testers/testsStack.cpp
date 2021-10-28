@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "testsContainers.hpp"
+#include <list>
 
 void stackTests()
 {
@@ -103,4 +104,21 @@ void stackTests()
 		std::cout << *it;
 	}
 	std::cout << std::endl;
+
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Creating a stack with std::list as underlying container :" << std::endl;
+	std::list<int> liste (2,200);
+	NMSPC::stack<int, std::list<int> > listStack(liste);
+
+	for (int num = 0; num <= 38; num++)
+		listStack.push(num);
+	std::cout << "list stack size : " << listStack.size() << std::endl;
+	std::cout << "list stack top : " << listStack.top() << std::endl;
+	listStack.pop();
+	std::cout << "list stack pop" << std::endl;
+	std::cout << "list stack top : " << listStack.top() << std::endl;
+	listStack.pop();
+	std::cout << "list stack pop" << std::endl;
+	std::cout << "list stack top : " << listStack.top() << std::endl;
+	std::cout << "list stack size : " << listStack.size() << std::endl;
 }

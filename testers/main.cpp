@@ -18,13 +18,13 @@ int main()
 	gettimeofday(&begin, 0);
 	
 	std::cout << "########## VECTOR TESTS : ##########\n" << std::endl;
-	vectorTests();
+//	vectorTests();
 
 	std::cout << "\n\n\n########## STACK TESTS : ##########\n" << std::endl;
 	stackTests();
 
 	std::cout << "\n\n\n########## MAP TESTS : ##########\n" << std::endl;
-	mapTests();
+//	mapTests();
 
 	gettimeofday(&end, 0);
 	long seconds = end.tv_sec - begin.tv_sec;
