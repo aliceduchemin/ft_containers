@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "testsContainers.hpp"
-
+/*
 void	test_push(void)
 {
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Creating vector test." << std::endl;
-	ft::vector<int> test;
+	NMSPC::vector<int> test;
 
 	std::cout << "Empty() = " << test.empty() << std::endl;
 
@@ -45,10 +44,10 @@ void	test_push(void)
 
 	std::cout << "Max size : " << test.max_size() << std::endl;
 }
-
+*/
 void	test_element_access(void)
 {
-	ft::vector<int> test;
+	NMSPC::vector<int> test;
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Element access :" << std::endl;
 
@@ -77,7 +76,7 @@ void	test_element_access(void)
 	std::cout << "Test front() and back() :" << std::endl;
 	std::cout << "For a vector<std::string> = {\"999\", \"666\", \"123\", \"321\"}" << std::endl;
 
-	ft::vector<std::string> test1;
+	NMSPC::vector<std::string> test1;
 
 	test1.push_back("999");
 	test1.push_back("666");
@@ -89,14 +88,14 @@ void	test_element_access(void)
 
 	std::cout << "For a vector<std::string> = {\"2727\"}" << std::endl;
 
-	ft::vector<std::string> test2;
+	NMSPC::vector<std::string> test2;
 
 	test2.push_back("2727");
 
 	std::cout << "front() = " << test2.front() << std::endl;
 	std::cout << "back() = " << test2.back() << std::endl;
 }
-
+/*
 void	test_re_serve_size(void)
 {
 	std::cout << "\n---------------------------- " << std::endl;
@@ -105,7 +104,7 @@ void	test_re_serve_size(void)
 	std::cout << "Test reserve :" << std::endl;
 	std::cout << "For a empty int vector v :" << std::endl;
 
-	ft::vector<int> v;
+	NMSPC::vector<int> v;
 
 	std::cout << "v.capacity() = " << v.capacity() << std::endl;
 	v.reserve(100);
@@ -118,7 +117,7 @@ void	test_re_serve_size(void)
 	std::cout << "Test resize :" << std::endl;
 	std::cout << "For a empty int vector v2 :" << std::endl;
 
-	ft::vector<int> v2;
+	NMSPC::vector<int> v2;
 
 	std::cout << "v2.capacity() = " << v2.capacity() << std::endl;
 	std::cout << "v2.size() = " << v2.size() << std::endl;
@@ -149,7 +148,7 @@ void	test_pop_back(void)
 
 	std::cout << "For a vector<std::string> empty :" << std::endl;
 
-	ft::vector<std::string> v;
+	NMSPC::vector<std::string> v;
 
 	v.resize(10, "coucou !");
 	std::cout << "v.resize(10, \"coucou !\");" << std::endl;
@@ -262,8 +261,8 @@ void	test_pop_back(void)
 
 void	test_iterator_incrementers_ft()
 {
-	ft::vector<int>				v;
-	ft::vector<int>::iterator	it;
+	NMSPC::vector<int>				v;
+	NMSPC::vector<int>::iterator	it;
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Test incrementers :" << std::endl;
@@ -298,8 +297,8 @@ void	test_iterator_incrementers_ft()
 
 void	test_iterator_booleans_ft()
 {
-	ft::vector<int>				v;
-	ft::vector<int>::iterator	it;
+	NMSPC::vector<int>				v;
+	NMSPC::vector<int>::iterator	it;
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Comparators on iterators :" << std::endl;
@@ -318,8 +317,8 @@ void	test_iterator_booleans_ft()
 	std::cout << v[v.size() - 1];
 	std::cout << "}" << std::endl;
 
-	ft::vector<int>::iterator	it_beg = v.begin();
-	ft::vector<int>::iterator	it_end = v.end();
+	NMSPC::vector<int>::iterator	it_beg = v.begin();
+	NMSPC::vector<int>::iterator	it_end = v.end();
 	std::cout << "For an iterator it_beg = v.begin()" << std::endl;
 	std::cout << "For an iterator it_end = v.end()" << std::endl << std::endl;
 
@@ -343,8 +342,8 @@ void	test_iterator_booleans_ft()
 
 void	test_iterator_deref_ft()
 {
-	ft::vector<int>				v;
-	ft::vector<int>::iterator	it;
+	NMSPC::vector<int>				v;
+	NMSPC::vector<int>::iterator	it;
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Test iterator dereferencing :" << std::endl;
@@ -408,15 +407,15 @@ void	test_iterator_deref_ft()
 	it -= 4;
 	std::cout << "it -= 4" << *it << std::endl;
 	std::cout << "cout *it = " << *it << std::endl << std::endl;
-	ft::vector<int>::iterator it_cpy(it);
+	NMSPC::vector<int>::iterator it_cpy(it);
 	std::cout << "iterator it_cpy(it);" << std::endl;
 	std::cout << "cout *it_cpy = " << *it_cpy << std::endl << std::endl;
 }
 
 void	test_reverse_iterator(void)
 {
-	ft::vector<int>	v;
-	ft::vector<int>::reverse_iterator	it;
+	NMSPC::vector<int>	v;
+	NMSPC::vector<int>::reverse_iterator	it;
 
 	std::cout << "\n---------------------------- " << std::endl;
 	v.push_back(1);
@@ -435,7 +434,7 @@ void	test_reverse_iterator(void)
 
 	std::cout << "for it = v.rbegin(); it != v.rend(); it++" << std::endl;
 	std::cout << "std::cout << *it << std::endl;" << std::endl;
-	for (ft::vector<int>::reverse_iterator it2 = v.rbegin(); it2 != v.rend(); it2++)
+	for (NMSPC::vector<int>::reverse_iterator it2 = v.rbegin(); it2 != v.rend(); it2++)
 		std::cout << *it2 << std::endl;
 
 	it = v.rbegin();
@@ -454,10 +453,10 @@ void	test_constructors(void)
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Constructors :" << std::endl;
 
-	ft::vector<int> v;
+	NMSPC::vector<int> v;
 
 	std::cout << "Default constructor :" << std::endl;
-	std::cout << "ft::vector<int> v;" << std::endl;
+	std::cout << "vector<int> v;" << std::endl;
 	std::cout << "v.capacity() = " << v.capacity() << std::endl;
 	std::cout << "v.size() = " << v.size() << std::endl;
 
@@ -471,32 +470,32 @@ void	test_constructors(void)
 	std::cout << "v.push_back(123);" << std::endl;
 
 	std::cout << "Iterator constructor :" << std::endl;
-	std::cout << "ft::vector<int> v_it(v.begin(), v.end());" << std::endl;
-	ft::vector<int> v_it(v.begin(), v.end());
+	std::cout << "vector<int> v_it(v.begin(), v.end());" << std::endl;
+	NMSPC::vector<int> v_it(v.begin(), v.end());
 
-	std::cout << "for (ft::vector<int>::iterator it = v_it.begin(); it != v_it.end(); it++)" << std::endl;
+	std::cout << "for (vector<int>::iterator it = v_it.begin(); it != v_it.end(); it++)" << std::endl;
 	std::cout << "    std::cout << *it << std::endl;" << std::endl;
-	for (ft::vector<int>::iterator it = v_it.begin(); it != v_it.end(); it++)
+	for (NMSPC::vector<int>::iterator it = v_it.begin(); it != v_it.end(); it++)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
 
 	std::cout << "Copy constructor :" << std::endl;
-	std::cout << "ft::vector<int> v_cpy(v_it);" << std::endl;
-	ft::vector<int> v_cpy(v_it);
+	std::cout << "vector<int> v_cpy(v_it);" << std::endl;
+	NMSPC::vector<int> v_cpy(v_it);
 
-	std::cout << "for (ft::vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)" << std::endl;
+	std::cout << "for (vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)" << std::endl;
 	std::cout << "std::cout << *it << std::endl;" << std::endl;
-	for (ft::vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)
+	for (NMSPC::vector<int>::iterator it = v_cpy.begin(); it != v_cpy.end(); it++)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
 
 	std::cout << "Fill constructor :" << std::endl;
-	std::cout << "ft::vector<int> v_fill(25, 42);" << std::endl;
-	ft::vector<int> v_fill(25, 42);
+	std::cout << "vector<int> v_fill(25, 42);" << std::endl;
+	NMSPC::vector<int> v_fill(25, 42);
 
-	std::cout << "for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)" << std::endl;
+	std::cout << "for (vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)" << std::endl;
 	std::cout << "std::cout << *it << std::endl;" << std::endl;
-	for (ft::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)
+	for (NMSPC::vector<int>::iterator it = v_fill.begin(); it != v_fill.end(); it++)
 		std::cout << *it << " -- ";
 	std::cout << std::endl;
 }
@@ -506,13 +505,13 @@ void	test_assign(void)
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Assign() :" << std::endl;
 
-	ft::vector<int> v1;
+	NMSPC::vector<int> v1;
 	v1.push_back(42);
 	v1.push_back(1);
 	v1.push_back(56);
 	v1.push_back(123);
 
-	std::cout << "ft::vector<int> v1;" << std::endl;
+	std::cout << "vector<int> v1;" << std::endl;
 	std::cout << "For a vector v1 = ";
 	std::cout << "{";
 	for (size_t i = 0; i < v1.size() - 1; i++)
@@ -520,14 +519,14 @@ void	test_assign(void)
 	std::cout << v1[v1.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	ft::vector<int> v2;
+	NMSPC::vector<int> v2;
 	v2.push_back(420);
 	v2.push_back(9999);
 	v2.push_back(66666);
 	v2.push_back(1234567);
 	v2.push_back(507317);
 	v2.push_back(2147483640);
-	std::cout << "ft::vector<int> v2;" << std::endl;
+	std::cout << "vector<int> v2;" << std::endl;
 	std::cout << "For a vector v2 = ";
 	std::cout << "{";
 	for (size_t i = 0; i < v2.size() - 1; i++)
@@ -560,7 +559,7 @@ void	test_insert(void)
 	std::cout << "Insert() :" << std::endl << std::endl;
 
 	std::cout << "Single element insertion :" << std::endl;
-	ft::vector<std::string>	v1;
+	NMSPC::vector<std::string>	v1;
 
 	v1.push_back("coucou");
 	v1.push_back("comment");
@@ -608,7 +607,7 @@ void	test_insert(void)
 	std::cout << "}" << std::endl << std::endl;
 
 	std::cout << "Insert in empty vector :" << std::endl << std::endl;
-	ft::vector<std::string> v2;
+	NMSPC::vector<std::string> v2;
 	std::cout << "For a std::string vector v2 = {}" << std::endl << std::endl;
 
 	v2.insert(v2.begin(), "I'm alone here, it suks !");
@@ -623,7 +622,7 @@ void	test_insert(void)
 
 	std::cout << "\nFill insertion :" << std::endl << std::endl;
 
-	ft::vector<std::string>	v3;
+	NMSPC::vector<std::string>	v3;
 
 	v3.push_back("i");
 	v3.push_back("dont");
@@ -688,7 +687,7 @@ void	test_insert(void)
 
 	std::cout << "Insert in empty vector :" << std::endl << std::endl;
 
-	ft::vector<std::string> v4;
+	NMSPC::vector<std::string> v4;
 
 	std::cout << "For a std::string vector v4 = {}" << std::endl << std::endl;
 
@@ -704,8 +703,8 @@ void	test_insert(void)
 
 	std::cout << "\nRange insertion :" << std::endl << std::endl;
 
-	ft::vector<std::string> apple(10, "🍎");
-	ft::vector<std::string> lemon(5, "🍋");
+	NMSPC::vector<std::string> apple(10, "🍎");
+	NMSPC::vector<std::string> lemon(5, "🍋");
 
 	std::cout << "For a std::string vector apple = ";
 	std::cout << "{";
@@ -736,17 +735,17 @@ void	test_clear_erase(void)
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Clear() :" << std::endl << std::endl;
 
-	ft::vector<std::string> mess(20, "MESS");
+	NMSPC::vector<std::string> mess(20, "MESS");
 
 	std::cout << "For a vector named mess = {";
-	for (ft::vector<std::string>::iterator it = mess.begin(); it + 1 != mess.end(); it++)
+	for (NMSPC::vector<std::string>::iterator it = mess.begin(); it + 1 != mess.end(); it++)
 		std::cout << *it << ", ";
 	if (mess.empty() == false)
 		std::cout << mess[mess.size() - 1] << "}" << std::endl;
 	else
 		std::cout << "}" << std::endl;
 
-	std::cout << "ft::vector<std::string> mess(20, \"MESS\");" << std::endl;
+	std::cout << "vector<std::string> mess(20, \"MESS\");" << std::endl;
 	std::cout << "mess.size() = " << mess.size() << std::endl;
 	std::cout << "mess.capacity() = " << mess.capacity() << std::endl << std::endl;
 
@@ -755,7 +754,7 @@ void	test_clear_erase(void)
 	std::cout << "mess = {";
 	if (mess.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = mess.begin(); it + 1 != mess.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = mess.begin(); it + 1 != mess.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << mess[mess.size() - 1] << "}" << std::endl;
 	}
@@ -767,7 +766,7 @@ void	test_clear_erase(void)
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Erase() :" << std::endl;
 
-	ft::vector<std::string> alien_hidden(10, "🎅");
+	NMSPC::vector<std::string> alien_hidden(10, "🎅");
 
 	alien_hidden.insert(alien_hidden.begin() + 2, "👽");
 	alien_hidden.insert(alien_hidden.begin() + 5, "👽");
@@ -776,7 +775,7 @@ void	test_clear_erase(void)
 	std::cout << "For a string vector alien_hidden = {";
 	if (alien_hidden.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << alien_hidden[alien_hidden.size() - 1] << "}" << std::endl;
 	}
@@ -789,7 +788,7 @@ void	test_clear_erase(void)
 	std::cout << "now alien_hidden = {";
 	if (alien_hidden.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << alien_hidden[alien_hidden.size() - 1] << "}" << std::endl;
 	}
@@ -802,7 +801,7 @@ void	test_clear_erase(void)
 	std::cout << "now alien_hidden = {";
 	if (alien_hidden.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << alien_hidden[alien_hidden.size() - 1] << "}" << std::endl;
 	}
@@ -815,7 +814,7 @@ void	test_clear_erase(void)
 	std::cout << "now alien_hidden = {";
 	if (alien_hidden.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << alien_hidden[alien_hidden.size() - 1] << "}" << std::endl;
 	}
@@ -828,7 +827,7 @@ void	test_clear_erase(void)
 	std::cout << "now alien_hidden = {";
 	if (alien_hidden.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = alien_hidden.begin(); it + 1 != alien_hidden.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << alien_hidden[alien_hidden.size() - 1] << "}" << std::endl;
 	}
@@ -842,22 +841,22 @@ void	test_swap(void)
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Swap() :" << std::endl << std::endl;
 
-	ft::vector<std::string> victor(10, "🌹");
+	NMSPC::vector<std::string> victor(10, "🌹");
 	std::cout << "For a string vector victor = {";
 	if (victor.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << victor[victor.size() - 1] << "}" << std::endl;
 	}
 	else
 		std::cout << "}" << std::endl;
 
-	ft::vector<std::string> vincent(5, "🌷");
+	NMSPC::vector<std::string> vincent(5, "🌷");
 	std::cout << "For a string vector vincent = {";
 	if (vincent.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << vincent[vincent.size() - 1] << "}" << std::endl;
 	}
@@ -870,7 +869,7 @@ void	test_swap(void)
 	std::cout << "now victor = {";
 	if (victor.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << victor[victor.size() - 1] << "}" << std::endl;
 	}
@@ -880,7 +879,7 @@ void	test_swap(void)
 	std::cout << "now vicent = {";
 	if (vincent.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << vincent[vincent.size() - 1] << "}" << std::endl;
 	}
@@ -893,7 +892,7 @@ void	test_swap(void)
 	std::cout << "now victor = {";
 	if (victor.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << victor[victor.size() - 1] << "}" << std::endl;
 	}
@@ -903,7 +902,7 @@ void	test_swap(void)
 	std::cout << "now vicent = {";
 	if (vincent.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << vincent[vincent.size() - 1] << "}" << std::endl;
 	}
@@ -916,7 +915,7 @@ void	test_swap(void)
 	std::cout << "now victor = {";
 	if (victor.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = victor.begin(); it + 1 != victor.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << victor[victor.size() - 1] << "}" << std::endl;
 	}
@@ -926,20 +925,20 @@ void	test_swap(void)
 	std::cout << "now vicent = {";
 	if (vincent.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = vincent.begin(); it + 1 != vincent.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << vincent[vincent.size() - 1] << "}" << std::endl;
 	}
 	else
 		std::cout << "}" << std::endl;
 
-	ft::vector<std::string>	empty_one;
-	ft::vector<std::string>	empty_two;
+	NMSPC::vector<std::string>	empty_one;
+	NMSPC::vector<std::string>	empty_two;
 
 	std::cout << "For a string vector empty_one = {";
 	if (empty_one.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = empty_one.begin(); it + 1 != empty_one.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = empty_one.begin(); it + 1 != empty_one.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << empty_one[empty_one.size() - 1] << "}" << std::endl;
 	}
@@ -949,7 +948,7 @@ void	test_swap(void)
 	std::cout << "For a string vector empty_two = {";
 	if (empty_two.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = empty_two.begin(); it + 1 != empty_two.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = empty_two.begin(); it + 1 != empty_two.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << empty_two[empty_two.size() - 1] << "}" << std::endl;
 	}
@@ -962,7 +961,7 @@ void	test_swap(void)
 	std::cout << "now empty_one = {";
 	if (empty_one.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = empty_one.begin(); it + 1 != empty_one.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = empty_one.begin(); it + 1 != empty_one.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << empty_one[empty_one.size() - 1] << "}" << std::endl;
 	}
@@ -972,7 +971,7 @@ void	test_swap(void)
 	std::cout << "now empty_two = {";
 	if (empty_two.empty() == false)
 	{
-		for (ft::vector<std::string>::iterator it = empty_two.begin(); it + 1 != empty_two.end(); it++)
+		for (NMSPC::vector<std::string>::iterator it = empty_two.begin(); it + 1 != empty_two.end(); it++)
 			std::cout << *it << ", ";
 		std::cout << empty_two[empty_two.size() - 1] << "}" << std::endl;
 	}
@@ -984,7 +983,7 @@ void	test_buffer()
 {
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Buffer test :" << std::endl;
-	ft::vector<Buffer> vector_buffer;
+	NMSPC::vector<Buffer> vector_buffer;
 	std::cout <<"COUNT value = " << COUNT << std::endl;
 
 	for (int i = 0; i < COUNT; i++)
@@ -998,7 +997,7 @@ void	test_buffer()
 		vector_buffer[idx].idx = 5;
 	}
 
-	ft::vector<Buffer>().swap(vector_buffer);
+	NMSPC::vector<Buffer>().swap(vector_buffer);
 
 	try
 	{
@@ -1015,12 +1014,12 @@ void	test_buffer()
 		//NORMAL ! :P
 	}
 }
-
+*/
 void	vectorTests()
 {
-	test_push();
+//	test_push();
 	test_element_access();
-	test_re_serve_size();
+/*	test_re_serve_size();
 	test_pop_back();
 	test_constructors();
 	test_iterator_incrementers_ft();
@@ -1031,5 +1030,5 @@ void	vectorTests()
 	test_insert();
 	test_clear_erase();
 	test_swap();
-	test_buffer();
+	test_buffer();*/
 }

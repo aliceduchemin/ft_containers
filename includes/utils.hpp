@@ -19,8 +19,7 @@
 
 namespace ft
 {
-	const                        
-	class nullptr_t
+	const class nullptr_t
 	{
 		public:
 			template<class T>          

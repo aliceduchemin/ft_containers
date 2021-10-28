@@ -10,16 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./testers/testsContainers.hpp"
+#include "testsContainers.hpp"
 
-int main(int argc, char** argv) 
+int main() 
 {
-	std::cout << std::endl <<"You are testing the ";
-	if (CHOICE == 0)
-		std::cout << "std library" << std::endl;
-	else if (CHOICE == 1)
-		std::cout << "ft library" << std::endl;
-
 	struct timeval begin, end;
 	gettimeofday(&begin, 0);
 	
@@ -27,10 +21,10 @@ int main(int argc, char** argv)
 	vectorTests();
 
 	std::cout << "\n\n\n########## STACK TESTS : ##########\n" << std::endl;
-	stackTests();
+//	stackTests();
 
 	std::cout << "\n\n\n########## MAP TESTS : ##########\n" << std::endl;
-	mapTests();
+//	mapTests();
 
 
 	gettimeofday(&end, 0);

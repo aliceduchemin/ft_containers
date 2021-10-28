@@ -17,8 +17,14 @@
 #include <string>
 #include <stdlib.h>
 #include <sys/time.h>
+//#include "../includes/Map/map.hpp"
+//#include "../includes/Stack/stack.hpp"
+#include "../includes/Vector/vector.hpp"
+#include <map>
+#include <stack>
+#include <vector>
 
-#define CHOICE 2
+/*#define CHOICE 2
 
 #if CHOICE == 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
@@ -29,7 +35,7 @@
 	#include "../includes/Map/map.hpp"
 	#include "../includes/Stack/stack.hpp"
 	#include "../includes/Vector/vector.hpp"
-#endif
+#endif*/
 
 #define MAX_RAM 429496729
 #define BUFFER_SIZE 4096
@@ -40,7 +46,7 @@ struct Buffer
 };
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
-
+/*
 template<typename T>
 class MutantStack : public ft::stack<T>
 {
@@ -58,10 +64,10 @@ public:
 
 	iterator begin() { return this->c.begin(); }
 	iterator end() { return this->c.end(); }
-};
+};*/
 
 void	vectorTests();
-void	stackTests();
-void	mapTests();
+//void	stackTests();
+//void	mapTests();
 
 #endif
