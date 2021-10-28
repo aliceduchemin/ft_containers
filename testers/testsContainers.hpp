@@ -17,7 +17,7 @@
 #include <string>
 #include <stdlib.h>
 #include <sys/time.h>
-//#include "../includes/Map/map.hpp"
+#include "../includes/Map/map.hpp"
 #include "../includes/Stack/stack.hpp"
 #include "../includes/Vector/vector.hpp"
 #include <map>
@@ -55,6 +55,6 @@ public:
 
 void	vectorTests();
 void	stackTests();
-//void	mapTests();
+void	mapTests();
 
 #endif

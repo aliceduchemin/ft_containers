@@ -24,8 +24,7 @@ int main()
 	stackTests();
 
 	std::cout << "\n\n\n########## MAP TESTS : ##########\n" << std::endl;
-//	mapTests();
-
+	mapTests();
 
 	gettimeofday(&end, 0);
 	long seconds = end.tv_sec - begin.tv_sec;

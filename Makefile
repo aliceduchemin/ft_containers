@@ -1,8 +1,8 @@
 SRCS_DIR			= ./testers/
 SRCS				= main.cpp \
 					testsVector.cpp \
-					testsStack.cpp #\
-					./testers/testsMap.cpp
+					testsStack.cpp \
+					testsMap.cpp
 
 OBJS_DIR_FT			= ./objs_ft/
 OBJS_FT				= $(addprefix $(OBJS_DIR_FT), $(SRCS:.cpp=.o))
@@ -16,9 +16,11 @@ NAME_STL			= STL_containers
 
 RM					= rm -f
 
-FLAGS_FT			= -Wall -Wextra -Werror -g -D NMSPC=ft -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -std=c++98
+RMDIR				= rmdir
 
-FLAGS_STL			= -Wall -Wextra -Werror -g -D NMSPC=std -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -std=c++98
+FLAGS_FT			= -Wall -Wextra -Werror -g -D NMSPC=ft -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -I ./includes/Map -std=c++98
+
+FLAGS_STL			= -Wall -Wextra -Werror -g -D NMSPC=std -I ./testers/testsContainers.hpp -I ./includes/Vector -I ./includes/Stack -I ./includes/Map -std=c++98
 
 $(OBJS_DIR_FT)%.o :	$(SRCS_DIR)%.cpp
 					mkdir -p objs_ft
@@ -28,19 +30,20 @@ $(OBJS_DIR_STL)%.o :$(SRCS_DIR)%.cpp
 					mkdir -p objs_stl
 					clang++ $(FLAGS_STL) -c $< -o $@
 
+all:				$(NAME_FT) $(NAME_STL)
+
 $(NAME_FT):			$(OBJS_FT)
 					clang++ $(FLAGS_FT) $(OBJS_FT) -o $(NAME_FT) 
 
 $(NAME_STL):		$(OBJS_STL)
 					clang++ $(FLAGS_STL) $(OBJS_STL) -o $(NAME_STL) 
 
-all:				$(NAME_FT) $(NAME_STL)
-
 clean:
 					@$(RM) $(OBJS_FT) $(OBJS_STL)
 
 fclean:				clean
 					@$(RM) $(NAME_FT) $(NAME_STL)
+					@$(RMDIR) objs_stl objs_ft
 
 re:					fclean all
 

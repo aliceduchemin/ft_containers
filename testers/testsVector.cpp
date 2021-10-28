@@ -298,7 +298,6 @@ void	test_iterator_incrementers_ft()
 void	test_iterator_booleans_ft()
 {
 	NMSPC::vector<int>				v;
-	NMSPC::vector<int>::iterator	it;
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Comparators on iterators :" << std::endl;
