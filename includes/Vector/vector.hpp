@@ -210,10 +210,9 @@ namespace ft
 			const_reference	back() const { return *_endNode; };
 
 			/********* MODIFIERS *********/
-		/*	template < class InputIterator >
+			template < class InputIterator >
 			void	assign(InputIterator first, InputIterator last, 
-					typename ft::enable_if<!ft::is_integral<InputIterator>::value, 
-					InputIterator>::type* = ft::nullptr_t)
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft::nullptr_t)
 			{	
 				if (this->_number != 0)
 					this->clear();
@@ -226,7 +225,7 @@ namespace ft
 					this->_number++;
 					first++; 
 				} 
-			};*/
+			};
 
 			void		assign(size_type n, const value_type& val)
 			{
@@ -306,7 +305,7 @@ namespace ft
 				}
 			};
 
-		/*	template < class InputIterator >
+			template < class InputIterator >
 			void		insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 			{	
 				iterator ret = position;
@@ -319,7 +318,7 @@ namespace ft
 						ret = this->insert(++ret, *first);
 					first++;
 				} 
-			};*/
+			};
 
 			iterator	erase(iterator position)
 			{

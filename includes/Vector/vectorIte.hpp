@@ -24,13 +24,14 @@ namespace ft
 
 	template < class Category, class T, class Distance = std::ptrdiff_t,
 			   class Pointer = T*, class Reference = T& >
-		struct iterator {
-			typedef T			value_type;
-			typedef Distance	difference_type;
-			typedef Pointer		pointer;
-			typedef Reference	reference;
-			typedef Category	iterator_category;
-		};
+	struct iterator
+	{
+		typedef T			value_type;
+		typedef Distance	difference_type;
+		typedef Pointer		pointer;
+		typedef Reference	reference;
+		typedef Category	iterator_category;
+	};
 
 	template<bool B, class T = void>
 	struct enable_if {};
@@ -38,18 +39,24 @@ namespace ft
 	template<class T>
 	struct enable_if<true, T> { typedef T type; };
 
-/*	template<typename _Tp, _Tp __v>
-	struct integral_constant
-	{
-		static const _Tp					value = __v;
-		typedef _Tp							value_type;
-		typedef integral_constant<_Tp, __v>	type;
-		constexpr operator _Tp() {	return __v;	}
+	template <bool is_integral, typename T>
+	struct is_integral_base {
+		typedef T type;
+		static const bool value = is_integral;
 	};
 
-	template<class T>
-	struct is_integral : public integral_constant<bool, __is_integral(T)> {};
-*/
+	template<typename> struct is_integral_t : public is_integral_base<false, bool> {};
+
+	template<> struct is_integral_t<bool> : public is_integral_base<true, bool> {};
+	template<> struct is_integral_t<char> : public is_integral_base<true, char> {};
+	template<> struct is_integral_t<wchar_t> : public is_integral_base<true, wchar_t> {};
+	template<> struct is_integral_t<short> : public is_integral_base<true, short> {};
+	template<> struct is_integral_t<int> : public is_integral_base<true, int> {};
+	template<> struct is_integral_t<long> : public is_integral_base<true, long> {};
+	template<> struct is_integral_t<long long> : public is_integral_base<true, long long> {};
+
+	template<typename T> struct is_integral: is_integral_t<T> {};
+
 	template < class Iterator >
 	struct iterator_traits {
 		typedef typename Iterator::value_type			value_type;

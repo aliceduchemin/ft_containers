@@ -24,19 +24,6 @@
 #include <stack>
 #include <vector>
 
-/*#define CHOICE 2
-
-#if CHOICE == 0 //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
-	namespace ft = std;
-#elif CHOICE == 1
-	#include "../includes/Map/map.hpp"
-	#include "../includes/Stack/stack.hpp"
-	#include "../includes/Vector/vector.hpp"
-#endif*/
-
 #define MAX_RAM 429496729
 #define BUFFER_SIZE 4096
 struct Buffer

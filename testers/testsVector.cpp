@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "testsContainers.hpp"
-/*
+
 void	test_push(void)
 {
 	std::cout << "\n---------------------------- " << std::endl;
@@ -44,7 +44,7 @@ void	test_push(void)
 
 	std::cout << "Max size : " << test.max_size() << std::endl;
 }
-*/
+
 void	test_element_access(void)
 {
 	NMSPC::vector<int> test;
@@ -95,7 +95,7 @@ void	test_element_access(void)
 	std::cout << "front() = " << test2.front() << std::endl;
 	std::cout << "back() = " << test2.back() << std::endl;
 }
-/*
+
 void	test_re_serve_size(void)
 {
 	std::cout << "\n---------------------------- " << std::endl;
@@ -1014,12 +1014,12 @@ void	test_buffer()
 		//NORMAL ! :P
 	}
 }
-*/
+
 void	vectorTests()
 {
-//	test_push();
+	test_push();
 	test_element_access();
-/*	test_re_serve_size();
+	test_re_serve_size();
 	test_pop_back();
 	test_constructors();
 	test_iterator_incrementers_ft();
@@ -1030,5 +1030,5 @@ void	vectorTests()
 	test_insert();
 	test_clear_erase();
 	test_swap();
-	test_buffer();*/
+	test_buffer();
 }
