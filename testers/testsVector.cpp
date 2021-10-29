@@ -468,6 +468,12 @@ void	test_constructors(void)
 	std::cout << "v.push_back(56);" << std::endl;
 	std::cout << "v.push_back(123);" << std::endl;
 
+	NMSPC::vector<int>::iterator it1 = v.begin();
+	NMSPC::vector<int>::iterator ite1 = v.end();
+	for (it1 = v.begin(); it1 != ite1 ; it1++)
+		std::cout << *it1 << " -- ";
+	std::cout << std::endl;
+
 	std::cout << "Iterator constructor :" << std::endl;
 	std::cout << "vector<int> v_it(v.begin(), v.end());" << std::endl;
 	NMSPC::vector<int> v_it(v.begin(), v.end());
@@ -573,8 +579,9 @@ void	test_insert(void)
 	std::cout << v1[v1.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	v1.insert(v1.begin(), "BANANAS SUKS ");
+	NMSPC::vector<std::string>::iterator ret = v1.insert(v1.begin(), "BANANAS SUKS ");
 	std::cout << "insert(v1.begin(), \"BANANAS SUKS \")" << std::endl;
+	std::cout << "return from insert = " << *ret << std::endl;
 
 	std::cout << "v1 now = ";
 	std::cout << "{";
@@ -684,7 +691,7 @@ void	test_insert(void)
 	std::cout << v3[v3.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-	std::cout << "Insert in empty vector :" << std::endl << std::endl;
+/*	std::cout << "\nFill insert :" << std::endl << std::endl;
 
 	NMSPC::vector<std::string> v4;
 
@@ -699,8 +706,8 @@ void	test_insert(void)
 		std::cout << v4[i] << ", ";
 	std::cout << v4[v4.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
-
-	std::cout << "\nRange insertion :" << std::endl << std::endl;
+*/
+/*	std::cout << "\nRange insertion :" << std::endl << std::endl;
 
 	NMSPC::vector<std::string> apple(10, "🍎");
 	NMSPC::vector<std::string> lemon(5, "🍋");
@@ -726,7 +733,7 @@ void	test_insert(void)
 	for (size_t i = 0; i < apple.size() - 1; i++)
 		std::cout << apple[i] << ", ";
 	std::cout << apple[apple.size() - 1];
-	std::cout << "}" << std::endl;
+	std::cout << "}" << std::endl;*/
 }
 
 void	test_clear_erase(void)
@@ -1016,18 +1023,18 @@ void	test_buffer()
 
 void	vectorTests()
 {
-	test_push();
+/*	test_push();
 	test_element_access();
 	test_re_serve_size();
 	test_pop_back();
-/*	test_constructors();
+	test_constructors();
 	test_iterator_incrementers_ft();
 	test_iterator_booleans_ft();
 	test_iterator_deref_ft();
 	test_reverse_iterator();
 	test_assign();
-	test_insert();
-	test_clear_erase();
+*/	test_insert();
+/*	test_clear_erase();
 	test_swap();
 	test_buffer();*/
 }

@@ -40,58 +40,59 @@ namespace ft
 			/********* CONSTRUCTEURS *********/
 			explicit vector(const allocator_type& alloc = allocator_type())
 			{
+				this->_headNode = NULL;
 				this->_endNode = NULL;
 				this->_cap = 0;
 				this->_allocator = alloc;
-			//	this->_headNode = this->_allocator.allocate(0);
 				this->_number = 0;
 			}
 
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-			{	this->_endNode = NULL;
+			{	
+				this->_headNode = NULL;
+				this->_endNode = NULL;
 				this->_cap = 0;
 				this->_allocator = alloc;
-			//	this->_headNode = this->_allocator.allocate(0);
-			//	this->_endNode = this->_headNode;
 				this->_number = 0;
 				this->insert(this->begin(), n, val);
 			};
 
 			template< class InputIterator >
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-			{ 	this->_endNode = NULL;
+			{ 	
+				this->_headNode = NULL;
+				this->_endNode = NULL;
 				this->_cap = 0;
 				this->_allocator = alloc;
-			//	this->_headNode = this->_allocator.allocate(0);
-			//	this->_endNode = this->_headNode;
 				this->_number = 0;
 				this->assign(first, last);
 			};
 
 			vector(const vector& x)
 			{
+				this->_headNode = NULL;
 				this->_endNode = NULL;
 				this->_cap = 0;
-			//	this->_headNode = this->_allocator.allocate(0);
 				this->_number = 0;
 				*this = x;
 			};
 
 			vector & operator=(vector const & x)
 			{
-				size_type	i;
-				const_iterator it = x.begin();
-
 				if (this->_number > 0)
 					this->clear();
 
-				i = 1;
-				while (i <= x.size())
+				this->_number = x._number;
+				this->_cap = x._cap;
+				this->_headNode = this->_allocator.allocate(this->_cap);
+				
+				size_type i = 0;
+				while (i < this->_number)
 				{
-					this->push_back(*it);
-					it++;
+					this->_allocator.construct(&this->_headNode[i], x._headNode[i]);
 					i++;
 				}
+				this->_endNode = &this->_headNode[this->_number - 1];
 				return *this;
 			};
 
@@ -169,7 +170,7 @@ namespace ft
 				if (n <= this->_cap)
 					return ;
 				if (n > this->max_size())
-					throw std::out_of_range("vector:: capcity request beyond max_size()");
+					throw std::out_of_range("vector:: capacity request beyond max_size()");
 
 				if (this->empty())
 					this->_headNode = this->_allocator.allocate(n);
@@ -221,12 +222,17 @@ namespace ft
 			void	assign(InputIterator first, InputIterator last, 
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft::nullptr_t)
 			{	
-				if (this->_number != 0)
+				if (this->_number > 0)
 					this->clear();
+
+				size_type n = 0;
+				iterator tmp = first;
+				while (tmp != last)
+				{ tmp++; n++; }
+				this->reserve(n);
+
 				while (first != last)
 				{
-					if (this->_cap <= this->_number)
-						this->reserve(this->_number + 1);
 					this->_allocator.construct(&this->_headNode[this->_number], *first);
 					this->_endNode = &this->_headNode[this->_number];
 					this->_number++;
@@ -238,11 +244,14 @@ namespace ft
 			{
 				if (this->_number != 0)
 					this->clear();
+
+				this->reserve(this->_number + n);
+
 				size_type i = 0;
 				while (i < n)
 				{
-					if (this->_cap <= this->_number)
-						this->reserve(this->_number + 1);
+				//	if (this->_cap <= this->_number)
+				//		this->reserve(this->_number + 1);
 					this->_allocator.construct(&this->_headNode[this->_number], val);
 					this->_endNode = &this->_headNode[this->_number];
 					this->_number++;
@@ -270,36 +279,18 @@ namespace ft
 
 			iterator	insert(iterator position, const value_type& val)
 			{
-				size_type dist = 0;
-				iterator it;
-				pointer tmp = this->_allocator.allocate(this->_cap = this->_number + 1);
+				size_type	distFromBegin = position - this->begin();
+				size_type	oldSize = this->_number;
 
-				for (it = this->begin(); it != position; it++)
-					dist++;
-				size_type j = 0;
-				while (j < dist)
-				{
-					this->_allocator.construct(&tmp[j], this->_headNode[j]);
-					this->_allocator.destroy(&this->_headNode[j]);
-					j++;
-				}
-				this->_allocator.construct(&tmp[j], val);
-				j++;
-				it = &tmp[0] + dist;
-				this->_number++;
+				this->resize(this->_number + 1);
 
-				while (j < this->_number)
-				{
-					this->_allocator.construct(&tmp[j], this->_headNode[j - 1]);
-					this->_allocator.destroy(&this->_headNode[j - 1]);
-					j++;
-				}
-
-				if (!this->empty())
-					this->_allocator.deallocate(this->_headNode, this->_cap);
-				this->_headNode = tmp;
-				this->_endNode = &this->_headNode[this->_number - 1];
-				return it;
+				iterator	oldEnd = this->begin() + oldSize;
+				iterator	end = this->end();
+				iterator	injection = this->begin() + distFromBegin;
+				while (oldEnd != injection)
+					*--end = *--oldEnd;
+				*injection++ = val;
+				return --injection;
 			};
 
 			void		insert(iterator position, size_type n, const value_type& val)
@@ -405,7 +396,6 @@ namespace ft
 		private:
 			pointer			_headNode;
 			pointer			_endNode;
-			pointer			_container;			
 			size_type		_number;
 			size_type		_cap;
 			allocator_type	_allocator;
