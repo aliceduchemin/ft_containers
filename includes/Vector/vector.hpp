@@ -288,20 +288,25 @@ namespace ft
 				iterator	end = this->end();
 				iterator	injection = this->begin() + distFromBegin;
 				while (oldEnd != injection)
-					*--end = *--oldEnd;
+				{	*--end = *--oldEnd;	}
 				*injection++ = val;
 				return --injection;
 			};
 
 			void		insert(iterator position, size_type n, const value_type& val)
 			{
-				size_type i = 0;
-				iterator ret = position;
-				while (i < n)
-				{
-					ret = this->insert(ret, val);
-					i++;
-				}
+				size_type	distFromBegin = position - this->begin();
+				size_type	oldSize = this->_number;
+
+				this->resize(this->_number + n);
+
+				iterator	oldEnd = this->begin() + oldSize;
+				iterator	end = this->end();
+				iterator	injection = this->begin() + distFromBegin;
+				while (oldEnd != injection)
+				{	*--end = *--oldEnd;	}
+				while (n > 0)
+				{	*injection++ = val; n--;	}
 			};
 
 			template < class InputIterator >

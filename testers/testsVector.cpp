@@ -691,7 +691,7 @@ void	test_insert(void)
 	std::cout << v3[v3.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
-/*	std::cout << "\nFill insert :" << std::endl << std::endl;
+	std::cout << "\nFill insert :" << std::endl << std::endl;
 
 	NMSPC::vector<std::string> v4;
 
@@ -706,8 +706,8 @@ void	test_insert(void)
 		std::cout << v4[i] << ", ";
 	std::cout << v4[v4.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
-*/
-/*	std::cout << "\nRange insertion :" << std::endl << std::endl;
+
+	std::cout << "\nRange insertion :" << std::endl << std::endl;
 
 	NMSPC::vector<std::string> apple(10, "🍎");
 	NMSPC::vector<std::string> lemon(5, "🍋");
@@ -733,7 +733,7 @@ void	test_insert(void)
 	for (size_t i = 0; i < apple.size() - 1; i++)
 		std::cout << apple[i] << ", ";
 	std::cout << apple[apple.size() - 1];
-	std::cout << "}" << std::endl;*/
+	std::cout << "}" << std::endl;
 }
 
 void	test_clear_erase(void)
