@@ -539,6 +539,7 @@ void	test_assign(void)
 	std::cout << v2[v2.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
+	std::cout << "\nRange assign :" <<std::endl;
 	v1.assign(v2.begin(), v2.end());
 	std::cout << "v1.assign(v2.begin(), v2.end())" << std::endl;
 		std::cout << "v1 = ";
@@ -548,6 +549,7 @@ void	test_assign(void)
 	std::cout << v1[v1.size() - 1];
 	std::cout << "}" << std::endl << std::endl;
 
+	std::cout << "\nFill assign :" <<std::endl;
 	v2.assign(10, 8);
 	std::cout << "v2.assign(10, 8);" << std::endl;
 		std::cout << "v2 = ";
@@ -1032,9 +1034,9 @@ void	vectorTests()
 	test_iterator_booleans_ft();
 	test_iterator_deref_ft();
 	test_reverse_iterator();
-	test_assign();
-*/	test_insert();
-/*	test_clear_erase();
+*/	test_assign();
+/*	test_insert();
+	test_clear_erase();
 	test_swap();
 	test_buffer();*/
 }

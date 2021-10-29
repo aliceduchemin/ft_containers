@@ -222,14 +222,14 @@ namespace ft
 			void	assign(InputIterator first, InputIterator last, 
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft::nullptr_t)
 			{	
-				if (this->_number > 0)
-					this->clear();
-
 				size_type n = 0;
 				iterator tmp = first;
 				while (tmp != last)
 				{ tmp++; n++; }
 				this->reserve(n);
+
+				if (this->_number > 0)
+					this->clear();
 
 				while (first != last)
 				{
@@ -242,16 +242,14 @@ namespace ft
 
 			void		assign(size_type n, const value_type& val)
 			{
-				if (this->_number != 0)
-					this->clear();
-
 				this->reserve(this->_number + n);
+
+				if (this->_number > 0)
+					this->clear();
 
 				size_type i = 0;
 				while (i < n)
 				{
-				//	if (this->_cap <= this->_number)
-				//		this->reserve(this->_number + 1);
 					this->_allocator.construct(&this->_headNode[this->_number], val);
 					this->_endNode = &this->_headNode[this->_number];
 					this->_number++;
@@ -387,16 +385,12 @@ namespace ft
 			void		clear()
 			{
 				while (this->_number > 0)
-				{
-					this->pop_back();
-				}
+				{	this->pop_back();	}
 			};
 
 			/********* ALLOCATOR *********/
 			allocator_type	get_allocator() const
-			{
-				return this->_allocator;
-			}
+			{	return this->_allocator;	};
 
 		private:
 			pointer			_headNode;
