@@ -376,10 +376,11 @@ namespace ft
 
 			void		swap(vector& x)
 			{
-				vector	tmp;
-				tmp = *this;
-				*this = x;
-				x = tmp;
+				ft::ft_swap(this->_headNode, x._headNode);
+				ft::ft_swap(this->_endNode, x._endNode);
+				ft::ft_swap(this->_number, x._number);
+				ft::ft_swap(this->_cap, x._cap);
+				ft::ft_swap(this->_allocator, x._allocator);
 			};
 
 			void		clear()

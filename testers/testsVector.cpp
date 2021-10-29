@@ -1025,7 +1025,7 @@ void	test_buffer()
 
 void	vectorTests()
 {
-/*	test_push();
+	test_push();
 	test_element_access();
 	test_re_serve_size();
 	test_pop_back();
@@ -1034,9 +1034,9 @@ void	vectorTests()
 	test_iterator_booleans_ft();
 	test_iterator_deref_ft();
 	test_reverse_iterator();
-*/	test_assign();
-/*	test_insert();
+	test_assign();
+	test_insert();
 	test_clear_erase();
 	test_swap();
-	test_buffer();*/
+	test_buffer();
 }
