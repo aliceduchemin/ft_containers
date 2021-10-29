@@ -18,10 +18,10 @@ int main()
 	gettimeofday(&begin, 0);
 	
 	std::cout << "########## VECTOR TESTS : ##########\n" << std::endl;
-//	vectorTests();
+	vectorTests();
 
 	std::cout << "\n\n\n########## STACK TESTS : ##########\n" << std::endl;
-	stackTests();
+//	stackTests();
 
 	std::cout << "\n\n\n########## MAP TESTS : ##########\n" << std::endl;
 //	mapTests();

@@ -43,7 +43,7 @@ namespace ft
 				this->_endNode = NULL;
 				this->_cap = 0;
 				this->_allocator = alloc;
-				this->_headNode = this->_allocator.allocate(0);
+			//	this->_headNode = this->_allocator.allocate(0);
 				this->_number = 0;
 			}
 
@@ -51,8 +51,8 @@ namespace ft
 			{	this->_endNode = NULL;
 				this->_cap = 0;
 				this->_allocator = alloc;
-				this->_headNode = this->_allocator.allocate(0);
-				this->_endNode = this->_headNode;
+			//	this->_headNode = this->_allocator.allocate(0);
+			//	this->_endNode = this->_headNode;
 				this->_number = 0;
 				this->insert(this->begin(), n, val);
 			};
@@ -62,8 +62,8 @@ namespace ft
 			{ 	this->_endNode = NULL;
 				this->_cap = 0;
 				this->_allocator = alloc;
-				this->_headNode = this->_allocator.allocate(0);
-				this->_endNode = this->_headNode;
+			//	this->_headNode = this->_allocator.allocate(0);
+			//	this->_endNode = this->_headNode;
 				this->_number = 0;
 				this->assign(first, last);
 			};
@@ -72,7 +72,7 @@ namespace ft
 			{
 				this->_endNode = NULL;
 				this->_cap = 0;
-				this->_headNode = this->_allocator.allocate(0);
+			//	this->_headNode = this->_allocator.allocate(0);
 				this->_number = 0;
 				*this = x;
 			};
@@ -97,7 +97,7 @@ namespace ft
 
 			~vector()
 			{
-				if (this->_number > 0)
+				if (!this->empty())
 					this->clear();
 				this->_allocator.deallocate(this->_headNode, this->_cap);
 			};
@@ -160,28 +160,35 @@ namespace ft
 				}
 			};
 
-			size_type	capacity() const { return _cap; };
+			size_type	capacity() const { return this->_cap; };
 
-			bool		empty() const { return (_number == 0); };
+			bool		empty() const { return (this->_number == 0); };
 
 			void		reserve(size_type n)
 			{
 				if (n <= this->_cap)
 					return ;
-			
-				pointer	tmp = this->_allocator.allocate(n);
-				size_type i = 0;
-				while (i < this->_number)
+				if (n > this->max_size())
+					throw std::out_of_range("vector:: capcity request beyond max_size()");
+
+				if (this->empty())
+					this->_headNode = this->_allocator.allocate(n);
+				else
 				{
-					this->_allocator.construct(&tmp[i], this->_headNode[i]);
-					this->_allocator.destroy(&this->_headNode[i]);
-					i++;
+					pointer	tmp = this->_allocator.allocate(n);
+					size_type i = 0;
+					while (i < this->_number)
+					{
+						this->_allocator.construct(&tmp[i], this->_headNode[i]);
+						this->_allocator.destroy(&this->_headNode[i]);
+						i++;
+					}
+					this->_allocator.deallocate(this->_headNode, this->_cap);
+					this->_headNode = tmp;
 				}
-				this->_allocator.deallocate(this->_headNode, this->_cap);
-				this->_headNode = tmp;
 				this->_cap = n;
 			};
-		
+
 			/********* ELEMENT ACCESS *********/
 			reference		operator[] (size_type n) { return _headNode[n]; };
 
@@ -288,7 +295,8 @@ namespace ft
 					j++;
 				}
 
-				this->_allocator.deallocate(this->_headNode, this->_cap);
+				if (!this->empty())
+					this->_allocator.deallocate(this->_headNode, this->_cap);
 				this->_headNode = tmp;
 				this->_endNode = &this->_headNode[this->_number - 1];
 				return it;

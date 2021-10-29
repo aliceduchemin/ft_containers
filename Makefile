@@ -34,11 +34,11 @@ all:				$(NAME_FT) $(NAME_STL)
 					@echo "Compilation complete"
 
 $(NAME_FT):			$(OBJS_FT)
-					@echo "Compiling ft librairy..."
+					@echo "Compiling ft library..."
 					@clang++ $(FLAGS_FT) $(OBJS_FT) -o $(NAME_FT) 
 
 $(NAME_STL):		$(OBJS_STL)
-					@echo "Compiling st librairy..."
+					@echo "Compiling st library..."
 					@clang++ $(FLAGS_STL) $(OBJS_STL) -o $(NAME_STL) 
 
 clean:

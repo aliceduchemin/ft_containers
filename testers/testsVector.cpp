@@ -1020,7 +1020,7 @@ void	vectorTests()
 	test_element_access();
 	test_re_serve_size();
 	test_pop_back();
-	test_constructors();
+/*	test_constructors();
 	test_iterator_incrementers_ft();
 	test_iterator_booleans_ft();
 	test_iterator_deref_ft();
@@ -1029,5 +1029,5 @@ void	vectorTests()
 	test_insert();
 	test_clear_erase();
 	test_swap();
-	test_buffer();
+	test_buffer();*/
 }
