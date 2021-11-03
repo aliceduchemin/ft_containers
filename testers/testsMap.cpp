@@ -281,6 +281,4 @@ void	mapTests()
 	for (revIt = test2.rbegin(); revIt != test2.rend(); ++revIt)
 		std::cout << "[" << revIt->first << "][" << revIt->second << "] | ";
 	std::cout<< std::endl;
-
-
 }

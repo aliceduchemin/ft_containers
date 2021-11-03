@@ -27,14 +27,14 @@ namespace ft
 	template <class Key,													// map::key_type
 			  class T,														// map::mapped_type
 			  class Compare = std::less<Key>,								// map::key_compare
-			  class Allocator = std::allocator<ft::pair<const Key,T> > >	// map::allocator_type
+			  class Allocator = std::allocator<ft::pair<Key,T> > >	// map::allocator_type
 
 	class	map
 	{
 		public:
 			typedef Key										key_type;
 			typedef T										mapped_type;
-			typedef ft::pair<const key_type, mapped_type>	value_type;
+			typedef ft::pair<key_type, mapped_type>			value_type;
 			typedef Compare									key_compare;
 			typedef Allocator 								allocator_type;
 			typedef typename Allocator::reference 			reference;
@@ -44,13 +44,14 @@ namespace ft
 			typedef typename Allocator::difference_type 	difference_type;
 			typedef typename Allocator::size_type 			size_type;
 			
-			typedef ft::BinarySearchTree<Key, T>*			bstree;
-			typedef ft::tree_node<Key, T>*					nodePtr;
+			typedef ft::tree_node<value_type>				node;
+			typedef node*									nodePtr;
+			typedef ft::BinarySearchTree<value_type>		bstree;
 
-			typedef ft::map_random_access_iterator<Key, T>			iterator;
-			typedef ft::const_map_random_access_iterator<Key, T>	const_iterator;
-			typedef ft::map_reverse_iterator<iterator>				reverse_iterator;
-			typedef ft::const_map_reverse_iterator<iterator>		const_reverse_iterator;
+			typedef ft::map_random_access_iterator<Key, T, node, Allocator>			iterator;
+			typedef ft::const_map_random_access_iterator<Key, T, node, Allocator>	const_iterator;
+			typedef ft::map_reverse_iterator<iterator>								reverse_iterator;
+			typedef ft::const_map_reverse_iterator<iterator>						const_reverse_iterator;
 			
 			class value_compare
 			{
@@ -74,7 +75,6 @@ namespace ft
 				this->_comp = comp;
 				this->_number = 0;
 				this->_allocator = alloc;
-				this->_tree = new ft::BinarySearchTree<Key, T>();
 			};
 
 			template< class InputIterator >
@@ -85,13 +85,11 @@ namespace ft
 				this->_comp = comp;
 				this->_number = 0;
 				this->_allocator = alloc;
-				this->_tree = new ft::BinarySearchTree<Key, T>();
 				this->insert(first, last);
 			};
 
 			map(map const & other)
 			{	
-				this->_tree = new ft::BinarySearchTree<Key, T>();
 				this->_number = 0;
 				*this = other;
 			};
@@ -108,49 +106,48 @@ namespace ft
 			~map()
 			{	
 				this->clear(); 
-				delete this->_tree;
 			};
 
 			/********* ITERATORS *********/
 			iterator 				begin() 
-			{ return iterator(_tree, _tree->_smallestNode); };
+			{	return iterator(&_tree, _tree._smallestNode); };
 
 			const_iterator	 		begin() const
-			{ return iterator(_tree, _tree->_smallestNode); };
+			{	return /*const_*/iterator(const_cast<bstree*>(&_tree), _tree._smallestNode); };
 
 			iterator				end()
 			{
 				if (this->empty())
-					return iterator(_tree, _tree->_smallestNode);
-				return iterator(_tree, _tree->_lastNode);
+					return iterator(&_tree, _tree._smallestNode);
+				return iterator(&_tree, _tree._lastNode);
 			};
 
 			const_iterator			end() const
 			{
 				if (this->empty())
-					return iterator(_tree, _tree->_smallestNode);
-				return iterator(_tree, _tree->_lastNode);
+					return iterator(const_cast<bstree*>(&_tree), _tree._smallestNode);
+				return iterator(const_cast<bstree*>(&_tree), _tree._lastNode);
 			};
 
 			reverse_iterator 		rbegin()
 			{
 				if (this->empty())
-					return reverse_iterator(iterator(_tree, _tree->_smallestNode));
-				return reverse_iterator(iterator(_tree, _tree->_lastNode));
+					return reverse_iterator(iterator(&_tree, _tree._smallestNode));
+				return reverse_iterator(iterator(&_tree, _tree._lastNode));
 			};
 
 			const_reverse_iterator 	rbegin() const
 			{
 				if (this->empty())
-					return reverse_iterator(iterator(_tree, _tree->_smallestNode));
-				return reverse_iterator(iterator(_tree, _tree->_lastNode));
+					return reverse_iterator(iterator(&_tree, _tree._smallestNode));
+				return reverse_iterator(iterator(&_tree, _tree._lastNode));
 			};
 
 			reverse_iterator 		rend() 
-			{	return reverse_iterator(iterator(_tree, _tree->_smallestNode));	};
+			{	return reverse_iterator(iterator(&_tree, _tree._smallestNode));	};
 
 			const_reverse_iterator 	rend() const
-			{	return reverse_iterator(iterator(_tree, _tree->_smallestNode));	};
+			{	return reverse_iterator(iterator(&_tree, _tree._smallestNode));	};
 
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
@@ -158,7 +155,7 @@ namespace ft
 			size_type	size() const { return this->_number; };
 
 			size_type	max_size() const
-			{	return std::numeric_limits<difference_type>::max() / (sizeof(tree_node<Key, T>) ?: 1); };
+			{	return std::numeric_limits<difference_type>::max() / (sizeof(tree_node<value_type>) ?: 1); };
 		
 			/********* ELEMENT ACCESS *********/
 			mapped_type&	operator[] (const key_type& k)
@@ -175,6 +172,7 @@ namespace ft
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
 			{	
+			//	std::cout<<"in map insert\n";
 				iterator	tmp;
 				if (this->empty() == false)
 				{	
@@ -182,7 +180,7 @@ namespace ft
 					if (tmp != this->end())
 						return ft::make_pair(tmp, false);
 				}
-				this->_tree->insert(val);
+				this->_tree.insert(val);
 				tmp = this->begin();
 				while (tmp != val)
 					tmp++;
@@ -209,7 +207,8 @@ namespace ft
 				while (it != position)
 					it++;
 				this->_number--;
-				this->_tree->remove(it->first);
+				this->_tree.remove(ft::make_pair(it->first, mapped_type()));
+			//	this->_tree.remove(it->first);
 			};
 
 			size_type					erase(const key_type& k)
@@ -219,7 +218,8 @@ namespace ft
 					if (this->find(k) == this->end())
 						return 0;
 				}
-				this->_tree->remove(k);
+				this->_tree.remove(ft::make_pair(k, mapped_type()));
+			//	this->_tree.remove(k);
 				this->_number--;
 				return 1;
 			};
@@ -233,7 +233,8 @@ namespace ft
 				
 				while (length)
 				{
-					this->_tree->remove(tmp->first);
+					this->_tree.remove(ft::make_pair(tmp->first, mapped_type()));
+				//	this->_tree.remove(tmp->first);
 					tmp = last;
 					tmp--;
 					this->_number--;
@@ -256,11 +257,12 @@ namespace ft
 					size_t i = 0;
 					while (this->begin() != this->end())
 					{
-						this->_tree->remove(this->begin()->first);
+						this->_tree.remove(ft::make_pair(this->begin()->first, mapped_type()));
+						//this->_tree->remove(this->begin()->first);
 						this->_number--;
 						i++;
 					}
-					this->_tree->removeExtremNodes();
+					this->_tree.removeExtremNodes();
 				}
 			};
 
@@ -272,14 +274,14 @@ namespace ft
 			/********* OPERATIONS *********/
 			iterator								find(const key_type& k)
 			{	
-				nodePtr	tmp = this->_tree->findNode(k);
-				return iterator(this->_tree, tmp);
+				nodePtr	tmp = this->_tree.findNode(ft::make_pair(k, mapped_type()));
+				return iterator(&_tree, tmp);
 			};
 
 			const_iterator							find(const key_type& k) const
 			{
-				nodePtr	tmp = this->_tree->findNode(k);
-				return const_iterator(this->_tree, tmp);
+				nodePtr	tmp = this->_tree.findNode(ft::make_pair(k, mapped_type()));
+				return const_iterator(const_cast<bstree*>(&_tree), tmp);
 			};
 		
 			size_type								count(const key_type& k) const
@@ -321,10 +323,10 @@ namespace ft
 				return it;
 			};
 		
-			pair<iterator, iterator>				equal_range(const key_type& k)
+			ft::pair<iterator, iterator>				equal_range(const key_type& k)
 			{	return ft::make_pair(this->lower_bound(k), this->upper_bound(k));	};
 	
-			pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
+			ft::pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
 			{	return ft::make_pair(this->lower_bound(k), this->upper_bound(k));	};
 
 			/********* ALLOCATOR *********/

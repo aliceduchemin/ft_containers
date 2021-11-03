@@ -17,27 +17,34 @@
 
 namespace ft
 {
-	template <class Key, class T>
+	template <class Key,
+			  class T,
+			  class Node = ft::tree_node< ft::pair<Key, T> >,
+			  class Allocator = std::allocator<Node> >
 	class map_random_access_iterator
 	{
 		public:
 			typedef ft::pair<Key, T>				value_type;
-			typedef ft::pair<Key, T>&				reference;
-			typedef ft::pair<Key, T>*				pointer;
-			typedef ft::tree_node<Key, T>*			nodePtr;
-			typedef ft::BinarySearchTree<Key, T>*	bstree;
+			typedef Allocator						allocator_type;
+			typedef value_type&						reference;
+			typedef value_type*						pointer;
+			typedef ft::tree_node<value_type>		node;
+			typedef ft::tree_node<value_type>*		nodePtr;
+			typedef ft::BinarySearchTree<value_type>*	bstree;
 			typedef std::ptrdiff_t					difference_type;
 		
 		/********* COPLIEN *********/
 		// copy-constructible, copy-assignable and destructible (Forward : default-constructible)
-		map_random_access_iterator() : _nodePtr(0), _rootTree(0) {};
+		map_random_access_iterator(const allocator_type& alloc = allocator_type()) : _nodePtr(), _rootTree()
+		{	this->_allocator = alloc;	};
 
-		map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root) {};
+		map_random_access_iterator(bstree root, nodePtr node, const allocator_type& alloc = allocator_type()) : _nodePtr(node), _rootTree(root)
+		{	this->_allocator = alloc;	};
 
-		map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
+		map_random_access_iterator<Key, T, node, Allocator> & operator=(map_random_access_iterator<Key, T, node, Allocator> const & other)
 		{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
 
-		map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
+		map_random_access_iterator(map_random_access_iterator<Key, T, node, Allocator> const & other)
 		{ *this = other; };
 
 		~map_random_access_iterator() {};
@@ -97,38 +104,46 @@ namespace ft
 		{	return this->_nodePtr;	};
 
 		private:
-			nodePtr	_nodePtr;
-			bstree	_rootTree;
+			nodePtr			_nodePtr;
+			bstree			_rootTree;
+			allocator_type	_allocator;
 	};
 
 	/*********** CONST ITERATOR ***********/
-	template <class Key, class T>
+	template <class Key,
+			  class T,
+			  class Node = ft::tree_node<ft::pair<Key, T> >,
+			  class Allocator = std::allocator<Node> >
 	class const_map_random_access_iterator
 	{
 		public:
 			typedef ft::pair<Key, T>				value_type;
-			typedef ft::pair<Key, T>&				reference;
-			typedef ft::pair<Key, T>*				pointer;
-			typedef ft::tree_node<Key, T>*			nodePtr;
-			typedef ft::BinarySearchTree<Key, T>*	bstree;
+			typedef Allocator						allocator_type;
+			typedef value_type&						reference;
+			typedef value_type*						pointer;
+			typedef ft::tree_node<value_type>		node;
+			typedef ft::tree_node<value_type>*		nodePtr;
+			typedef ft::BinarySearchTree<value_type>*	bstree;
 			typedef std::ptrdiff_t						difference_type;
 		
 		/********* COPLIEN *********/
-		const_map_random_access_iterator() :  _nodePtr(0), _rootTree(0) {};
+		const_map_random_access_iterator(const allocator_type& alloc = allocator_type()) :  _nodePtr(0), _rootTree(0)
+		{	this->_allocator = alloc;	};
 
-		const_map_random_access_iterator(bstree root, nodePtr node) : _nodePtr(node), _rootTree(root)  {};
+		const_map_random_access_iterator(const bstree root, const nodePtr node, const allocator_type& alloc = allocator_type()) : _nodePtr(node), _rootTree(root)
+		{	this->_allocator = alloc;	};
 
-		const_map_random_access_iterator<Key, T> & operator=(const_map_random_access_iterator<Key, T> const & other)
-		{ _nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
+		const_map_random_access_iterator<Key, T, node, Allocator> & operator=(const_map_random_access_iterator<Key, T, node, Allocator> const & other)
+		{	_nodePtr = other._nodePtr; _rootTree = other._rootTree; return *this; };
 
-		const_map_random_access_iterator<Key, T> & operator=(map_random_access_iterator<Key, T> const & other)
-		{ _nodePtr = other.getNodePtr(); _rootTree = other.getRootTree(); return *this; };
+		const_map_random_access_iterator<Key, T, node, Allocator> & operator=(map_random_access_iterator<Key, T, node, Allocator> const & other)
+		{	_nodePtr = other.getNodePtr(); _rootTree = other.getRootTree(); return *this; };
 
-		const_map_random_access_iterator(const_map_random_access_iterator<Key, T> const & other)
-		{ *this = other; };
+		const_map_random_access_iterator(const_map_random_access_iterator<Key, T, node, Allocator> const & other)
+		{	*this = other; };
 
-		const_map_random_access_iterator(map_random_access_iterator<Key, T> const & other)
-		{ *this = other; };
+		const_map_random_access_iterator(map_random_access_iterator<Key, T, node, Allocator> const & other)
+		{	*this = other; };
 
 		~const_map_random_access_iterator() {};
 	
@@ -169,6 +184,7 @@ namespace ft
 		private:
 			nodePtr	_nodePtr;
 			bstree	_rootTree;
+			allocator_type	_allocator;
 	};
 
 	/*********** REVERSE ITERATOR ***********/
