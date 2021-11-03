@@ -24,11 +24,11 @@ namespace ft
 		public:
 			template<class T>          
 			operator T*() const        
-			{ return 0; };
+			{	return 0;	};
 
 			template<class C, class T> 
 			operator T C::*() const 
-			{ return 0; };   
+			{	return 0;	};   
 
 		private:
 			void operator&() const;    
@@ -69,6 +69,7 @@ namespace ft
 			left = NULL;
 			right = NULL;
 			parent = NULL;
+			data = NULL;
 		};
 
 		tree_node(tree_node<T>* p, tree_node<T>* r, tree_node<T>* l, const T& d)
@@ -81,20 +82,15 @@ namespace ft
 	};
 
 	template <class T,
-			//  class Compare = std::less<T>,
 			  class Node = ft::tree_node<T>,
-			  class PairAllocator = std::allocator<T>,
-			  class NodeAllocator = std::allocator<Node> >
+			  class Allocator = std::allocator<Node> >
 	class BinarySearchTree
 	{
 		public:
-		//	typedef T1					key_type;
-		//	typedef T2					mapped_type;
-		//	typedef PairAllocator		pair_allocator_type;
-			typedef NodeAllocator		node_allocator_type;
-			typedef T					value_type;
-		//	typedef Node*				nodePtr;
-			typedef ft::tree_node<value_type>*		nodePtr;
+			typedef Allocator		allocator_type;
+			typedef T				value_type;
+			typedef Node			node;
+			typedef node*			nodePtr;
 
 			nodePtr					_root;
 			nodePtr					_smallestNode;
@@ -102,18 +98,16 @@ namespace ft
 			nodePtr					_lastNode;
 			nodePtr					_rendNode;
 			size_t					_number;
-			node_allocator_type		_allocator;
-		//	pair_allocator_type		_pairAllocator;
+			allocator_type			_allocator;
 		
 			/********* CONSTRUCTEURS *********/
-			BinarySearchTree(const node_allocator_type& alloc = node_allocator_type())
+			BinarySearchTree(const allocator_type& alloc = allocator_type())
 			{
 				this->_root = NULL;
 				this->_smallestNode = NULL;
 				this->_biggestNode = NULL;
 				this->_number = 0;
 				this->_allocator = alloc;
-			//	std::cout <<"creation bst\n";
 			};
 
 			BinarySearchTree(BinarySearchTree const & other)
@@ -133,21 +127,21 @@ namespace ft
 			~BinarySearchTree() {};
 
 			/********* OTHER *********/
-			tree_node<value_type>*	minValue(ft::tree_node<value_type>* node)
+			nodePtr	minValue(nodePtr node)
 			{
-				tree_node<value_type>* temp = node;
+				nodePtr temp = node;
 
 				while (temp->left != NULL)
 					temp = temp->left;
 				return temp;
 			};
 
-			tree_node<value_type>*	inorderSuccessor(ft::tree_node<value_type>* node)
+			nodePtr	inorderSuccessor(nodePtr node)
 			{
 				if (node->right != NULL)
 					return minValue(node->right);
 
-				tree_node<value_type>* parent = node->parent;
+				nodePtr parent = node->parent;
 				while (parent != NULL && node == parent->right)
 				{
 					node = parent;
@@ -156,23 +150,23 @@ namespace ft
 				return parent;
 			};
 
-			tree_node<value_type>*	maxValue(ft::tree_node<value_type>* node)
+			nodePtr	maxValue(nodePtr node)
 			{
-				tree_node<value_type>* temp = node;
+				nodePtr temp = node;
 
 				while (temp->right != NULL)
 					temp = temp->right;
 				return temp;
 			};
 
-			tree_node<value_type>*	inorderPredecessor(ft::tree_node<value_type>* node)
+			nodePtr	inorderPredecessor(nodePtr node)
 			{
 				if (node == this->_smallestNode)
 					return this->_smallestNode;
 				if (node->left != NULL)
 					return maxValue(node->left);
 
-				tree_node<value_type>* parent = node->parent;
+				nodePtr parent = node->parent;
 				while (parent != NULL && node == parent->left)
 				{
 					node = parent;
@@ -183,7 +177,7 @@ namespace ft
 
 			bool	search(const value_type& k)
 			{
-				tree_node<value_type>* temp = _root;
+				nodePtr temp = _root;
 				while (temp != NULL)
 				{
 					if (temp->data.first == k.first)
@@ -199,9 +193,9 @@ namespace ft
 				return false;
 			};
 
-			ft::tree_node<value_type>*	findNode(const value_type& k) const
+			nodePtr	findNode(const value_type& k) const
 			{
-				tree_node<value_type>* temp = _root;
+				nodePtr temp = _root;
 
 				while (temp != NULL)
 				{
@@ -228,7 +222,7 @@ namespace ft
 		
 			bool	isEmpty() const { return _number == 0; };
 
-			void	inorder(tree_node<value_type>* t)
+			void	inorder(nodePtr t)
 			{
 				if (t != NULL)
 				{
@@ -239,7 +233,7 @@ namespace ft
 				}
 			};
 
-			void	smallestNode(tree_node<value_type>* t)
+			void	smallestNode(nodePtr t)
 			{
 				if (t != NULL)
 				{
@@ -251,13 +245,12 @@ namespace ft
 				}
 			};
 
-			void	biggestNode(tree_node<value_type>* t)
+			void	biggestNode(nodePtr t)
 			{
 				if (t != NULL)
 				{
 					if (t->left)
 						biggestNode(t->left);
-				//	std::cout<<"node : " << t->data.first << " " << t->data.second <<std::endl;
 					this->_biggestNode = t;
 					if (t->right)
 						biggestNode(t->right);
@@ -266,7 +259,7 @@ namespace ft
 
 			void	resetNode()
 			{
-				tree_node<value_type>* set = this->_root;
+				nodePtr set = this->_root;
 				this->smallestNode(set);
 				if (this->_smallestNode == this->_rendNode)
 					this->_smallestNode = this->_smallestNode->parent;
@@ -282,27 +275,25 @@ namespace ft
 
 			value_type			insert(value_type data)
 			{
-			//	std::cout <<"in insert\n";
-				tree_node<value_type>* temp = this->_allocator.allocate(1);
+				nodePtr temp = this->_allocator.allocate(1);
 				
 				if (this->isEmpty())
 				{
 					this->_root = temp;
-					this->_allocator.construct(temp, tree_node<value_type>(_root, NULL, NULL, data));
+					this->_allocator.construct(temp, node(_root, NULL, NULL, data));
 
 					this->_lastNode = this->_allocator.allocate(1);
-					this->_allocator.construct(this->_lastNode, tree_node<value_type>(_root, NULL, NULL, value_type()));
+					this->_allocator.construct(this->_lastNode, node(_root, NULL, NULL, value_type()));
 					_lastNode->data = value_type();
 
 					this->_rendNode = this->_allocator.allocate(1);
-					this->_allocator.construct(this->_rendNode, tree_node<value_type>(_root, NULL, NULL, value_type()));
+					this->_allocator.construct(this->_rendNode, node(_root, NULL, NULL, value_type()));
 					_rendNode->data = value_type();
 				}
 				else
 				{
-				//	std::cout <<"in else\n";
-					this->_allocator.construct(temp, tree_node<value_type>(temp->parent, NULL, NULL, data));
-					tree_node<value_type>* curr;
+					this->_allocator.construct(temp, node(temp->parent, NULL, NULL, data));
+					nodePtr curr;
 					curr = _root;
 					while (curr)
 					{
@@ -322,7 +313,6 @@ namespace ft
 							curr = curr->left;
 						}
 					}
-				//	std::cout<<"after while curr " << temp->data.first<< " "<<temp->data.second<<std::endl;
 					if (temp->data.first < temp->parent->data.first)
 						temp->parent->left = temp;
 					else if (temp->data.first > temp->parent->data.first)
@@ -335,12 +325,11 @@ namespace ft
 
 			void remove(const value_type& k)
 			{
-			//	std::cout<<"in remove : " << k.first <<std::endl;
 				if (this->isEmpty() || this->search(k) == false)
 					return ;
 
-				tree_node<value_type>* curr = _root;
-				tree_node<value_type>* parent;
+				nodePtr curr = _root;
+				nodePtr parent;
 				while (curr)
 				{
 					if (curr->data.first == k.first)
@@ -354,12 +343,8 @@ namespace ft
 							curr = curr->left;
 					}
 				}
-			/*	std::cout<<"after while, curr = "<<std::endl;
-				std::cout << curr->data.first << std::endl;
-				std::cout << curr->data.second<<"\n";*/
 				if (curr == this->_root && this->_root->right == this->_lastNode && this->_root->left == this->_rendNode)
 				{
-			//		std::cout<<"root\n";
 					this->_number--;
 					this->_allocator.deallocate(curr, 1);
 					return ;
@@ -367,7 +352,6 @@ namespace ft
 				else if ((curr->left == NULL && curr->right != NULL) ||
 					(curr->left != NULL && (curr->right == NULL || curr->right == this->_lastNode)))
 				{
-			//		std::cout<<"one branch 1\n";
 					if (curr->left == NULL && curr->right != NULL)
 					{
 						if (parent->left && parent->left == curr)
@@ -391,7 +375,6 @@ namespace ft
 					}
 					else
 					{
-			//		std::cout<<"one branch 2\n";
 						if (parent->left && parent->left == curr)
 						{
 							parent->left = curr->left;
@@ -408,7 +391,6 @@ namespace ft
 				}
 				else if (curr->left == NULL && curr->right == NULL)
 				{
-			//		std::cout<<"leaf\n";
 					if (parent->left == curr)
 						parent->left = NULL;
 					else
@@ -417,8 +399,7 @@ namespace ft
 				}
 				else if (curr->left != NULL && curr->right != NULL && curr->right != this->_lastNode)
 				{
-			//		std::cout<<"two branch\n";
-					tree_node<value_type>* chkr;
+					nodePtr chkr;
 					chkr = curr->right;
 					if ((chkr->left == NULL) && (chkr->right == NULL))
 					{
@@ -430,8 +411,8 @@ namespace ft
 					{
 						if ((curr->right)->left != NULL)
 						{
-							tree_node<value_type>* lcurr;
-							tree_node<value_type>* lcurrp;
+							nodePtr lcurr;
+							nodePtr lcurrp;
 							lcurrp = curr->right;
 							lcurr = (curr->right)->left;
 							while (lcurr->left != NULL)
@@ -451,7 +432,7 @@ namespace ft
 						}
 						else
 						{
-							tree_node<value_type>* tmp;
+							nodePtr tmp;
 							tmp = curr->right;
 							curr->data = tmp->data;
 							curr->right = tmp->right;
@@ -460,7 +441,6 @@ namespace ft
 						}
 					}
 				}
-		//		std::cout<<"end of remove\n";
 				this->_number--;
 				this->resetNode();
 			};

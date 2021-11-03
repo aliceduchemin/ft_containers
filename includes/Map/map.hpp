@@ -113,7 +113,7 @@ namespace ft
 			{	return iterator(&_tree, _tree._smallestNode); };
 
 			const_iterator	 		begin() const
-			{	return /*const_*/iterator(const_cast<bstree*>(&_tree), _tree._smallestNode); };
+			{	return const_iterator(const_cast<bstree*>(&_tree), _tree._smallestNode); };
 
 			iterator				end()
 			{
@@ -125,8 +125,8 @@ namespace ft
 			const_iterator			end() const
 			{
 				if (this->empty())
-					return iterator(const_cast<bstree*>(&_tree), _tree._smallestNode);
-				return iterator(const_cast<bstree*>(&_tree), _tree._lastNode);
+					return const_iterator(const_cast<bstree*>(&_tree), _tree._smallestNode);
+				return const_iterator(const_cast<bstree*>(&_tree), _tree._lastNode);
 			};
 
 			reverse_iterator 		rbegin()
@@ -139,15 +139,15 @@ namespace ft
 			const_reverse_iterator 	rbegin() const
 			{
 				if (this->empty())
-					return reverse_iterator(iterator(&_tree, _tree._smallestNode));
-				return reverse_iterator(iterator(&_tree, _tree._lastNode));
+					return const_reverse_iterator(const_iterator(&_tree, _tree._smallestNode));
+				return const_reverse_iterator(const_iterator(&_tree, _tree._lastNode));
 			};
 
 			reverse_iterator 		rend() 
 			{	return reverse_iterator(iterator(&_tree, _tree._smallestNode));	};
 
 			const_reverse_iterator 	rend() const
-			{	return reverse_iterator(iterator(&_tree, _tree._smallestNode));	};
+			{	return const_reverse_iterator(const_iterator(&_tree, _tree._smallestNode));	};
 
 			/********* CAPACITY *********/
 			bool		empty() const { return (this->size() == 0); };
@@ -172,7 +172,6 @@ namespace ft
 			/********* MODIFIERS *********/
 			ft::pair<iterator, bool>	insert(const value_type& val)
 			{	
-			//	std::cout<<"in map insert\n";
 				iterator	tmp;
 				if (this->empty() == false)
 				{	
@@ -208,7 +207,6 @@ namespace ft
 					it++;
 				this->_number--;
 				this->_tree.remove(ft::make_pair(it->first, mapped_type()));
-			//	this->_tree.remove(it->first);
 			};
 
 			size_type					erase(const key_type& k)
@@ -219,7 +217,6 @@ namespace ft
 						return 0;
 				}
 				this->_tree.remove(ft::make_pair(k, mapped_type()));
-			//	this->_tree.remove(k);
 				this->_number--;
 				return 1;
 			};
@@ -234,7 +231,6 @@ namespace ft
 				while (length)
 				{
 					this->_tree.remove(ft::make_pair(tmp->first, mapped_type()));
-				//	this->_tree.remove(tmp->first);
 					tmp = last;
 					tmp--;
 					this->_number--;
@@ -258,7 +254,6 @@ namespace ft
 					while (this->begin() != this->end())
 					{
 						this->_tree.remove(ft::make_pair(this->begin()->first, mapped_type()));
-						//this->_tree->remove(this->begin()->first);
 						this->_number--;
 						i++;
 					}
