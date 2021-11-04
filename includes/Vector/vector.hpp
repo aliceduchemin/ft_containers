@@ -79,20 +79,15 @@ namespace ft
 
 			vector & operator=(vector const & x)
 			{
-				if (this->_number > 0)
+				if (!this->empty())
 					this->clear();
-
-				this->_number = x._number;
-				this->_cap = x._cap;
-				this->_headNode = this->_allocator.allocate(this->_cap);
-				
+			
 				size_type i = 0;
-				while (i < this->_number)
+				while (i < x._number)
 				{
-					this->_allocator.construct(&this->_headNode[i], x._headNode[i]);
+					push_back(x[i]);
 					i++;
 				}
-				this->_endNode = &this->_headNode[this->_number - 1];
 				return *this;
 			};
 

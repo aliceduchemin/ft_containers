@@ -62,12 +62,14 @@ void	mapTests()
 
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Find elements, existing and not :" << std::endl;
-	if (myMap.find("s") != myMap.end())
-		std::cout << "s found" <<std::endl;
+	NMSPC::map<std::string, int>::iterator retFind = myMap.find("s");
+    if (retFind != myMap.end())
+		std::cout << "s found, ret = " << retFind->first <<  " :: " << retFind->second <<std::endl;
 	else
 		std::cout << "s not found" <<std::endl;
-	if (myMap.find("k") != myMap.end())
-		std::cout << "k found" <<std::endl;
+    retFind = myMap.find("k");
+	if (retFind != myMap.end())
+		std::cout << "k found, ret = " << retFind->first <<  " :: " <<std::endl;
 	else
 		std::cout << "k not found" <<std::endl;
 

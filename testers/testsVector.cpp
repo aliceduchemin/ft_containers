@@ -563,6 +563,31 @@ void	test_assign(void)
 void	test_insert(void)
 {
 	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Insert from end() - x position : " << std::endl;
+	NMSPC::vector<int> vct(10);
+	NMSPC::vector<int> vct2;
+
+	for (unsigned long int i = 0; i < vct.size(); ++i)
+		vct[i] = (vct.size() - i) * 3;
+
+	vct2.insert(vct2.end(), 42);
+	vct2.insert(vct2.begin(), 2, 21);
+	for (NMSPC::vector<int>::iterator it = vct2.begin(); it != vct2.end(); it++)
+		std::cout << *it << " -- ";
+	std::cout << std::endl;
+
+	vct2.insert(vct2.end() - 2, 42);
+	for (NMSPC::vector<int>::iterator it = vct2.begin(); it != vct2.end(); it++)
+		std::cout << *it << " -- ";
+	std::cout << std::endl;
+
+	vct2.insert(vct2.end(), 2, 84);
+	for (NMSPC::vector<int>::iterator it = vct2.begin(); it != vct2.end(); it++)
+		std::cout << *it << " -- ";
+	std::cout << std::endl;
+
+
+	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Insert() :" << std::endl << std::endl;
 
 	std::cout << "Single element insertion :" << std::endl;
