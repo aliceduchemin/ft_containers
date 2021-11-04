@@ -89,6 +89,7 @@ void	mapTests()
 	std::cout << "\n---------------------------- " << std::endl;
 	std::cout << "Insert value at position ([x][99] at last position) :" << std::endl;
 	it2bis = myMap2.insert(it2bis, NMSPC::make_pair("x", 99));
+	std::cout << "Iterator still works after insertion: " << it2bis->first << " :: " << it2bis->second << std::endl;
 	std::cout << "Printing map2 : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != ite2bis; ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";
@@ -120,7 +121,9 @@ void	mapTests()
 	std::cout << "Erase iterator position (2nd element)" << std::endl;
 	it2bis = myMap2.begin();
 	it2bis++;
+	std::cout << "Erasing iterator : " << it2bis->first << " :: " << it2bis->second << std::endl;
 	myMap2.erase(it2bis);
+	std::cout << "Iterator still works after deletion : " << it2bis->first << " :: " << it2bis->second << std::endl;
 	std::cout << "Printing partially erased map (map2) : " <<std::endl;
 	for (it2bis = myMap2.begin(); it2bis != myMap2.end(); ++it2bis)
 		std::cout << it2bis->first << " :: " << it2bis->second << " ; ";

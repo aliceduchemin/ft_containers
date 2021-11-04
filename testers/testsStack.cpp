@@ -121,5 +121,4 @@ void stackTests()
 	std::cout << "list stack pop" << std::endl;
 	std::cout << "list stack top : " << listStack.top() << std::endl;
 	std::cout << "list stack size : " << listStack.size() << std::endl;
-
 }
