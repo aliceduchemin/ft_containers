@@ -259,7 +259,7 @@ void	test_pop_back(void)
 	std::cout << "}" << std::endl;
 }
 
-void	test_iterator_incrementers_ft()
+void	test_iterator_incrementers()
 {
 	NMSPC::vector<int>				v;
 	NMSPC::vector<int>::iterator	it;
@@ -295,7 +295,7 @@ void	test_iterator_incrementers_ft()
 	std::cout << "*it = " << *it << std::endl << std::endl;
 }
 
-void	test_iterator_booleans_ft()
+void	test_iterator_booleans()
 {
 	NMSPC::vector<int>				v;
 
@@ -339,7 +339,51 @@ void	test_iterator_booleans_ft()
 	std::cout << "it_end >= it_end is " << std::boolalpha << (it_end >= it_end) << std::endl << std::endl;
 }
 
-void	test_iterator_deref_ft()
+void	test_iterator_booleans_const()
+{
+	NMSPC::vector<int>				v;
+
+	std::cout << "\n---------------------------- " << std::endl;
+	std::cout << "Comparators on iterators :" << std::endl;
+	std::cout << "For a vector v : ";
+	v.push_back(5);
+	v.push_back(42);
+	v.push_back(56);
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+	v.push_back(1);
+	v.push_back(4);
+	std::cout << "{";
+	for (size_t i = 0; i < v.size() - 1; i++)
+		std::cout << v[i] << ", ";
+	std::cout << v[v.size() - 1];
+	std::cout << "}" << std::endl;
+
+	NMSPC::vector<int>::const_iterator	it_beg = v.begin();
+	NMSPC::vector<int>::iterator	it_end = v.end();
+	std::cout << "For an iterator it_beg = v.begin()" << std::endl;
+	std::cout << "For an iterator it_end = v.end()" << std::endl << std::endl;
+
+	std::cout << "it_beg < it_end is " << std::boolalpha << (it_beg < it_end) << std::endl;
+	std::cout << "it_end < it_beg is " << std::boolalpha << (it_end < it_beg) << std::endl;
+	std::cout << "it_beg > it_end is " << std::boolalpha << (it_beg > it_end) << std::endl;
+	std::cout << "it_end > it_beg is " << std::boolalpha << (it_end > it_beg) << std::endl << std::endl;
+
+	std::cout << "it_beg == it_end is " << std::boolalpha << (it_beg == it_end) << std::endl;
+	std::cout << "it_beg == it_beg is " << std::boolalpha << (it_beg == it_beg) << std::endl;
+	std::cout << "it_beg != it_end is " << std::boolalpha << (it_beg != it_end) << std::endl;
+	std::cout << "it_beg != it_beg is " << std::boolalpha << (it_beg != it_beg) << std::endl << std::endl;
+
+	std::cout << "it_beg <= it_end is " << std::boolalpha << (it_beg <= it_end) << std::endl;
+	std::cout << "it_end <= it_beg is " << std::boolalpha << (it_end <= it_beg) << std::endl;
+	std::cout << "it_end <= it_end is " << std::boolalpha << (it_end <= it_end) << std::endl;
+	std::cout << "it_beg >= it_end is " << std::boolalpha << (it_beg >= it_end) << std::endl;
+	std::cout << "it_end >= it_beg is " << std::boolalpha << (it_end >= it_beg) << std::endl;
+	std::cout << "it_end >= it_end is " << std::boolalpha << (it_end >= it_end) << std::endl << std::endl;
+}
+
+void	test_iterator_deref()
 {
 	NMSPC::vector<int>				v;
 	NMSPC::vector<int>::iterator	it;
@@ -884,6 +928,7 @@ void	test_swap(void)
 	}
 	else
 		std::cout << "}" << std::endl;
+	NMSPC::vector<std::string>::iterator itVictor = victor.begin();
 
 	NMSPC::vector<std::string> vincent(5, "🌷");
 	std::cout << "For a string vector vincent = {";
@@ -895,9 +940,22 @@ void	test_swap(void)
 	}
 	else
 		std::cout << "}" << std::endl;
+	NMSPC::vector<std::string>::iterator itVincent = vincent.begin();
 
 	vincent.swap(victor);
 	std::cout << "vincent.swap(victor);" << std::endl;
+	std::cout << "Checking validity of iterators and pointers after the swap : " <<std::endl;
+	int restSwap = (itVictor == vincent.begin());
+	std::cout << "itVictor == vincent.begin() ? " <<  restSwap <<std::endl;
+	restSwap = (itVincent == victor.begin());
+	std::cout << "itVincent == victor.begin() ? " <<  restSwap <<std::endl;
+	std::cout << "Now iterating with the old iterators in the swapped containers : " <<std::endl;
+	while (itVincent != victor.end())
+	{
+		std::cout << *itVincent << ", ";
+		++itVincent;
+	}
+	std::cout << std::endl;
 
 	std::cout << "now victor = {";
 	if (victor.empty() == false)
@@ -1055,9 +1113,10 @@ void	vectorTests()
 	test_re_serve_size();
 	test_pop_back();
 	test_constructors();
-	test_iterator_incrementers_ft();
-	test_iterator_booleans_ft();
-	test_iterator_deref_ft();
+	test_iterator_incrementers();
+	test_iterator_booleans();
+	test_iterator_booleans_const();
+	test_iterator_deref();
 	test_reverse_iterator();
 	test_assign();
 	test_insert();

@@ -73,28 +73,37 @@ namespace ft
 				this->_headNode = NULL;
 				this->_endNode = NULL;
 				this->_cap = 0;
+				this->_allocator = x._allocator;
 				this->_number = 0;
 				*this = x;
 			};
 
 			vector & operator=(vector const & x)
 			{
+				if (x.empty())
+					return *this;
 				if (!this->empty())
+				{
 					this->clear();
+					this->_allocator.deallocate(this->_headNode, this->_cap);
+				}
+				this->_cap = x._cap;
+				this->_headNode = this->_allocator.allocate(x._cap);
 			
 				size_type i = 0;
 				while (i < x._number)
 				{
-					push_back(x[i]);
+					this->_allocator.construct(&this->_headNode[i], x._headNode[i]);
+					this->_number++;
 					i++;
 				}
+				this->_endNode = &this->_headNode[this->_number - 1];
 				return *this;
 			};
 
 			~vector()
 			{
-				if (!this->empty())
-					this->clear();
+				this->clear();
 				this->_allocator.deallocate(this->_headNode, this->_cap);
 			};
 

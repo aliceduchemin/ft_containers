@@ -168,11 +168,18 @@ void	mapTests()
 
 	std::cout << "Swap" <<std::endl;
 	myMap.swap(myMap2);
-	int restSwap = (itbis == myMap2.begin());
 	std::cout << "Checking validity of iterators and pointers after the swap : " <<std::endl;
+	int restSwap = (itbis == myMap2.begin());
 	std::cout << "itbis == myMap2.begin() ? " <<  restSwap <<std::endl;
 	restSwap = (it2bis == myMap.begin());
 	std::cout << "it2bis == myMap.begin() ? " <<  restSwap <<std::endl;
+	std::cout << "Now iterating with the old iterators in the swapped containers : " <<std::endl;
+	while (itbis != myMap2.end())
+	{
+		std::cout << itbis->first << " :: " << itbis->second << ", ";
+		++itbis;
+	}
+	std::cout << std::endl;
 
 	std::cout << "Printing map : " <<std::endl;
 	itebis = myMap.end();

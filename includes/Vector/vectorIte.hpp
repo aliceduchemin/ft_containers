@@ -172,7 +172,7 @@ namespace ft
 			{ return this->_nodePtr > other._nodePtr; };
 		bool operator>=(random_access_iterator const & other) const
 			{ return this->_nodePtr >= other._nodePtr; };
-
+		
 		// Supports compound assignment operations += and -=
 		random_access_iterator	&operator+=(int n)
 			{	int i = 0;
@@ -230,8 +230,10 @@ namespace ft
 			{ return this->_nodePtr != other._nodePtr; };
 		reference operator*() const
 			{ return *this->_nodePtr; };
-		pointer operator->() 
+		pointer operator->() const
 			{ return *this->_nodePtr; };
+		pointer getNodePtr() const
+			{ return this->_nodePtr; };
 		
 		difference_type operator +(const_random_access_iterator other)
 			{ return (this->_nodePtr + other._nodePtr); };
@@ -442,5 +444,36 @@ namespace ft
 		private:
 			iterator_type _it;
 	};
+
+	/********* COMPARATORS *********/
+	template< class T >
+	bool	operator==(const ft::random_access_iterator<T>& lhs,
+						const ft::const_random_access_iterator<T>& rhs)
+	{	return lhs.getNodePtr() == rhs.getNodePtr();	};
+
+	template< class T >
+	bool	operator!=(const ft::random_access_iterator<T>& lhs,
+						const ft::const_random_access_iterator<T>& rhs)
+	{	return (!(lhs == rhs)) ? true : false;	}
+
+	template< class T >
+	bool	operator<(const ft::random_access_iterator<T>& lhs,
+						const ft::const_random_access_iterator<T>& rhs)
+	{	return (lhs.getNodePtr() < rhs.getNodePtr()) ? true : false;	}
+
+	template< class T >
+	bool	operator<=(const ft::random_access_iterator<T>& lhs,
+						const ft::const_random_access_iterator<T>& rhs)
+	{	return (lhs.getNodePtr() <= rhs.getNodePtr()) ? true : false;	}
+
+	template< class T >
+	bool	operator>(const ft::random_access_iterator<T>& lhs,
+						const ft::const_random_access_iterator<T>& rhs)
+	{	return (lhs.getNodePtr() > rhs.getNodePtr()) ? true : false;	}
+
+	template< class T >
+	bool	operator>=(const ft::random_access_iterator<T>& lhs,
+						const ft::const_random_access_iterator<T>& rhs)
+	{	return (lhs.getNodePtr() >= rhs.getNodePtr()) ? true : false;	}
 }
 #endif
